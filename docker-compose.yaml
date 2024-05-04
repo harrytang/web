@@ -1,0 +1,12 @@
+version: '3'
+services:
+  web:
+    image: node:20-alpine
+    working_dir: /app
+    command: npm run dev
+    env_file:
+      - .env.local
+    volumes:
+      - ./:/app
+    ports:
+      - '3000:3000'
