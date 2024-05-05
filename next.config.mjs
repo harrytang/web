@@ -14,6 +14,7 @@ const nextConfig = {
       },
     ],
   },
+  output: 'standalone',
 }
 
 const withMDX = nextMDX({
