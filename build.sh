@@ -7,7 +7,7 @@ fi
 
 # Docker build command with all the ARG values
 docker build \
-    --network=host \
+    --progress=plain \
     --build-arg NEXT_PUBLIC_STRAPI_API_URL=${NEXT_PUBLIC_STRAPI_API_URL} \
     --build-arg NEXT_PUBLIC_STORAGE_HOST=${NEXT_PUBLIC_STORAGE_HOST} \
     --build-arg NEXT_PUBLIC_SITE_NAME=${NEXT_PUBLIC_SITE_NAME} \
