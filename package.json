@@ -16,7 +16,7 @@
     "@mdx-js/loader": "3.0.1",
     "@mdx-js/react": "3.0.1",
     "@next/mdx": "14.1.4",
-    "@tailwindcss/typography": "0.5.12",
+    "@tailwindcss/typography": "0.5.13",
     "@types/node": "20.12.2",
     "@types/react": "18.2.73",
     "@types/react-dom": "18.2.23",
