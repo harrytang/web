@@ -20,7 +20,7 @@
     "@types/node": "20.12.2",
     "@types/react": "18.2.73",
     "@types/react-dom": "18.2.23",
-    "@types/webpack-env": "1.18.4",
+    "@types/webpack-env": "1.18.5",
     "autoprefixer": "10.4.19",
     "cheerio": "1.0.0-rc.12",
     "clsx": "2.1.0",
