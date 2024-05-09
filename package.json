@@ -23,7 +23,7 @@
     "@types/webpack-env": "1.18.4",
     "autoprefixer": "10.4.19",
     "cheerio": "1.0.0-rc.12",
-    "clsx": "2.1.0",
+    "clsx": "2.1.1",
     "fast-glob": "3.3.2",
     "feed": "4.2.2",
     "moment": "^2.30.1",
