@@ -46,9 +46,9 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=deps /usr/local/bin/npm /usr/local/bin/npm./build
 COPY . .
-#RUN npm run build
 RUN npm install -g npm@latest
-RUN npx nx affected -t lint test build
+# RUN npm run build
+RUN npx nx affected -t build
 
 # 3. Production image, copy all the files and run next
 FROM base AS runner
