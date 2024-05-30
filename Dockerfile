@@ -20,6 +20,7 @@ RUN \
 
 # 2. Rebuild the source code only when needed
 FROM base AS builder
+RUN apk add --no-cache git
 ARG NEXT_PUBLIC_SITE_URL
 ARG NEXT_PUBLIC_SITE_NAME
 ARG NEXT_PUBLIC_STRAPI_API_URL
@@ -28,6 +29,7 @@ ARG NEXT_PUBLIC_CSE_ID
 ARG NEXT_PUBLIC_PAGE_SIZE
 ARG NEXT_PUBLIC_HOME_PAGE_SIZE
 ARG STRAPI_API_URL
+ARG NX_CLOUD_ACCESS_TOKEN
 
 ENV NEXT_PUBLIC_SITE_URL ${NEXT_PUBLIC_SITE_URL}
 ENV NEXT_PUBLIC_SITE_NAME ${NEXT_PUBLIC_SITE_NAME}
@@ -37,35 +39,29 @@ ENV NEXT_PUBLIC_CSE_ID ${NEXT_PUBLIC_CSE_ID}
 ENV NEXT_PUBLIC_PAGE_SIZE ${NEXT_PUBLIC_PAGE_SIZE}
 ENV NEXT_PUBLIC_HOME_PAGE_SIZE ${NEXT_PUBLIC_HOME_PAGE_SIZE}
 ENV STRAPI_API_URL ${STRAPI_API_URL}
+ENV NX_CLOUD_ACCESS_TOKEN ${NX_CLOUD_ACCESS_TOKEN}
 ENV NEXT_TELEMETRY_DISABLED 1
 
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=deps /usr/local/bin/npm /usr/local/bin/npm./build
 COPY . .
-RUN npm run build
+#RUN npm run build
+RUN npm install -g npm@latest
+RUN npx nx affected -t lint test build
 
 # 3. Production image, copy all the files and run next
 FROM base AS runner
 WORKDIR /app
-
 ENV NODE_ENV=production
-
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001
-
 # COPY --from=builder /app/public ./public
-
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-
-
 USER nextjs
-
 EXPOSE 3000
-
 ENV PORT 3000
-
 CMD node server.js

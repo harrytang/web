@@ -46,6 +46,7 @@ jobs:
             NEXT_PUBLIC_PAGE_SIZE=${{ vars.NEXT_PUBLIC_PAGE_SIZE }}
             NEXT_PUBLIC_HOME_PAGE_SIZE=${{ vars.NEXT_PUBLIC_HOME_PAGE_SIZE }}
             STRAPI_API_URL=${{ vars.STRAPI_API_URL }}
+            NX_CLOUD_ACCESS_TOKEN=${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
           platforms: linux/arm64,linux/amd64
           push: true
           tags: ghcr.io/${{ github.repository }}:${{ env.IMAGE_TAG }}
