@@ -47,8 +47,8 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY --from=deps /usr/local/bin/npm /usr/local/bin/npm./build
 COPY . .
 RUN npm install -g npm@latest
-# RUN npm run build
-RUN npx nx affected -t build
+RUN npm run build
+# RUN npx nx affected -t build
 
 # 3. Production image, copy all the files and run next
 FROM base AS runner
