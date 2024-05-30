@@ -50,5 +50,5 @@ jobs:
           platforms: linux/arm64,linux/amd64
           push: true
           tags: ghcr.io/${{ github.repository }}:${{ env.IMAGE_TAG }}
-          cache-from: type=registry,ref=user/app:buildcache
-          cache-to: type=registry,ref=user/app:buildcache,mode=max
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

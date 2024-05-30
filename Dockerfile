@@ -20,7 +20,6 @@ RUN \
 
 # 2. Rebuild the source code only when needed
 FROM base AS builder
-RUN apk add --no-cache git
 ARG NEXT_PUBLIC_SITE_URL
 ARG NEXT_PUBLIC_SITE_NAME
 ARG NEXT_PUBLIC_STRAPI_API_URL
@@ -42,6 +41,7 @@ ENV STRAPI_API_URL ${STRAPI_API_URL}
 ENV NX_CLOUD_ACCESS_TOKEN ${NX_CLOUD_ACCESS_TOKEN}
 ENV NEXT_TELEMETRY_DISABLED 1
 
+RUN apk add --no-cache git
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=deps /usr/local/bin/npm /usr/local/bin/npm./build
