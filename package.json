@@ -46,7 +46,7 @@
     "nx": "19.1.1",
     "prettier": "3.2.5",
     "prettier-plugin-tailwindcss": "0.5.14",
-    "sharp": "0.33.3",
+    "sharp": "0.33.4",
     "@nx/eslint": "19.1.1"
   },
   "nx": {}
