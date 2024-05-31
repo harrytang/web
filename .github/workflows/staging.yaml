@@ -10,7 +10,6 @@ on:
       - '.github/**'
 jobs:
   test:
-    if: ! startsWith(github.ref, 'refs/tags/')
     uses: ./.github/workflows/test.yaml
   build:
     runs-on: ubuntu-latest
