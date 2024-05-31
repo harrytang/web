@@ -28,7 +28,6 @@ ARG NEXT_PUBLIC_CSE_ID
 ARG NEXT_PUBLIC_PAGE_SIZE
 ARG NEXT_PUBLIC_HOME_PAGE_SIZE
 ARG STRAPI_API_URL
-ARG NX_CLOUD_ACCESS_TOKEN
 
 ENV NEXT_PUBLIC_SITE_URL ${NEXT_PUBLIC_SITE_URL}
 ENV NEXT_PUBLIC_SITE_NAME ${NEXT_PUBLIC_SITE_NAME}
@@ -38,15 +37,14 @@ ENV NEXT_PUBLIC_CSE_ID ${NEXT_PUBLIC_CSE_ID}
 ENV NEXT_PUBLIC_PAGE_SIZE ${NEXT_PUBLIC_PAGE_SIZE}
 ENV NEXT_PUBLIC_HOME_PAGE_SIZE ${NEXT_PUBLIC_HOME_PAGE_SIZE}
 ENV STRAPI_API_URL ${STRAPI_API_URL}
-ENV NX_CLOUD_ACCESS_TOKEN ${NX_CLOUD_ACCESS_TOKEN}
 ENV NEXT_TELEMETRY_DISABLED 1
 
-RUN apk add --no-cache git
 WORKDIR /app
+COPY --from=deps /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/npm
+COPY --from=deps /usr/local/bin/npm /usr/local/bin/npm
+COPY --from=deps /usr/local/bin/npx /usr/local/bin/npx
 COPY --from=deps /app/node_modules ./node_modules
-COPY --from=deps /usr/local/bin/npm /usr/local/bin/npm./build
 COPY . .
-RUN npm install -g npm@latest
 RUN npm run build
 # RUN npx nx affected -t build
 
