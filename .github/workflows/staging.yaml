@@ -7,7 +7,6 @@ on:
     paths-ignore:
       - '**/**.md'
       - 'docker-compose.yml'
-      - '.github/**'
 jobs:
   test:
     uses: ./.github/workflows/test.yaml
