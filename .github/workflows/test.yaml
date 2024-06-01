@@ -59,6 +59,15 @@ jobs:
           NEXT_PUBLIC_PAGE_SIZE: ${{ vars.NEXT_PUBLIC_PAGE_SIZE }}
           NEXT_PUBLIC_HOME_PAGE_SIZE: ${{ vars.NEXT_PUBLIC_HOME_PAGE_SIZE }}
           STRAPI_API_URL: ${{ vars.STRAPI_API_URL }}
+
+      - name: Cache playwright binaries
+        uses: actions/cache@v4
+        id: playwright-cache
+        with:
+          path: |
+            ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
+
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run Playwright tests
