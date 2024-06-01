@@ -60,6 +60,9 @@ jobs:
           NEXT_PUBLIC_HOME_PAGE_SIZE: ${{ vars.NEXT_PUBLIC_HOME_PAGE_SIZE }}
           STRAPI_API_URL: ${{ vars.STRAPI_API_URL }}
 
+      - name: Store Playwright's Version
+        run: echo "PLAYWRIGHT_VERSION=$(npm show playwright version)" >> $GITHUB_ENV
+
       - name: Cache playwright binaries
         uses: actions/cache@v4
         id: playwright-cache
