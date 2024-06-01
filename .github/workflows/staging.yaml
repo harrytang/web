@@ -12,7 +12,7 @@ jobs:
     uses: ./.github/workflows/test.yaml
   build:
     needs: 'test'
-    runs-on: ubuntu-latest
+    runs-on: web-arc-runner-set
     environment:
       name: staging
     steps:
