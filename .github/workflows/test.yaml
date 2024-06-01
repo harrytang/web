@@ -26,6 +26,8 @@ jobs:
           STRAPI_API_URL: ${{ vars.STRAPI_API_URL }}
   e2e-tests:
     timeout-minutes: 60
+    environment:
+      name: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
