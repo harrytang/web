@@ -31,12 +31,15 @@ jobs:
       name: test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
-      - uses: actions/cache@v4
+      - name: Cache dependencies
+        uses: actions/cache@v4
         with:
           path: |
             ~/.npm
@@ -48,7 +51,7 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
       - name: Install dependencies
         run: npm ci
-      - name: Build
+      - name: Build NextJS
         run: npm run build
         env:
           NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_STRAPI_API_URL }}
@@ -59,10 +62,8 @@ jobs:
           NEXT_PUBLIC_PAGE_SIZE: ${{ vars.NEXT_PUBLIC_PAGE_SIZE }}
           NEXT_PUBLIC_HOME_PAGE_SIZE: ${{ vars.NEXT_PUBLIC_HOME_PAGE_SIZE }}
           STRAPI_API_URL: ${{ vars.STRAPI_API_URL }}
-
-      - name: Store Playwright's Version
+      - name: Get Playwright Version
         run: echo "PLAYWRIGHT_VERSION=$(npm show playwright version)" >> $GITHUB_ENV
-
       - name: Cache playwright binaries
         uses: actions/cache@v4
         id: playwright-cache
@@ -70,7 +71,6 @@ jobs:
           path: |
             ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
-
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run Playwright tests
@@ -84,7 +84,8 @@ jobs:
           NEXT_PUBLIC_PAGE_SIZE: ${{ vars.NEXT_PUBLIC_PAGE_SIZE }}
           NEXT_PUBLIC_HOME_PAGE_SIZE: ${{ vars.NEXT_PUBLIC_HOME_PAGE_SIZE }}
           STRAPI_API_URL: ${{ vars.STRAPI_API_URL }}
-      - uses: actions/upload-artifact@v4
+      - name: Upload Playwright report
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: playwright-report
