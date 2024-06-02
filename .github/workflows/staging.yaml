@@ -13,6 +13,8 @@ jobs:
   build:
     needs: 'test'
     runs-on: web-runner-set
+    container: # required for the self-hosted runner in k8s
+      image: ubuntu:22.04
     environment:
       name: staging
     steps:
