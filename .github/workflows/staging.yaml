@@ -12,18 +12,10 @@ jobs:
     uses: ./.github/workflows/test.yaml
   build:
     needs: 'test'
-    runs-on: web-runner-set
-    container: # required for the self-hosted runner in k8s
-      image: ubuntu:22.04
+    runs-on: ubuntu-latest
     environment:
       name: staging
     steps:
-      - name: Install Docker
-        run: |
-          apt-get update && apt-get install -y curl
-          curl -fsSL https://get.docker.com | sh
-          service docker start
-
       - name: Checkout
         uses: actions/checkout@v4
 
