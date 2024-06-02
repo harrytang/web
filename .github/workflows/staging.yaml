@@ -14,10 +14,15 @@ jobs:
     needs: 'test'
     runs-on: web-runner-set
     container: # required for the self-hosted runner in k8s
-      image: docker:cli
+      image: ubuntu:22.04
     environment:
       name: staging
     steps:
+      - name: Install Docker
+        run: |
+          curl -fsSL https://get.docker.com | sh
+          service docker start
+
       - name: Checkout
         uses: actions/checkout@v4
 
