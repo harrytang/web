@@ -34,12 +34,10 @@ const SearchBox: React.FC = () => {
             <input
               id="search"
               name="search"
-              className="block w-full rounded-full  bg-white/90 py-1.5 pl-10 pr-3 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 transition dark:bg-zinc-800/90 dark:ring-white/10 dark:hover:ring-white/20"
+              className="block w-full rounded-full bg-white/90 py-1.5 pl-10 pr-3 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 transition dark:bg-zinc-800/90 dark:ring-white/10 dark:hover:ring-white/20"
               placeholder="Search Articles"
               type="search"
-              defaultValue={
-                searchParams !== null ? searchParams.get('q') ?? '' : ''
-              }
+              defaultValue={searchParams.get('q') ?? ''}
             />
           </form>
         </div>
