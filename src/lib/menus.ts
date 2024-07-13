@@ -26,8 +26,8 @@ export function getMenus(): Menu[] {
       path: '/expertise',
     },
     {
-      name: 'Uses',
-      path: '/uses',
+      name: 'Gear',
+      path: '/gear',
     },
   ]
 }

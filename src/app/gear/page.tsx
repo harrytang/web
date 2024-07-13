@@ -62,7 +62,7 @@ export async function generateMetadata() {
   )
 }
 
-export default async function Uses() {
+export default async function Gear() {
   const page = await getPage('uses')
   const uses = await getUses()
   const categorizedUses = transformItems(uses.data)
