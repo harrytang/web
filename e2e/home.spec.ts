@@ -5,6 +5,6 @@ test('should open the home page', async ({ page }) => {
   await page.goto('/')
   // Check that the title is correct
   await expect(page.locator('h1')).toContainText(
-    'Solutions Architect & Cloud Engineer',
+    'Solutions Architect & DevOps Engineer',
   )
 })
