@@ -28,7 +28,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date().toISOString(),
     },
     {
-      url: `${publicSiteUrl}/uses`,
+      url: `${publicSiteUrl}/gear`,
       lastModified: new Date().toISOString(),
     },
   ]
