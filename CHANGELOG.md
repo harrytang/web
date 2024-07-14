@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.3](https://github.com/harrytang/web/compare/v1.0.2...v1.0.3) (2024-07-14)
+
+
+### Bug Fixes
+
+* incorrect gear path in sitemap ([386c10f](https://github.com/harrytang/web/commit/386c10fb724bd4a7268919368ae3b79b41636be2))
+
 ### [1.0.2](https://github.com/harrytang/web/compare/v1.0.1...v1.0.2) (2024-07-14)
 
 
