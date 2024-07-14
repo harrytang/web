@@ -2,6 +2,8 @@ import { fetchAPI, getPublicSiteURL } from '@/lib/hepler'
 import { MetadataRoute } from 'next'
 import { Blog } from '@/lib/blogs'
 
+export const revalidate = 3600 // 1 hour
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const publicSiteUrl = getPublicSiteURL()
   const sitemapSize = 1000
