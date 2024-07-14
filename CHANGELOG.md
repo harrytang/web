@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/harrytang/web/compare/v1.0.3...v1.1.0) (2024-07-14)
+
+
+### Features
+
+* revalidates sitemap interval ([ef51f72](https://github.com/harrytang/web/commit/ef51f72720a0613318a5b297434ac86b8a3bdc66))
+
 ### [1.0.3](https://github.com/harrytang/web/compare/v1.0.2...v1.0.3) (2024-07-14)
 
 
