@@ -34,7 +34,7 @@ jobs:
         with:
           context: .
           build-args: |
-            NEXT_PUBLIC_SITE_URL=${{ vars.NEXT_PUBLIC_STRAPI_API_URL }}
+            NEXT_PUBLIC_SITE_URL=${{ vars.NEXT_PUBLIC_SITE_URL }}
             NEXT_PUBLIC_SITE_NAME=${{ vars.NEXT_PUBLIC_SITE_NAME }}
             NEXT_PUBLIC_STRAPI_API_URL=${{ vars.NEXT_PUBLIC_STRAPI_API_URL }}
             NEXT_PUBLIC_STORAGE_HOST=${{ vars.NEXT_PUBLIC_STORAGE_HOST }}
