@@ -55,7 +55,7 @@ function transformItems(items: Use[]) {
 export async function generateMetadata() {
   const page = await getPage('uses')
   return generateSeoMeta(
-    'uses',
+    'gear',
     page.attributes.seo,
     'website',
     page.attributes.locale,
@@ -68,8 +68,8 @@ export default async function Gear() {
   const categorizedUses = transformItems(uses.data)
   return (
     <SimpleLayout
-      title={page.attributes.title}
-      intro={page.attributes.description}
+      description={page.attributes.description}
+      content={page.attributes.content}
     >
       <div className="space-y-20">
         {Object.entries(categorizedUses).map(([category, items]) => (

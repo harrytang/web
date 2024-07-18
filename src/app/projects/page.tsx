@@ -1,6 +1,6 @@
-import { type Metadata } from 'next'
 import Image from 'next/image'
 
+// local imports
 import { Card } from '@/components/Card'
 import { SimpleLayout } from '@/components/SimpleLayout'
 import { getPage } from '@/lib/pages'
@@ -33,8 +33,8 @@ export default async function Projects() {
   const projects = await getProjects()
   return (
     <SimpleLayout
-      title={page.attributes.title}
-      intro={page.attributes.description}
+      description={page.attributes.description}
+      content={page.attributes.content}
     >
       <ul
         role="list"

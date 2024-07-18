@@ -1,65 +1,14 @@
-import { type Metadata } from 'next'
-
-import { Card } from '@/components/Card'
-import { Section } from '@/components/Section'
+import Image from 'next/image'
+// local imports
 import { SimpleLayout } from '@/components/SimpleLayout'
 import { getPage } from '@/lib/pages'
 import { generateSeoMeta } from '@/lib/hepler'
-import { Doing, getDoings } from '@/lib/doings'
-
-function SpeakingSection({
-  children,
-  ...props
-}: React.ComponentPropsWithoutRef<typeof Section>) {
-  return (
-    <Section {...props}>
-      <div className="space-y-16">{children}</div>
-    </Section>
-  )
-}
-
-function Appearance({
-  title,
-  description,
-  event,
-  // cta,
-  // href,
-}: {
-  title: string
-  description: string
-  event: string
-  // cta: string
-  // href: string
-}) {
-  return (
-    <Card as="article">
-      <Card.Title as="h3">{title}</Card.Title>
-      <Card.Eyebrow decorate>{event}</Card.Eyebrow>
-      <Card.Description>{description}</Card.Description>
-      {/* <Card.Cta>{cta}</Card.Cta> */}
-    </Card>
-  )
-}
-
-function transformItems(items: Doing[]) {
-  const categoryMap: { [key: string]: Doing[] } = {}
-
-  // Group items by category
-  items.forEach((item) => {
-    const { category } = item.attributes
-    if (!categoryMap[category]) {
-      categoryMap[category] = []
-    }
-    categoryMap[category].push(item)
-  })
-
-  return categoryMap
-}
+import { getSkill } from '@/lib/skills'
 
 export async function generateMetadata() {
   const page = await getPage('expertise')
   return generateSeoMeta(
-    'uses',
+    'expertise',
     page.attributes.seo,
     'website',
     page.attributes.locale,
@@ -68,28 +17,41 @@ export async function generateMetadata() {
 
 export default async function Speaking() {
   const page = await getPage('expertise')
-  const doings = await getDoings()
-  const categorizedDoings = transformItems(doings.data)
+  const skills = await getSkill()
   return (
     <SimpleLayout
-      title={page.attributes.title}
-      intro={page.attributes.description}
+      description={page.attributes.description}
+      content={page.attributes.content}
     >
-      <div className="space-y-20">
-        {Object.entries(categorizedDoings).map(([category, items]) => (
-          <SpeakingSection key={category} title={category}>
-            {items.map((doing: Doing) => (
-              <Appearance
-                key={doing.id}
-                title={doing.attributes.title}
-                description={doing.attributes.description}
-                event={doing.attributes.subtitle}
-                // cta="Watch video"
-                // href="#"
-              />
+      <div className="">
+        <div className="mx-auto max-w-7xl">
+          <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-12 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
+            {skills.data.map((skill) => (
+              <div key={skill.attributes.name} className="sm:flex">
+                <div className="flex items-center sm:flex-shrink-0">
+                  <div className="flow-root">
+                    <Image
+                      src={skill.attributes.image.data.attributes.url}
+                      alt={skill.attributes.name}
+                      className="w-28"
+                      width={skill.attributes.image.data.attributes.width}
+                      height={skill.attributes.image.data.attributes.height}
+                      unoptimized
+                    />
+                  </div>
+                </div>
+                <div className="mt-3 sm:ml-3 sm:mt-0">
+                  <h3 className="text-sm font-medium">
+                    {skill.attributes.name}
+                  </h3>
+                  <p className="mt-2 text-justify text-sm text-gray-500">
+                    {skill.attributes.content}
+                  </p>
+                </div>
+              </div>
             ))}
-          </SpeakingSection>
-        ))}
+          </div>
+        </div>
       </div>
     </SimpleLayout>
   )
