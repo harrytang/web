@@ -1,16 +1,13 @@
-import Image, { type ImageProps } from 'next/image'
+import Image from 'next/image'
 import Link from 'next/link'
 import clsx from 'clsx'
 
-import { Button } from '@/components/Button'
-import { Card } from '@/components/Card'
 import { Container } from '@/components/Container'
-import { formatDate } from '@/lib/formatDate'
 import { Work, getWorks } from '@/lib/works'
 import { getProfile } from '@/lib/profile'
 import { Media } from '@/types/media'
-import { Blog, getBlogs } from '@/lib/blogs'
-import { ArrowDownIcon, BriefcaseIcon, MailIcon } from '@/components/Icons'
+import { getBlogs } from '@/lib/blogs'
+import { BriefcaseIcon } from '@/components/Icons'
 import { Metadata } from 'next'
 import { generateSeoMeta } from '@/lib/hepler'
 import { ArticleList } from '@/components/ArticleList'
@@ -22,7 +19,7 @@ function SocialLink({
   icon: Media
 }) {
   return (
-    <Link className="group -m-1 p-1 " {...props}>
+    <Link className="group -m-1 p-1" {...props}>
       <Image
         src={icon.attributes.url}
         alt={icon.attributes.caption}
@@ -87,14 +84,6 @@ async function Resume() {
           <Role key={work.id} role={work} />
         ))}
       </ol>
-      <Button
-        href="https://powerkernel.github.io/harrytang.xyz/uploads/CV2024.pdf"
-        variant="secondary"
-        className="group mt-6 w-full"
-      >
-        Download CV
-        <ArrowDownIcon className="h-4 w-4 stroke-zinc-400 transition group-active:stroke-zinc-600 dark:group-hover:stroke-zinc-50 dark:group-active:stroke-zinc-50" />
-      </Button>
     </div>
   )
 }
