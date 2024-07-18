@@ -1,7 +1,6 @@
 import Link from 'next/link'
 
 import { ContainerInner, ContainerOuter } from '@/components/Container'
-import { getMenus } from '@/lib/menus'
 
 function NavLink({
   href,
@@ -21,7 +20,24 @@ function NavLink({
 }
 
 export function Footer() {
-  const menus = getMenus()
+  const menus = [
+    {
+      name: 'Cookie Policy',
+      path: '/cookie-policy',
+    },
+    {
+      name: 'Disclaimer',
+      path: '/disclaimer',
+    },
+    {
+      name: 'Privacy Policy',
+      path: '/privacy-policy',
+    },
+    {
+      name: 'Terms of Use',
+      path: '/terms-of-use',
+    },
+  ]
   return (
     <footer className="mt-32 flex-none">
       <ContainerOuter>
