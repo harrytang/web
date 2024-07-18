@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/harrytang/web/compare/v1.1.0...v1.2.0) (2024-07-18)
+
+
+### Features
+
+* adds general pages ([e1eb7f7](https://github.com/harrytang/web/commit/e1eb7f704c4df9918cc245f9389e3f3fc937d8a5))
+* refactor simple layout ([dd5ffa0](https://github.com/harrytang/web/commit/dd5ffa0549e1ce0a93eea9a658ff4fd466df8657))
+* updates footer ([2e1f05d](https://github.com/harrytang/web/commit/2e1f05d7c91aabbb0b7439e874614183a31af6f5))
+* updates lib ([4e027f4](https://github.com/harrytang/web/commit/4e027f4b651a101d22cb509d5a3d56df2ba14aba))
+* updates pages ([78a50c9](https://github.com/harrytang/web/commit/78a50c988107e6db8db2bf32d2a6ef29a9772869))
+
+
+### Bug Fixes
+
+* **deps:** update dependency tailwindcss to v3.4.5 ([4ff0660](https://github.com/harrytang/web/commit/4ff066034624a7633b9f8500129a169a928b0aec))
+* **deps:** update dependency tailwindcss to v3.4.6 ([a44922d](https://github.com/harrytang/web/commit/a44922d1a288d0bdc9fb0affa7a39cd07382787b))
+* incorrect path in generateSeoMeta ([55f9b15](https://github.com/harrytang/web/commit/55f9b154148e99fcfcd74edc5c4b8533a5dc16c3))
+
 ## [1.1.0](https://github.com/harrytang/web/compare/v1.0.3...v1.1.0) (2024-07-14)
 
 
