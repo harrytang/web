@@ -1,6 +1,6 @@
 import { BlogLayout } from '@/components/BlogLayout'
 import { getBlog } from '@/lib/blogs'
-import { generateSeoMeta, getPublicSiteURL } from '@/lib/hepler'
+import { generateSeoMeta } from '@/lib/hepler'
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
