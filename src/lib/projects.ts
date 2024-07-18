@@ -1,4 +1,3 @@
-import { Seo } from '@/types/seo'
 import { fetchAPI } from './hepler'
 import { Media } from '@/types/media'
 

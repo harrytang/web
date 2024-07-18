@@ -7,6 +7,7 @@ export interface Page {
     title: string
     slug: string
     description: string
+    content: string
     seo: Seo
     locale: string
     createdAt: string
