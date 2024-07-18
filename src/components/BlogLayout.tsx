@@ -1,19 +1,20 @@
 'use client'
 
-import { useContext } from 'react'
+import ReactMarkdown from 'react-markdown'
 import dynamic from 'next/dynamic'
-import moment from 'moment'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+import { useContext } from 'react'
+import { InformationCircleIcon } from '@heroicons/react/20/solid'
+
+// local imports
 import { AppContext } from '@/app/providers'
 import { Container } from '@/components/Container'
 import { Prose } from '@/components/Prose'
 import { formatDate } from '@/lib/formatDate'
 import { Blog } from '@/lib/blogs'
-import ReactMarkdown from 'react-markdown'
-import { InformationCircleIcon } from '@heroicons/react/20/solid'
-import Image from 'next/image'
 import { getPublicSiteURL } from '@/lib/hepler'
-// import ReactPlayer from 'react-player/lazy'
+
 const ReactPlayer = dynamic(() => import('react-player'), { ssr: false })
 
 function ArrowLeftIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
@@ -31,10 +32,10 @@ function ArrowLeftIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 
 const generateJsonLd = (blog: Blog) => {
   const publicSiteUrl = getPublicSiteURL()
-  const createdAt = moment(blog.attributes.createdAt).format('YYYY-MM-DD')
-  const publishedAt = moment(blog.attributes.publishedAt).format('YYYY-MM-DD')
-  const modifiedAt = moment(blog.attributes.updatedAt).format('YYYY-MM-DD')
-  // jsonld
+  const createdAt = blog.attributes.createdAt
+  const publishedAt = blog.attributes.publishedAt
+  const modifiedAt = blog.attributes.updatedAt
+
   return {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -42,6 +43,7 @@ const generateJsonLd = (blog: Blog) => {
     author: {
       '@type': 'Person',
       name: process.env.NEXT_PUBLIC_SITE_NAME!,
+      url: publicSiteUrl,
     },
     name: blog.attributes.title,
     headline: blog.attributes.seo.metaDescription,
@@ -102,6 +104,17 @@ export function BlogLayout({ blog }: { blog: Blog }) {
               </time>
             </header>
             <Prose className="mt-8" data-mdx-content>
+              {blog.attributes.mediaUrl && (
+                <div className="player-wrapper">
+                  <ReactPlayer
+                    className="react-player"
+                    url={blog.attributes.mediaUrl}
+                    width="100%"
+                    height="100%"
+                  />
+                </div>
+              )}
+
               <figure className="mt-16">
                 <Image
                   className="rounded-md bg-gray-50 object-cover"
@@ -118,17 +131,6 @@ export function BlogLayout({ blog }: { blog: Blog }) {
                   {blog.attributes.seo.metaImage.data.attributes.caption}
                 </figcaption>
               </figure>
-
-              {blog.attributes.mediaUrl && (
-                <div className="player-wrapper">
-                  <ReactPlayer
-                    className="react-player"
-                    url={blog.attributes.mediaUrl}
-                    width="100%"
-                    height="100%"
-                  />
-                </div>
-              )}
 
               <ReactMarkdown>{blog.attributes.content}</ReactMarkdown>
             </Prose>

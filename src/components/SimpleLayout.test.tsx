@@ -16,17 +16,17 @@ jest.mock('@/components/Container', () => ({
 jest.mock('./SearchBox', () => () => <div>SearchBox</div>)
 
 describe('SimpleLayout component', () => {
-  it('renders the title and intro when provided', () => {
-    const title = 'Test Title'
-    const intro = 'Test Intro'
+  it('renders the description and content when provided', () => {
+    const description = 'Test Description'
+    const content = 'Test Content'
 
-    render(<SimpleLayout title={title} intro={intro} />)
+    render(<SimpleLayout description={description} content={content} />)
 
-    const titleElement = screen.getByText(title)
-    const introElement = screen.getByText(intro)
+    const descElement = screen.getByText(description)
+    const contentElement = screen.queryByText(content)
 
-    expect(titleElement).toBeInTheDocument()
-    expect(introElement).toBeInTheDocument()
+    expect(descElement).toBeInTheDocument()
+    expect(contentElement).toBeInTheDocument()
   })
 
   it('renders the search box when seachBox is true', () => {
