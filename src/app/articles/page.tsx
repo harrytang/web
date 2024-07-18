@@ -4,12 +4,11 @@ import { getPage } from '@/lib/pages'
 import { generateSeoMeta } from '@/lib/hepler'
 import { ArticleList } from '@/components/ArticleList'
 import MoreArticle from '@/components/MoreArticle'
-import SearchBox from '@/components/SearchBox'
 
 export async function generateMetadata() {
   const page = await getPage('articles')
   return generateSeoMeta(
-    'projects',
+    'articles',
     page.attributes.seo,
     'website',
     page.attributes.locale,
@@ -22,8 +21,8 @@ export default async function ArticlesIndex() {
 
   return (
     <SimpleLayout
-      title={page.attributes.title}
-      intro={page.attributes.description}
+      description={page.attributes.description}
+      content={page.attributes.content}
       seachBox={true}
     >
       <div className="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40">
