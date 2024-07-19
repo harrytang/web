@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/harrytang/web/compare/v1.2.0...v1.3.0) (2024-07-19)
+
+
+### Features
+
+* adds jsonld and improves pages ([67dfb0e](https://github.com/harrytang/web/commit/67dfb0e8a657adce084d81d4044d135706ff0ac6))
+
 ## [1.2.0](https://github.com/harrytang/web/compare/v1.1.0...v1.2.0) (2024-07-18)
 
 
