@@ -30,49 +30,9 @@ function ArrowLeftIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   )
 }
 
-const generateJsonLd = (blog: Blog) => {
-  const publicSiteUrl = getPublicSiteURL()
-  const createdAt = blog.attributes.createdAt
-  const publishedAt = blog.attributes.publishedAt
-  const modifiedAt = blog.attributes.updatedAt
-
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
-    url: `${publicSiteUrl}/blog/${blog.attributes.slug}`,
-    author: {
-      '@type': 'Person',
-      name: process.env.NEXT_PUBLIC_SITE_NAME!,
-      url: publicSiteUrl,
-    },
-    name: blog.attributes.title,
-    headline: blog.attributes.seo.metaDescription,
-    image: {
-      '@type': 'ImageObject',
-      url: blog.attributes.seo.metaImage.data.attributes.url,
-      width: blog.attributes.seo.metaImage.data.attributes.width,
-      height: blog.attributes.seo.metaImage.data.attributes.height,
-    },
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': `${publicSiteUrl}/blog/${blog.attributes.slug}`,
-    },
-    publisher: {
-      '@type': 'Person',
-      name: process.env.NEXT_PUBLIC_SITE_NAME!,
-      url: publicSiteUrl,
-    },
-
-    datePublished: publishedAt,
-    dateModified: modifiedAt,
-    dateCreated: createdAt,
-  }
-}
-
 export function BlogLayout({ blog }: { blog: Blog }) {
   let router = useRouter()
   let { previousPathname } = useContext(AppContext)
-  const jsonld = generateJsonLd(blog)
 
   return (
     <Container className="mt-16 lg:mt-32">
@@ -135,10 +95,6 @@ export function BlogLayout({ blog }: { blog: Blog }) {
               <ReactMarkdown>{blog.attributes.content}</ReactMarkdown>
             </Prose>
           </article>
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonld) }}
-          />
         </div>
       </div>
     </Container>

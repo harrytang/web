@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import CSE from '@/components/CSE'
 
 describe('CSE Component', () => {

@@ -1,7 +1,7 @@
 import { Card } from '@/components/Card'
 import { Section } from '@/components/Section'
 import { SimpleLayout } from '@/components/SimpleLayout'
-import { generateSeoMeta } from '@/lib/hepler'
+import { generateSeoMeta, generateWebPageJsonLd } from '@/lib/hepler'
 import { getPage } from '@/lib/pages'
 import { Use, getUses } from '@/lib/uses'
 
@@ -53,7 +53,7 @@ function transformItems(items: Use[]) {
 }
 
 export async function generateMetadata() {
-  const page = await getPage('uses')
+  const page = await getPage('gear')
   return generateSeoMeta(
     'gear',
     page.attributes.seo,
@@ -63,12 +63,16 @@ export async function generateMetadata() {
 }
 
 export default async function Gear() {
-  const page = await getPage('uses')
+  const page = await getPage('gear')
   const uses = await getUses()
   const categorizedUses = transformItems(uses.data)
+  const jsonld = generateWebPageJsonLd({
+    name: page.attributes.title,
+    description: page.attributes.seo.metaDescription,
+  })
   return (
     <SimpleLayout
-      description={page.attributes.description}
+      subtitle={page.attributes.subtitle}
       content={page.attributes.content}
     >
       <div className="space-y-20">
@@ -82,6 +86,10 @@ export default async function Gear() {
           </ToolsSection>
         ))}
       </div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonld) }}
+      />
     </SimpleLayout>
   )
 }

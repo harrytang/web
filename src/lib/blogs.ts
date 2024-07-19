@@ -29,7 +29,7 @@ export async function getBlog(slug: string) {
     },
     locale: 'all',
   })
-  return res
+  return (await res).data[0]
 }
 
 export async function getBlogs(start?: number, limit?: number) {

@@ -4,9 +4,9 @@ import { fetchAPI } from './hepler'
 export interface Page {
   id: number
   attributes: {
-    title: string
     slug: string
-    description: string
+    title: string
+    subtitle: string
     content: string
     seo: Seo
     locale: string

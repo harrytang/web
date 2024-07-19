@@ -5,7 +5,7 @@ import { Card } from '@/components/Card'
 import { SimpleLayout } from '@/components/SimpleLayout'
 import { getPage } from '@/lib/pages'
 import { getProjects } from '@/lib/projects'
-import { generateSeoMeta } from '@/lib/hepler'
+import { generateSeoMeta, generateWebPageJsonLd } from '@/lib/hepler'
 
 function LinkIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
@@ -31,9 +31,14 @@ export async function generateMetadata() {
 export default async function Projects() {
   const page = await getPage('projects')
   const projects = await getProjects()
+  const jsonld = generateWebPageJsonLd({
+    name: page.attributes.title,
+    description: page.attributes.seo.metaDescription,
+  })
+
   return (
     <SimpleLayout
-      description={page.attributes.description}
+      subtitle={page.attributes.subtitle}
       content={page.attributes.content}
     >
       <ul
@@ -67,6 +72,11 @@ export default async function Projects() {
           </Card>
         ))}
       </ul>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonld) }}
+      />
     </SimpleLayout>
   )
 }

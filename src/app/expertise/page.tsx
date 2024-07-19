@@ -2,7 +2,7 @@ import Image from 'next/image'
 // local imports
 import { SimpleLayout } from '@/components/SimpleLayout'
 import { getPage } from '@/lib/pages'
-import { generateSeoMeta } from '@/lib/hepler'
+import { generateSeoMeta, generateWebPageJsonLd } from '@/lib/hepler'
 import { getSkill } from '@/lib/skills'
 
 export async function generateMetadata() {
@@ -18,9 +18,14 @@ export async function generateMetadata() {
 export default async function Speaking() {
   const page = await getPage('expertise')
   const skills = await getSkill()
+  const jsonld = generateWebPageJsonLd({
+    name: page.attributes.title,
+    description: page.attributes.seo.metaDescription,
+  })
+
   return (
     <SimpleLayout
-      description={page.attributes.description}
+      subtitle={page.attributes.subtitle}
       content={page.attributes.content}
     >
       <div className="">
@@ -53,6 +58,10 @@ export default async function Speaking() {
           </div>
         </div>
       </div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonld) }}
+      />
     </SimpleLayout>
   )
 }

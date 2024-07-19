@@ -17,15 +17,15 @@ jest.mock('./SearchBox', () => () => <div>SearchBox</div>)
 
 describe('SimpleLayout component', () => {
   it('renders the description and content when provided', () => {
-    const description = 'Test Description'
+    const subtitle = 'Test Subtitle'
     const content = 'Test Content'
 
-    render(<SimpleLayout description={description} content={content} />)
+    render(<SimpleLayout subtitle={subtitle} content={content} />)
 
-    const descElement = screen.getByText(description)
+    const subtitleElement = screen.getByText(subtitle)
     const contentElement = screen.queryByText(content)
 
-    expect(descElement).toBeInTheDocument()
+    expect(subtitleElement).toBeInTheDocument()
     expect(contentElement).toBeInTheDocument()
   })
 

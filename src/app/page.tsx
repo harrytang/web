@@ -9,7 +9,11 @@ import { Media } from '@/types/media'
 import { getBlogs } from '@/lib/blogs'
 import { BriefcaseIcon } from '@/components/Icons'
 import { Metadata } from 'next'
-import { generateSeoMeta } from '@/lib/hepler'
+import {
+  generatePersonJsonLd,
+  generateListArticleJsonLd,
+  generateSeoMeta,
+} from '@/lib/hepler'
 import { ArticleList } from '@/components/ArticleList'
 
 function SocialLink({
@@ -141,6 +145,10 @@ export default async function Home() {
   )
   const profile = await getProfile()
 
+  // jsonlds
+  const person = generatePersonJsonLd(profile.data)
+  const articles = generateListArticleJsonLd(blogs.data)
+
   return (
     <>
       <Container className="mt-9">
@@ -176,6 +184,14 @@ export default async function Home() {
           </div>
         </div>
       </Container>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(person) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articles) }}
+      />
     </>
   )
 }

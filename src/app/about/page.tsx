@@ -3,10 +3,12 @@ import Image from 'next/image'
 import Link from 'next/link'
 import clsx from 'clsx'
 import ReactMarkdown from 'react-markdown'
+
+// local imports
 import { Container } from '@/components/Container'
 import { getProfile } from '@/lib/profile'
 import { Media } from '@/types/media'
-import { generateSeoMeta } from '@/lib/hepler'
+import { generatePersonJsonLd, generateSeoMeta } from '@/lib/hepler'
 
 function SocialLink({
   className,
@@ -46,6 +48,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 const About: React.FC = async () => {
   const profile = await getProfile()
+  const jsonld = generatePersonJsonLd(profile.data)
   return (
     <Container className="mt-16 sm:mt-32">
       <div className="grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-y-12">
@@ -90,6 +93,10 @@ const About: React.FC = async () => {
           </ul>
         </div>
       </div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonld) }}
+      ></script>
     </Container>
   )
 }

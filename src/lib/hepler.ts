@@ -1,5 +1,7 @@
 import { Seo } from '@/types/seo'
 import qs from 'qs'
+import { Profile } from './profile'
+import { Blog } from './blogs'
 
 /**
  * Get full Strapi URL from path
@@ -144,4 +146,117 @@ export function generateSeoMeta(
         : [seo.metaImage.data.attributes.url],
     },
   }
+}
+
+const generateWebPageJsonLd = ({
+  name,
+  description,
+}: {
+  name: string
+  description: string
+}) => {
+  const publicSiteUrl = getPublicSiteURL()
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name,
+    description,
+    publisher: {
+      '@type': 'Person',
+      name: process.env.NEXT_PUBLIC_SITE_NAME!,
+      url: publicSiteUrl,
+    },
+  }
+}
+
+const generatePersonJsonLd = (profile: Profile) => {
+  const publicSiteUrl = getPublicSiteURL()
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: process.env.NEXT_PUBLIC_SITE_NAME!,
+    image: profile.attributes.portraitPhoto.data.attributes.url,
+    jobTitle: profile.attributes.title,
+    url: publicSiteUrl,
+    sameAs: profile.attributes.socials.map((link) => link.href), // other urls
+  }
+}
+
+const generateArticleJsonLd = (blog: Blog) => {
+  const publicSiteUrl = getPublicSiteURL()
+  const createdAt = blog.attributes.createdAt
+  const publishedAt = blog.attributes.publishedAt
+  const modifiedAt = blog.attributes.updatedAt
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    url: `${publicSiteUrl}/blog/${blog.attributes.slug}`,
+    author: {
+      '@type': 'Person',
+      name: process.env.NEXT_PUBLIC_SITE_NAME!,
+      url: publicSiteUrl,
+    },
+    name: blog.attributes.title,
+    headline: blog.attributes.seo.metaDescription,
+    image: {
+      '@type': 'ImageObject',
+      url: blog.attributes.seo.metaImage.data.attributes.url,
+      width: blog.attributes.seo.metaImage.data.attributes.width,
+      height: blog.attributes.seo.metaImage.data.attributes.height,
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${publicSiteUrl}/blog/${blog.attributes.slug}`,
+    },
+    publisher: {
+      '@type': 'Person',
+      name: process.env.NEXT_PUBLIC_SITE_NAME!,
+      url: publicSiteUrl,
+    },
+
+    datePublished: publishedAt,
+    dateModified: modifiedAt,
+    dateCreated: createdAt,
+  }
+}
+
+const generateListArticleJsonLd = (blogs: Blog[]) => {
+  const publicSiteUrl = getPublicSiteURL()
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    itemListElement: blogs.map((blog, index) => {
+      return {
+        '@type': 'ListItem',
+        position: index + 1,
+        item: {
+          '@type': 'Article',
+          url: `${publicSiteUrl}/blog/${blog.attributes.slug}`,
+          headline: blog.attributes.title,
+          datePublished: blog.attributes.publishedAt,
+          dateModified: blog.attributes.updatedAt,
+          dateCreated: blog.attributes.createdAt,
+          author: {
+            '@type': 'Person',
+            name: process.env.NEXT_PUBLIC_SITE_NAME!,
+            url: publicSiteUrl,
+          },
+          publisher: {
+            '@type': 'Person',
+            name: process.env.NEXT_PUBLIC_SITE_NAME!,
+            url: publicSiteUrl,
+          },
+        },
+      }
+    }),
+  }
+}
+
+export {
+  generateWebPageJsonLd,
+  generatePersonJsonLd,
+  generateArticleJsonLd,
+  generateListArticleJsonLd,
 }

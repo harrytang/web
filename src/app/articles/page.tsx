@@ -1,7 +1,11 @@
 import { SimpleLayout } from '@/components/SimpleLayout'
 import { getBlogs } from '@/lib/blogs'
 import { getPage } from '@/lib/pages'
-import { generateSeoMeta } from '@/lib/hepler'
+import {
+  generateListArticleJsonLd,
+  generateSeoMeta,
+  generateWebPageJsonLd,
+} from '@/lib/hepler'
 import { ArticleList } from '@/components/ArticleList'
 import MoreArticle from '@/components/MoreArticle'
 
@@ -18,10 +22,15 @@ export async function generateMetadata() {
 export default async function ArticlesIndex() {
   const page = await getPage('articles')
   const blogs = await getBlogs(0, parseInt(process.env.NEXT_PUBLIC_PAGE_SIZE!))
+  const pageJsonld = generateWebPageJsonLd({
+    name: page.attributes.title,
+    description: page.attributes.seo.metaDescription,
+  })
+  const articlesJsonld = generateListArticleJsonLd(blogs.data)
 
   return (
     <SimpleLayout
-      description={page.attributes.description}
+      subtitle={page.attributes.subtitle}
       content={page.attributes.content}
       seachBox={true}
     >
@@ -33,6 +42,14 @@ export default async function ArticlesIndex() {
           <MoreArticle total={blogs.meta.pagination.total} type="full" />
         </div>
       </div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(pageJsonld) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articlesJsonld) }}
+      />
     </SimpleLayout>
   )
 }

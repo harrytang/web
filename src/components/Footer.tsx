@@ -37,6 +37,10 @@ export function Footer() {
       name: 'Terms of Use',
       path: '/terms-of-use',
     },
+    {
+      name: 'Credits',
+      path: '/credits',
+    },
   ]
   return (
     <footer className="mt-32 flex-none">

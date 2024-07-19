@@ -1,8 +1,8 @@
+import notFound from '@/app/not-found'
 import { BlogLayout } from '@/components/BlogLayout'
 import { getBlog } from '@/lib/blogs'
-import { generateSeoMeta } from '@/lib/hepler'
+import { generateArticleJsonLd, generateSeoMeta } from '@/lib/hepler'
 import { Metadata } from 'next'
-import { notFound } from 'next/navigation'
 
 interface BlogProps {
   params: {
@@ -10,30 +10,33 @@ interface BlogProps {
   }
 }
 
-async function getBlogPost(slug: string) {
-  const res = await getBlog(slug)
-  if (res.data.length === 0) {
-    notFound()
+export async function generateMetadata({ params }: BlogProps) {
+  const blog = await getBlog(params.slug)
+  if (blog) {
+    return generateSeoMeta(
+      `blog/${params.slug}`,
+      blog.attributes.seo,
+      'article',
+      blog.attributes.locale,
+    )
   }
-  return res.data[0]
-}
-
-export async function generateMetadata({
-  params,
-}: BlogProps): Promise<Metadata> {
-  const blog = await getBlogPost(params.slug)
-  const seo = blog.attributes.seo
-  return generateSeoMeta(
-    `blog/${params.slug}`,
-    seo,
-    'article',
-    blog.attributes.locale,
-  )
 }
 
 const Blog = async ({ params }: BlogProps) => {
-  const blog = await getBlogPost(params.slug)
-  return <BlogLayout blog={blog} />
+  const blog = await getBlog(params.slug)
+  if (!blog) {
+    return notFound()
+  }
+  const jsonld = generateArticleJsonLd(blog)
+  return (
+    <>
+      <BlogLayout blog={blog} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonld) }}
+      />
+    </>
+  )
 }
 
 export default Blog
