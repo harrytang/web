@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Params) {
   const page = await getPage(params.slug)
   if (page && !IGNORED.includes(params.slug)) {
     return generateSeoMeta(
-      `${params.slug}.html`,
+      `${params.slug}`,
       page.attributes.seo,
       'website',
       page.attributes.locale,

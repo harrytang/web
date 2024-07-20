@@ -43,7 +43,7 @@ function SocialLink({
 
 export async function generateMetadata(): Promise<Metadata> {
   const profile = await getProfile()
-  return generateSeoMeta('', profile.data.attributes.seo, 'profile', 'en')
+  return generateSeoMeta('about', profile.data.attributes.seo, 'profile', 'en')
 }
 
 const About: React.FC = async () => {
