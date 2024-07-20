@@ -260,14 +260,32 @@ const generateListArticleJsonLd = (blogs: Blog[]) => {
   }
 }
 
-const generateProfilePageJsonLd = (profile: Profile) => {
+const generateProfilePageJsonLd = (profile: Profile, hasPart: Blog[] = []) => {
   const publicSiteUrl = getPublicSiteURL()
-  return {
+  const hasPartList = hasPart.map((blog) => {
+    return {
+      '@type': 'Article',
+      headline: blog.attributes.title,
+      url: `${publicSiteUrl}/blog/${blog.attributes.slug}`,
+      image: {
+        '@type': 'ImageObject',
+        url: blog.attributes.seo.metaImage.data.attributes.url,
+        width: blog.attributes.seo.metaImage.data.attributes.width,
+        height: blog.attributes.seo.metaImage.data.attributes.height,
+      },
+      datePublished: blog.attributes.publishedAt,
+      dateModified: blog.attributes.updatedAt,
+      dateCreated: blog.attributes.createdAt,
+      author: { '@id': '#person' },
+    }
+  })
+  const profilePage = {
     '@context': 'https://schema.org',
     '@type': 'ProfilePage',
     dateCreated: profile.attributes.createdAt,
     dateModified: profile.attributes.updatedAt,
     mainEntity: {
+      '@id': '#person',
       '@type': 'Person',
       name: process.env.NEXT_PUBLIC_SITE_NAME!,
       image: profile.attributes.portraitPhoto.data.attributes.url,
@@ -276,6 +294,9 @@ const generateProfilePageJsonLd = (profile: Profile) => {
       sameAs: profile.attributes.socials.map((link) => link.href), // other urls
     },
   }
+  return hasPart.length > 0
+    ? { ...profilePage, hasPart: hasPartList }
+    : profilePage
 }
 
 export {

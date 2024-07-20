@@ -146,8 +146,7 @@ export default async function Home() {
   const profile = await getProfile()
 
   // jsonlds
-  const person = generateProfilePageJsonLd(profile.data)
-  const articles = generateListArticleJsonLd(blogs.data)
+  const person = generateProfilePageJsonLd(profile.data, blogs.data)
 
   return (
     <>
@@ -187,10 +186,6 @@ export default async function Home() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(person) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articles) }}
       />
     </>
   )
