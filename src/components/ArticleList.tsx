@@ -16,6 +16,7 @@ export function ArticleList({
           {article.attributes.title}
         </Card.Title>
         <Card.Eyebrow
+          className="text-zinc-500"
           as="time"
           dateTime={article.attributes.publishedAt}
           decorate
@@ -39,7 +40,7 @@ export function ArticleList({
           <Card.Eyebrow
             as="time"
             dateTime={article.attributes.publishedAt}
-            className="md:hidden"
+            className="text-zinc-500 md:hidden"
             decorate
           >
             {formatDate(article.attributes.publishedAt)}
@@ -52,7 +53,7 @@ export function ArticleList({
         <Card.Eyebrow
           as="time"
           dateTime={article.attributes.publishedAt}
-          className="mt-1 hidden md:block"
+          className="mt-1 hidden text-zinc-500 md:block"
         >
           {formatDate(article.attributes.publishedAt)}
         </Card.Eyebrow>

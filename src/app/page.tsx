@@ -9,11 +9,7 @@ import { Media } from '@/types/media'
 import { getBlogs } from '@/lib/blogs'
 import { BriefcaseIcon } from '@/components/Icons'
 import { Metadata } from 'next'
-import {
-  generateListArticleJsonLd,
-  generateSeoMeta,
-  generateProfilePageJsonLd,
-} from '@/lib/hepler'
+import { generateSeoMeta, generateProfilePageJsonLd } from '@/lib/hepler'
 import { ArticleList } from '@/components/ArticleList'
 
 function SocialLink({
@@ -62,7 +58,7 @@ async function Role({ role }: { role: Work }) {
         </dd>
         <dt className="sr-only">Date</dt>
         <dd
-          className="ml-auto text-xs text-zinc-400 dark:text-zinc-500"
+          className="ml-auto text-xs text-zinc-500 dark:text-zinc-500"
           aria-label={`${role.attributes.start} until ${endLabel}`}
         >
           <time dateTime={role.attributes.start}>{role.attributes.start}</time>{' '}

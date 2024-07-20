@@ -55,7 +55,7 @@ export function Footer() {
                   </NavLink>
                 ))}
               </div>
-              <p className="text-sm text-zinc-400 dark:text-zinc-500">
+              <p className="text-sm text-zinc-500 dark:text-zinc-400">
                 &copy; {new Date().getFullYear()} Harry Tang. All rights
                 reserved.
               </p>
