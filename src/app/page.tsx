@@ -10,9 +10,9 @@ import { getBlogs } from '@/lib/blogs'
 import { BriefcaseIcon } from '@/components/Icons'
 import { Metadata } from 'next'
 import {
-  generatePersonJsonLd,
   generateListArticleJsonLd,
   generateSeoMeta,
+  generateProfilePageJsonLd,
 } from '@/lib/hepler'
 import { ArticleList } from '@/components/ArticleList'
 
@@ -146,7 +146,7 @@ export default async function Home() {
   const profile = await getProfile()
 
   // jsonlds
-  const person = generatePersonJsonLd(profile.data)
+  const person = generateProfilePageJsonLd(profile.data)
   const articles = generateListArticleJsonLd(blogs.data)
 
   return (

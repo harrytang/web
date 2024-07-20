@@ -34,7 +34,7 @@ export async function getBlog(slug: string) {
 
 export async function getBlogs(start?: number, limit?: number) {
   const res = fetchAPI<Blog[]>('/blogs', {
-    populate: ['seo'],
+    populate: ['seo', 'seo.metaImage'],
     sort: 'publishedAt:desc',
     locale: 'all',
     pagination: {
