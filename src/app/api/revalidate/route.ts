@@ -22,12 +22,12 @@ export async function POST(req: NextRequest) {
     events: ['entry.create', 'entry.update'],
     models: {
       blog: ['/blog/[slug]', '/articles', '/'],
+      page: ['[slug]'],
       profile: ['/about', '/'],
-      doing: ['/expertise'],
+      skill: ['/expertise'],
       work: ['/'],
-      page: ['/expertise', '/uses', '/projects', '/articles'],
       project: ['/projects'],
-      use: ['/uses'],
+      use: ['/gear'],
     },
   }
   if (track.events.includes(event)) {

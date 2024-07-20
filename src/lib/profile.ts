@@ -18,6 +18,9 @@ export interface Profile {
     }
     seo: Seo
     socials: SocialLink[]
+    createdAt: string
+    updatedAt: string
+    publishedAt: string
   }
 }
 
