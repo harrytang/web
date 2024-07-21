@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/harrytang/web/compare/v1.3.7...v1.4.0) (2024-07-21)
+
+
+### Features
+
+* improves NextJS revalidation ([b88f0b5](https://github.com/harrytang/web/commit/b88f0b52dc5bed683024a43b88d1827b7a775cde))
+
 ### [1.3.7](https://github.com/harrytang/web/compare/v1.3.6...v1.3.7) (2024-07-20)
 
 ### [1.3.6](https://github.com/harrytang/web/compare/v1.3.5...v1.3.6) (2024-07-20)
