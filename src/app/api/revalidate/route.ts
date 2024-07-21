@@ -1,5 +1,5 @@
 import Webhook from '@/types/webhook'
-import { revalidatePath } from 'next/cache'
+import { revalidatePath, revalidateTag } from 'next/cache'
 import { NextRequest } from 'next/server'
 
 export async function POST(req: NextRequest) {
@@ -16,18 +16,32 @@ export async function POST(req: NextRequest) {
       message: 'Unauthorized: Missing or invalid Bearer token',
     })
   }
+
   // Revalidate the cache
   const { event, model, entry }: Webhook = await req.json()
+
+  // dynamic paths
+  if (event === 'entry.create' || event === 'entry.update') {
+    if (model === 'blog') {
+      console.info(`Revalidating tag: blog-${entry.slug}`)
+      revalidateTag(`blog-${entry.slug}`)
+    }
+    if (model === 'page') {
+      console.info(`Revalidating tag: page-${entry.slug}`)
+      revalidateTag(`page-${entry.slug}`)
+    }
+  }
+
+  // static paths
   const track = {
     events: ['entry.create', 'entry.update'],
     models: {
-      blog: ['/blog/[slug]', '/articles', '/'],
-      page: ['[slug]'],
-      profile: ['/about', '/'],
-      skill: ['/expertise'],
-      work: ['/'],
+      blog: ['/articles', '/'],
       project: ['/projects'],
+      skill: ['/expertise'],
       use: ['/gear'],
+      work: ['/'],
+      profile: ['/about', '/'],
     },
   }
   if (track.events.includes(event)) {

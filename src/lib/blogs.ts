@@ -17,18 +17,24 @@ export interface Blog {
 }
 
 export async function getBlog(slug: string) {
-  const res = fetchAPI<Blog[]>('/blogs', {
-    populate: [
-      'seo',
-      'seo.metaImage',
-      'seo.metaSocial',
-      'seo.metaSocial.image',
-    ],
-    filters: {
-      slug: slug,
+  const res = fetchAPI<Blog[]>(
+    '/blogs',
+    {
+      populate: [
+        'seo',
+        'seo.metaImage',
+        'seo.metaSocial',
+        'seo.metaSocial.image',
+      ],
+      filters: {
+        slug: slug,
+      },
+      locale: 'all',
     },
-    locale: 'all',
-  })
+    {
+      next: { tags: [`blog-${slug}`] },
+    },
+  )
   return (await res).data[0]
 }
 
