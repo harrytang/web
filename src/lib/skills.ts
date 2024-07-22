@@ -15,9 +15,10 @@ export interface Skill {
   }
 }
 
-export async function getSkill() {
-  return fetchAPI<Skill[]>('/skills', {
+export async function listRandomSkill() {
+  const skills =  await fetchAPI<Skill[]>('/skills', {
     populate: ['image'],
-    sort: 'publishedAt:desc',
   })
+  // randomize the order of the skills
+  return skills.data.sort(() => Math.random() - 0.5)
 }
