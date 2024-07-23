@@ -29,6 +29,7 @@ export async function generateMetadata() {
 }
 
 export default async function Projects() {
+  console.info('Rendering /projects page...')
   const page = await getPage('projects')
   const projects = await getProjects()
   const jsonld = generateWebPageJsonLd({

@@ -20,6 +20,7 @@ export async function generateMetadata() {
 }
 
 export default async function ArticlesIndex() {
+  console.info('Rendering /articles page...')
   const page = await getPage('articles')
   const blogs = await getBlogs(0, parseInt(process.env.NEXT_PUBLIC_PAGE_SIZE!))
   const pageJsonld = generateWebPageJsonLd({

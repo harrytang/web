@@ -1,13 +1,19 @@
 import notFound from '@/app/not-found'
 import { BlogLayout } from '@/components/BlogLayout'
-import { getBlog } from '@/lib/blogs'
+import { getBlog, getBlogSlugs } from '@/lib/blogs'
 import { generateArticleJsonLd, generateSeoMeta } from '@/lib/hepler'
-import { Metadata } from 'next'
 
 interface BlogProps {
   params: {
     slug: string
   }
+}
+
+export async function generateStaticParams() {
+  const slugs = await getBlogSlugs()
+  return slugs.map((slug) => ({
+    slug,
+  }))
 }
 
 export async function generateMetadata({ params }: BlogProps) {
@@ -23,6 +29,7 @@ export async function generateMetadata({ params }: BlogProps) {
 }
 
 const Blog = async ({ params }: BlogProps) => {
+  console.info(`Rendering /blog/${params.slug} page...`)
   const blog = await getBlog(params.slug)
   if (!blog) {
     return notFound()

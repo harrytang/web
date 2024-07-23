@@ -14,6 +14,19 @@ const nextConfig = {
       },
     ],
   },
+  rewrites: async () => [
+    {
+      source: '/:slug',
+      destination: '/page/:slug',
+    },
+  ],
+  redirects: async () => [
+    {
+      source: '/page/:slug',
+      destination: '/:slug',
+      permanent: true,
+    },
+  ],
   output: 'standalone',
 }
 

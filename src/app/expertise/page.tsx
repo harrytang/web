@@ -17,9 +17,11 @@ export async function generateMetadata() {
   )
 }
 
-export default async function Speaking() {
+export default async function Expertise() {
+  console.info('Rendering /expertise page...')
   const page = await getPage('expertise')
   const skills = await listRandomSkill()
+
   const jsonld = generateWebPageJsonLd({
     name: page.attributes.title,
     description: page.attributes.seo.metaDescription,
