@@ -42,10 +42,9 @@ export async function fetchAPI<T>(
   }
 }> {
   // Merge default and user options
-  const cache =
-    process.env.NODE_ENV === 'development'
-      ? 'no-store'
-      : ('force-cache' as RequestCache)
+  const cache = (
+    process.env.NODE_ENV === 'development' ? 'no-store' : 'force-cache'
+  ) as RequestCache
   const mergedOptions = {
     headers: {
       'Content-Type': 'application/json',
@@ -59,7 +58,6 @@ export async function fetchAPI<T>(
   const requestUrl = `${getStrapiURL(`/api${path}${queryString ? `?${queryString}` : ''}`)}`
 
   // Trigger API call
-  console.info(`Fetching (${cache}): ${requestUrl}`)
   const response = await fetch(requestUrl, mergedOptions)
 
   // Handle response
