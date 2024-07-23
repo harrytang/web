@@ -7,7 +7,9 @@ export const revalidate = 3600 // 1 hour
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const publicSiteUrl = getPublicSiteURL()
-  const sitemapSize = 1000
+  const sitemapSize = process.env.SITEMAP_SIZE
+    ? parseInt(process.env.SITEMAP_SIZE)
+    : 1000
   // static pages
   const pages = [
     {
