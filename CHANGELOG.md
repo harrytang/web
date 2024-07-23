@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/harrytang/web/compare/v1.4.1...v1.5.0) (2024-07-23)
+
+
+### Features
+
+* adds SITEMAP_SIZE env ([9a94cce](https://github.com/harrytang/web/commit/9a94ccee5951dfcfd572b15680d15ca76ff4e665))
+* uses generateStaticParams for blogs and pages ([27edd65](https://github.com/harrytang/web/commit/27edd6548ad9cf621322350f4b91e49fb240e606))
+
+
+### Bug Fixes
+
+* **deps:** update dependency typescript to v5.5.4 ([#59](https://github.com/harrytang/web/issues/59)) ([f040f4b](https://github.com/harrytang/web/commit/f040f4b52680da79eb266cceb6ca751679dcb5ca))
+
 ### [1.4.1](https://github.com/harrytang/web/compare/v1.4.0...v1.4.1) (2024-07-22)
 
 ## [1.4.0](https://github.com/harrytang/web/compare/v1.3.7...v1.4.0) (2024-07-21)
