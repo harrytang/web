@@ -29,6 +29,7 @@ jobs:
           NEXT_PUBLIC_PAGE_SIZE: ${{ vars.NEXT_PUBLIC_PAGE_SIZE }}
           NEXT_PUBLIC_HOME_PAGE_SIZE: ${{ vars.NEXT_PUBLIC_HOME_PAGE_SIZE }}
           STRAPI_API_URL: ${{ vars.STRAPI_API_URL }}
+          SITEMAP_SIZE: ${{ vars.SITEMAP_SIZE }}
   e2e-tests:
     timeout-minutes: 60
     environment:
@@ -66,6 +67,7 @@ jobs:
           NEXT_PUBLIC_PAGE_SIZE: ${{ vars.NEXT_PUBLIC_PAGE_SIZE }}
           NEXT_PUBLIC_HOME_PAGE_SIZE: ${{ vars.NEXT_PUBLIC_HOME_PAGE_SIZE }}
           STRAPI_API_URL: ${{ vars.STRAPI_API_URL }}
+          SITEMAP_SIZE: ${{ vars.SITEMAP_SIZE }}
       - name: Get Playwright Version
         run: echo "PLAYWRIGHT_VERSION=$(npm show playwright version)" >> $GITHUB_ENV
       - name: Cache playwright binaries
@@ -88,6 +90,7 @@ jobs:
           NEXT_PUBLIC_PAGE_SIZE: ${{ vars.NEXT_PUBLIC_PAGE_SIZE }}
           NEXT_PUBLIC_HOME_PAGE_SIZE: ${{ vars.NEXT_PUBLIC_HOME_PAGE_SIZE }}
           STRAPI_API_URL: ${{ vars.STRAPI_API_URL }}
+          SITEMAP_SIZE: ${{ vars.SITEMAP_SIZE }}
       - name: Upload Playwright report
         uses: actions/upload-artifact@v4
         if: always()
