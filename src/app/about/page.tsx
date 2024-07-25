@@ -6,7 +6,7 @@ import ReactMarkdown from 'react-markdown'
 
 // local imports
 import { Container } from '@/components/Container'
-import { getProfile, Profile } from '@/lib/profile'
+import { getProfile } from '@/lib/profile'
 import { Media } from '@/types/media'
 import { generateProfilePageJsonLd, generateSeoMeta } from '@/lib/hepler'
 
