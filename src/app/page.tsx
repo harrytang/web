@@ -7,10 +7,10 @@ import { Work, getWorks } from '@/lib/works'
 import { getProfile } from '@/lib/profile'
 import { Media } from '@/types/media'
 import { getBlogs } from '@/lib/blogs'
-import { BriefcaseIcon } from '@/components/Icons'
 import { Metadata } from 'next'
 import { generateSeoMeta, generateProfilePageJsonLd } from '@/lib/hepler'
-import { ArticleList } from '@/components/ArticleList'
+import ArticleList from '@/components/ArticleList'
+import BriefcaseIcon from '@heroicons/react/20/solid/BriefcaseIcon'
 
 function SocialLink({
   icon,
@@ -76,7 +76,7 @@ async function Resume() {
   return (
     <div className="rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40">
       <h2 className="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-        <BriefcaseIcon className="h-6 w-6 flex-none" />
+        <BriefcaseIcon className="h-6 w-6 flex-none fill-zinc-100 stroke-zinc-400 dark:fill-zinc-100/10 dark:stroke-zinc-500" />
         <span className="ml-3">Work</span>
       </h2>
       <ol className="mt-6 space-y-4">

@@ -1,14 +1,13 @@
+import { Card } from '@/components/Card'
 import { Blog } from '@/lib/blogs'
-import { Card } from './Card'
 import { formatDate } from '@/lib/formatDate'
 
-export function ArticleList({
-  article,
-  type,
-}: {
+type ArticleListProps = {
   article: Blog
   type: 'compact' | 'full'
-}) {
+}
+
+const ArticleList: React.FC<ArticleListProps> = ({ article, type }) => {
   if (type === 'compact') {
     return (
       <Card as="article">
@@ -61,3 +60,5 @@ export function ArticleList({
     )
   }
 }
+
+export default ArticleList

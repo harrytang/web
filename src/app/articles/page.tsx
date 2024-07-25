@@ -6,7 +6,7 @@ import {
   generateSeoMeta,
   generateWebPageJsonLd,
 } from '@/lib/hepler'
-import { ArticleList } from '@/components/ArticleList'
+import ArticleList from '@/components/ArticleList'
 import MoreArticle from '@/components/MoreArticle'
 
 export async function generateMetadata() {

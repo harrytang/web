@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { ArticleList } from './ArticleList'
+import ArticleList from './ArticleList'
 import { Blog } from '@/lib/blogs'
 
 const mockArticle: Blog = {

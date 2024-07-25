@@ -1,5 +1,5 @@
 import notFound from '@/app/not-found'
-import { BlogLayout } from '@/components/BlogLayout'
+import BlogLayout from '@/components/BlogLayout'
 import { getBlog, getBlogSlugs } from '@/lib/blogs'
 import { generateArticleJsonLd, generateSeoMeta } from '@/lib/hepler'
 

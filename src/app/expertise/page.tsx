@@ -50,9 +50,9 @@ export default async function Expertise() {
                   </div>
                 </div>
                 <div className="mt-3 sm:ml-3 sm:mt-0">
-                  <h3 className="text-sm font-medium">
+                  <h2 className="text-sm font-medium">
                     {skill.attributes.name}
-                  </h3>
+                  </h2>
                   <p className="mt-2 text-justify text-sm text-gray-500">
                     {skill.attributes.content}
                   </p>

@@ -1,25 +1,7 @@
-import Link from 'next/link'
-
 import { ContainerInner, ContainerOuter } from '@/components/Container'
+import NavLink from '@/components/NavLink'
 
-function NavLink({
-  href,
-  children,
-}: {
-  href: string
-  children: React.ReactNode
-}) {
-  return (
-    <Link
-      href={href}
-      className="transition hover:text-teal-500 dark:hover:text-teal-400"
-    >
-      {children}
-    </Link>
-  )
-}
-
-export function Footer() {
+const Footer: React.FC = () => {
   const menus = [
     {
       name: 'Cookie Policy',
@@ -56,8 +38,8 @@ export function Footer() {
                 ))}
               </div>
               <p className="text-sm text-zinc-500 dark:text-zinc-400">
-                &copy; {new Date().getFullYear()} Harry Tang. All rights
-                reserved.
+                &copy; {new Date().getFullYear()}{' '}
+                {process.env.NEXT_PUBLIC_SITE_NAME}. All rights reserved.
               </p>
             </div>
           </ContainerInner>
@@ -66,3 +48,5 @@ export function Footer() {
     </footer>
   )
 }
+
+export default Footer
