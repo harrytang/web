@@ -1,20 +1,19 @@
 'use client'
-import { useState } from 'react'
-import { ArticleList } from './ArticleList'
-import { Blog, getBlogs } from '@/lib/blogs'
-import { Button } from './Button'
-// local
-// types
 
-type MoreProps = {
+import { useState } from 'react'
+
+// local imports
+import ArticleList from '@/components/ArticleList'
+import Button from '@/components/Button'
+import { Blog, getBlogs } from '@/lib/blogs'
+
+type MoreArticleProps = {
   total: number
-  // start: number
-  // limit: number
   type: 'compact' | 'full'
 }
 
-const MoreArticle: React.FC<MoreProps> = ({ total, type }) => {
-  const limit = 5
+const MoreArticle: React.FC<MoreArticleProps> = ({ total, type }) => {
+  const limit = parseInt(process.env.NEXT_PUBLIC_PAGE_SIZE!)
   const [start, setStart] = useState(limit)
   const [articles, setArticles] = useState<Blog[]>([])
   const [disabled, setDisabled] = useState(total <= limit)
