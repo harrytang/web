@@ -27,3 +27,15 @@ docker-compose up -d
 ```
 
 Finally, open [http://localhost:3000](http://localhost:3000) in your browser to view the website.
+
+## e2e testing
+
+To run the e2e tests, run the following command:
+
+```bash
+docker run --rm -it \\n-v ${PWD}:/workspace \\n-w /workspace \\nmcr.microsoft.com/playwright:v1.44.1-jammy sh
+export $(cat .env.build.local | grep -v '^#' | xargs)
+npm run build
+npx playwright install --with-deps
+npm run test:e2e
+```
