@@ -33,7 +33,7 @@ Finally, open [http://localhost:3000](http://localhost:3000) in your browser to 
 To run the e2e tests, run the following command:
 
 ```bash
-docker run --rm -it \\n-v ${PWD}:/workspace \\n-w /workspace \\nmcr.microsoft.com/playwright:v1.44.1-jammy sh
+docker run --rm -it -v ${PWD}:/workspace -w /workspace mcr.microsoft.com/playwright:latest bash
 export $(cat .env.build.local | grep -v '^#' | xargs)
 npm run build
 npx playwright install --with-deps
