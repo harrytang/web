@@ -38,7 +38,7 @@ const getBlog = async (slug: string) => {
   return (await res).data[0]
 }
 
-export async function getBlogs(start?: number, limit?: number) {
+const getBlogs = async (start?: number, limit?: number) => {
   return await fetchAPI<Blog[]>('/blogs', {
     populate: ['seo', 'seo.metaImage'],
     sort: 'publishedAt:desc',
@@ -77,4 +77,4 @@ const getBlogSlugs = async () => {
   return allSlugs
 }
 
-export { getBlog, getBlogSlugs }
+export { getBlog, getBlogs, getBlogSlugs }
