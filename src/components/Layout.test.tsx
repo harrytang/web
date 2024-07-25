@@ -2,13 +2,13 @@ import React from 'react'
 import { render, screen } from '@testing-library/react'
 import { Layout } from '@/components/Layout'
 
-jest.mock('@/components/Header', () => ({
-  Header: () => <div data-testid="header">Header</div>,
-}))
+jest.mock('@/components/Header', () => () => (
+  <div data-testid="header">Header</div>
+))
 
-jest.mock('@/components/Footer', () => ({
-  Footer: () => <div data-testid="footer">Footer</div>,
-}))
+jest.mock('@/components/Footer', () => () => (
+  <div data-testid="footer">Footer</div>
+))
 
 describe('Layout', () => {
   it('renders the Layout component with Header, Footer, and children', () => {
