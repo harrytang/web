@@ -2,7 +2,7 @@ type Media = {
   id: number
   attributes: {
     name: string
-    alternativeText: null
+    alternativeText: string
     caption: string
     width: number
     height: number
