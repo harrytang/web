@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/harrytang/web/compare/v1.5.1...v1.6.0) (2024-07-25)
+
+
+### Features
+
+* adds NavLink ([dff23ae](https://github.com/harrytang/web/commit/dff23aee8a949ee755ccba977598f0d3dabc223a))
+
+
+### Bug Fixes
+
+* **deps:** update dependency tailwindcss to v3.4.7 ([#62](https://github.com/harrytang/web/issues/62)) ([ea23e47](https://github.com/harrytang/web/commit/ea23e47efee0a7de5babc2db035e7ae3777a5d2c))
+* incorrect alternativeText in media type ([c6f79b8](https://github.com/harrytang/web/commit/c6f79b8f0cf7c6de63a1c9918260e05ad82baf85))
+* wrong path ([c4fef74](https://github.com/harrytang/web/commit/c4fef74fdb9a97325426abe8d22624c7b9701655))
+
 ### [1.5.1](https://github.com/harrytang/web/compare/v1.5.0...v1.5.1) (2024-07-23)
 
 ## [1.5.0](https://github.com/harrytang/web/compare/v1.4.1...v1.5.0) (2024-07-23)
