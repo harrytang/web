@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.7.0](https://github.com/harrytang/web/compare/v1.6.0...v1.7.0) (2024-07-25)
+
+
+### Features
+
+* e2e test loads data from API ([2d73e3b](https://github.com/harrytang/web/commit/2d73e3b437f0ae6a5b4eda3ca6db5da218bc6218))
+
 ## [1.6.0](https://github.com/harrytang/web/compare/v1.5.1...v1.6.0) (2024-07-25)
 
 
