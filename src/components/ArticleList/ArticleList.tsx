@@ -1,6 +1,10 @@
 import Card from '@/components/Card'
 import { Blog } from '@/lib/blogs'
 import { formatDate } from '@/lib/formatDate'
+import CardTitle from '../Card/CardTitle'
+import CardEyebrow from '../Card/CardEyebrow'
+import CardDescription from '../Card/CardDescription'
+import CardCta from '../Card/CardCta'
 
 type ArticleListProps = {
   article: Blog
@@ -11,21 +15,21 @@ const ArticleList: React.FC<ArticleListProps> = ({ article, type }) => {
   if (type === 'compact') {
     return (
       <Card as="article">
-        <Card.Title href={`/blog/${article.attributes.slug}`}>
+        <CardTitle href={`/blog/${article.attributes.slug}`}>
           {article.attributes.title}
-        </Card.Title>
-        <Card.Eyebrow
+        </CardTitle>
+        <CardEyebrow
           className="text-zinc-500"
           as="time"
           dateTime={article.attributes.publishedAt}
           decorate
         >
           {formatDate(article.attributes.publishedAt)}
-        </Card.Eyebrow>
-        <Card.Description>
+        </CardEyebrow>
+        <CardDescription>
           {article.attributes.seo.metaDescription}
-        </Card.Description>
-        <Card.Cta>Read article</Card.Cta>
+        </CardDescription>
+        <CardCta>Read article</CardCta>
       </Card>
     )
   }
@@ -33,29 +37,29 @@ const ArticleList: React.FC<ArticleListProps> = ({ article, type }) => {
     return (
       <article className="md:grid md:grid-cols-4 md:items-baseline">
         <Card className="md:col-span-3">
-          <Card.Title href={`/blog/${article.attributes.slug}`}>
+          <CardTitle href={`/blog/${article.attributes.slug}`}>
             {article.attributes.title}
-          </Card.Title>
-          <Card.Eyebrow
+          </CardTitle>
+          <CardEyebrow
             as="time"
             dateTime={article.attributes.publishedAt}
             className="text-zinc-500 md:hidden"
             decorate
           >
             {formatDate(article.attributes.publishedAt)}
-          </Card.Eyebrow>
-          <Card.Description>
+          </CardEyebrow>
+          <CardDescription>
             {article.attributes.seo.metaDescription}
-          </Card.Description>
-          <Card.Cta>Read article</Card.Cta>
+          </CardDescription>
+          <CardCta>Read article</CardCta>
         </Card>
-        <Card.Eyebrow
+        <CardEyebrow
           as="time"
           dateTime={article.attributes.publishedAt}
           className="mt-1 hidden text-zinc-500 md:block"
         >
           {formatDate(article.attributes.publishedAt)}
-        </Card.Eyebrow>
+        </CardEyebrow>
       </article>
     )
   }

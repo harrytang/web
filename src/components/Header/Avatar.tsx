@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import Link from 'next/link'
 import Image from 'next/image'
-import avatarImage from '@/images/avatar.png'
+import avatarImage from './../../app/icon.png'
 import { ComponentPropsWithoutRef } from 'react'
 
 type AvatarProps = Omit<ComponentPropsWithoutRef<typeof Link>, 'href'> & {

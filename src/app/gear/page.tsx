@@ -1,4 +1,6 @@
 import Card from '@/components/Card'
+import CardDescription from '@/components/Card/CardDescription'
+import CardTitle from '@/components/Card/CardTitle'
 import Section from '@/components/Section'
 import SimpleLayout from '@/components/SimpleLayout/SimpleLayout'
 import { generateSeoMeta, generateWebPageJsonLd } from '@/lib/hepler'
@@ -29,10 +31,10 @@ function Tool({
 }) {
   return (
     <Card as="li">
-      <Card.Title as="h3" href={href}>
+      <CardTitle as="h3" href={href}>
         {title}
-      </Card.Title>
-      <Card.Description>{children}</Card.Description>
+      </CardTitle>
+      <CardDescription>{children}</CardDescription>
     </Card>
   )
 }
