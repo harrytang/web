@@ -1,5 +1,5 @@
 import CSE from '@/components/CSE'
-import { SimpleLayout } from '@/components/SimpleLayout'
+import SimpleLayout from '@/components/SimpleLayout'
 
 const Page = async () => {
   console.info(`Rendering /search page...`)

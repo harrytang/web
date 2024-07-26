@@ -1,8 +1,8 @@
 import Image from 'next/image'
 
 // local imports
-import { Card } from '@/components/Card'
-import { SimpleLayout } from '@/components/SimpleLayout'
+import Card from '@/components/Card'
+import SimpleLayout from '@/components/SimpleLayout'
 import { getPage } from '@/lib/pages'
 import { getProjects } from '@/lib/projects'
 import { generateSeoMeta, generateWebPageJsonLd } from '@/lib/hepler'

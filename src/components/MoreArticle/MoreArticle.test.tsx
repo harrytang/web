@@ -1,7 +1,7 @@
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 // local imports
-import MoreArticle from '@/components/MoreArticle'
+import MoreArticle from './MoreArticle'
 import listBlogs2 from '@/../__test__/fixtures/listBlogs2.json'
 import listBlogs3 from '@/../__test__/fixtures/listBlogs3.json'
 import { Blog, getBlogs } from '@/lib/blogs'

@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
 
 // local imports
-import { Container } from '@/components/Container'
+import Container from '@/components/Container'
 import { getMenus } from '@/lib/menus'
 import Avatar from './Avatar'
 import AvatarContainer from './AvatarContainer'

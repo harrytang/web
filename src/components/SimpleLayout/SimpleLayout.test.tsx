@@ -1,19 +1,8 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
-import { SimpleLayout } from './SimpleLayout'
+import SimpleLayout from './SimpleLayout'
 
-// Mock the Container and SearchBox components
-jest.mock('@/components/Container', () => ({
-  Container: ({
-    children,
-    className,
-  }: {
-    children: React.ReactNode
-    className: string
-  }) => <div className={className}>{children}</div>,
-}))
-
-jest.mock('./SearchBox', () => () => <div>SearchBox</div>)
+jest.mock('@/components/SearchBox', () => () => <div>SearchBox</div>)
 
 describe('SimpleLayout component', () => {
   it('renders the description and content when provided', () => {

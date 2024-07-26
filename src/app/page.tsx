@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import clsx from 'clsx'
 
-import { Container } from '@/components/Container'
+import Container from '@/components/Container'
 import { Work, getWorks } from '@/lib/works'
 import { getProfile } from '@/lib/profile'
 import { Media } from '@/types/media'

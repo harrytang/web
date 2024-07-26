@@ -1,4 +1,4 @@
-import { SimpleLayout } from '@/components/SimpleLayout'
+import SimpleLayout from '@/components/SimpleLayout/'
 import { generateSeoMeta, generateWebPageJsonLd } from '@/lib/hepler'
 import { getPage, getPageSlugs } from '@/lib/pages'
 import notFound from '@/app/not-found'

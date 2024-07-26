@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import NavLink from '@/components/NavLink'
+import NavLink from './NavLink'
 
 describe('NavLink', () => {
   it('renders children correctly', () => {

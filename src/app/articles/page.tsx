@@ -1,4 +1,4 @@
-import { SimpleLayout } from '@/components/SimpleLayout'
+import SimpleLayout from '@/components/SimpleLayout'
 import { getBlogs } from '@/lib/blogs'
 import { getPage } from '@/lib/pages'
 import {

@@ -2,7 +2,7 @@ import Link from 'next/link'
 import clsx from 'clsx'
 import ChevronRightIcon from '@heroicons/react/20/solid/ChevronRightIcon'
 
-export function Card<T extends React.ElementType = 'div'>({
+export default function Card<T extends React.ElementType = 'div'>({
   as,
   className,
   children,

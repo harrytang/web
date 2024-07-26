@@ -1,12 +1,11 @@
 import { useId } from 'react'
 
-export function Section({
-  title,
-  children,
-}: {
+type SectionProps = {
   title: string
   children: React.ReactNode
-}) {
+}
+
+const Section: React.FC<SectionProps> = ({ title, children }) => {
   let id = useId()
 
   return (
@@ -26,3 +25,5 @@ export function Section({
     </section>
   )
 }
+
+export default Section

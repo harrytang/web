@@ -1,4 +1,4 @@
-import { Card } from '@/components/Card'
+import Card from '@/components/Card'
 import { Blog } from '@/lib/blogs'
 import { formatDate } from '@/lib/formatDate'
 

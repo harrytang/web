@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react'
-import CSE from '@/components/CSE'
+import CSE from '@/components/CSE/CSE'
 
 describe('CSE Component', () => {
   const OLD_ENV = process.env

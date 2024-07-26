@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-import { Prose } from '@/components/Prose'
+import Prose from '@/components/Prose'
 
 describe('Prose', () => {
   it('renders children correctly', () => {

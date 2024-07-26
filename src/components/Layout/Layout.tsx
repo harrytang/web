@@ -1,7 +1,11 @@
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
 
-export function Layout({ children }: { children: React.ReactNode }) {
+type LayoutProps = {
+  children: React.ReactNode
+}
+
+const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <>
       <div className="fixed inset-0 flex justify-center sm:px-8">
@@ -17,3 +21,5 @@ export function Layout({ children }: { children: React.ReactNode }) {
     </>
   )
 }
+
+export default Layout

@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
-import { Section } from './Section'
+import Section from './Section'
 
 describe('Section component', () => {
   it('renders the title and children correctly', () => {

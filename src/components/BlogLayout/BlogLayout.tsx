@@ -9,8 +9,8 @@ import { ArrowLeftIcon, InformationCircleIcon } from '@heroicons/react/20/solid'
 
 // local imports
 import { AppContext } from '@/app/providers'
-import { Container } from '@/components/Container'
-import { Prose } from '@/components/Prose'
+import Container from '@/components/Container'
+import Prose from '@/components/Prose'
 import { formatDate } from '@/lib/formatDate'
 import { Blog } from '@/lib/blogs'
 

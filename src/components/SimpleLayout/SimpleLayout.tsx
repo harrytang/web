@@ -2,21 +2,23 @@ import ReactMarkdown from 'react-markdown'
 import { Suspense } from 'react'
 
 // local imports
-import { Container } from '@/components/Container'
+import Container from '@/components/Container'
 import SearchBox from '@/components/SearchBox'
-import { Prose } from '@/components/Prose'
+import Prose from '@/components/Prose'
 
-export function SimpleLayout({
-  subtitle,
-  content,
-  seachBox = false,
-  children,
-}: {
+type SimpleLayoutProps = {
   subtitle?: string
   content?: string
   seachBox?: boolean
   children?: React.ReactNode
-}) {
+}
+
+const SimpleLayout: React.FC<SimpleLayoutProps> = ({
+  subtitle,
+  content,
+  seachBox = false,
+  children,
+}) => {
   return (
     <Container className="mt-16 sm:mt-32">
       {subtitle && (
@@ -40,3 +42,5 @@ export function SimpleLayout({
     </Container>
   )
 }
+
+export default SimpleLayout

@@ -1,6 +1,6 @@
 import Image from 'next/image'
 // local imports
-import { SimpleLayout } from '@/components/SimpleLayout'
+import SimpleLayout from '@/components/SimpleLayout'
 import { getPage } from '@/lib/pages'
 import { generateSeoMeta, generateWebPageJsonLd } from '@/lib/hepler'
 import { listRandomSkill } from '@/lib/skills'

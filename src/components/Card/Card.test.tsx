@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
-import { Card } from '@/components/Card'
+import Card from './Card'
 
 // Mock next/link to render as a simple anchor for testing
 jest.mock('next/link', () => {
