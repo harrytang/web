@@ -1,7 +1,6 @@
 import clsx from 'clsx'
 import Link from 'next/link'
 import Image from 'next/image'
-import avatarImage from './../../app/icon.png'
 import { ComponentPropsWithoutRef } from 'react'
 
 type AvatarProps = Omit<ComponentPropsWithoutRef<typeof Link>, 'href'> & {
@@ -22,7 +21,9 @@ const Avatar: React.FC<AvatarProps> = ({
       {...props}
     >
       <Image
-        src={avatarImage}
+        src={process.env.NEXT_PUBLIC_AVATAR_URL!}
+        width="512"
+        height="512"
         alt={process.env.NEXT_PUBLIC_SITE_NAME!}
         sizes={large ? '4rem' : '2.25rem'}
         className={clsx(
