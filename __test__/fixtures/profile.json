@@ -1,0 +1,771 @@
+{
+  "data": {
+    "id": 2,
+    "attributes": {
+      "title": "Solutions Architect & DevOps Engineer",
+      "welcome": "I'm Harry Tang, a Solutions Architect and DevOps Engineer. I design scalable, integrated solutions using cloud platforms, automation, and CI/CD pipelines, bridging development and operations to deliver secure, efficient, and innovative results.",
+      "about": "Solutions Architect & DevOps Engineer",
+      "biography": "Hello! I'm Harry Tang, a Solutions Architect and DevOps Engineer based in Espoo, Finland. I've been in the IT industry since 2009, starting as a PHP developer and later expanding my skills to include React and Node.js.\n\n## **Professional Expertise**\nI'm a certified Kubernetes engineer, skilled in container orchestration for scalable and reliable applications. As a Solutions Architect, I design robust IT solutions and apply DevOps practices to enhance productivity and efficiency.\n\n## **Beyond IT**\nOutside of work, I'm passionate about badminton and enjoy playing Xiangqi, the traditional Chinese board game. These hobbies help me maintain a balanced and active lifestyle.",
+      "createdAt": "2024-04-01T20:02:25.657Z",
+      "updatedAt": "2024-07-14T09:23:25.864Z",
+      "publishedAt": "2024-04-01T20:02:26.445Z",
+      "photos": {
+        "data": [
+          {
+            "id": 96,
+            "attributes": {
+              "name": "kube-prometheus-stack.png",
+              "alternativeText": "rotate-2",
+              "caption": "kube-prometheus-stack",
+              "width": 2588,
+              "height": 1856,
+              "formats": {
+                "thumbnail": {
+                  "name": "thumbnail_kube-prometheus-stack.png",
+                  "hash": "thumbnail_kube_prometheus_stack_b1ebd2156a",
+                  "ext": ".png",
+                  "mime": "image/png",
+                  "path": null,
+                  "width": 218,
+                  "height": 156,
+                  "size": 28.28,
+                  "sizeInBytes": 28283,
+                  "url": "https://assets.harrytang.xyz/dev/thumbnail_kube_prometheus_stack_b1ebd2156a.png"
+                },
+                "small": {
+                  "name": "small_kube-prometheus-stack.png",
+                  "hash": "small_kube_prometheus_stack_b1ebd2156a",
+                  "ext": ".png",
+                  "mime": "image/png",
+                  "path": null,
+                  "width": 500,
+                  "height": 359,
+                  "size": 87.41,
+                  "sizeInBytes": 87414,
+                  "url": "https://assets.harrytang.xyz/dev/small_kube_prometheus_stack_b1ebd2156a.png"
+                },
+                "large": {
+                  "name": "large_kube-prometheus-stack.png",
+                  "hash": "large_kube_prometheus_stack_b1ebd2156a",
+                  "ext": ".png",
+                  "mime": "image/png",
+                  "path": null,
+                  "width": 1000,
+                  "height": 717,
+                  "size": 229.28,
+                  "sizeInBytes": 229281,
+                  "url": "https://assets.harrytang.xyz/dev/large_kube_prometheus_stack_b1ebd2156a.png"
+                },
+                "medium": {
+                  "name": "medium_kube-prometheus-stack.png",
+                  "hash": "medium_kube_prometheus_stack_b1ebd2156a",
+                  "ext": ".png",
+                  "mime": "image/png",
+                  "path": null,
+                  "width": 750,
+                  "height": 538,
+                  "size": 153,
+                  "sizeInBytes": 152999,
+                  "url": "https://assets.harrytang.xyz/dev/medium_kube_prometheus_stack_b1ebd2156a.png"
+                }
+              },
+              "hash": "kube_prometheus_stack_b1ebd2156a",
+              "ext": ".png",
+              "mime": "image/png",
+              "size": 110.47,
+              "url": "https://assets.harrytang.xyz/dev/kube_prometheus_stack_b1ebd2156a.png",
+              "previewUrl": null,
+              "provider": "aws-s3",
+              "provider_metadata": null,
+              "createdAt": "2024-04-06T14:14:41.533Z",
+              "updatedAt": "2024-07-17T16:54:57.770Z"
+            }
+          },
+          {
+            "id": 167,
+            "attributes": {
+              "name": "workstation.jpeg",
+              "alternativeText": "-rotate-2",
+              "caption": "Workstation",
+              "width": 1170,
+              "height": 878,
+              "formats": {
+                "small": {
+                  "name": "small_workstation.jpeg",
+                  "hash": "small_workstation_1847d54d0d",
+                  "ext": ".jpeg",
+                  "mime": "image/jpeg",
+                  "path": null,
+                  "width": 500,
+                  "height": 375,
+                  "size": 34.01,
+                  "sizeInBytes": 34005,
+                  "url": "https://assets.harrytang.xyz/dev/small_workstation_1847d54d0d.jpeg"
+                },
+                "medium": {
+                  "name": "medium_workstation.jpeg",
+                  "hash": "medium_workstation_1847d54d0d",
+                  "ext": ".jpeg",
+                  "mime": "image/jpeg",
+                  "path": null,
+                  "width": 750,
+                  "height": 563,
+                  "size": 68.6,
+                  "sizeInBytes": 68601,
+                  "url": "https://assets.harrytang.xyz/dev/medium_workstation_1847d54d0d.jpeg"
+                },
+                "thumbnail": {
+                  "name": "thumbnail_workstation.jpeg",
+                  "hash": "thumbnail_workstation_1847d54d0d",
+                  "ext": ".jpeg",
+                  "mime": "image/jpeg",
+                  "path": null,
+                  "width": 208,
+                  "height": 156,
+                  "size": 7.78,
+                  "sizeInBytes": 7784,
+                  "url": "https://assets.harrytang.xyz/dev/thumbnail_workstation_1847d54d0d.jpeg"
+                },
+                "large": {
+                  "name": "large_workstation.jpeg",
+                  "hash": "large_workstation_1847d54d0d",
+                  "ext": ".jpeg",
+                  "mime": "image/jpeg",
+                  "path": null,
+                  "width": 1000,
+                  "height": 750,
+                  "size": 111.81,
+                  "sizeInBytes": 111811,
+                  "url": "https://assets.harrytang.xyz/dev/large_workstation_1847d54d0d.jpeg"
+                }
+              },
+              "hash": "workstation_1847d54d0d",
+              "ext": ".jpeg",
+              "mime": "image/jpeg",
+              "size": 147.08,
+              "url": "https://assets.harrytang.xyz/dev/workstation_1847d54d0d.jpeg",
+              "previewUrl": null,
+              "provider": "aws-s3",
+              "provider_metadata": null,
+              "createdAt": "2024-07-14T09:22:27.468Z",
+              "updatedAt": "2024-07-17T16:56:41.286Z"
+            }
+          },
+          {
+            "id": 98,
+            "attributes": {
+              "name": "k8s.png",
+              "alternativeText": "-rotate-2",
+              "caption": "Kubernetes Engineer",
+              "width": 2607,
+              "height": 1366,
+              "formats": {
+                "thumbnail": {
+                  "name": "thumbnail_k8s.png",
+                  "hash": "thumbnail_k8s_1833a79bf7",
+                  "ext": ".png",
+                  "mime": "image/png",
+                  "path": null,
+                  "width": 245,
+                  "height": 128,
+                  "size": 12.38,
+                  "sizeInBytes": 12383,
+                  "url": "https://assets.harrytang.xyz/dev/thumbnail_k8s_1833a79bf7.png"
+                },
+                "medium": {
+                  "name": "medium_k8s.png",
+                  "hash": "medium_k8s_1833a79bf7",
+                  "ext": ".png",
+                  "mime": "image/png",
+                  "path": null,
+                  "width": 750,
+                  "height": 393,
+                  "size": 51.31,
+                  "sizeInBytes": 51307,
+                  "url": "https://assets.harrytang.xyz/dev/medium_k8s_1833a79bf7.png"
+                },
+                "large": {
+                  "name": "large_k8s.png",
+                  "hash": "large_k8s_1833a79bf7",
+                  "ext": ".png",
+                  "mime": "image/png",
+                  "path": null,
+                  "width": 1000,
+                  "height": 524,
+                  "size": 73.54,
+                  "sizeInBytes": 73540,
+                  "url": "https://assets.harrytang.xyz/dev/large_k8s_1833a79bf7.png"
+                },
+                "small": {
+                  "name": "small_k8s.png",
+                  "hash": "small_k8s_1833a79bf7",
+                  "ext": ".png",
+                  "mime": "image/png",
+                  "path": null,
+                  "width": 500,
+                  "height": 262,
+                  "size": 30.81,
+                  "sizeInBytes": 30809,
+                  "url": "https://assets.harrytang.xyz/dev/small_k8s_1833a79bf7.png"
+                }
+              },
+              "hash": "k8s_1833a79bf7",
+              "ext": ".png",
+              "mime": "image/png",
+              "size": 40.09,
+              "url": "https://assets.harrytang.xyz/dev/k8s_1833a79bf7.png",
+              "previewUrl": null,
+              "provider": "aws-s3",
+              "provider_metadata": null,
+              "createdAt": "2024-04-06T14:23:11.462Z",
+              "updatedAt": "2024-07-17T16:55:00.688Z"
+            }
+          },
+          {
+            "id": 97,
+            "attributes": {
+              "name": "badminton.jpeg",
+              "alternativeText": "rotate-2",
+              "caption": "Badminton",
+              "width": 840,
+              "height": 520,
+              "formats": {
+                "thumbnail": {
+                  "name": "thumbnail_badminton.jpeg",
+                  "hash": "thumbnail_badminton_6c1fd86ff9",
+                  "ext": ".jpeg",
+                  "mime": "image/jpeg",
+                  "path": null,
+                  "width": 245,
+                  "height": 152,
+                  "size": 8.48,
+                  "sizeInBytes": 8478,
+                  "url": "https://assets.harrytang.xyz/dev/thumbnail_badminton_6c1fd86ff9.jpeg"
+                },
+                "small": {
+                  "name": "small_badminton.jpeg",
+                  "hash": "small_badminton_6c1fd86ff9",
+                  "ext": ".jpeg",
+                  "mime": "image/jpeg",
+                  "path": null,
+                  "width": 500,
+                  "height": 310,
+                  "size": 27,
+                  "sizeInBytes": 26997,
+                  "url": "https://assets.harrytang.xyz/dev/small_badminton_6c1fd86ff9.jpeg"
+                },
+                "medium": {
+                  "name": "medium_badminton.jpeg",
+                  "hash": "medium_badminton_6c1fd86ff9",
+                  "ext": ".jpeg",
+                  "mime": "image/jpeg",
+                  "path": null,
+                  "width": 750,
+                  "height": 464,
+                  "size": 48.76,
+                  "sizeInBytes": 48757,
+                  "url": "https://assets.harrytang.xyz/dev/medium_badminton_6c1fd86ff9.jpeg"
+                }
+              },
+              "hash": "badminton_6c1fd86ff9",
+              "ext": ".jpeg",
+              "mime": "image/jpeg",
+              "size": 49.04,
+              "url": "https://assets.harrytang.xyz/dev/badminton_6c1fd86ff9.jpeg",
+              "previewUrl": null,
+              "provider": "aws-s3",
+              "provider_metadata": null,
+              "createdAt": "2024-04-06T14:21:16.232Z",
+              "updatedAt": "2024-07-17T16:54:59.009Z"
+            }
+          },
+          {
+            "id": 102,
+            "attributes": {
+              "name": "harry-vs-li.png",
+              "alternativeText": "rotate-2",
+              "caption": "Xiangqi",
+              "width": 806,
+              "height": 721,
+              "formats": {
+                "thumbnail": {
+                  "name": "thumbnail_harry-vs-li.png",
+                  "hash": "thumbnail_harry_vs_li_c2249ed83a",
+                  "ext": ".png",
+                  "mime": "image/png",
+                  "path": null,
+                  "width": 174,
+                  "height": 156,
+                  "size": 68.15,
+                  "sizeInBytes": 68152,
+                  "url": "https://assets.harrytang.xyz/dev/thumbnail_harry_vs_li_c2249ed83a.png"
+                },
+                "small": {
+                  "name": "small_harry-vs-li.png",
+                  "hash": "small_harry_vs_li_c2249ed83a",
+                  "ext": ".png",
+                  "mime": "image/png",
+                  "path": null,
+                  "width": 500,
+                  "height": 447,
+                  "size": 466.88,
+                  "sizeInBytes": 466878,
+                  "url": "https://assets.harrytang.xyz/dev/small_harry_vs_li_c2249ed83a.png"
+                },
+                "medium": {
+                  "name": "medium_harry-vs-li.png",
+                  "hash": "medium_harry_vs_li_c2249ed83a",
+                  "ext": ".png",
+                  "mime": "image/png",
+                  "path": null,
+                  "width": 750,
+                  "height": 671,
+                  "size": 977.72,
+                  "sizeInBytes": 977721,
+                  "url": "https://assets.harrytang.xyz/dev/medium_harry_vs_li_c2249ed83a.png"
+                }
+              },
+              "hash": "harry_vs_li_c2249ed83a",
+              "ext": ".png",
+              "mime": "image/png",
+              "size": 228.42,
+              "url": "https://assets.harrytang.xyz/dev/harry_vs_li_c2249ed83a.png",
+              "previewUrl": null,
+              "provider": "aws-s3",
+              "provider_metadata": null,
+              "createdAt": "2024-04-06T15:12:09.786Z",
+              "updatedAt": "2024-07-17T16:55:05.810Z"
+            }
+          }
+        ]
+      },
+      "seo": {
+        "id": 63,
+        "metaTitle": "About",
+        "metaDescription": "I'm Harry Tang. I live in the city of Espoo, Finland, where I design the future.",
+        "keywords": "harry tang, harry, gia duy, solutions, architect,  cloud engineer, devops, developer, badminton, chinese chess, xiangqi",
+        "metaRobots": null,
+        "structuredData": null,
+        "metaViewport": null,
+        "canonicalURL": null,
+        "metaSocial": [
+          {
+            "id": 117,
+            "socialNetwork": "Facebook",
+            "title": "Harry Tang",
+            "description": "Solutions Architect & Cloud Engineer",
+            "image": {
+              "data": {
+                "id": 85,
+                "attributes": {
+                  "name": "harrytang.jpg",
+                  "alternativeText": "Harry Tang",
+                  "caption": "Harry Tang",
+                  "width": 1307,
+                  "height": 1391,
+                  "formats": {
+                    "thumbnail": {
+                      "name": "thumbnail_harrytang.jpg",
+                      "hash": "thumbnail_417404840_3658256367719833_671783492109850866_n_aed61f643a",
+                      "ext": ".jpg",
+                      "mime": "image/jpeg",
+                      "path": null,
+                      "width": 147,
+                      "height": 156,
+                      "size": 6.07,
+                      "sizeInBytes": 6070,
+                      "url": "https://assets.harrytang.xyz/dev/thumbnail_417404840_3658256367719833_671783492109850866_n_aed61f643a.jpg"
+                    },
+                    "small": {
+                      "name": "small_harrytang.jpg",
+                      "hash": "small_417404840_3658256367719833_671783492109850866_n_aed61f643a",
+                      "ext": ".jpg",
+                      "mime": "image/jpeg",
+                      "path": null,
+                      "width": 470,
+                      "height": 500,
+                      "size": 36.36,
+                      "sizeInBytes": 36359,
+                      "url": "https://assets.harrytang.xyz/dev/small_417404840_3658256367719833_671783492109850866_n_aed61f643a.jpg"
+                    },
+                    "large": {
+                      "name": "large_harrytang.jpg",
+                      "hash": "large_417404840_3658256367719833_671783492109850866_n_aed61f643a",
+                      "ext": ".jpg",
+                      "mime": "image/jpeg",
+                      "path": null,
+                      "width": 940,
+                      "height": 1000,
+                      "size": 111.65,
+                      "sizeInBytes": 111654,
+                      "url": "https://assets.harrytang.xyz/dev/large_417404840_3658256367719833_671783492109850866_n_aed61f643a.jpg"
+                    },
+                    "medium": {
+                      "name": "medium_harrytang.jpg",
+                      "hash": "medium_417404840_3658256367719833_671783492109850866_n_aed61f643a",
+                      "ext": ".jpg",
+                      "mime": "image/jpeg",
+                      "path": null,
+                      "width": 705,
+                      "height": 750,
+                      "size": 71,
+                      "sizeInBytes": 71001,
+                      "url": "https://assets.harrytang.xyz/dev/medium_417404840_3658256367719833_671783492109850866_n_aed61f643a.jpg"
+                    }
+                  },
+                  "hash": "417404840_3658256367719833_671783492109850866_n_aed61f643a",
+                  "ext": ".jpg",
+                  "mime": "image/jpeg",
+                  "size": 187.12,
+                  "url": "https://assets.harrytang.xyz/dev/417404840_3658256367719833_671783492109850866_n_aed61f643a.jpg",
+                  "previewUrl": null,
+                  "provider": "aws-s3",
+                  "provider_metadata": null,
+                  "createdAt": "2024-04-06T12:42:33.178Z",
+                  "updatedAt": "2024-07-17T16:54:51.398Z"
+                }
+              }
+            }
+          },
+          {
+            "id": 118,
+            "socialNetwork": "Twitter",
+            "title": "Harry Tang",
+            "description": "Solutions Architect & Cloud Engineer",
+            "image": {
+              "data": {
+                "id": 85,
+                "attributes": {
+                  "name": "harrytang.jpg",
+                  "alternativeText": "Harry Tang",
+                  "caption": "Harry Tang",
+                  "width": 1307,
+                  "height": 1391,
+                  "formats": {
+                    "thumbnail": {
+                      "name": "thumbnail_harrytang.jpg",
+                      "hash": "thumbnail_417404840_3658256367719833_671783492109850866_n_aed61f643a",
+                      "ext": ".jpg",
+                      "mime": "image/jpeg",
+                      "path": null,
+                      "width": 147,
+                      "height": 156,
+                      "size": 6.07,
+                      "sizeInBytes": 6070,
+                      "url": "https://assets.harrytang.xyz/dev/thumbnail_417404840_3658256367719833_671783492109850866_n_aed61f643a.jpg"
+                    },
+                    "small": {
+                      "name": "small_harrytang.jpg",
+                      "hash": "small_417404840_3658256367719833_671783492109850866_n_aed61f643a",
+                      "ext": ".jpg",
+                      "mime": "image/jpeg",
+                      "path": null,
+                      "width": 470,
+                      "height": 500,
+                      "size": 36.36,
+                      "sizeInBytes": 36359,
+                      "url": "https://assets.harrytang.xyz/dev/small_417404840_3658256367719833_671783492109850866_n_aed61f643a.jpg"
+                    },
+                    "large": {
+                      "name": "large_harrytang.jpg",
+                      "hash": "large_417404840_3658256367719833_671783492109850866_n_aed61f643a",
+                      "ext": ".jpg",
+                      "mime": "image/jpeg",
+                      "path": null,
+                      "width": 940,
+                      "height": 1000,
+                      "size": 111.65,
+                      "sizeInBytes": 111654,
+                      "url": "https://assets.harrytang.xyz/dev/large_417404840_3658256367719833_671783492109850866_n_aed61f643a.jpg"
+                    },
+                    "medium": {
+                      "name": "medium_harrytang.jpg",
+                      "hash": "medium_417404840_3658256367719833_671783492109850866_n_aed61f643a",
+                      "ext": ".jpg",
+                      "mime": "image/jpeg",
+                      "path": null,
+                      "width": 705,
+                      "height": 750,
+                      "size": 71,
+                      "sizeInBytes": 71001,
+                      "url": "https://assets.harrytang.xyz/dev/medium_417404840_3658256367719833_671783492109850866_n_aed61f643a.jpg"
+                    }
+                  },
+                  "hash": "417404840_3658256367719833_671783492109850866_n_aed61f643a",
+                  "ext": ".jpg",
+                  "mime": "image/jpeg",
+                  "size": 187.12,
+                  "url": "https://assets.harrytang.xyz/dev/417404840_3658256367719833_671783492109850866_n_aed61f643a.jpg",
+                  "previewUrl": null,
+                  "provider": "aws-s3",
+                  "provider_metadata": null,
+                  "createdAt": "2024-04-06T12:42:33.178Z",
+                  "updatedAt": "2024-07-17T16:54:51.398Z"
+                }
+              }
+            }
+          }
+        ],
+        "metaImage": {
+          "data": {
+            "id": 85,
+            "attributes": {
+              "name": "harrytang.jpg",
+              "alternativeText": "Harry Tang",
+              "caption": "Harry Tang",
+              "width": 1307,
+              "height": 1391,
+              "formats": {
+                "thumbnail": {
+                  "name": "thumbnail_harrytang.jpg",
+                  "hash": "thumbnail_417404840_3658256367719833_671783492109850866_n_aed61f643a",
+                  "ext": ".jpg",
+                  "mime": "image/jpeg",
+                  "path": null,
+                  "width": 147,
+                  "height": 156,
+                  "size": 6.07,
+                  "sizeInBytes": 6070,
+                  "url": "https://assets.harrytang.xyz/dev/thumbnail_417404840_3658256367719833_671783492109850866_n_aed61f643a.jpg"
+                },
+                "small": {
+                  "name": "small_harrytang.jpg",
+                  "hash": "small_417404840_3658256367719833_671783492109850866_n_aed61f643a",
+                  "ext": ".jpg",
+                  "mime": "image/jpeg",
+                  "path": null,
+                  "width": 470,
+                  "height": 500,
+                  "size": 36.36,
+                  "sizeInBytes": 36359,
+                  "url": "https://assets.harrytang.xyz/dev/small_417404840_3658256367719833_671783492109850866_n_aed61f643a.jpg"
+                },
+                "large": {
+                  "name": "large_harrytang.jpg",
+                  "hash": "large_417404840_3658256367719833_671783492109850866_n_aed61f643a",
+                  "ext": ".jpg",
+                  "mime": "image/jpeg",
+                  "path": null,
+                  "width": 940,
+                  "height": 1000,
+                  "size": 111.65,
+                  "sizeInBytes": 111654,
+                  "url": "https://assets.harrytang.xyz/dev/large_417404840_3658256367719833_671783492109850866_n_aed61f643a.jpg"
+                },
+                "medium": {
+                  "name": "medium_harrytang.jpg",
+                  "hash": "medium_417404840_3658256367719833_671783492109850866_n_aed61f643a",
+                  "ext": ".jpg",
+                  "mime": "image/jpeg",
+                  "path": null,
+                  "width": 705,
+                  "height": 750,
+                  "size": 71,
+                  "sizeInBytes": 71001,
+                  "url": "https://assets.harrytang.xyz/dev/medium_417404840_3658256367719833_671783492109850866_n_aed61f643a.jpg"
+                }
+              },
+              "hash": "417404840_3658256367719833_671783492109850866_n_aed61f643a",
+              "ext": ".jpg",
+              "mime": "image/jpeg",
+              "size": 187.12,
+              "url": "https://assets.harrytang.xyz/dev/417404840_3658256367719833_671783492109850866_n_aed61f643a.jpg",
+              "previewUrl": null,
+              "provider": "aws-s3",
+              "provider_metadata": null,
+              "createdAt": "2024-04-06T12:42:33.178Z",
+              "updatedAt": "2024-07-17T16:54:51.398Z"
+            }
+          }
+        }
+      },
+      "socials": [
+        {
+          "id": 5,
+          "title": "Follow on X",
+          "href": "https://twitter.com/giaduy",
+          "icon": {
+            "data": {
+              "id": 86,
+              "attributes": {
+                "name": "x-twitter.svg",
+                "alternativeText": "X-Twitter",
+                "caption": "X-Twitter",
+                "width": 512,
+                "height": 512,
+                "formats": null,
+                "hash": "x_twitter_b25438743c",
+                "ext": ".svg",
+                "mime": "image/svg+xml",
+                "size": 0.4,
+                "url": "https://assets.harrytang.xyz/dev/x_twitter_b25438743c.svg",
+                "previewUrl": null,
+                "provider": "aws-s3",
+                "provider_metadata": null,
+                "createdAt": "2024-04-06T12:46:36.050Z",
+                "updatedAt": "2024-07-17T16:54:51.673Z"
+              }
+            }
+          }
+        },
+        {
+          "id": 6,
+          "title": "Follow on GitHub",
+          "href": "https://github.com/harrytang",
+          "icon": {
+            "data": {
+              "id": 87,
+              "attributes": {
+                "name": "github.svg",
+                "alternativeText": "Github",
+                "caption": "Github",
+                "width": 496,
+                "height": 512,
+                "formats": null,
+                "hash": "github_fdb7cb285b",
+                "ext": ".svg",
+                "mime": "image/svg+xml",
+                "size": 1.56,
+                "url": "https://assets.harrytang.xyz/dev/github_fdb7cb285b.svg",
+                "previewUrl": null,
+                "provider": "aws-s3",
+                "provider_metadata": null,
+                "createdAt": "2024-04-06T12:47:35.265Z",
+                "updatedAt": "2024-07-17T16:54:51.914Z"
+              }
+            }
+          }
+        },
+        {
+          "id": 7,
+          "title": "Find me on LinkedIn",
+          "href": "https://www.linkedin.com/in/giaduy",
+          "icon": {
+            "data": {
+              "id": 88,
+              "attributes": {
+                "name": "linkedin.svg",
+                "alternativeText": "LinkedIn",
+                "caption": "LinkedIn",
+                "width": 448,
+                "height": 512,
+                "formats": null,
+                "hash": "linkedin_25d6737698",
+                "ext": ".svg",
+                "mime": "image/svg+xml",
+                "size": 0.67,
+                "url": "https://assets.harrytang.xyz/dev/linkedin_25d6737698.svg",
+                "previewUrl": null,
+                "provider": "aws-s3",
+                "provider_metadata": null,
+                "createdAt": "2024-04-06T12:48:18.973Z",
+                "updatedAt": "2024-07-17T16:54:52.179Z"
+              }
+            }
+          }
+        },
+        {
+          "id": 8,
+          "title": "Find me on Facebook",
+          "href": "https://www.facebook.com/giaduy.info",
+          "icon": {
+            "data": {
+              "id": 90,
+              "attributes": {
+                "name": "facebook.svg",
+                "alternativeText": "Facebook",
+                "caption": "Facebook",
+                "width": 512,
+                "height": 512,
+                "formats": {},
+                "hash": "facebook_7019f7a54d",
+                "ext": ".svg",
+                "mime": "image/svg+xml",
+                "size": 0.51,
+                "url": "https://assets.harrytang.xyz/dev/facebook_7019f7a54d.svg",
+                "previewUrl": null,
+                "provider": "aws-s3",
+                "provider_metadata": null,
+                "createdAt": "2024-04-06T13:13:11.274Z",
+                "updatedAt": "2024-07-17T16:54:52.833Z"
+              }
+            }
+          }
+        }
+      ],
+      "portraitPhoto": {
+        "data": {
+          "id": 85,
+          "attributes": {
+            "name": "harrytang.jpg",
+            "alternativeText": "Harry Tang",
+            "caption": "Harry Tang",
+            "width": 1307,
+            "height": 1391,
+            "formats": {
+              "thumbnail": {
+                "name": "thumbnail_harrytang.jpg",
+                "hash": "thumbnail_417404840_3658256367719833_671783492109850866_n_aed61f643a",
+                "ext": ".jpg",
+                "mime": "image/jpeg",
+                "path": null,
+                "width": 147,
+                "height": 156,
+                "size": 6.07,
+                "sizeInBytes": 6070,
+                "url": "https://assets.harrytang.xyz/dev/thumbnail_417404840_3658256367719833_671783492109850866_n_aed61f643a.jpg"
+              },
+              "small": {
+                "name": "small_harrytang.jpg",
+                "hash": "small_417404840_3658256367719833_671783492109850866_n_aed61f643a",
+                "ext": ".jpg",
+                "mime": "image/jpeg",
+                "path": null,
+                "width": 470,
+                "height": 500,
+                "size": 36.36,
+                "sizeInBytes": 36359,
+                "url": "https://assets.harrytang.xyz/dev/small_417404840_3658256367719833_671783492109850866_n_aed61f643a.jpg"
+              },
+              "large": {
+                "name": "large_harrytang.jpg",
+                "hash": "large_417404840_3658256367719833_671783492109850866_n_aed61f643a",
+                "ext": ".jpg",
+                "mime": "image/jpeg",
+                "path": null,
+                "width": 940,
+                "height": 1000,
+                "size": 111.65,
+                "sizeInBytes": 111654,
+                "url": "https://assets.harrytang.xyz/dev/large_417404840_3658256367719833_671783492109850866_n_aed61f643a.jpg"
+              },
+              "medium": {
+                "name": "medium_harrytang.jpg",
+                "hash": "medium_417404840_3658256367719833_671783492109850866_n_aed61f643a",
+                "ext": ".jpg",
+                "mime": "image/jpeg",
+                "path": null,
+                "width": 705,
+                "height": 750,
+                "size": 71,
+                "sizeInBytes": 71001,
+                "url": "https://assets.harrytang.xyz/dev/medium_417404840_3658256367719833_671783492109850866_n_aed61f643a.jpg"
+              }
+            },
+            "hash": "417404840_3658256367719833_671783492109850866_n_aed61f643a",
+            "ext": ".jpg",
+            "mime": "image/jpeg",
+            "size": 187.12,
+            "url": "https://assets.harrytang.xyz/dev/417404840_3658256367719833_671783492109850866_n_aed61f643a.jpg",
+            "previewUrl": null,
+            "provider": "aws-s3",
+            "provider_metadata": null,
+            "createdAt": "2024-04-06T12:42:33.178Z",
+            "updatedAt": "2024-07-17T16:54:51.398Z"
+          }
+        }
+      }
+    }
+  },
+  "meta": {}
+}

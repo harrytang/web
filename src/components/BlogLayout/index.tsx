@@ -1,3 +1,3 @@
 import BlogLayout from './BlogLayout'
 
-export default BlogLayout
+export { BlogLayout }

@@ -1,6 +1,5 @@
+import { ContainerInner, ContainerOuter } from '../Container'
 import NavLink from './NavLink'
-import ContainerOuter from '../Container/ContainerOuter'
-import ContainerInner from '../Container/ContainerInner'
 
 const Footer: React.FC = () => {
   const menus = [

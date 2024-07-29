@@ -3,8 +3,8 @@
 import { useState } from 'react'
 
 // local imports
-import ArticleList from '@/components/ArticleList'
-import Button from '@/components/Button'
+import { ArticleList } from '@/components/ArticleList'
+import { Button } from '@/components/Button'
 import { Blog, getBlogs } from '@/lib/blogs'
 
 type MoreArticleProps = {

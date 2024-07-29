@@ -1,13 +1,13 @@
-import SimpleLayout from '@/components/SimpleLayout'
+import { SimpleLayout } from '@/components/SimpleLayout'
 import { getBlogs } from '@/lib/blogs'
 import { getPage } from '@/lib/pages'
 import {
   generateListArticleJsonLd,
   generateSeoMeta,
   generateWebPageJsonLd,
-} from '@/lib/hepler'
-import ArticleList from '@/components/ArticleList'
-import MoreArticle from '@/components/MoreArticle'
+} from '@/lib/helper'
+import { ArticleList } from '@/components/ArticleList'
+import { MoreArticle } from '@/components/MoreArticle'
 
 export async function generateMetadata() {
   const page = await getPage('articles')
@@ -19,7 +19,7 @@ export async function generateMetadata() {
   )
 }
 
-export default async function ArticlesIndex() {
+const ArticlesIndex = async () => {
   console.info('Rendering /articles page...')
   const page = await getPage('articles')
   const blogs = await getBlogs(0, parseInt(process.env.NEXT_PUBLIC_PAGE_SIZE!))
@@ -54,3 +54,5 @@ export default async function ArticlesIndex() {
     </SimpleLayout>
   )
 }
+
+export default ArticlesIndex

@@ -2,7 +2,7 @@ import React from 'react'
 import { render, screen } from '@testing-library/react'
 import Section from './Section'
 
-describe('Section component', () => {
+describe('Section', () => {
   it('renders the title and children correctly', () => {
     const title = 'Test Title'
     const children = <p>Test Children</p>

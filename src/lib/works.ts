@@ -1,4 +1,4 @@
-import { fetchAPI } from './hepler'
+import { fetchAPI } from './helper'
 import { Media } from '@/types/media'
 
 export interface Work {

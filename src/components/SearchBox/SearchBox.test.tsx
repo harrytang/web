@@ -8,7 +8,7 @@ jest.mock('next/navigation', () => ({
   useSearchParams: jest.fn().mockReturnValue(new URLSearchParams('')),
 }))
 
-describe('SearchBox component', () => {
+describe('SearchBox', () => {
   const originalLocation = window.location
 
   beforeAll(() => {

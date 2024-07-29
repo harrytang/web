@@ -3,9 +3,9 @@ import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
 
 // local imports
-import Container from '@/components/Container'
+import { Container } from '@/components/Container'
 import { getProfile } from '@/lib/profile'
-import { generateProfilePageJsonLd, generateSeoMeta } from '@/lib/hepler'
+import { generateProfilePageJsonLd, generateSeoMeta } from '@/lib/helper'
 import { SocialLink } from '@/components/SocialLink'
 
 export async function generateMetadata(): Promise<Metadata> {

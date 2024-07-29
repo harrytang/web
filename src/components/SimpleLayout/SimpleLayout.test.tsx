@@ -2,7 +2,7 @@ import React from 'react'
 import { render, screen } from '@testing-library/react'
 import SimpleLayout from './SimpleLayout'
 
-jest.mock('@/components/SearchBox', () => () => <div>SearchBox</div>)
+jest.mock('@/components/SearchBox/SearchBox', () => () => <div>SearchBox</div>)
 
 describe('SimpleLayout component', () => {
   it('renders the description and content when provided', () => {

@@ -21,7 +21,7 @@ const mockArticle: Blog = {
           id: 0,
           attributes: {
             name: '',
-            alternativeText: null,
+            alternativeText: '',
             caption: '',
             width: 0,
             height: 0,

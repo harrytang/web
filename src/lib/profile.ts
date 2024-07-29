@@ -1,5 +1,5 @@
 import { Seo } from '@/types/seo'
-import { fetchAPI } from './hepler'
+import { fetchAPI } from './helper'
 import { Media } from '@/types/media'
 import { SocialLink } from '@/types/socialLink'
 

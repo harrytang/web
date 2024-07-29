@@ -2,9 +2,9 @@ import ReactMarkdown from 'react-markdown'
 import { Suspense } from 'react'
 
 // local imports
-import Container from '@/components/Container'
-import SearchBox from '@/components/SearchBox'
-import Prose from '@/components/Prose'
+import { Container } from '@/components/Container'
+import { SearchBox } from '@/components/SearchBox'
+import { Prose } from '@/components/Prose'
 
 type SimpleLayoutProps = {
   subtitle?: string

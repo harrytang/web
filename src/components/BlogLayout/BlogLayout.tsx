@@ -9,10 +9,10 @@ import { ArrowLeftIcon, InformationCircleIcon } from '@heroicons/react/20/solid'
 
 // local imports
 import { AppContext } from '@/app/providers'
-import Container from '@/components/Container'
-import Prose from '@/components/Prose'
-import { formatDate } from '@/lib/formatDate'
+import { Container } from '@/components/Container'
+import { Prose } from '@/components/Prose'
 import { Blog } from '@/lib/blogs'
+import { formatDate } from '@/lib/helper'
 
 // dynamic imports
 const ReactPlayer = dynamic(() => import('react-player'), { ssr: false })
@@ -21,7 +21,7 @@ type BlogLayoutProps = {
   blog: Blog
 }
 
-const BlogLayout: React.FC<BlogLayoutProps> = ({ blog }: { blog: Blog }) => {
+const BlogLayout: React.FC<BlogLayoutProps> = ({ blog }) => {
   let router = useRouter()
   let { previousPathname } = useContext(AppContext)
 

@@ -2,11 +2,11 @@ import React from 'react'
 import { render, screen } from '@testing-library/react'
 import Layout from './Layout'
 
-jest.mock('@/components/Header', () => () => (
+jest.mock('@/components/Header/Header', () => () => (
   <div data-testid="header">Header</div>
 ))
 
-jest.mock('@/components/Footer', () => () => (
+jest.mock('@/components/Footer/Footer', () => () => (
   <div data-testid="footer">Footer</div>
 ))
 

@@ -2,6 +2,7 @@ import { Menu } from '@/lib/menus'
 import {
   Popover,
   PopoverButton,
+  PopoverBackdrop,
   PopoverPanel,
   Transition,
   TransitionChild,
@@ -31,7 +32,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = (props) => {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <Popover.Overlay className="fixed inset-0 z-50 bg-zinc-800/40 backdrop-blur-sm dark:bg-black/80" />
+          <PopoverBackdrop className="fixed inset-0 z-50 bg-zinc-800/40 backdrop-blur-sm dark:bg-black/80" />
         </TransitionChild>
         <TransitionChild
           as={Fragment}
@@ -47,9 +48,9 @@ const MobileNavigation: React.FC<MobileNavigationProps> = (props) => {
             className="fixed inset-x-4 top-8 z-50 origin-top rounded-3xl bg-white p-8 ring-1 ring-zinc-900/5 dark:bg-zinc-900 dark:ring-zinc-800"
           >
             <div className="flex flex-row-reverse items-center justify-between">
-              <Popover.Button aria-label="Close menu" className="-m-1 p-1">
+              <PopoverButton aria-label="Close menu" className="-m-1 p-1">
                 <XMarkIcon className="h-6 w-6 text-zinc-500 dark:text-zinc-400" />
-              </Popover.Button>
+              </PopoverButton>
               <h2 className="text-sm font-medium text-zinc-600 dark:text-zinc-400">
                 Navigation
               </h2>

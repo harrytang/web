@@ -1,8 +1,8 @@
 import Image from 'next/image'
 // local imports
-import SimpleLayout from '@/components/SimpleLayout'
+import { SimpleLayout } from '@/components/SimpleLayout'
 import { getPage } from '@/lib/pages'
-import { generateSeoMeta, generateWebPageJsonLd } from '@/lib/hepler'
+import { generateSeoMeta, generateWebPageJsonLd } from '@/lib/helper'
 import { listRandomSkill } from '@/lib/skills'
 
 export const revalidate = 3600 // revalidate at most every hour
@@ -17,7 +17,7 @@ export async function generateMetadata() {
   )
 }
 
-export default async function Expertise() {
+const Expertise = async () => {
   console.info('Rendering /expertise page...')
   const page = await getPage('expertise')
   const skills = await listRandomSkill()
@@ -69,3 +69,5 @@ export default async function Expertise() {
     </SimpleLayout>
   )
 }
+
+export default Expertise

@@ -1,3 +1,5 @@
 import Container from './Container'
+import ContainerInner from './ContainerInner'
+import ContainerOuter from './ContainerOuter'
 
-export default Container
+export { Container, ContainerInner, ContainerOuter }

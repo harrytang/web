@@ -2,7 +2,7 @@ import React from 'react'
 import { render, screen } from '@testing-library/react'
 import CardDescription from './CardDescription'
 
-describe('CardDescription.test', () => {
+describe('CardDescription', () => {
   it('renders correctly', () => {
     render(<CardDescription>Description Content</CardDescription>)
     const descriptionElement = screen.getByText('Description Content')

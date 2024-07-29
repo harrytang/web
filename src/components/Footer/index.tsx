@@ -1,3 +1,4 @@
 import Footer from './Footer'
+import NavLink from './NavLink'
 
-export default Footer
+export { Footer, NavLink }

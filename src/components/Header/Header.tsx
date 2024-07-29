@@ -4,12 +4,12 @@ import { useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
 
 // local imports
-import Container from '@/components/Container'
+import { Container } from '@/components/Container'
 import { getMenus } from '@/lib/menus'
 import Avatar from './Avatar'
 import AvatarContainer from './AvatarContainer'
 import ThemeToggle from './ThemeToggle'
-import { clamp } from '@/lib/hepler'
+import { clamp } from '@/lib/helper'
 import DesktopNavigation from './DesktopNavigation'
 import MobileNavigation from './MobileNavigation'
 

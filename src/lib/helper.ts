@@ -1,14 +1,10 @@
-import { Seo } from '@/types/seo'
 import qs from 'qs'
+import { Seo } from '@/types/seo'
 import { Profile } from './profile'
 import { Blog } from './blogs'
+import { Use } from './uses'
 
-/**
- * Get full Strapi URL from path
- * @param {string} path Path of the URL
- * @returns {string} Full Strapi URL
- */
-export function getStrapiURL(path: string = ''): string {
+const getStrapiURL = (path: string = '') => {
   // Default to the server-side URL
   let url = process.env.STRAPI_API_URL
 
@@ -20,14 +16,7 @@ export function getStrapiURL(path: string = ''): string {
   return `${url}${path}`
 }
 
-/**
- * Helper to make GET requests to Strapi API endpoints
- * @param {string} path Path of the API route
- * @param {Object} urlParamsObject URL params object, will be stringified
- * @param {Object} options Options passed to fetch
- * @returns Parsed API call response
- */
-export async function fetchAPI<T>(
+const fetchAPI = async <T>(
   path: string,
   urlParamsObject: object = {},
   options: object = {},
@@ -40,7 +29,7 @@ export async function fetchAPI<T>(
       total: number
     }
   }
-}> {
+}> => {
   // Merge default and user options
   const cache = (
     process.env.NODE_ENV === 'development' ? 'no-store' : 'force-cache'
@@ -73,11 +62,7 @@ export async function fetchAPI<T>(
   }
 }
 
-/**
- * Get public site URL
- * @returns {string} Public site URL
- */
-export function getPublicSiteURL() {
+const getPublicSiteURL = () => {
   let publicSiteUrl = 'http://localhost:3000'
   if (
     typeof process.env.NEXT_PUBLIC_SITE_URL === 'string' &&
@@ -88,20 +73,12 @@ export function getPublicSiteURL() {
   return publicSiteUrl
 }
 
-/**
- * generateSeoMeta
- * @param path
- * @param seo
- * @param type
- * @param locale
- * @returns
- */
-export function generateSeoMeta(
+const generateSeoMeta = (
   path: string,
   seo: Seo,
   type: string,
   locale: string,
-) {
+) => {
   const publicSiteUrl = getPublicSiteURL()
 
   // Find the first Facebook and Twitter entries in metaSocial
@@ -306,11 +283,41 @@ const clamp = (number: number, a: number, b: number) => {
   return Math.min(Math.max(number, min), max)
 }
 
+const categorizeItems = (items: Use[]) => {
+  const categoryMap: { [key: string]: Use[] } = {}
+
+  // Group items by category
+  items.forEach((item) => {
+    const { category } = item.attributes
+    if (!categoryMap[category]) {
+      categoryMap[category] = []
+    }
+    categoryMap[category].push(item)
+  })
+
+  return categoryMap
+}
+
+const formatDate = (dateString: string) => {
+  return new Date(dateString).toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'UTC',
+  })
+}
+
 export {
+  getPublicSiteURL,
+  getStrapiURL,
+  generateSeoMeta,
   generateWebPageJsonLd,
   generatePersonJsonLd,
   generateArticleJsonLd,
   generateListArticleJsonLd,
   generateProfilePageJsonLd,
+  fetchAPI,
   clamp,
+  categorizeItems,
+  formatDate,
 }

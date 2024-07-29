@@ -11,7 +11,7 @@ jest.mock('@/lib/blogs', () => ({
 }))
 
 jest.mock(
-  '@/components/ArticleList',
+  '@/components/ArticleList/ArticleList',
   () =>
     ({ article, type }: { article: any; type: string }) => (
       <div>{article.attributes.slug}</div>

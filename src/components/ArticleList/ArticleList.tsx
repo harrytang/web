@@ -1,10 +1,12 @@
-import Card from '@/components/Card'
+import {
+  Card,
+  CardCta,
+  CardDescription,
+  CardEyebrow,
+  CardTitle,
+} from '@/components/Card'
 import { Blog } from '@/lib/blogs'
-import { formatDate } from '@/lib/formatDate'
-import CardTitle from '../Card/CardTitle'
-import CardEyebrow from '../Card/CardEyebrow'
-import CardDescription from '../Card/CardDescription'
-import CardCta from '../Card/CardCta'
+import { formatDate } from '@/lib/helper'
 
 type ArticleListProps = {
   article: Blog

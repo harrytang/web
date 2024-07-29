@@ -1,58 +1,12 @@
-import Card from '@/components/Card'
-import CardDescription from '@/components/Card/CardDescription'
-import CardTitle from '@/components/Card/CardTitle'
-import Section from '@/components/Section'
 import SimpleLayout from '@/components/SimpleLayout/SimpleLayout'
-import { generateSeoMeta, generateWebPageJsonLd } from '@/lib/hepler'
+import { Tool, ToolsSection } from '@/components/Tool'
+import {
+  categorizeItems,
+  generateSeoMeta,
+  generateWebPageJsonLd,
+} from '@/lib/helper'
 import { getPage } from '@/lib/pages'
 import { Use, getUses } from '@/lib/uses'
-
-function ToolsSection({
-  children,
-  ...props
-}: React.ComponentPropsWithoutRef<typeof Section>) {
-  return (
-    <Section {...props}>
-      <ul role="list" className="space-y-16">
-        {children}
-      </ul>
-    </Section>
-  )
-}
-
-function Tool({
-  title,
-  href,
-  children,
-}: {
-  title: string
-  href?: string
-  children: React.ReactNode
-}) {
-  return (
-    <Card as="li">
-      <CardTitle as="h3" href={href}>
-        {title}
-      </CardTitle>
-      <CardDescription>{children}</CardDescription>
-    </Card>
-  )
-}
-
-function transformItems(items: Use[]) {
-  const categoryMap: { [key: string]: Use[] } = {}
-
-  // Group items by category
-  items.forEach((item) => {
-    const { category } = item.attributes
-    if (!categoryMap[category]) {
-      categoryMap[category] = []
-    }
-    categoryMap[category].push(item)
-  })
-
-  return categoryMap
-}
 
 export async function generateMetadata() {
   const page = await getPage('gear')
@@ -64,11 +18,11 @@ export async function generateMetadata() {
   )
 }
 
-export default async function Gear() {
+const Gear = async () => {
   console.info('Rendering /gear page...')
   const page = await getPage('gear')
   const uses = await getUses()
-  const categorizedUses = transformItems(uses.data)
+  const categorizedUses = categorizeItems(uses.data)
   const jsonld = generateWebPageJsonLd({
     name: page.attributes.title,
     description: page.attributes.seo.metaDescription,
@@ -96,3 +50,4 @@ export default async function Gear() {
     </SimpleLayout>
   )
 }
+export default Gear

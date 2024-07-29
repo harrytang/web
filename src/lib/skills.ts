@@ -1,5 +1,5 @@
 import { Media } from '@/types/media'
-import { fetchAPI } from './hepler'
+import { fetchAPI } from './helper'
 
 export interface Skill {
   id: number
@@ -16,7 +16,7 @@ export interface Skill {
 }
 
 export async function listRandomSkill() {
-  const skills =  await fetchAPI<Skill[]>('/skills', {
+  const skills = await fetchAPI<Skill[]>('/skills', {
     populate: ['image'],
   })
   // randomize the order of the skills

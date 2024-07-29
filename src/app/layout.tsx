@@ -1,11 +1,15 @@
 import { type Metadata } from 'next'
 
 import { Providers } from '@/app/providers'
-import Layout from '@/components/Layout'
+import { Layout } from '@/components/Layout'
 
 import '@/styles/tailwind.css'
 import '@/styles/custom.css'
 import { getProfile } from '@/lib/profile'
+
+type RootLayoutProps = {
+  children: React.ReactNode
+}
 
 export const metadata = async (): Promise<Metadata> => {
   const profile = await getProfile()
@@ -24,11 +28,7 @@ export const metadata = async (): Promise<Metadata> => {
   }
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
   return (
     <html lang="en" className="h-full antialiased" suppressHydrationWarning>
       <body className="flex h-full bg-zinc-50 dark:bg-black">
@@ -41,3 +41,5 @@ export default function RootLayout({
     </html>
   )
 }
+
+export default RootLayout

@@ -1,9 +1,9 @@
-import SimpleLayout from '@/components/SimpleLayout/'
-import { generateSeoMeta, generateWebPageJsonLd } from '@/lib/hepler'
+import { SimpleLayout } from '@/components/SimpleLayout/'
+import { generateSeoMeta, generateWebPageJsonLd } from '@/lib/helper'
 import { getPage, getPageSlugs } from '@/lib/pages'
 import notFound from '@/app/not-found'
 
-type Params = {
+type PageProps = {
   params: {
     slug: string
   }
@@ -23,7 +23,7 @@ export async function generateStaticParams() {
 }
 
 // NextJS feature: https://nextjs.org/docs/app/api-reference/functions/generate-metadata
-export async function generateMetadata({ params }: Params) {
+export async function generateMetadata({ params }: PageProps) {
   const page = await getPage(params.slug)
   if (page && !IGNORED.includes(params.slug)) {
     return generateSeoMeta(
@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: Params) {
   }
 }
 
-export default async function Page({ params }: Params) {
+const Page: React.FC<PageProps> = async ({ params }) => {
   console.info(`Rendering /${params.slug} page...`)
   const page = await getPage(params.slug)
   if (!page || IGNORED.includes(params.slug)) {
@@ -59,3 +59,5 @@ export default async function Page({ params }: Params) {
     </SimpleLayout>
   )
 }
+
+export default Page

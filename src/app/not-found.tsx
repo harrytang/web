@@ -1,7 +1,7 @@
-import Button from '@/components/Button/Button'
-import Container from '@/components/Container'
+import { Button } from '@/components/Button'
+import { Container } from '@/components/Container'
 
-export default function NotFound() {
+const NotFound = () => {
   return (
     <Container className="flex h-full items-center pt-16 sm:pt-32">
       <div className="flex flex-col items-center">
@@ -21,3 +21,5 @@ export default function NotFound() {
     </Container>
   )
 }
+
+export default NotFound
