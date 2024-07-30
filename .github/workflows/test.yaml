@@ -4,38 +4,11 @@ on:
   workflow_call:
 
 jobs:
-  unit-tests:
+  coverage:
+    name: coverage
     runs-on: ubuntu-latest
     environment:
       name: test
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: 'npm'
-      - name: Install dependencies
-        run: npm ci
-      - name: Run tests
-        run: npm run test
-        env:
-          NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_STRAPI_API_URL }}
-          NEXT_PUBLIC_SITE_NAME: ${{ vars.NEXT_PUBLIC_SITE_NAME }}
-          NEXT_PUBLIC_STRAPI_API_URL: ${{ vars.NEXT_PUBLIC_STRAPI_API_URL }}
-          NEXT_PUBLIC_STORAGE_HOST: ${{ vars.NEXT_PUBLIC_STORAGE_HOST }}
-          NEXT_PUBLIC_CSE_ID: ${{ vars.NEXT_PUBLIC_CSE_ID }}
-          NEXT_PUBLIC_PAGE_SIZE: ${{ vars.NEXT_PUBLIC_PAGE_SIZE }}
-          NEXT_PUBLIC_HOME_PAGE_SIZE: ${{ vars.NEXT_PUBLIC_HOME_PAGE_SIZE }}
-          NEXT_PUBLIC_AVATAR_URL: ${{ vars.NEXT_PUBLIC_AVATAR_URL }}
-          NEXT_PUBLIC_FAVICON_URL: ${{ vars.NEXT_PUBLIC_FAVICON_URL }}
-          STRAPI_API_URL: ${{ vars.STRAPI_API_URL }}
-          SITEMAP_SIZE: ${{ vars.SITEMAP_SIZE }}
-  coverage:
-    needs: [unit-tests]
-    name: coverage
-    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
