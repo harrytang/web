@@ -19,12 +19,6 @@ export const metadata = async (): Promise<Metadata> => {
       default: `${process.env.NEXT_PUBLIC_SITE_NAME} - ${profile.data.attributes.title}`,
     },
     description: profile.data.attributes.seo.metaDescription,
-
-    alternates: {
-      types: {
-        'application/rss+xml': `${process.env.NEXT_PUBLIC_SITE_URL}/feed.xml`,
-      },
-    },
   }
 }
 

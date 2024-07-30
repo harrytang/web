@@ -1,7 +1,8 @@
-import { fetchAPI, getPublicSiteURL } from '@/lib/helper'
+import { getPublicSiteURL } from '@/lib/helper'
 import { MetadataRoute } from 'next'
 import { Blog } from '@/lib/blogs'
 import { Page } from '@/lib/pages'
+import { fetchAPI } from '@/lib/strapi'
 
 export const revalidate = 3600 // 1 hour
 
