@@ -31,6 +31,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# assets
+/src/app/favicon.ico
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

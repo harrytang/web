@@ -48,6 +48,7 @@ jobs:
             NEXT_PUBLIC_PAGE_SIZE=${{ vars.NEXT_PUBLIC_PAGE_SIZE }}
             NEXT_PUBLIC_HOME_PAGE_SIZE=${{ vars.NEXT_PUBLIC_HOME_PAGE_SIZE }}
             NEXT_PUBLIC_AVATAR_URL=${{ vars.NEXT_PUBLIC_AVATAR_URL }}
+            NEXT_PUBLIC_FAVICON_URL=${{ vars.NEXT_PUBLIC_FAVICON_URL }}
             STRAPI_API_URL=${{ vars.STRAPI_API_URL }}
             SITEMAP_SIZE=${{ vars.SITEMAP_SIZE }}
           platforms: linux/arm64,linux/amd64
