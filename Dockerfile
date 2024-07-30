@@ -40,7 +40,7 @@ ENV NEXT_PUBLIC_CSE_ID=${NEXT_PUBLIC_CSE_ID}
 ENV NEXT_PUBLIC_PAGE_SIZE=${NEXT_PUBLIC_PAGE_SIZE}
 ENV NEXT_PUBLIC_HOME_PAGE_SIZE=${NEXT_PUBLIC_HOME_PAGE_SIZE}
 ENV NEXT_PUBLIC_AVATAR_URL=${NEXT_PUBLIC_AVATAR_URL}
-ENV NEXT_PUBLIC_FAVICON_URL=${NEXT_PUBLIC_AVATAR_URL}
+ENV NEXT_PUBLIC_FAVICON_URL=${NEXT_PUBLIC_FAVICON_URL}
 ENV STRAPI_API_URL=${STRAPI_API_URL}
 ENV SITEMAP_SIZE=${SITEMAP_SIZE}
 ENV NEXT_TELEMETRY_DISABLED=1
@@ -51,7 +51,9 @@ COPY --from=deps /usr/local/bin/npm /usr/local/bin/npm
 COPY --from=deps /usr/local/bin/npx /usr/local/bin/npx
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN wget https://assets.harrytang.xyz/favicon.ico -O src/app/favicon.ico
+RUN wget $NEXT_PUBLIC_FAVICON_URL -O src/app/favicon.ico
+RUN wget $NEXT_PUBLIC_AVATAR_URL -O src/app/icon.png
+RUN wget $NEXT_PUBLIC_AVATAR_URL -O src/app/apple-icon.png
 RUN npm run build
 # RUN npx nx affected -t build
 
