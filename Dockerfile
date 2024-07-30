@@ -52,8 +52,6 @@ COPY --from=deps /usr/local/bin/npx /usr/local/bin/npx
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN wget $NEXT_PUBLIC_FAVICON_URL -O src/app/favicon.ico
-# RUN wget $NEXT_PUBLIC_AVATAR_URL -O src/app/icon.png
-# RUN wget $NEXT_PUBLIC_AVATAR_URL -O src/app/apple-icon.png
 RUN npm run build
 # RUN npx nx affected -t build
 
