@@ -1,5 +1,5 @@
 import { Media } from '@/types/media'
-import { fetchAPI } from './helper'
+import { fetchAPI } from './strapi'
 
 export interface Skill {
   id: number

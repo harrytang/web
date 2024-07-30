@@ -1,4 +1,4 @@
-import { fetchAPI } from './helper'
+import { fetchAPI } from './strapi'
 import { Media } from '@/types/media'
 
 export interface Project {

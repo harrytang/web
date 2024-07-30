@@ -1,5 +1,4 @@
-import { Seo } from '@/types/seo'
-import { fetchAPI } from './helper'
+import { fetchAPI } from './strapi'
 
 export interface Use {
   id: number
