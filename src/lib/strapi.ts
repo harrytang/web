@@ -47,4 +47,31 @@ const fetchAPI = async <T>(
   }
 }
 
-export { fetchAPI }
+const getAllEntitySlugs = async (entity: string) => {
+  let allSlugs: string[] = []
+  let start = 0
+  const limit = process.env.SITEMAP_SIZE
+    ? parseInt(process.env.SITEMAP_SIZE)
+    : 1000
+  let hasMore = true
+
+  while (hasMore) {
+    const res = await fetchAPI<any[]>(`/${entity}`, {
+      locale: 'all',
+      pagination: { limit, start },
+    })
+
+    // Extract slugs from the response
+    const slugs = res.data.map((item) => item.attributes.slug)
+    allSlugs = allSlugs.concat(slugs)
+
+    // Check if there are more items to fetch
+    const total = res.meta.pagination.total
+    start += limit
+    hasMore = start < total
+  }
+
+  return allSlugs
+}
+
+export { fetchAPI, getAllEntitySlugs }

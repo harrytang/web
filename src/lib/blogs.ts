@@ -1,5 +1,5 @@
 import { Seo } from '@/types/seo'
-import { fetchAPI } from './strapi'
+import { fetchAPI, getAllEntitySlugs } from './strapi'
 
 export interface Blog {
   id: number
@@ -51,30 +51,7 @@ const getBlogs = async (start?: number, limit?: number) => {
 }
 
 const getBlogSlugs = async () => {
-  let allSlugs: string[] = []
-  let start = 0
-  const limit = process.env.SITEMAP_SIZE
-    ? parseInt(process.env.SITEMAP_SIZE)
-    : 1000
-  let hasMore = true
-
-  while (hasMore) {
-    const res = await fetchAPI<Blog[]>('/blogs', {
-      locale: 'all',
-      pagination: { limit, start },
-    })
-
-    // Extract blog slugs from the response
-    const slugs = res.data.map((blog) => blog.attributes.slug)
-    allSlugs = allSlugs.concat(slugs)
-
-    // Check if there are more blogs to fetch
-    const total = res.meta.pagination.total
-    start += limit
-    hasMore = start < total
-  }
-
-  return allSlugs
+  return getAllEntitySlugs('blogs')
 }
 
 export { getBlog, getBlogs, getBlogSlugs }
