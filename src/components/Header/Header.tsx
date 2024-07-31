@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useCallback } from 'react'
 import { usePathname } from 'next/navigation'
 
 // local imports
@@ -14,104 +14,101 @@ import DesktopNavigation from './DesktopNavigation'
 import MobileNavigation from './MobileNavigation'
 
 const Header = () => {
-  let isHomePage = usePathname() === '/'
-
-  let headerRef = useRef<React.ElementRef<'div'>>(null)
-  let avatarRef = useRef<React.ElementRef<'div'>>(null)
-  let isInitial = useRef(true)
-
+  const isHomePage = usePathname() === '/'
+  const headerRef = useRef<React.ElementRef<'div'>>(null)
+  const avatarRef = useRef<React.ElementRef<'div'>>(null)
+  const isInitial = useRef(true)
   const menus = getMenus()
 
+  const setProperty = useCallback((property: string, value: string) => {
+    document.documentElement.style.setProperty(property, value)
+  }, [])
+
+  const removeProperty = useCallback((property: string) => {
+    document.documentElement.style.removeProperty(property)
+  }, [])
+
+  const updateHeaderStyles = useCallback(() => {
+    if (!headerRef.current) {
+      return
+    }
+
+    const { top, height } = headerRef.current.getBoundingClientRect()
+    const scrollY = clamp(
+      window.scrollY,
+      0,
+      document.body.scrollHeight - window.innerHeight,
+    )
+    const downDelay = avatarRef.current?.offsetTop ?? 0
+    const upDelay = 64
+
+    if (isInitial.current) {
+      setProperty('--header-position', 'sticky')
+    }
+
+    setProperty('--content-offset', `${downDelay}px`)
+
+    if (isInitial.current || scrollY < downDelay) {
+      setProperty('--header-height', `${downDelay + height}px`)
+      setProperty('--header-mb', `${-downDelay}px`)
+    } else if (top + height < -upDelay) {
+      const offset = Math.max(height, scrollY - upDelay)
+      setProperty('--header-height', `${offset}px`)
+      setProperty('--header-mb', `${height - offset}px`)
+    } else if (top === 0) {
+      setProperty('--header-height', `${scrollY + height}px`)
+      setProperty('--header-mb', `${-scrollY}px`)
+    }
+
+    if (top === 0 && scrollY > 0 && scrollY >= downDelay) {
+      setProperty('--header-inner-position', 'fixed')
+      removeProperty('--header-top')
+      removeProperty('--avatar-top')
+    } else {
+      removeProperty('--header-inner-position')
+      setProperty('--header-top', '0px')
+      setProperty('--avatar-top', '0px')
+    }
+  }, [setProperty, removeProperty])
+
+  const updateAvatarStyles = useCallback(() => {
+    if (!isHomePage) {
+      return
+    }
+
+    const downDelay = avatarRef.current?.offsetTop ?? 0
+    const fromScale = 1
+    const toScale = 36 / 64
+    const fromX = 0
+    const toX = 2 / 16
+    const scrollY = downDelay - window.scrollY
+
+    let scale = (scrollY * (fromScale - toScale)) / downDelay + toScale
+    scale = clamp(scale, fromScale, toScale)
+
+    let x = (scrollY * (fromX - toX)) / downDelay + toX
+    x = clamp(x, fromX, toX)
+
+    setProperty(
+      '--avatar-image-transform',
+      `translate3d(${x}rem, 0, 0) scale(${scale})`,
+    )
+
+    const borderScale = 1 / (toScale / scale)
+    const borderX = (-toX + x) * borderScale
+    const borderTransform = `translate3d(${borderX}rem, 0, 0) scale(${borderScale})`
+
+    setProperty('--avatar-border-transform', borderTransform)
+    setProperty('--avatar-border-opacity', scale === toScale ? '1' : '0')
+  }, [isHomePage, setProperty])
+
+  const updateStyles = useCallback(() => {
+    updateHeaderStyles()
+    updateAvatarStyles()
+    isInitial.current = false
+  }, [updateHeaderStyles, updateAvatarStyles])
+
   useEffect(() => {
-    let downDelay = avatarRef.current?.offsetTop ?? 0
-    let upDelay = 64
-
-    function setProperty(property: string, value: string) {
-      document.documentElement.style.setProperty(property, value)
-    }
-
-    function removeProperty(property: string) {
-      document.documentElement.style.removeProperty(property)
-    }
-
-    function updateHeaderStyles() {
-      if (!headerRef.current) {
-        return
-      }
-
-      let { top, height } = headerRef.current.getBoundingClientRect()
-      let scrollY = clamp(
-        window.scrollY,
-        0,
-        document.body.scrollHeight - window.innerHeight,
-      )
-
-      if (isInitial.current) {
-        setProperty('--header-position', 'sticky')
-      }
-
-      setProperty('--content-offset', `${downDelay}px`)
-
-      if (isInitial.current || scrollY < downDelay) {
-        setProperty('--header-height', `${downDelay + height}px`)
-        setProperty('--header-mb', `${-downDelay}px`)
-      } else if (top + height < -upDelay) {
-        let offset = Math.max(height, scrollY - upDelay)
-        setProperty('--header-height', `${offset}px`)
-        setProperty('--header-mb', `${height - offset}px`)
-      } else if (top === 0) {
-        setProperty('--header-height', `${scrollY + height}px`)
-        setProperty('--header-mb', `${-scrollY}px`)
-      }
-
-      if (top === 0 && scrollY > 0 && scrollY >= downDelay) {
-        setProperty('--header-inner-position', 'fixed')
-        removeProperty('--header-top')
-        removeProperty('--avatar-top')
-      } else {
-        removeProperty('--header-inner-position')
-        setProperty('--header-top', '0px')
-        setProperty('--avatar-top', '0px')
-      }
-    }
-
-    function updateAvatarStyles() {
-      if (!isHomePage) {
-        return
-      }
-
-      let fromScale = 1
-      let toScale = 36 / 64
-      let fromX = 0
-      let toX = 2 / 16
-
-      let scrollY = downDelay - window.scrollY
-
-      let scale = (scrollY * (fromScale - toScale)) / downDelay + toScale
-      scale = clamp(scale, fromScale, toScale)
-
-      let x = (scrollY * (fromX - toX)) / downDelay + toX
-      x = clamp(x, fromX, toX)
-
-      setProperty(
-        '--avatar-image-transform',
-        `translate3d(${x}rem, 0, 0) scale(${scale})`,
-      )
-
-      let borderScale = 1 / (toScale / scale)
-      let borderX = (-toX + x) * borderScale
-      let borderTransform = `translate3d(${borderX}rem, 0, 0) scale(${borderScale})`
-
-      setProperty('--avatar-border-transform', borderTransform)
-      setProperty('--avatar-border-opacity', scale === toScale ? '1' : '0')
-    }
-
-    function updateStyles() {
-      updateHeaderStyles()
-      updateAvatarStyles()
-      isInitial.current = false
-    }
-
     updateStyles()
     window.addEventListener('scroll', updateStyles, { passive: true })
     window.addEventListener('resize', updateStyles)
@@ -120,7 +117,7 @@ const Header = () => {
       window.removeEventListener('scroll', updateStyles)
       window.removeEventListener('resize', updateStyles)
     }
-  }, [isHomePage])
+  }, [updateStyles])
 
   return (
     <>
