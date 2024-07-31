@@ -33,22 +33,18 @@ const authenticate = (req: NextRequest) => {
 }
 
 const revalidate = (event: string, model: string, entry: any) => {
-  if (track.events.includes(event)) {
-    if (track.models[model as keyof typeof track.models]) {
-      // dynamic paths
-      if (dynamicModels.includes(model)) {
-        console.info(`Revalidating tag: ${model}-${entry.slug}`)
-        revalidateTag(`${model}-${entry.slug}`)
-      }
-
-      // static paths
-      track.models[model as keyof typeof track.models].forEach(
-        (path: string) => {
-          console.info(`Revalidating ${model} at ${path}`)
-          revalidatePath(path, 'page')
-        },
-      )
+  if (track.models[model as keyof typeof track.models]) {
+    // dynamic paths
+    if (dynamicModels.includes(model)) {
+      console.info(`Revalidating tag: ${model}-${entry.slug}`)
+      revalidateTag(`${model}-${entry.slug}`)
     }
+
+    // static paths
+    track.models[model as keyof typeof track.models].forEach((path: string) => {
+      console.info(`Revalidating ${model} at ${path}`)
+      revalidatePath(path, 'page')
+    })
   }
 }
 
@@ -57,7 +53,9 @@ export async function POST(req: NextRequest) {
 
   const { event, model, entry }: Webhook = await req.json()
 
-  revalidate(event, model, entry)
+  if (track.events.includes(event)) {
+    revalidate(event, model, entry)
+  }
 
   return Response.json({
     message: 'On-Demand Revalidation complete',
