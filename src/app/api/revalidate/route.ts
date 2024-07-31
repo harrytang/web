@@ -32,14 +32,7 @@ const authenticate = (req: NextRequest) => {
   }
 }
 
-export async function POST(req: NextRequest) {
-  // Check for secret to confirm this is a valid request
-  authenticate(req)
-
-  // Revalidate the cache
-  const { event, model, entry }: Webhook = await req.json()
-
-  // static paths
+const revalidate = (event: string, model: string, entry: any) => {
   if (track.events.includes(event)) {
     if (track.models[model as keyof typeof track.models]) {
       // dynamic paths
@@ -57,6 +50,14 @@ export async function POST(req: NextRequest) {
       )
     }
   }
+}
+
+export async function POST(req: NextRequest) {
+  authenticate(req)
+
+  const { event, model, entry }: Webhook = await req.json()
+
+  revalidate(event, model, entry)
 
   return Response.json({
     message: 'On-Demand Revalidation complete',
