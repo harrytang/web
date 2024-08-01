@@ -5,8 +5,8 @@ export const runtime = 'edge'
 
 // Image metadata
 export const size = {
-  width: 192,
-  height: 192,
+  width: 512,
+  height: 512,
 }
 export const contentType = 'image/png'
 
@@ -16,7 +16,7 @@ export default function Icon() {
     (
       // eslint-disable-next-line @next/next/no-img-element
       <img
-        src={process.env.NEXT_PUBLIC_AVATAR_URL!}
+        src={process.env.NEXT_PUBLIC_ICON_URL!}
         alt={process.env.NEXT_PUBLIC_SITE_NAME!}
         style={{
           width: '100%',
