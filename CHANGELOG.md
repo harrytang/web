@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.2](https://github.com/harrytang/web/compare/v1.8.1...v1.8.2) (2024-08-02)
+
+
+### Bug Fixes
+
+* revalidate dynamic paths ([230fe38](https://github.com/harrytang/web/commit/230fe380b2def08f27712641c0bbcf43b876614c))
+
 ### [1.8.1](https://github.com/harrytang/web/compare/v1.8.0...v1.8.1) (2024-08-01)
 
 ## [1.8.0](https://github.com/harrytang/web/compare/v1.7.1...v1.8.0) (2024-07-31)
