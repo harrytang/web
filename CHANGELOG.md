@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.9.0](https://github.com/harrytang/web/compare/v1.8.2...v1.9.0) (2024-08-02)
+
+
+### Features
+
+* adds purgeCFCache func. ([2fa519f](https://github.com/harrytang/web/commit/2fa519f6363bb1988b7867e3a9236600cad4d374))
+
 ### [1.8.2](https://github.com/harrytang/web/compare/v1.8.1...v1.8.2) (2024-08-02)
 
 
