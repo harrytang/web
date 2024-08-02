@@ -22,7 +22,7 @@
     "@mdx-js/react": "3.0.1",
     "@next/mdx": "14.2.5",
     "@tailwindcss/typography": "0.5.13",
-    "autoprefixer": "10.4.19",
+    "autoprefixer": "10.4.20",
     "cheerio": "1.0.0-rc.12",
     "clsx": "2.1.1",
     "fast-glob": "3.3.2",
