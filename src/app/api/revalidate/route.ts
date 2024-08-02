@@ -48,6 +48,21 @@ const revalidate = (model: string, entry: any) => {
   }
 }
 
+const purgeCFCache = async () => {
+  console.info('Purging Cloudflare Cache')
+  await fetch(
+    `https://api.cloudflare.com/client/v4/zones/${process.env.CF_ZONE_ID}/purge_cache`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${process.env.CF_API_TOKEN}`,
+      },
+      body: JSON.stringify({ purge_everything: true }),
+    },
+  )
+}
+
 export async function POST(req: NextRequest) {
   authenticate(req)
 
@@ -55,9 +70,10 @@ export async function POST(req: NextRequest) {
 
   if (track.events.includes(event)) {
     revalidate(model, entry)
+    await purgeCFCache()
   }
 
   return Response.json({
-    message: 'On-Demand Revalidation complete',
+    message: 'On-Demand Revalidation complete. Cloudflare Cache purged.',
   })
 }
