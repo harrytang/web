@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.9.1](https://github.com/harrytang/web/compare/v1.9.0...v1.9.1) (2024-08-03)
+
+
+### Bug Fixes
+
+* **deps:** update dependency autoprefixer to v10.4.20 ([aefb3ae](https://github.com/harrytang/web/commit/aefb3aeae0d0003f7106fcca9212edf0b8e76834))
+* **deps:** update dependency qs to v6.13.0 ([#65](https://github.com/harrytang/web/issues/65)) ([59417b0](https://github.com/harrytang/web/commit/59417b0df7e394fff71af0f0b011ee9dee215eae))
+
 ## [1.9.0](https://github.com/harrytang/web/compare/v1.8.2...v1.9.0) (2024-08-02)
 
 
