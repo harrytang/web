@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.10.0](https://github.com/harrytang/web/compare/v1.9.1...v1.10.0) (2024-08-04)
+
+
+### Features
+
+* adds commentbox.io ([06ccf7c](https://github.com/harrytang/web/commit/06ccf7c57e70f552f136632b837d6feeaff3b7a5))
+
 ### [1.9.1](https://github.com/harrytang/web/compare/v1.9.0...v1.9.1) (2024-08-03)
 
 
