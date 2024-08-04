@@ -13,6 +13,7 @@ import { Container } from '@/components/Container'
 import { Prose } from '@/components/Prose'
 import { Blog } from '@/lib/blogs'
 import { formatDate } from '@/lib/helper'
+import { CommentBox } from '../CommentBox'
 
 // dynamic imports
 const ReactPlayer = dynamic(() => import('react-player'), { ssr: false })
@@ -84,6 +85,7 @@ const BlogLayout: React.FC<BlogLayoutProps> = ({ blog }) => {
               </figure>
 
               <ReactMarkdown>{blog.attributes.content}</ReactMarkdown>
+              <CommentBox projectId={process.env.NEXT_PUBLIC_COMMENTBOX_ID!} />
             </Prose>
           </article>
         </div>
