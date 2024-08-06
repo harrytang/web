@@ -41,7 +41,7 @@ const removeScript = (id: string, parentElement: HTMLElement) => {
 }
 
 const manageScript = (theme: string) => {
-  if (!window) {
+  if (typeof window === 'undefined') {
     return () => {}
   }
   const { document } = window
@@ -52,7 +52,7 @@ const manageScript = (theme: string) => {
 }
 
 const recreateRemark42Instance = () => {
-  if (!window) {
+  if (typeof window === 'undefined') {
     return
   }
   const remark42 = window.REMARK42
@@ -63,6 +63,9 @@ const recreateRemark42Instance = () => {
 }
 
 const getPreferredTheme = (theme: string) => {
+  if (typeof window === 'undefined') {
+    return theme
+  }
   if (theme === 'system') {
     const prefersDark =
       window.matchMedia &&
@@ -83,6 +86,10 @@ export default function CommentBox({ location }: CommentBoxProps) {
   )
 
   useEffect(() => {
+    if (typeof window === 'undefined') {
+      return
+    }
+
     const handleSystemThemeChange = (e: MediaQueryListEvent) => {
       if (theme === 'system') {
         setPreferredTheme(e.matches ? 'dark' : 'light')
@@ -103,10 +110,20 @@ export default function CommentBox({ location }: CommentBoxProps) {
   }, [theme])
 
   useEffect(() => {
+    if (typeof window === 'undefined') {
+      return
+    }
+
     return manageScript(preferredTheme)
   }, [location, preferredTheme])
 
-  useEffect(recreateRemark42Instance, [location, preferredTheme])
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return
+    }
+
+    recreateRemark42Instance()
+  }, [location, preferredTheme])
 
   return (
     <Fragment>
