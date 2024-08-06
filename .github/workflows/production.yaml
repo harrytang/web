@@ -44,7 +44,8 @@ jobs:
             NEXT_PUBLIC_AVATAR_URL=${{ vars.NEXT_PUBLIC_AVATAR_URL }}
             NEXT_PUBLIC_FAVICON_URL=${{ vars.NEXT_PUBLIC_FAVICON_URL }}
             NEXT_PUBLIC_ICON_URL=${{ vars.NEXT_PUBLIC_ICON_URL }}
-            NEXT_PUBLIC_COMMENTBOX_ID=${{ vars.NEXT_PUBLIC_COMMENTBOX_ID }}
+            NEXT_PUBLIC_REMARK42_HOST=${{ vars.NEXT_PUBLIC_REMARK42_HOST }}
+            NEXT_PUBLIC_REMARK42_SITE_ID=${{ vars.NEXT_PUBLIC_REMARK42_SITE_ID }}
             STRAPI_API_URL=${{ vars.STRAPI_API_URL }}
             SITEMAP_SIZE=${{ vars.SITEMAP_SIZE }}
           platforms: linux/arm64,linux/amd64

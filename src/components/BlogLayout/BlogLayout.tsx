@@ -85,7 +85,9 @@ const BlogLayout: React.FC<BlogLayoutProps> = ({ blog }) => {
               </figure>
 
               <ReactMarkdown>{blog.attributes.content}</ReactMarkdown>
-              <CommentBox projectId={process.env.NEXT_PUBLIC_COMMENTBOX_ID!} />
+              <CommentBox
+                location={`${process.env.NEXT_PUBLIC_SITE_URL}/blog/${blog.attributes.slug}`}
+              />
             </Prose>
           </article>
         </div>
