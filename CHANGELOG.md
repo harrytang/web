@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.11.0](https://github.com/harrytang/web/compare/v1.10.0...v1.11.0) (2024-08-06)
+
+
+### Features
+
+* adds remark24 ([c80d4a2](https://github.com/harrytang/web/commit/c80d4a21c4c7bf40ed5d494783cb6078e5fd5f38))
+
+
+### Bug Fixes
+
+*  ensure CommentBox only runs on the client side ([ea39792](https://github.com/harrytang/web/commit/ea3979263d7ccf75d91372ffbe7bea2b36ae7071))
+
 ## [1.10.0](https://github.com/harrytang/web/compare/v1.9.1...v1.10.0) (2024-08-04)
 
 
