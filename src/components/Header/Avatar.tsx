@@ -18,6 +18,7 @@ const Avatar: React.FC<AvatarProps> = ({
       href="/"
       aria-label="Home"
       className={clsx(className, 'pointer-events-auto')}
+      as={'image'}
       {...props}
     >
       <Image
