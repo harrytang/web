@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.11.5](https://github.com/harrytang/web/compare/v1.11.4...v1.11.5) (2024-08-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @tailwindcss/typography to v0.5.14 ([efc4bc2](https://github.com/harrytang/web/commit/efc4bc2ac2edeb59d32bd15da610fa9346026d53))
+* **deps:** update dependency cheerio to v1.0.0 ([b18d827](https://github.com/harrytang/web/commit/b18d82773a83ddd5065be727ca4df3ab16330eb8))
+* **deps:** update dependency tailwindcss to v3.4.10 ([e99711e](https://github.com/harrytang/web/commit/e99711e0ae40cd83f3ff1ff16d4673e91ac79dfa))
+* **deps:** update dependency tailwindcss to v3.4.8 ([#69](https://github.com/harrytang/web/issues/69)) ([fb44c1c](https://github.com/harrytang/web/commit/fb44c1c39cfd67207ba58b6c489359b176f2728e))
+* **deps:** update dependency tailwindcss to v3.4.9 ([d769f57](https://github.com/harrytang/web/commit/d769f57914863a4e2375b8e6f3cecab4d76bedd3))
+
 ### [1.11.4](https://github.com/harrytang/web/compare/v1.11.3...v1.11.4) (2024-08-07)
 
 
