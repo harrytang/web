@@ -21,7 +21,7 @@ describe('NavItem', () => {
     )
 
     const linkElement = getByText('Active Link')
-    expect(linkElement).toHaveClass('text-teal-600 dark:text-teal-500')
+    expect(linkElement).toHaveClass('text-amber-600 dark:text-amber-500')
     expect(linkElement).not.toHaveClass(
       'hover:text-teal-600 dark:hover:text-teal-500',
     )
@@ -37,9 +37,9 @@ describe('NavItem', () => {
 
     const linkElement = getByText('Inactive Link')
     expect(linkElement).toHaveClass(
-      'hover:text-teal-600 dark:hover:text-teal-500',
+      'hover:text-amber-600 dark:hover:text-amber-500',
     )
-    expect(linkElement).not.toHaveClass('text-teal-600 dark:text-teal-500')
+    expect(linkElement).not.toHaveClass('text-amber-600 dark:text-amber-600')
     expect(linkElement.querySelector('span')).not.toBeInTheDocument()
   })
 

@@ -8,7 +8,7 @@ describe('CardCta', () => {
     const ctaElement = screen.getByText('Call to Action')
     expect(ctaElement).toBeInTheDocument()
     expect(ctaElement).toHaveClass(
-      'relative z-10 mt-4 flex items-center text-sm font-medium text-teal-500',
+      'relative z-10 mt-4 flex items-center text-sm font-medium text-amber-600',
     )
   })
 })
