@@ -20,12 +20,12 @@ const SocialLink: React.FC<SocialLinkProps> = ({
     <li className={clsx(className, 'flex')}>
       <Link
         href={href}
-        className="group flex text-sm font-medium text-zinc-800 transition hover:text-teal-500 dark:text-zinc-200 dark:hover:text-teal-500"
+        className="group flex text-sm font-medium text-zinc-800 transition hover:text-amber-500 dark:text-zinc-200 dark:hover:text-amber-500"
       >
         <Image
           src={icon.attributes.url}
           alt={icon.attributes.caption}
-          className="h-6 w-6 flex-none fill-zinc-500 transition group-hover:fill-teal-500"
+          className="h-6 w-6 flex-none fill-zinc-500 transition group-hover:fill-amber-500"
           unoptimized
           width={icon.attributes.width}
           height={icon.attributes.height}
