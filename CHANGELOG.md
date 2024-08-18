@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.11.6](https://github.com/harrytang/web/compare/v1.11.5...v1.11.6) (2024-08-18)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sharp to v0.33.5 ([f3bf045](https://github.com/harrytang/web/commit/f3bf045fb79ef6d3e14e2826e5c62ab439acf2d4))
+
 ### [1.11.5](https://github.com/harrytang/web/compare/v1.11.4...v1.11.5) (2024-08-14)
 
 
