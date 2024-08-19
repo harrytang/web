@@ -9,7 +9,7 @@ const NavLink: React.FC<NavLinkProps> = ({ href, children }) => {
   return (
     <Link
       href={href}
-      className="transition hover:text-amber-500 dark:hover:text-amber-400"
+      className="transition hover:text-amber-600 dark:hover:text-amber-600"
     >
       {children}
     </Link>
