@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.11.9](https://github.com/harrytang/web/compare/v1.11.8...v1.11.9) (2024-08-19)
+
+
+### Bug Fixes
+
+* 404 pages not return 404 status code ([e93a93f](https://github.com/harrytang/web/commit/e93a93f080385d2f12ca2a79bc85950fe78424b1))
+
 ### [1.11.8](https://github.com/harrytang/web/compare/v1.11.7...v1.11.8) (2024-08-18)
 
 ### [1.11.7](https://github.com/harrytang/web/compare/v1.11.6...v1.11.7) (2024-08-18)
