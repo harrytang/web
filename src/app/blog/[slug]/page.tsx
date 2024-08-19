@@ -1,4 +1,4 @@
-import notFound from '@/app/not-found'
+import { notFound } from 'next/navigation'
 import { BlogLayout } from '@/components/BlogLayout'
 import { getBlog, getBlogSlugs } from '@/lib/blogs'
 import { generateArticleJsonLd, generateSeoMeta } from '@/lib/helper'

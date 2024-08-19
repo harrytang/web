@@ -1,7 +1,7 @@
 import { SimpleLayout } from '@/components/SimpleLayout/'
 import { generateSeoMeta, generateWebPageJsonLd } from '@/lib/helper'
 import { getPage, getPageSlugs } from '@/lib/pages'
-import notFound from '@/app/not-found'
+import { notFound } from 'next/navigation'
 
 type PageProps = {
   params: {
