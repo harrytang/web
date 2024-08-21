@@ -17,7 +17,7 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: npm ci
-      - uses: paambaati/codeclimate-action@v8.0.0
+      - uses: paambaati/codeclimate-action@v9.0.0
         env:
           CC_TEST_REPORTER_ID: a4885465a62f197bf6ddf66243de8404428a041283e63c1aa8235d0e959b54e8
           NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_STRAPI_API_URL }}
