@@ -21,7 +21,7 @@
     "@mdx-js/loader": "3.0.1",
     "@mdx-js/react": "3.0.1",
     "@next/mdx": "14.2.7",
-    "@tailwindcss/typography": "0.5.14",
+    "@tailwindcss/typography": "0.5.15",
     "autoprefixer": "10.4.20",
     "cheerio": "1.0.0",
     "clsx": "2.1.1",
