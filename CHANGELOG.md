@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.11.11](https://github.com/harrytang/web/compare/v1.11.10...v1.11.11) (2024-09-10)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @headlessui/react to v2.1.4 ([fe3d18d](https://github.com/harrytang/web/commit/fe3d18d67b38dc995f28bd408980dea007ee6f79))
+* **deps:** update dependency @headlessui/react to v2.1.5 ([b905335](https://github.com/harrytang/web/commit/b9053351f5a7f73ab24268d2a1a779edad5149b4))
+* **deps:** update dependency @headlessui/react to v2.1.6 ([badffb7](https://github.com/harrytang/web/commit/badffb7a198755d2a5d2b0726e2344b6804d8eab))
+* **deps:** update dependency @tailwindcss/typography to v0.5.15 ([7fe0ca5](https://github.com/harrytang/web/commit/7fe0ca523d3e2f3158a943b99741c438c4e15dd6))
+* **deps:** update dependency typescript to v5.6.2 ([#101](https://github.com/harrytang/web/issues/101)) ([ab5af6b](https://github.com/harrytang/web/commit/ab5af6b8ae93e9c63c7626d47503cd34400fe762))
+* **deps:** update nextjs monorepo to v14.2.7 ([3a03fdf](https://github.com/harrytang/web/commit/3a03fdf6286de0063e1da8e79d8b2054817bd295))
+* **deps:** update nextjs monorepo to v14.2.8 ([ea82d13](https://github.com/harrytang/web/commit/ea82d13560db605af7f7e91a528733b7b0a2bcef))
+* **deps:** update nextjs monorepo to v14.2.9 ([9e70c34](https://github.com/harrytang/web/commit/9e70c34c0f2fe5b15925214d2eb737dc17ee89ab))
+
 ### [1.11.10](https://github.com/harrytang/web/compare/v1.11.9...v1.11.10) (2024-08-26)
 
 
