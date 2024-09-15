@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.11.12](https://github.com/harrytang/web/compare/v1.11.11...v1.11.12) (2024-09-15)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @headlessui/react to v2.1.7 ([f89d18a](https://github.com/harrytang/web/commit/f89d18ac11c1cef5b8cc22cc096149518fa1dd1f))
+* **deps:** update dependency @headlessui/react to v2.1.8 ([dc1474e](https://github.com/harrytang/web/commit/dc1474e81a69f78192444a53699fbb232973f126))
+* **deps:** update dependency tailwindcss to v3.4.11 ([fe0967f](https://github.com/harrytang/web/commit/fe0967f2a56c62cf44a8da9f3c380c9c8f823776))
+* **deps:** update nextjs monorepo to v14.2.10 ([4561dcb](https://github.com/harrytang/web/commit/4561dcb1a610d6f0d2b6c9980006df5de1f05b9a))
+* **deps:** update nextjs monorepo to v14.2.11 ([a00b47f](https://github.com/harrytang/web/commit/a00b47f7ac90a234c49b962c73b6543b04798e56))
+
 ### [1.11.11](https://github.com/harrytang/web/compare/v1.11.10...v1.11.11) (2024-09-10)
 
 
