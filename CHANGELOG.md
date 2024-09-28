@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.12.0](https://github.com/harrytang/web/compare/v1.11.12...v1.12.0) (2024-09-28)
+
+
+### Features
+
+* adds Plausible ([36fac9c](https://github.com/harrytang/web/commit/36fac9c9c83414f2111ad1774e16669e22085ef0))
+* adds status URL in footer ([72df292](https://github.com/harrytang/web/commit/72df292a39d6db4f3e39184f5d7af35188061cb5))
+
+
+### Bug Fixes
+
+* **deps:** update dependency tailwindcss to v3.4.12 ([4c3154c](https://github.com/harrytang/web/commit/4c3154c052853ea5f08f8cd6452f583d7f161178))
+* **deps:** update dependency tailwindcss to v3.4.13 ([dadedb2](https://github.com/harrytang/web/commit/dadedb2585792f82ca7396a94da62822e103ef26))
+* **deps:** update nextjs monorepo to v14.2.12 ([dc19212](https://github.com/harrytang/web/commit/dc1921249fbc076fc78f20533dfd7e115d201361))
+* **deps:** update nextjs monorepo to v14.2.13 ([4598aa7](https://github.com/harrytang/web/commit/4598aa7f40d700fb58c7c08e25930b193794a652))
+
 ### [1.11.12](https://github.com/harrytang/web/compare/v1.11.11...v1.11.12) (2024-09-15)
 
 
