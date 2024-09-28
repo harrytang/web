@@ -21,6 +21,7 @@ jobs:
         env:
           CC_TEST_REPORTER_ID: a4885465a62f197bf6ddf66243de8404428a041283e63c1aa8235d0e959b54e8
           NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_STRAPI_API_URL }}
+          NEXT_PUBLIC_STATUS_URL: ${{ vars.NEXT_PUBLIC_STATUS_URL }}
           NEXT_PUBLIC_SITE_NAME: ${{ vars.NEXT_PUBLIC_SITE_NAME }}
           NEXT_PUBLIC_STRAPI_API_URL: ${{ vars.NEXT_PUBLIC_STRAPI_API_URL }}
           NEXT_PUBLIC_STORAGE_HOST: ${{ vars.NEXT_PUBLIC_STORAGE_HOST }}
@@ -70,6 +71,7 @@ jobs:
         run: npm run build
         env:
           NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_STRAPI_API_URL }}
+          NEXT_PUBLIC_STATUS_URL: ${{ vars.NEXT_PUBLIC_STATUS_URL }}
           NEXT_PUBLIC_SITE_NAME: ${{ vars.NEXT_PUBLIC_SITE_NAME }}
           NEXT_PUBLIC_STRAPI_API_URL: ${{ vars.NEXT_PUBLIC_STRAPI_API_URL }}
           NEXT_PUBLIC_STORAGE_HOST: ${{ vars.NEXT_PUBLIC_STORAGE_HOST }}
@@ -101,6 +103,7 @@ jobs:
         run: npm run test:e2e
         env:
           NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_STRAPI_API_URL }}
+          NEXT_PUBLIC_STATUS_URL: ${{ vars.NEXT_PUBLIC_STATUS_URL }}
           NEXT_PUBLIC_SITE_NAME: ${{ vars.NEXT_PUBLIC_SITE_NAME }}
           NEXT_PUBLIC_STRAPI_API_URL: ${{ vars.NEXT_PUBLIC_STRAPI_API_URL }}
           NEXT_PUBLIC_STORAGE_HOST: ${{ vars.NEXT_PUBLIC_STORAGE_HOST }}

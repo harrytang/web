@@ -23,6 +23,10 @@ const Footer: React.FC = () => {
       name: 'Credits',
       path: '/credits',
     },
+    {
+      name: 'Status',
+      path: process.env.NEXT_PUBLIC_STATUS_URL,
+    },
   ]
   return (
     <footer className="mt-32 flex-none">
