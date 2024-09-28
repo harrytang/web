@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.12.1](https://github.com/harrytang/web/compare/v1.12.0...v1.12.1) (2024-09-28)
+
+
+### Bug Fixes
+
+* type 'undefined' in URL ([f8e1417](https://github.com/harrytang/web/commit/f8e141769d82d02ccef72754c1c414499cc5d970))
+
 ## [1.12.0](https://github.com/harrytang/web/compare/v1.11.12...v1.12.0) (2024-09-28)
 
 
