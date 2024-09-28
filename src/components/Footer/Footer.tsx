@@ -25,7 +25,7 @@ const Footer: React.FC = () => {
     },
     {
       name: 'Status',
-      path: process.env.NEXT_PUBLIC_STATUS_URL,
+      path: process.env.NEXT_PUBLIC_STATUS_URL!,
     },
   ]
   return (
