@@ -52,6 +52,9 @@ jobs:
             NEXT_PUBLIC_ICON_URL=${{ vars.NEXT_PUBLIC_ICON_URL }}
             NEXT_PUBLIC_REMARK42_HOST=${{ vars.NEXT_PUBLIC_REMARK42_HOST }}
             NEXT_PUBLIC_REMARK42_SITE_ID=${{ vars.NEXT_PUBLIC_REMARK42_SITE_ID }}
+            NEXT_PUBLIC_PLAUSIBLE_DOMAIN=${{ vars.NEXT_PUBLIC_PLAUSIBLE_DOMAIN }}
+            NEXT_PUBLIC_PLAUSIBLE_SITE=${{ vars.NEXT_PUBLIC_PLAUSIBLE_SITE }}
+            NEXT_PUBLIC_PLAUSIBLE_ENABLED=${{ vars.NEXT_PUBLIC_PLAUSIBLE_ENABLED }}            
             STRAPI_API_URL=${{ vars.STRAPI_API_URL }}
             SITEMAP_SIZE=${{ vars.SITEMAP_SIZE }}
           platforms: linux/arm64,linux/amd64
