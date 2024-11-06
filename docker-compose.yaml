@@ -1,7 +1,7 @@
 version: '3'
 services:
   web:
-    image: node:20-alpine
+    image: node:22-alpine
     working_dir: /app
     command: npm run dev
     env_file:
