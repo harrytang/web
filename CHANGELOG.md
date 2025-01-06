@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.12.2](https://github.com/harrytang/web/compare/v1.12.1...v1.12.2) (2025-01-06)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @headlessui/react to v2.1.10 ([e435624](https://github.com/harrytang/web/commit/e435624534417c1fe68646882c5f41930f04a10d))
+* **deps:** update dependency @headlessui/react to v2.1.9 ([e2d066d](https://github.com/harrytang/web/commit/e2d066ded6edaf8cf28829472e6843f608d95eda))
+* **deps:** update dependency @headlessui/react to v2.2.0 ([#146](https://github.com/harrytang/web/issues/146)) ([0fec2dc](https://github.com/harrytang/web/commit/0fec2dc33a079bc79f8b736af0c0e37881b13bab))
+* **deps:** update dependency @heroicons/react to v2.2.0 ([#158](https://github.com/harrytang/web/issues/158)) ([15aaa77](https://github.com/harrytang/web/commit/15aaa779b870d71b0f118a10927cdb53e782168b))
+* **deps:** update dependency fast-glob to v3.3.3 ([#182](https://github.com/harrytang/web/issues/182)) ([221de33](https://github.com/harrytang/web/commit/221de33de686090d3bfa00b81e35bc89b3ac4f3c))
+* **deps:** update dependency next to v14.2.21 [security] ([#180](https://github.com/harrytang/web/issues/180)) ([d3beac0](https://github.com/harrytang/web/commit/d3beac0752134b46acad8a04bd91157274a0f95f))
+* **deps:** update dependency next-plausible to v3.12.3 ([1018ced](https://github.com/harrytang/web/commit/1018ced7397e345a71c8ba071f2b9b534fc47334))
+* **deps:** update dependency next-plausible to v3.12.4 ([#152](https://github.com/harrytang/web/issues/152)) ([ea8dcb1](https://github.com/harrytang/web/commit/ea8dcb1857479e9a76126f15c5c4d8fb91c286ea))
+* **deps:** update dependency next-themes to v0.4.3 ([#150](https://github.com/harrytang/web/issues/150)) ([0306f6d](https://github.com/harrytang/web/commit/0306f6d12a74b2a1f7ec6d60fc3e512b687c6d06))
+* **deps:** update dependency next-themes to v0.4.4 ([#174](https://github.com/harrytang/web/issues/174)) ([20973cc](https://github.com/harrytang/web/commit/20973cc1015a7cdc5467ec99b16e8b78887d4782))
+* **deps:** update dependency qs to v6.13.1 ([#156](https://github.com/harrytang/web/issues/156)) ([635acda](https://github.com/harrytang/web/commit/635acda3bef70c7b63f59375c61f5db55d2e627b))
+* **deps:** update dependency tailwindcss to v3.4.14 ([135626b](https://github.com/harrytang/web/commit/135626bcfbefe35ca16804f3ee9cdbb1c0ac6a25))
+* **deps:** update dependency tailwindcss to v3.4.15 ([#154](https://github.com/harrytang/web/issues/154)) ([be70d67](https://github.com/harrytang/web/commit/be70d67d180dbdaf17b5d8c940f732460a6f02bd))
+* **deps:** update dependency tailwindcss to v3.4.16 ([#169](https://github.com/harrytang/web/issues/169)) ([02fd61a](https://github.com/harrytang/web/commit/02fd61a3d0946c4f9d6dc8fd2d110d08b3835410))
+* **deps:** update dependency tailwindcss to v3.4.17 ([#183](https://github.com/harrytang/web/issues/183)) ([b22c614](https://github.com/harrytang/web/commit/b22c614dff3817cd1c791cf59f4ae2717b4bc524))
+* **deps:** update dependency typescript to v5.6.3 ([33c1e3c](https://github.com/harrytang/web/commit/33c1e3c4bd730084d6478f2c68da63d8bae014e4))
+* **deps:** update dependency typescript to v5.7.2 ([#163](https://github.com/harrytang/web/issues/163)) ([5b54ff0](https://github.com/harrytang/web/commit/5b54ff0a5285a0cfa4f8d73e4fd606dd81c8f6cb))
+* **deps:** update mdx monorepo to v3.1.0 ([#142](https://github.com/harrytang/web/issues/142)) ([57954a1](https://github.com/harrytang/web/commit/57954a13ce1ce5a6036cfbef360de68ae920997f))
+* **deps:** update nextjs monorepo ([#177](https://github.com/harrytang/web/issues/177)) ([bc8683f](https://github.com/harrytang/web/commit/bc8683f572ced70722abe5a101042b4b4f1a3d2e))
+* **deps:** update nextjs monorepo to v14.2.14 ([300837b](https://github.com/harrytang/web/commit/300837bf6bd4c8a4b321182dc1957d9f440789f7))
+* **deps:** update nextjs monorepo to v14.2.15 ([97f0e47](https://github.com/harrytang/web/commit/97f0e4718afff87507a02db675536e36a23b7b50))
+* **deps:** update nextjs monorepo to v14.2.17 ([24cfbaa](https://github.com/harrytang/web/commit/24cfbaa06110f41c6d6d498de5d702ce2b498cb9))
+* **deps:** update nextjs monorepo to v14.2.18 ([#153](https://github.com/harrytang/web/issues/153)) ([68073be](https://github.com/harrytang/web/commit/68073beb443cd658354f6bd2d2f576460720bc6a))
+* **deps:** update nextjs monorepo to v14.2.19 ([#170](https://github.com/harrytang/web/issues/170)) ([6e84bc7](https://github.com/harrytang/web/commit/6e84bc7a7973250315298fa081417b15967a147c))
+* **deps:** update nextjs monorepo to v14.2.20 ([#172](https://github.com/harrytang/web/issues/172)) ([2517552](https://github.com/harrytang/web/commit/251755235193b801edac6062b29ec97767f73d42))
+
 ### [1.12.1](https://github.com/harrytang/web/compare/v1.12.0...v1.12.1) (2024-09-28)
 
 
