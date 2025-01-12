@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.13.0](https://github.com/harrytang/web/compare/v1.12.2...v1.13.0) (2025-01-12)
+
+
+### Features
+
+* add lang attr in article tag ([a40f9ac](https://github.com/harrytang/web/commit/a40f9ac712d635dccd6609b1e36a8b7577f8e293))
+
+
+### Bug Fixes
+
+* **deps:** update dependency @tailwindcss/typography to v0.5.16 ([#185](https://github.com/harrytang/web/issues/185)) ([d6a5f2d](https://github.com/harrytang/web/commit/d6a5f2de6a4ec27ce6aeecccfb477d40820bc8b4))
+* **deps:** update dependency react-markdown to v9.0.3 ([#184](https://github.com/harrytang/web/issues/184)) ([47b5966](https://github.com/harrytang/web/commit/47b59666d2186167e7bde8232235617d9777490f))
+* **deps:** update dependency typescript to v5.7.3 ([#187](https://github.com/harrytang/web/issues/187)) ([64fc24c](https://github.com/harrytang/web/commit/64fc24c81cfb2425cc5509bd5fcceaa961bbb1ee))
+* **deps:** update nextjs monorepo ([#186](https://github.com/harrytang/web/issues/186)) ([827aa29](https://github.com/harrytang/web/commit/827aa2932cf4bd98ec2b61044423bf03d7f89737))
+
 ### [1.12.2](https://github.com/harrytang/web/compare/v1.12.1...v1.12.2) (2025-01-06)
 
 
