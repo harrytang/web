@@ -10,9 +10,9 @@ RUN corepack enable
 # Set working directory
 WORKDIR /app
 
-############################
+###################
 ### Build Stage ###
-############################
+###################
 FROM base AS builder
 
 # Define ARG variables to pass build-time environment variables
@@ -68,9 +68,9 @@ RUN curl -sL $NEXT_PUBLIC_FAVICON_URL -o src/app/favicon.ico
 # Build the Next.js app
 RUN pnpm run build
 
-############################
+########################
 ### Production Stage ###
-############################
+########################
 FROM base AS runner
 
 # Set NODE_ENV for production
