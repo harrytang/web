@@ -32,7 +32,6 @@ const fetchAPI = async <T>(
   const requestUrl = `${getStrapiURL(`/api${path}${queryString ? `?${queryString}` : ''}`)}`
 
   // Trigger API call
-  console.info('Fetching', requestUrl)
   const response = await fetch(requestUrl, mergedOptions)
 
   // Handle response
