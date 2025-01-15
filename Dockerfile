@@ -1,25 +1,21 @@
-FROM node:22-alpine AS base
+FROM node:22-slim AS base
 
-# 1. Install dependencies only when needed
-FROM base AS deps
-# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
-RUN apk add --no-cache libc6-compat
+# Set environment variables for PNPM
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
 
+# Enable corepack for package management
+RUN corepack enable
+
+# Set working directory
 WORKDIR /app
 
-# Install dependencies based on the preferred package manager
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
-RUN npm install -g npm@latest
-RUN \
-  if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
-  elif [ -f package-lock.json ]; then npm ci; \
-  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm i; \
-  else echo "Lockfile not found." && exit 1; \
-  fi
-
-
-# 2. Rebuild the source code only when needed
+############################
+### Build Stage ###
+############################
 FROM base AS builder
+
+# Define ARG variables to pass build-time environment variables
 ARG NEXT_PUBLIC_SITE_URL
 ARG NEXT_PUBLIC_STATUS_URL
 ARG NEXT_PUBLIC_SITE_NAME
@@ -39,48 +35,61 @@ ARG NEXT_PUBLIC_PLAUSIBLE_ENABLED
 ARG STRAPI_API_URL
 ARG SITEMAP_SIZE
 
-ENV NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL}
-ENV NEXT_PUBLIC_STATUS_URL=${NEXT_PUBLIC_STATUS_URL}
-ENV NEXT_PUBLIC_SITE_NAME=${NEXT_PUBLIC_SITE_NAME}
-ENV NEXT_PUBLIC_STRAPI_API_URL=${NEXT_PUBLIC_STRAPI_API_URL}
-ENV NEXT_PUBLIC_STORAGE_HOST=${NEXT_PUBLIC_STORAGE_HOST}
-ENV NEXT_PUBLIC_CSE_ID=${NEXT_PUBLIC_CSE_ID}
-ENV NEXT_PUBLIC_PAGE_SIZE=${NEXT_PUBLIC_PAGE_SIZE}
-ENV NEXT_PUBLIC_HOME_PAGE_SIZE=${NEXT_PUBLIC_HOME_PAGE_SIZE}
-ENV NEXT_PUBLIC_AVATAR_URL=${NEXT_PUBLIC_AVATAR_URL}
-ENV NEXT_PUBLIC_FAVICON_URL=${NEXT_PUBLIC_FAVICON_URL}
-ENV NEXT_PUBLIC_ICON_URL=${NEXT_PUBLIC_ICON_URL}
-ENV NEXT_PUBLIC_REMARK42_SITE_ID=${NEXT_PUBLIC_REMARK42_SITE_ID}
-ENV NEXT_PUBLIC_REMARK42_HOST=${NEXT_PUBLIC_REMARK42_HOST}
-ENV NEXT_PUBLIC_PLAUSIBLE_DOMAIN=${NEXT_PUBLIC_PLAUSIBLE_DOMAIN}
-ENV NEXT_PUBLIC_PLAUSIBLE_SITE=${NEXT_PUBLIC_PLAUSIBLE_SITE}
-ENV NEXT_PUBLIC_PLAUSIBLE_ENABLED=${NEXT_PUBLIC_PLAUSIBLE_ENABLED}
-ENV STRAPI_API_URL=${STRAPI_API_URL}
-ENV SITEMAP_SIZE=${SITEMAP_SIZE}
-ENV NEXT_TELEMETRY_DISABLED=1
+# Pass ARG values to ENV variables
+ENV NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL} \
+    NEXT_PUBLIC_STATUS_URL=${NEXT_PUBLIC_STATUS_URL} \
+    NEXT_PUBLIC_SITE_NAME=${NEXT_PUBLIC_SITE_NAME} \
+    NEXT_PUBLIC_STRAPI_API_URL=${NEXT_PUBLIC_STRAPI_API_URL} \
+    NEXT_PUBLIC_STORAGE_HOST=${NEXT_PUBLIC_STORAGE_HOST} \
+    NEXT_PUBLIC_CSE_ID=${NEXT_PUBLIC_CSE_ID} \
+    NEXT_PUBLIC_PAGE_SIZE=${NEXT_PUBLIC_PAGE_SIZE} \
+    NEXT_PUBLIC_HOME_PAGE_SIZE=${NEXT_PUBLIC_HOME_PAGE_SIZE} \
+    NEXT_PUBLIC_AVATAR_URL=${NEXT_PUBLIC_AVATAR_URL} \
+    NEXT_PUBLIC_FAVICON_URL=${NEXT_PUBLIC_FAVICON_URL} \
+    NEXT_PUBLIC_ICON_URL=${NEXT_PUBLIC_ICON_URL} \
+    NEXT_PUBLIC_REMARK42_SITE_ID=${NEXT_PUBLIC_REMARK42_SITE_ID} \
+    NEXT_PUBLIC_REMARK42_HOST=${NEXT_PUBLIC_REMARK42_HOST} \
+    NEXT_PUBLIC_PLAUSIBLE_DOMAIN=${NEXT_PUBLIC_PLAUSIBLE_DOMAIN} \
+    NEXT_PUBLIC_PLAUSIBLE_SITE=${NEXT_PUBLIC_PLAUSIBLE_SITE} \
+    NEXT_PUBLIC_PLAUSIBLE_ENABLED=${NEXT_PUBLIC_PLAUSIBLE_ENABLED} \
+    STRAPI_API_URL=${STRAPI_API_URL} \
+    SITEMAP_SIZE=${SITEMAP_SIZE} \
+    NEXT_TELEMETRY_DISABLED=1
 
-WORKDIR /app
-COPY --from=deps /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/npm
-COPY --from=deps /usr/local/bin/npm /usr/local/bin/npm
-COPY --from=deps /usr/local/bin/npx /usr/local/bin/npx
-COPY --from=deps /app/node_modules ./node_modules
-COPY . .
-RUN wget $NEXT_PUBLIC_FAVICON_URL -O src/app/favicon.ico
-RUN npm run build
-# RUN npx nx affected -t build
+# Install dependencies
+COPY . /app
+#RUN pnpm fetch
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 
-# 3. Production image, copy all the files and run next
+# Download favicon for the app
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+RUN curl -sL $NEXT_PUBLIC_FAVICON_URL -o src/app/favicon.ico
+
+# Build the Next.js app
+RUN pnpm run build
+
+############################
+### Production Stage ###
+############################
 FROM base AS runner
-WORKDIR /app
-ENV NODE_ENV=production
-RUN addgroup -g 1001 -S nodejs
-RUN adduser -S nextjs -u 1001
-# COPY --from=builder /app/public ./public
-# Automatically leverage output traces to reduce image size
-# https://nextjs.org/docs/advanced-features/output-file-tracing
+
+# Set NODE_ENV for production
+ENV NODE_ENV=production \
+    PORT=3000
+
+# Add non-root user for security
+RUN groupadd -g 1001 nodejs && useradd -r -u 1001 -g nodejs nextjs
+
+# Copy the build artifacts
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+# Set the user and working directory
 USER nextjs
+WORKDIR /app
+
+# Expose the application port
 EXPOSE 3000
-ENV PORT=3000
+
+# Start the Next.js application
 CMD ["node", "server.js"]
