@@ -12,7 +12,7 @@ jobs:
     uses: ./.github/workflows/test.yaml
   build:
     needs: 'test'
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     environment:
       name: staging
     steps:
@@ -58,7 +58,7 @@ jobs:
             NEXT_PUBLIC_PLAUSIBLE_ENABLED=${{ vars.NEXT_PUBLIC_PLAUSIBLE_ENABLED }}            
             STRAPI_API_URL=${{ vars.STRAPI_API_URL }}
             SITEMAP_SIZE=${{ vars.SITEMAP_SIZE }}
-          platforms: linux/arm64
+          platforms: linux/arm64,linux/amd64
           push: true
           tags: ghcr.io/${{ github.repository }}:${{ env.IMAGE_TAG }}
           cache-from: type=gha
