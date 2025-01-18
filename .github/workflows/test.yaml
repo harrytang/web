@@ -97,7 +97,7 @@ jobs:
           STRAPI_API_URL: ${{ vars.STRAPI_API_URL }}
           SITEMAP_SIZE: ${{ vars.SITEMAP_SIZE }}
       - name: Get Playwright Version
-        run: echo "PLAYWRIGHT_VERSION=$(npm show playwright version)" >> $GITHUB_ENV
+        run: echo "PLAYWRIGHT_VERSION=$(pnpm show playwright version)" >> $GITHUB_ENV
       - name: Cache playwright binaries
         uses: actions/cache@v4
         id: playwright-cache
