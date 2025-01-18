@@ -8,11 +8,12 @@ on:
       - '**/**.md'
       - 'docker-compose.yml'
 jobs:
-  # test:
-  #   uses: ./.github/workflows/test.yaml
+  test:
+    uses: ./.github/workflows/test.yaml
   build-push:
     name: Build ARM64 image
     runs-on: ubuntu-24.04-arm
+    needs: test
     environment:
       name: staging
     steps:
