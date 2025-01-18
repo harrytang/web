@@ -7,17 +7,15 @@ on:
 jobs:
   test:
     uses: ./.github/workflows/test.yaml
-  build:
-    needs: 'test'
-    runs-on: ubuntu-latest
+  build-push:
+    name: Build ARM64 image
+    runs-on: ubuntu-24.04-arm
+    needs: test
     environment:
       name: production
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -52,7 +50,7 @@ jobs:
             NEXT_PUBLIC_PLAUSIBLE_ENABLED=${{ vars.NEXT_PUBLIC_PLAUSIBLE_ENABLED }}
             STRAPI_API_URL=${{ vars.STRAPI_API_URL }}
             SITEMAP_SIZE=${{ vars.SITEMAP_SIZE }}
-          platforms: linux/arm64,linux/amd64
+          platforms: linux/arm64
           push: true
           tags: ghcr.io/${{github.repository}}:${{github.ref_name}},ghcr.io/${{github.repository}}:latest
           cache-from: type=gha
