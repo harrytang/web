@@ -58,8 +58,8 @@ ENV NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL} \
 
 # Install dependencies
 COPY . /app
-#RUN pnpm fetch
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+RUN pnpm fetch
+RUN pnpm install --frozen-lockfile
 
 # Download favicon for the app
 RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
