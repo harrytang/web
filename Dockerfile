@@ -94,5 +94,5 @@ WORKDIR /app
 # Expose the application port
 EXPOSE 3000
 
-# Start the Next.js application
+# Start the NextJS application
 CMD ["node", "server.js"]
