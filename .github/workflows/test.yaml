@@ -104,9 +104,9 @@ jobs:
         with:
           path: |
             ~/.cache/ms-playwright
-          key: ${{ runner.os }}-${{ runner.arch }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
+          key: ${{ runner.os }}-${{ runner.arch }}-playwright-only-shell-${{ env.PLAYWRIGHT_VERSION }}
       - name: Install Playwright Browsers
-        run: pnpm exec playwright install --with-deps
+        run: pnpm exec playwright install --with-deps --only-shell
       - name: Run Playwright tests
         run: pnpm run test:e2e
         env:
