@@ -62,6 +62,8 @@ jobs:
         with:
           node-version: 22
           cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install
       - name: Cache NextJS
         uses: actions/cache@v4
         with:
@@ -73,8 +75,6 @@ jobs:
           # If source files changed but packages didn't, rebuild from a prior cache.
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-
-      - name: Install dependencies
-        run: pnpm install
       - name: Build NextJS
         run: pnpm run build
         env:
@@ -104,7 +104,7 @@ jobs:
         with:
           path: |
             ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
+          key: ${{ runner.os }}-${{ runner.arch }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
       - name: Install Playwright Browsers
         run: pnpm exec playwright install --with-deps
       - name: Run Playwright tests
