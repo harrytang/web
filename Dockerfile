@@ -65,8 +65,7 @@ COPY . /app
 RUN pnpm i --offline --frozen-lockfile
 
 # Download favicon for the app
-RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
-RUN curl -sL $NEXT_PUBLIC_FAVICON_URL -o src/app/favicon.ico
+ADD $NEXT_PUBLIC_FAVICON_URL src/app/favicon.ico
 
 # Build the Next.js app
 RUN pnpm run build
