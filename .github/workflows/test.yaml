@@ -5,7 +5,7 @@ on:
 
 jobs:
   coverage:
-    name: coverage
+    name: Coverage
     runs-on: ubuntu-latest
     environment:
       name: test
@@ -45,6 +45,7 @@ jobs:
         with:
           coverageCommand: pnpm run test:cov
   e2e-tests:
+    name: E2E Tests
     timeout-minutes: 60
     environment:
       name: test
@@ -106,6 +107,7 @@ jobs:
           key: ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
       - name: Run Playwright tests
         run: pnpm run test:e2e
         env:
