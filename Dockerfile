@@ -81,7 +81,7 @@ ENV NODE_ENV=production \
     PORT=3000
 
 # Add non-root user for security
-RUN groupadd -g 1001 nodejs && useradd -r -u 1001 -g nodejs nextjs
+RUN addgroup -g 1001 -S nodejs && adduser -S nextjs -u 1001 -G nodejs
 
 # Set working directory
 WORKDIR /app
