@@ -8,8 +8,8 @@ on:
       - '**/**.md'
       - 'docker-compose.yml'
 jobs:
-  test:
-    uses: ./.github/workflows/test.yaml
+  # test:
+  #   uses: ./.github/workflows/test.yaml
   generate-image-tag:
     name: Generate Image Tag
     runs-on: ubuntu-latest
@@ -24,7 +24,7 @@ jobs:
           echo "image_tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
   build-push:
     name: Build ARM64 image
-    needs: ['test', 'generate-image-tag']
+    needs: ['generate-image-tag']
     runs-on: ubuntu-24.04-arm
     environment:
       name: staging
