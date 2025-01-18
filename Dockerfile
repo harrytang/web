@@ -2,8 +2,8 @@
 FROM node:22-alpine AS base
 
 # Set environment variables for PNPM
-ENV PNPM_HOME="/pnpm" \
-    PATH="$PNPM_HOME:$PATH"
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"    
 
 # Enable corepack for package management
 RUN corepack enable
