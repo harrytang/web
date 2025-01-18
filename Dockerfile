@@ -56,10 +56,13 @@ ENV NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL} \
     SITEMAP_SIZE=${SITEMAP_SIZE} \
     NEXT_TELEMETRY_DISABLED=1
 
+# Fetch dependencies
+COPY pnpm-lock.yaml /app
+RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm fetch
+
 # Install dependencies
 COPY . /app
-RUN pnpm fetch
-RUN pnpm install --frozen-lockfile
+RUN pnpm i --offline --frozen-lockfile
 
 # Download favicon for the app
 RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
