@@ -1,8 +1,9 @@
-FROM node:22-slim AS base
+# Base image with minimal footprint
+FROM node:22-alpine AS base
 
 # Set environment variables for PNPM
-ENV PNPM_HOME="/pnpm"
-ENV PATH="$PNPM_HOME:$PATH"
+ENV PNPM_HOME="/pnpm" \
+    PATH="$PNPM_HOME:$PATH"
 
 # Enable corepack for package management
 RUN corepack enable
@@ -61,11 +62,11 @@ COPY pnpm-lock.yaml /app
 RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm fetch
 
 # Install dependencies
-COPY . /app
-RUN pnpm i --offline --frozen-lockfile
+COPY . .
+RUN pnpm install --offline --frozen-lockfile
 
-# Download favicon for the app
-ADD $NEXT_PUBLIC_FAVICON_URL src/app/favicon.ico
+# Download favicon for the app (uses ADD for simplicity)
+ADD ${NEXT_PUBLIC_FAVICON_URL} /app/src/app/favicon.ico
 
 # Build the Next.js app
 RUN pnpm run build
@@ -73,22 +74,24 @@ RUN pnpm run build
 ########################
 ### Production Stage ###
 ########################
-FROM base AS runner
+FROM node:22-alpine AS runner
 
-# Set NODE_ENV for production
+# Set NODE_ENV for production and define the application port
 ENV NODE_ENV=production \
     PORT=3000
 
 # Add non-root user for security
 RUN groupadd -g 1001 nodejs && useradd -r -u 1001 -g nodejs nextjs
 
-# Copy the build artifacts
+# Set working directory
+WORKDIR /app
+
+# Copy the build artifacts from the builder
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-# Set the user and working directory
+# Change user to non-root
 USER nextjs
-WORKDIR /app
 
 # Expose the application port
 EXPOSE 3000
