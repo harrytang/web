@@ -10,6 +10,18 @@ on:
 jobs:
   test:
     uses: ./.github/workflows/test.yaml
+  image-tag:
+    name: Generate Image Tag
+    runs-on: ubuntu-latest
+    outputs:
+      image-tag: ${{ steps.generate.outputs.image_tag }}
+    steps:
+      - name: Generate image tag
+        id: generate
+        run: |
+          IMAGE_TAG=$(echo $GITHUB_REF | sed 's|refs/heads/||')-$(echo $GITHUB_SHA | head -c 7)-$(date +%s)
+          echo "image_tag=$IMAGE_TAG" >> $GITHUB_ENV
+          echo "::set-output name=image_tag::$IMAGE_TAG"
   build-arm64:
     needs: 'test'
     runs-on: ubuntu-24.04-arm
@@ -28,9 +40,6 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Generate image tag
-        run: echo "IMAGE_TAG=$(echo $GITHUB_REF | sed 's|refs/heads/||')-$(echo $GITHUB_SHA | head -c 7)-$(date +%s)" >> $GITHUB_ENV
 
       - name: Build and push
         uses: docker/build-push-action@v6
@@ -57,7 +66,7 @@ jobs:
             SITEMAP_SIZE=${{ vars.SITEMAP_SIZE }}
           platforms: linux/arm64
           push: true
-          tags: ghcr.io/${{ github.repository }}:${{ env.IMAGE_TAG }}
+          tags: ghcr.io/${{ github.repository }}:${{ needs.generate-image-tag.outputs.image-tag }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
   build-adm64:
@@ -78,9 +87,6 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Generate image tag
-        run: echo "IMAGE_TAG=$(echo $GITHUB_REF | sed 's|refs/heads/||')-$(echo $GITHUB_SHA | head -c 7)-$(date +%s)" >> $GITHUB_ENV
 
       - name: Build and push
         uses: docker/build-push-action@v6
@@ -107,6 +113,6 @@ jobs:
             SITEMAP_SIZE=${{ vars.SITEMAP_SIZE }}
           platforms: linux/amd64
           push: true
-          tags: ghcr.io/${{ github.repository }}:${{ env.IMAGE_TAG }}
+          tags: ghcr.io/${{ github.repository }}:${{ needs.generate-image-tag.outputs.image-tag }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
