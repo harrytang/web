@@ -6,7 +6,7 @@ on:
 jobs:
   coverage:
     name: coverage
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-latest
     environment:
       name: test
     steps:
@@ -48,7 +48,7 @@ jobs:
     timeout-minutes: 60
     environment:
       name: test
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
