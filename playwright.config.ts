@@ -1,3 +1,4 @@
+import os from 'os'
 import { defineConfig, devices } from '@playwright/test'
 
 /**
@@ -5,6 +6,9 @@ import { defineConfig, devices } from '@playwright/test'
  * https://github.com/motdotla/dotenv
  */
 // require('dotenv').config();
+const baseUrl = process.env.CI
+  ? 'http://127.0.0.1:3000'
+  : `http://${os.hostname()}:3000`
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -25,7 +29,7 @@ export default defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
     // baseURL: 'http://127.0.0.1:3000',
-    baseURL: 'http://127.0.0.1:3000',
+    baseURL: baseUrl,
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
@@ -77,7 +81,7 @@ export default defineConfig({
   // },
   webServer: {
     command: 'node .next/standalone/server.js',
-    url: 'http://127.0.0.1:3000',
+    url: baseUrl,
     timeout: 3 * 1000,
     reuseExistingServer: !process.env.CI,
   },

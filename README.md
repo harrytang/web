@@ -39,7 +39,7 @@ pnpm run test
 
 ## E2e testing
 
-To run the e2e tests, run the following command:
+To run the e2e tests locally, run the following command:
 
 ```bash
 docker run --rm -it -v ${PWD}:/workspace -w /workspace mcr.microsoft.com/playwright:latest bash

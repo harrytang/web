@@ -12,7 +12,7 @@ test('should open the Articles page', async ({ page }) => {
 
   // fetch blogs data from the API
   const blogsResponse = await reqCtx.get(
-    `/api/blogs?pagination[limit]=${process.env.NEXT_PUBLIC_PAGE_SIZE}&sort=publishedAt:desc`,
+    `/api/blogs?pagination[limit]=${process.env.NEXT_PUBLIC_PAGE_SIZE}&sort=publishedAt:desc&locale=all`,
   )
   const { data: blogs } = (await blogsResponse.json()) as {
     data: Blog[]
