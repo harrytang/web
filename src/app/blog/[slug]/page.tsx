@@ -4,9 +4,9 @@ import { getBlog, getBlogSlugs } from '@/lib/blogs'
 import { generateArticleJsonLd, generateSeoMeta } from '@/lib/helper'
 
 interface BlogProps {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
 export async function generateStaticParams() {
@@ -17,10 +17,11 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: BlogProps) {
-  const blog = await getBlog(params.slug)
+  const { slug } = await params
+  const blog = await getBlog(slug)
   if (blog) {
     return generateSeoMeta(
-      `blog/${params.slug}`,
+      `blog/${slug}`,
       blog.attributes.seo,
       'article',
       blog.attributes.locale,
@@ -29,8 +30,9 @@ export async function generateMetadata({ params }: BlogProps) {
 }
 
 const Blog = async ({ params }: BlogProps) => {
-  console.info(`Rendering /blog/${params.slug} page...`)
-  const blog = await getBlog(params.slug)
+  const { slug } = await params
+  console.info(`Rendering /blog/${slug}`)
+  const blog = await getBlog(slug)
   if (!blog) {
     return notFound()
   }

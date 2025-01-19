@@ -14,7 +14,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 const About: React.FC = async () => {
-  console.info('Rendering /about page...')
+  console.info('Rendering /about')
   const profile = await getProfile()
   const jsonld = generateProfilePageJsonLd(profile.data)
   return (

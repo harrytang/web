@@ -18,7 +18,7 @@ export async function generateMetadata() {
 }
 
 const Expertise = async () => {
-  console.info('Rendering /expertise page...')
+  console.info('Rendering /expertise')
   const page = await getPage('expertise')
   const skills = await listRandomSkill()
 

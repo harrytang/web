@@ -35,8 +35,9 @@ To run the e2e tests, run the following command:
 
 ```bash
 docker run --rm -it -v ${PWD}:/workspace -w /workspace mcr.microsoft.com/playwright:latest bash
-export $(cat .env.build.local | grep -v '^#' | xargs)
-npm run build
-npx playwright install --with-deps
-npm run test:e2e
+export $(cat .env.e2e.local | grep -v '^#' | xargs)
+npm install -g pnpm
+pnpm run build
+pnpm exec playwright install --with-deps
+pnpm run test:e2e
 ```

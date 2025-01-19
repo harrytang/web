@@ -19,7 +19,7 @@ export async function generateMetadata() {
 }
 
 const Gear = async () => {
-  console.info('Rendering /gear page...')
+  console.info('Rendering /gear')
   const page = await getPage('gear')
   const uses = await getUses()
   const categorizedUses = categorizeItems(uses.data)
