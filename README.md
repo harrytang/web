@@ -29,7 +29,15 @@ docker-compose up -d
 
 Finally, open [http://localhost:3000](http://localhost:3000) in your browser to view the website.
 
-## e2e testing
+## Test
+
+```bash
+nodesh # docker run --rm -it -v ${PWD}:/workspace -w /workspace ghcr.io/harrytang/devops-tools:node sh
+export $(cat .env.local | grep -v '^#' | xargs)
+pnpm run test
+```
+
+## E2e testing
 
 To run the e2e tests, run the following command:
 
