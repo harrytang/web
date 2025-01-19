@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.14.0](https://github.com/harrytang/web/compare/v1.13.0...v1.14.0) (2025-01-19)
+
+
+### Features
+
+* update nestjs to v15 ([a252e82](https://github.com/harrytang/web/commit/a252e822583bc527412fd66630b64c671a4cf47c))
+
+
+### Bug Fixes
+
+* **deps:** update dependency qs to v6.14.0 ([#191](https://github.com/harrytang/web/issues/191)) ([4dc944a](https://github.com/harrytang/web/commit/4dc944a1e0f63af3c116e15bd6580bf18ad66e84))
+
 ## [1.13.0](https://github.com/harrytang/web/compare/v1.12.2...v1.13.0) (2025-01-12)
 
 
