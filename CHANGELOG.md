@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.14.2](https://github.com/harrytang/web/compare/v1.14.1...v1.14.2) (2025-01-23)
+
+
+### Bug Fixes
+
+* **deps:** update nextjs monorepo to v15.1.6 ([#196](https://github.com/harrytang/web/issues/196)) ([5c934e7](https://github.com/harrytang/web/commit/5c934e74f5f38a296d5d6537573a8fb7d1d1902d))
+
 ### [1.14.1](https://github.com/harrytang/web/compare/v1.14.0...v1.14.1) (2025-01-19)
 
 
