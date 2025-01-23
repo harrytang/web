@@ -5,7 +5,7 @@
 
 This is the source code for my offical website harrytang.xyz. It is built using Next.js and Tailwind CSS. The backend is built using Strapi.
 
-## Getting started
+## Development
 
 Install the dependencies:
 
