@@ -2,6 +2,8 @@ name: Test
 
 on:
   workflow_call:
+    paths-ignore:
+      - '**/*.md'
 
 jobs:
   coverage:
