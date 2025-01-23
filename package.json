@@ -11,7 +11,7 @@
     "test:e2e": "playwright test",
     "test:cov": "pnpm run lint && jest --coverage",
     "test:watch": "jest --watch-all",
-    "release": "pnpm dlx standard-version && git push --follow-tags origin main"
+    "release": "pnpm dlx release-please release --manifest"
   },
   "browserslist": "defaults, not ie <= 11",
   "dependencies": {
