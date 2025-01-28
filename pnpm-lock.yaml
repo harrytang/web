@@ -109,8 +109,8 @@ importers:
         specifier: 19.0.3
         version: 19.0.3(@types/react@19.0.8)
       '@types/webpack-env':
-        specifier: 1.18.6
-        version: 1.18.6
+        specifier: 1.18.7
+        version: 1.18.7
       eslint:
         specifier: 9.19.0
         version: 9.19.0(jiti@1.21.7)
@@ -960,8 +960,8 @@ packages:
   '@types/unist@3.0.3':
     resolution: {integrity: sha512-ko/gIFJRv177XgZsZcBwnqJN5x/Gien8qNOn0D5bQU/zAzVf9Zt3BlcUiLqhV9y4ARk0GbT3tnUiPNgnTXzc/Q==}
 
-  '@types/webpack-env@1.18.6':
-    resolution: {integrity: sha512-b32JtXK2UJHdXWUiNdIXxeAUXJu+FZG6HRMDNZu+o6QTzQ3dsDNR6Q7XQj5GD5skljXgb5zxc/+G/ZxkFKdlyg==}
+  '@types/webpack-env@1.18.7':
+    resolution: {integrity: sha512-EUenEZ8xpaNKJnVbwEZq406UjWXskrNQj3l1KVCSqEPM6J4ItRxPJHgstdo6qSYSxgz677GOoAHVU0nIZiPIww==}
 
   '@types/yargs-parser@21.0.3':
     resolution: {integrity: sha512-I4q9QU9MQv4oEOz4tAHJtNz1cwuLxn2F3xcc2iV5WdqLPpUnj30aUuxt1mAxYTG+oe8CZMV/+6rU4S4gRDzqtQ==}
@@ -4762,7 +4762,7 @@ snapshots:
 
   '@types/unist@3.0.3': {}
 
-  '@types/webpack-env@1.18.6': {}
+  '@types/webpack-env@1.18.7': {}
 
   '@types/yargs-parser@21.0.3': {}
 
