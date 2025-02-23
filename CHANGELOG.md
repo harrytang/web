@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.14.3](https://github.com/harrytang/web/compare/v1.14.2...v1.14.3) (2025-02-23)
+
+
+### Bug Fixes
+
+* **deps:** update dependency react-markdown to v10 ([#221](https://github.com/harrytang/web/issues/221)) ([c02c668](https://github.com/harrytang/web/commit/c02c668af2f826e7b78a9b49b2b5b0276af2bb79))
+* **deps:** update dependency react-markdown to v9.1.0 ([#220](https://github.com/harrytang/web/issues/220)) ([7c02694](https://github.com/harrytang/web/commit/7c0269489df77630b15cca4b3cac38fed9d9a60a))
+* **deps:** update dependency remark-gfm to v4.0.1 ([#213](https://github.com/harrytang/web/issues/213)) ([58fb2f6](https://github.com/harrytang/web/commit/58fb2f612331c0d61a736cf750b760f7f282f783))
+* **deps:** update nextjs monorepo to v15.1.7 ([#214](https://github.com/harrytang/web/issues/214)) ([da45200](https://github.com/harrytang/web/commit/da45200b4b7ba413e7ff4221036ca4d745b72880))
+
 ### [1.14.2](https://github.com/harrytang/web/compare/v1.14.1...v1.14.2) (2025-01-23)
 
 
