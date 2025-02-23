@@ -28,9 +28,9 @@ const SimpleLayout: React.FC<SimpleLayoutProps> = ({
       )}
       {content && (
         <Prose className="mt-8" data-mdx-content>
-          <ReactMarkdown className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
-            {content}
-          </ReactMarkdown>
+          <div className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
+            <ReactMarkdown>{content}</ReactMarkdown>
+          </div>
         </Prose>
       )}
       {seachBox && (
