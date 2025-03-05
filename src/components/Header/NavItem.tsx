@@ -24,7 +24,7 @@ const NavItem: React.FC<NavItemProps> = ({ href, children }) => {
       >
         {children}
         {isActive && (
-          <span className="absolute inset-x-1 -bottom-px h-px bg-gradient-to-r from-amber-500/0 via-amber-500/40 to-amber-500/0 dark:from-amber-400/0 dark:via-amber-400/40 dark:to-amber-400/0" />
+          <span className="absolute inset-x-1 -bottom-px h-px bg-linear-to-r from-amber-500/0 via-amber-500/40 to-amber-500/0 dark:from-amber-400/0 dark:via-amber-400/40 dark:to-amber-400/0" />
         )}
       </Link>
     </li>
