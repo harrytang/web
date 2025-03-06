@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.15.0](https://github.com/harrytang/web/compare/v1.14.3...v1.15.0) (2025-03-06)
+
+
+### Features
+
+* tailwindcss v4 ([#231](https://github.com/harrytang/web/issues/231)) ([efe4351](https://github.com/harrytang/web/commit/efe435142f7718be37ee41a698d56c6ca6ec9ab1))
+
+
+### Bug Fixes
+
+* **deps:** update dependency react-markdown to v10.0.1 ([#229](https://github.com/harrytang/web/issues/229)) ([057f582](https://github.com/harrytang/web/commit/057f582980775738623d16be5e61a8357f215359))
+* **deps:** update dependency typescript to v5.8.2 ([#225](https://github.com/harrytang/web/issues/225)) ([dc36911](https://github.com/harrytang/web/commit/dc36911243bfb6649f5b77ccf10c4de7d67ae98a))
+* **deps:** update nextjs monorepo to v15.2.1 ([#224](https://github.com/harrytang/web/issues/224)) ([e575b59](https://github.com/harrytang/web/commit/e575b5994069c80a3de1d7a00778fe4828a9349d))
+
 ### [1.14.3](https://github.com/harrytang/web/compare/v1.14.2...v1.14.3) (2025-02-23)
 
 
