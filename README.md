@@ -35,3 +35,38 @@ pnpm run build
 pnpm exec playwright install --with-deps
 pnpm run test:e2e
 ```
+
+## tailwindcss v4.0
+
+│ Searching for CSS files in the current directory and its subdirectories…
+
+│ ↳ Linked `./tailwind.config.ts` to `./src/styles/tailwind.css`
+
+│ Migrating JavaScript configuration files…
+
+│ ↳ The configuration file at `./tailwind.config.ts` could not be automatically migrated to the new CSS configuration format, so your CSS has been updated to load your existing
+│ configuration file.
+
+│ Migrating templates…
+
+│ ↳ Migrated templates for configuration file: `./tailwind.config.ts`
+
+│ Migrating stylesheets…
+
+│ ↳ Migrated stylesheet: `./src/styles/tailwind.css`
+
+│ Migrating PostCSS configuration…
+
+│ ↳ Installed package: `@tailwindcss/postcss`
+
+│ ↳ Removed package: `autoprefixer`
+
+│ ↳ Migrated PostCSS configuration: `./postcss.config.js`
+
+│ Updating dependencies…
+
+│ ↳ Updated package: `prettier-plugin-tailwindcss`
+
+│ ↳ Updated package: `tailwindcss`
+
+│ Verify the changes and commit them to your repository.
