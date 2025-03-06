@@ -37,7 +37,7 @@ const Expertise = async () => {
           <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-12 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
             {skills.map((skill) => (
               <div key={skill.attributes.name} className="sm:flex">
-                <div className="flex items-center sm:flex-shrink-0">
+                <div className="flex items-center sm:shrink-0">
                   <div className="flow-root">
                     <Image
                       src={skill.attributes.image.data.attributes.url}
