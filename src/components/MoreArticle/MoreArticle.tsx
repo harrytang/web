@@ -45,7 +45,7 @@ const MoreArticle: React.FC<MoreArticleProps> = ({ total, type }) => {
             onClick={loadMore}
             type="button"
             variant="primary"
-            className="group mt-6 w-full"
+            className="group mt-6 w-full hover:cursor-pointer"
           >
             Load more
           </Button>
