@@ -2,9 +2,8 @@
 
 import ReactMarkdown from 'react-markdown'
 import dynamic from 'next/dynamic'
-import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { useContext } from 'react'
+import { lazy, Suspense, useContext } from 'react'
 import { ArrowLeftIcon, InformationCircleIcon } from '@heroicons/react/20/solid'
 
 // local imports
@@ -14,6 +13,8 @@ import { Prose } from '@/components/Prose'
 import { Blog } from '@/lib/blogs'
 import { formatDate } from '@/lib/helper'
 import { CommentBox } from '../CommentBox'
+import { ImageSkeleton } from '../image-skeleton'
+const LazyImage = lazy(() => import('next/image'))
 
 // dynamic imports
 const ReactPlayer = dynamic(() => import('react-player'), { ssr: false })
@@ -68,15 +69,24 @@ const BlogLayout: React.FC<BlogLayoutProps> = ({ blog }) => {
               )}
 
               <figure className="mt-16">
-                <Image
-                  className="rounded-md bg-gray-50 object-cover"
-                  src={blog.attributes.seo.metaImage.data.attributes.url}
-                  alt={blog.attributes.seo.metaImage.data.attributes.caption}
-                  width={blog.attributes.seo.metaImage.data.attributes.width}
-                  height={blog.attributes.seo.metaImage.data.attributes.height}
-                  priority={true}
-                  loading="eager"
-                />
+                <Suspense
+                  fallback={
+                    <ImageSkeleton
+                      className={`aspect-${blog.attributes.seo.metaImage.data.attributes.width}/${blog.attributes.seo.metaImage.data.attributes.height} rounded-md bg-gray-200 dark:bg-gray-700`}
+                    />
+                  }
+                >
+                  <LazyImage
+                    className="rounded-md object-cover"
+                    src={blog.attributes.seo.metaImage.data.attributes.url}
+                    alt={blog.attributes.seo.metaImage.data.attributes.caption}
+                    width={blog.attributes.seo.metaImage.data.attributes.width}
+                    height={
+                      blog.attributes.seo.metaImage.data.attributes.height
+                    }
+                  />
+                </Suspense>
+
                 <figcaption className="mt-4 flex justify-center gap-x-2 text-sm leading-6 text-gray-500">
                   <InformationCircleIcon
                     className="mt-0.5 h-5 w-5 flex-none text-gray-300"
