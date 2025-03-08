@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.15.2](https://github.com/harrytang/web/compare/v1.15.1...v1.15.2) (2025-03-08)
+
+
+### Bug Fixes
+
+* **deps:** update tailwindcss monorepo to v4.0.12 ([#235](https://github.com/harrytang/web/issues/235)) ([f33082a](https://github.com/harrytang/web/commit/f33082ad2b1242eb90347154d5f690d144e9f398))
+* links css color ([453a0b7](https://github.com/harrytang/web/commit/453a0b786bb8c4f99890d1dbe9f2f820051d7197))
+
 ### [1.15.1](https://github.com/harrytang/web/compare/v1.15.0...v1.15.1) (2025-03-06)
 
 
