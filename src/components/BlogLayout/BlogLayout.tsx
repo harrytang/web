@@ -89,7 +89,10 @@ const BlogLayout: React.FC<BlogLayoutProps> = ({ blog }) => {
                   />
                 ) : (
                   <ImageSkeleton
-                    className={`aspect-${blog.attributes.seo.metaImage.data.attributes.width}/${blog.attributes.seo.metaImage.data.attributes.height}`}
+                    width={blog.attributes.seo.metaImage.data.attributes.width}
+                    height={
+                      blog.attributes.seo.metaImage.data.attributes.height
+                    }
                   />
                 )}
 
