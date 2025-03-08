@@ -3,8 +3,9 @@
 import ReactMarkdown from 'react-markdown'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/navigation'
-import { lazy, Suspense, useContext } from 'react'
+import { use, useContext, useEffect, useState } from 'react'
 import { ArrowLeftIcon, InformationCircleIcon } from '@heroicons/react/20/solid'
+import Image from 'next/image'
 
 // local imports
 import { AppContext } from '@/app/providers'
@@ -14,7 +15,6 @@ import { Blog } from '@/lib/blogs'
 import { formatDate } from '@/lib/helper'
 import { CommentBox } from '../CommentBox'
 import { ImageSkeleton } from '../image-skeleton'
-const LazyImage = lazy(() => import('next/image'))
 
 // dynamic imports
 const ReactPlayer = dynamic(() => import('react-player'), { ssr: false })
@@ -26,6 +26,13 @@ type BlogLayoutProps = {
 const BlogLayout: React.FC<BlogLayoutProps> = ({ blog }) => {
   let router = useRouter()
   let { previousPathname } = useContext(AppContext)
+  const [showImage, setShowImage] = useState(false)
+
+  useEffect(() => {
+    const img = new window.Image()
+    img.src = blog.attributes.seo.metaImage.data.attributes.url
+    img.onload = () => setShowImage(true)
+  }, [blog.attributes.seo.metaImage.data.attributes.url])
 
   return (
     <Container className="mt-16 lg:mt-32">
@@ -69,14 +76,8 @@ const BlogLayout: React.FC<BlogLayoutProps> = ({ blog }) => {
               )}
 
               <figure className="mt-16">
-                <Suspense
-                  fallback={
-                    <ImageSkeleton
-                      className={`aspect-${blog.attributes.seo.metaImage.data.attributes.width}/${blog.attributes.seo.metaImage.data.attributes.height} rounded-md bg-gray-200 dark:bg-gray-700`}
-                    />
-                  }
-                >
-                  <LazyImage
+                {showImage ? (
+                  <Image
                     className="rounded-md object-cover"
                     src={blog.attributes.seo.metaImage.data.attributes.url}
                     alt={blog.attributes.seo.metaImage.data.attributes.caption}
@@ -84,8 +85,13 @@ const BlogLayout: React.FC<BlogLayoutProps> = ({ blog }) => {
                     height={
                       blog.attributes.seo.metaImage.data.attributes.height
                     }
+                    priority={true}
                   />
-                </Suspense>
+                ) : (
+                  <ImageSkeleton
+                    className={`aspect-${blog.attributes.seo.metaImage.data.attributes.width}/${blog.attributes.seo.metaImage.data.attributes.height}`}
+                  />
+                )}
 
                 <figcaption className="mt-4 flex justify-center gap-x-2 text-sm leading-6 text-gray-500">
                   <InformationCircleIcon

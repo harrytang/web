@@ -1,13 +1,13 @@
 const ImageSkeleton = ({ className }: { className?: string }) => {
   return (
     <div
-      className={`${className} flex animate-pulse items-center justify-center`}
+      className={`${className} flex animate-pulse items-center justify-center rounded-md bg-gray-200 dark:bg-gray-700`}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
         fill="currentColor"
-        className="size-6 h-full"
+        className="h-full"
       >
         <path
           fillRule="evenodd"
