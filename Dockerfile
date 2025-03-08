@@ -7,6 +7,7 @@ ENV PATH="$PNPM_HOME:$PATH"
 
 # Enable corepack for package management
 RUN corepack enable
+RUN npm i -g corepack@latest
 
 # Set working directory
 WORKDIR /app
