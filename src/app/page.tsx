@@ -47,7 +47,7 @@ const Home = async () => {
                 <Image
                   src={social.icon.data.attributes.url}
                   alt={social.icon.data.attributes.caption}
-                  className="h-6 w-6 fill-zinc-500 transition group-hover:fill-zinc-600 dark:fill-zinc-400 dark:group-hover:fill-zinc-300"
+                  className="h-6 w-6 fill-zinc-500 transition group-hover:fill-zinc-600 hover:brightness-75 dark:fill-zinc-400 dark:group-hover:fill-zinc-300 dark:hover:brightness-125"
                   unoptimized
                   width={social.icon.data.attributes.width}
                   height={social.icon.data.attributes.height}
