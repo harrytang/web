@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.16.0](https://github.com/harrytang/web/compare/v1.15.2...v1.16.0) (2025-03-08)
+
+
+### Features
+
+* image skeleton ([dd11868](https://github.com/harrytang/web/commit/dd118680e56eb00570c34c9dac69dc59dcc8661c))
+
+
+### Bug Fixes
+
+* use animate-pulse ([8ca6e61](https://github.com/harrytang/web/commit/8ca6e6166555cbc3fef35087cd8152525850ebee))
+
 ### [1.15.2](https://github.com/harrytang/web/compare/v1.15.1...v1.15.2) (2025-03-08)
 
 
