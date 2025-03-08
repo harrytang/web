@@ -1,7 +1,7 @@
 const ImageSkeleton = ({ className }: { className?: string }) => {
   return (
     <div
-      className={`${className} flex animate-spin items-center justify-center`}
+      className={`${className} flex animate-pulse items-center justify-center`}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
