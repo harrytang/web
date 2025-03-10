@@ -1,6 +1,5 @@
 'use client'
 
-import ReactMarkdown from 'react-markdown'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/navigation'
 import { useContext } from 'react'
@@ -15,6 +14,7 @@ import { Blog } from '@/lib/blogs'
 import { formatDate } from '@/lib/helper'
 import { CommentBox } from '@/components/CommentBox'
 import { BLUR_IMAGE } from '@/../const'
+import { MarkdownRenderer } from '../mdx'
 
 // dynamic imports
 const ReactPlayer = dynamic(() => import('react-player'), { ssr: false })
@@ -89,7 +89,7 @@ const BlogLayout: React.FC<BlogLayoutProps> = ({ blog }) => {
                 </figcaption>
               </figure>
 
-              <ReactMarkdown>{blog.attributes.content}</ReactMarkdown>
+              <MarkdownRenderer content={blog.attributes.content} />
               <CommentBox
                 location={`${process.env.NEXT_PUBLIC_SITE_URL}/blog/${blog.attributes.slug}`}
               />
