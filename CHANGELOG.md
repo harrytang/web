@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.17.0](https://github.com/harrytang/web/compare/v1.16.1...v1.17.0) (2025-03-10)
+
+
+### Features
+
+* add MarkdownRenderer with NextJS Image ([747b734](https://github.com/harrytang/web/commit/747b7341630a6d48a01b06c93b3bf4d523e8e5f2))
+
 ### [1.16.1](https://github.com/harrytang/web/compare/v1.16.0...v1.16.1) (2025-03-08)
 
 
