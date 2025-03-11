@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.17.1](https://github.com/harrytang/web/compare/v1.17.0...v1.17.1) (2025-03-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @tailwindcss/postcss to v4.0.12 ([#239](https://github.com/harrytang/web/issues/239)) ([a524231](https://github.com/harrytang/web/commit/a5242312d78bd995798297918c227ff453c7b65b))
+* **deps:** update dependency next-themes to v0.4.5 ([#238](https://github.com/harrytang/web/issues/238)) ([f100e09](https://github.com/harrytang/web/commit/f100e091d0a8f5b5735be357119b2518087e47ef))
+* **deps:** update dependency react-markdown to v10.1.0 ([#234](https://github.com/harrytang/web/issues/234)) ([1c2601d](https://github.com/harrytang/web/commit/1c2601d6b7ac8fa01f2cecfce0785a0a8fb1c73a))
+* **deps:** update nextjs monorepo to v15.2.2 ([#240](https://github.com/harrytang/web/issues/240)) ([c899fe1](https://github.com/harrytang/web/commit/c899fe1bfed6c12e9345ac08425167630fbe5702))
+* **deps:** update tailwindcss monorepo to v4.0.13 ([#241](https://github.com/harrytang/web/issues/241)) ([04ad34a](https://github.com/harrytang/web/commit/04ad34a0227e2926edeebbf46bf0b81f221d97b3))
+
 ## [1.17.0](https://github.com/harrytang/web/compare/v1.16.1...v1.17.0) (2025-03-10)
 
 
