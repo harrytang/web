@@ -2,6 +2,7 @@ import { Media } from '@/types/media'
 import clsx from 'clsx'
 import Image from 'next/image'
 import React from 'react'
+import { BLUR_IMAGE } from '@/../const'
 
 type GalleryProps = {
   items: Media[]
@@ -18,10 +19,12 @@ const Gallery: React.FC<GalleryProps> = ({ items }) => {
     '-rotate-3',
     '-rotate-3',
   ]
+  const middleIdx = Math.floor(items.length / 2)
+
   return (
     <div className="mt-16 sm:mt-20">
       <div className="-my-4 flex justify-center gap-5 overflow-hidden py-4 sm:gap-8">
-        {items.map((image) => (
+        {items.map((image, idx) => (
           <div
             key={image.id}
             className={clsx(
@@ -36,6 +39,9 @@ const Gallery: React.FC<GalleryProps> = ({ items }) => {
               className={clsx('absolute inset-0 h-full w-full object-cover')}
               width={image.attributes.width}
               height={image.attributes.height}
+              priority={middleIdx === idx}
+              placeholder="blur"
+              blurDataURL={BLUR_IMAGE}
             />
           </div>
         ))}

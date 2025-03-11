@@ -7,6 +7,7 @@ import { Container } from '@/components/Container'
 import { getProfile } from '@/lib/profile'
 import { generateProfilePageJsonLd, generateSeoMeta } from '@/lib/helper'
 import { SocialLink } from '@/components/SocialLink'
+import { BLUR_IMAGE } from '../../../const'
 
 export async function generateMetadata(): Promise<Metadata> {
   const profile = await getProfile()
@@ -35,6 +36,9 @@ const About: React.FC = async () => {
               }
               sizes="(min-width: 1024px) 32rem, 20rem"
               className="aspect-square rotate-3 rounded-2xl bg-zinc-100 object-cover dark:bg-zinc-800"
+              priority={true}
+              placeholder="blur"
+              blurDataURL={BLUR_IMAGE}
             />
           </div>
         </div>
