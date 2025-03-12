@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.18.0](https://github.com/harrytang/web/compare/v1.17.1...v1.18.0) (2025-03-12)
+
+
+### Features
+
+* optimize comment & video player ([2c619b1](https://github.com/harrytang/web/commit/2c619b1fb91529e5d2240d91b03332ddba3d30a0))
+
+
+### Bug Fixes
+
+* **deps:** update dependency next-themes to v0.4.6 ([#242](https://github.com/harrytang/web/issues/242)) ([b9cb8f1](https://github.com/harrytang/web/commit/b9cb8f10203a3bfa241e6bcdd59f515e00670e0c))
+
 ### [1.17.1](https://github.com/harrytang/web/compare/v1.17.0...v1.17.1) (2025-03-11)
 
 
