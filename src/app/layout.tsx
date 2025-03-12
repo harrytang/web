@@ -24,7 +24,11 @@ export const metadata = async (): Promise<Metadata> => {
 
 const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
   return (
-    <html lang="en" className="h-full antialiased" suppressHydrationWarning>
+    <html
+      lang="en"
+      className="dark h-full antialiased"
+      suppressHydrationWarning
+    >
       <head>
         <PlausibleProvider
           domain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN!}
