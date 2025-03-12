@@ -2,8 +2,12 @@
 
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/navigation'
-import { useContext } from 'react'
-import { ArrowLeftIcon, InformationCircleIcon } from '@heroicons/react/20/solid'
+import { useContext, useEffect, useRef, useState } from 'react'
+import {
+  ArrowLeftIcon,
+  InformationCircleIcon,
+  PlayCircleIcon,
+} from '@heroicons/react/20/solid'
 import Image from 'next/image'
 
 // local imports
@@ -12,12 +16,14 @@ import { Container } from '@/components/Container'
 import { Prose } from '@/components/Prose'
 import { Blog } from '@/lib/blogs'
 import { formatDate } from '@/lib/helper'
-import { CommentBox } from '@/components/CommentBox'
 import { BLUR_IMAGE } from '@/../const'
 import { MarkdownRenderer } from '../mdx'
 
 // dynamic imports
 const ReactPlayer = dynamic(() => import('react-player'), { ssr: false })
+const CommentBox = dynamic(() => import('@/components/CommentBox/CommentBox'), {
+  ssr: false,
+})
 
 type BlogLayoutProps = {
   blog: Blog
@@ -26,6 +32,31 @@ type BlogLayoutProps = {
 const BlogLayout: React.FC<BlogLayoutProps> = ({ blog }) => {
   let router = useRouter()
   let { previousPathname } = useContext(AppContext)
+  const [showComments, setShowComments] = useState(false)
+  const [isPlaying, setIsPlaying] = useState(false)
+  const commentTriggerRef = useRef<HTMLDivElement | null>(null)
+  const hasVideo = blog.attributes.mediaUrl
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setShowComments(true)
+        }
+      },
+      { threshold: 1.0 },
+    )
+
+    if (commentTriggerRef.current) {
+      observer.observe(commentTriggerRef.current)
+    }
+
+    return () => {
+      if (commentTriggerRef.current) {
+        observer.unobserve(commentTriggerRef.current)
+      }
+    }
+  }, [])
 
   return (
     <Container className="mt-16 lg:mt-32">
@@ -57,42 +88,90 @@ const BlogLayout: React.FC<BlogLayoutProps> = ({ blog }) => {
               </time>
             </header>
             <Prose className="mt-8" data-mdx-content>
-              {blog.attributes.mediaUrl && (
-                <div className="player-wrapper">
-                  <ReactPlayer
-                    className="react-player"
-                    url={blog.attributes.mediaUrl}
-                    width="100%"
-                    height="100%"
+              {/* Video Placeholder with Play Button */}
+              {hasVideo && !isPlaying ? (
+                <div className="relative aspect-video w-full overflow-hidden rounded-md bg-gray-900">
+                  <Image
+                    className="h-full w-full object-cover"
+                    src={blog.attributes.seo.metaImage.data.attributes.url}
+                    alt={blog.attributes.seo.metaImage.data.attributes.caption}
+                    width={blog.attributes.seo.metaImage.data.attributes.width}
+                    height={
+                      blog.attributes.seo.metaImage.data.attributes.height
+                    }
+                    priority={true}
+                    loading="eager"
+                    placeholder="blur"
+                    blurDataURL={BLUR_IMAGE}
                   />
+
+                  {/* Play Button Overlay */}
+                  <button
+                    onClick={() => setIsPlaying(true)}
+                    className="absolute inset-0 flex items-center justify-center bg-black/50 transition hover:cursor-pointer hover:bg-black/30"
+                    aria-label="Play Video"
+                  >
+                    <PlayCircleIcon className="h-20 w-20 text-white drop-shadow-lg" />
+                  </button>
                 </div>
+              ) : (
+                // Load ReactPlayer when user clicks play
+                isPlaying && (
+                  <div className="player-wrapper">
+                    <ReactPlayer
+                      className="react-player"
+                      url={blog.attributes.mediaUrl}
+                      width="100%"
+                      height="100%"
+                      controls
+                      playing
+                    />
+                  </div>
+                )
               )}
 
-              <figure className="mt-16">
-                <Image
-                  className="rounded-md object-cover"
-                  src={blog.attributes.seo.metaImage.data.attributes.url}
-                  alt={blog.attributes.seo.metaImage.data.attributes.caption}
-                  width={blog.attributes.seo.metaImage.data.attributes.width}
-                  height={blog.attributes.seo.metaImage.data.attributes.height}
-                  priority={true}
-                  loading="eager"
-                  placeholder="blur"
-                  blurDataURL={BLUR_IMAGE}
-                />
-                <figcaption className="mt-4 flex justify-center gap-x-2 text-sm leading-6 text-gray-500">
-                  <InformationCircleIcon
-                    className="mt-0.5 h-5 w-5 flex-none text-gray-300"
-                    aria-hidden="true"
+              {!hasVideo && (
+                <figure className="mt-16">
+                  <Image
+                    className="rounded-md object-cover"
+                    src={blog.attributes.seo.metaImage.data.attributes.url}
+                    alt={blog.attributes.seo.metaImage.data.attributes.caption}
+                    width={blog.attributes.seo.metaImage.data.attributes.width}
+                    height={
+                      blog.attributes.seo.metaImage.data.attributes.height
+                    }
+                    priority={true}
+                    loading="eager"
+                    placeholder="blur"
+                    blurDataURL={BLUR_IMAGE}
                   />
-                  {blog.attributes.seo.metaImage.data.attributes.caption}
-                </figcaption>
-              </figure>
+                  <figcaption className="mt-4 flex justify-center gap-x-2 text-sm leading-6 text-gray-500">
+                    <InformationCircleIcon
+                      className="mt-0.5 h-5 w-5 flex-none text-gray-300"
+                      aria-hidden="true"
+                    />
+                    {blog.attributes.seo.metaImage.data.attributes.caption}
+                  </figcaption>
+                </figure>
+              )}
 
               <MarkdownRenderer content={blog.attributes.content} />
-              <CommentBox
-                location={`${process.env.NEXT_PUBLIC_SITE_URL}/blog/${blog.attributes.slug}`}
-              />
+              {/* Intersection Observer Trigger */}
+              <div ref={commentTriggerRef} className="relative">
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-0 flex items-center"
+                >
+                  <div className="w-full border-t border-zinc-600" />
+                </div>
+              </div>
+
+              {/* Lazy Load Comments when user scrolls to the end */}
+              {showComments && (
+                <CommentBox
+                  location={`${process.env.NEXT_PUBLIC_SITE_URL}/blog/${blog.attributes.slug}`}
+                />
+              )}
             </Prose>
           </article>
         </div>
