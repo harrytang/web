@@ -123,8 +123,9 @@ const BlogLayout: React.FC<BlogLayoutProps> = ({ blog }) => {
                       url={blog.attributes.mediaUrl}
                       width="100%"
                       height="100%"
-                      controls
-                      playing
+                      controls={true}
+                      playing={true}
+                      muted={false}
                     />
                   </div>
                 )
