@@ -70,6 +70,7 @@ const generateSeoMeta = (
           ],
       locale: locale,
       type: type,
+      url: `${publicSiteUrl}/${path}`,
     },
     twitter: {
       cardType: 'summary_large_image',
