@@ -76,6 +76,7 @@ describe('generateSeoMeta', () => {
         ],
         locale: 'en_US',
         type: 'article',
+        url: `${publicSiteUrl}/test-path`,
       },
       twitter: {
         cardType: 'summary_large_image',
@@ -115,6 +116,7 @@ describe('generateSeoMeta', () => {
         ],
         locale: 'en_US',
         type: 'article',
+        url: `${publicSiteUrl}/test-path`,
       },
       twitter: {
         cardType: 'summary_large_image',
