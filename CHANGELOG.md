@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.19.0](https://github.com/harrytang/web/compare/v1.18.2...v1.19.0) (2025-03-15)
+
+
+### Features
+
+* pagination ([470f2cc](https://github.com/harrytang/web/commit/470f2cc9ad2cfa595a5ca176129db3649d4daae2))
+
 ### [1.18.2](https://github.com/harrytang/web/compare/v1.18.1...v1.18.2) (2025-03-14)
 
 
