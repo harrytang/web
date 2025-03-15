@@ -15,7 +15,7 @@ export function getMenus(): Menu[] {
     },
     {
       name: 'Articles',
-      path: '/articles',
+      path: '/articles/1',
     },
     {
       name: 'Projects',
