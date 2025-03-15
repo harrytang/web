@@ -47,13 +47,15 @@ const BlogLayout: React.FC<BlogLayoutProps> = ({ blog }) => {
       { threshold: 1.0 },
     )
 
-    if (commentTriggerRef.current) {
-      observer.observe(commentTriggerRef.current)
+    const commentTriggerElement = commentTriggerRef.current
+
+    if (commentTriggerElement) {
+      observer.observe(commentTriggerElement)
     }
 
     return () => {
-      if (commentTriggerRef.current) {
-        observer.unobserve(commentTriggerRef.current)
+      if (commentTriggerElement) {
+        observer.unobserve(commentTriggerElement)
       }
     }
   }, [])

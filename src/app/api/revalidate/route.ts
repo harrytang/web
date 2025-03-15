@@ -6,7 +6,7 @@ import { NextRequest } from 'next/server'
 const track = {
   events: ['entry.create', 'entry.update'],
   models: {
-    blog: ['/articles', '/'],
+    blog: ['/articles/[current]', '/'],
     project: ['/projects'],
     skill: ['/expertise'],
     use: ['/gear'],

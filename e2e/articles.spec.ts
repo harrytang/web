@@ -19,7 +19,7 @@ test('should open the Articles page', async ({ page }) => {
   }
 
   // Open the page
-  await page.goto(`/articles`)
+  await page.goto(`/articles/1`)
 
   // Check that the subtitle is correct
   await expect(page.locator('h1')).toContainText(pages[0].attributes.subtitle)

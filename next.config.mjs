@@ -22,6 +22,11 @@ const nextConfig = {
       destination: '/:slug',
       permanent: true,
     },
+    {
+      source: '/articles',
+      destination: '/articles/1',
+      permanent: true,
+    },
   ],
   output: 'standalone',
 }
