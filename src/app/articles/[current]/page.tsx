@@ -16,12 +16,8 @@ export async function generateMetadata({ params }: ArticlesIndexProps) {
     ...page.attributes.seo,
     metaTitle: `${page.attributes.seo.metaTitle} - Page ${current}`,
   }
-  return generateSeoMeta(
-    `articles/${current}`,
-    seo,
-    'website',
-    page.attributes.locale,
-  )
+  const path = current === '1' ? 'articles' : `articles/${current}`
+  return generateSeoMeta(path, seo, 'website', page.attributes.locale)
 }
 
 export async function generateStaticParams(): Promise<{ current: string }[]> {

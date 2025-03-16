@@ -29,7 +29,7 @@ const nextConfig = {
     {
       source: '/articles/1',
       destination: '/articles',
-      permanent: false, // Use `false` for a 307 Temporary Redirect
+      permanent: true,
     },
   ],
   output: 'standalone',
