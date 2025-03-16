@@ -36,7 +36,9 @@ export default function Pagination({
       {/* Previous Button */}
       {currentPage > 1 && (
         <Link
-          href={`/articles/${currentPage - 1}`}
+          href={
+            currentPage === 2 ? '/articles' : `/articles/${currentPage - 1}`
+          }
           className="inline-flex items-center border-t-2 border-transparent px-2 pt-4 text-sm font-medium text-zinc-600 hover:border-zinc-300 dark:text-zinc-500 dark:hover:border-zinc-700"
         >
           <ArrowLongLeftIcon
@@ -53,7 +55,7 @@ export default function Pagination({
         {startPage > 1 && (
           <>
             <Link
-              href="/articles/1"
+              href="/articles"
               className="inline-flex items-center border-t-2 border-transparent px-2 pt-4 text-sm font-medium text-zinc-600 hover:border-zinc-300 dark:text-zinc-500 dark:hover:border-zinc-700"
             >
               1
@@ -68,7 +70,7 @@ export default function Pagination({
         {pagesToShow.map((pageNumber) => (
           <Link
             key={pageNumber}
-            href={`/articles/${pageNumber}`}
+            href={pageNumber === 1 ? '/articles' : `/articles/${pageNumber}`}
             className={clsx(
               'inline-flex items-center border-t-2 px-2 pt-4 text-sm font-medium',
               pageNumber === currentPage
