@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.19.4](https://github.com/harrytang/web/compare/v1.19.3...v1.19.4) (2025-03-16)
+
+
+### Bug Fixes
+
+* page 1 canonical URL ([0e51468](https://github.com/harrytang/web/commit/0e51468b6623eb470a2f0f28e60480ae0206e9b3))
+
 ### [1.19.3](https://github.com/harrytang/web/compare/v1.19.2...v1.19.3) (2025-03-16)
 
 ### [1.19.2](https://github.com/harrytang/web/compare/v1.19.1...v1.19.2) (2025-03-16)
