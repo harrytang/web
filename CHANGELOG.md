@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.19.5](https://github.com/harrytang/web/compare/v1.19.4...v1.19.5) (2025-03-16)
+
+
+### Bug Fixes
+
+* missing discernible name in pre/next button ([4037a4a](https://github.com/harrytang/web/commit/4037a4a13986f9ddd15faa0ba7f1c78241f84ddf))
+
 ### [1.19.4](https://github.com/harrytang/web/compare/v1.19.3...v1.19.4) (2025-03-16)
 
 
