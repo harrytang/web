@@ -12,6 +12,10 @@ const nextConfig = {
   },
   rewrites: async () => [
     {
+      source: '/articles',
+      destination: '/articles/1', // Serve content from /articles/1 when visiting /articles
+    },
+    {
       source: '/:slug',
       destination: '/page/:slug',
     },
@@ -23,9 +27,9 @@ const nextConfig = {
       permanent: true,
     },
     {
-      source: '/articles',
-      destination: '/articles/1',
-      permanent: true,
+      source: '/articles/1',
+      destination: '/articles',
+      permanent: false, // Use `false` for a 307 Temporary Redirect
     },
   ],
   output: 'standalone',

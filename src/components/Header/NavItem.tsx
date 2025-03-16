@@ -9,7 +9,8 @@ type NavItemProps = {
 }
 
 const NavItem: React.FC<NavItemProps> = ({ href, children }) => {
-  let isActive = usePathname() === href
+  const pathname = usePathname() || ''
+  const isActive = pathname === href || pathname.startsWith(`${href}/`)
 
   return (
     <li>
