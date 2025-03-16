@@ -40,6 +40,7 @@ export default function Pagination({
             currentPage === 2 ? '/articles' : `/articles/${currentPage - 1}`
           }
           className="inline-flex items-center border-t-2 border-transparent px-2 pt-4 text-sm font-medium text-zinc-600 hover:border-zinc-300 dark:text-zinc-500 dark:hover:border-zinc-700"
+          aria-label="Previous"
         >
           <ArrowLongLeftIcon
             aria-hidden="true"
@@ -103,6 +104,7 @@ export default function Pagination({
         <Link
           href={`/articles/${currentPage + 1}`}
           className="inline-flex items-center border-t-2 border-transparent px-2 pt-4 text-sm font-medium text-zinc-600 hover:border-zinc-300 dark:text-zinc-500 dark:hover:border-zinc-700"
+          aria-label="Next"
         >
           <span className="hidden sm:inline">Next</span>
           <ArrowLongRightIcon
