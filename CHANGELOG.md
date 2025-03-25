@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.20.0](https://github.com/harrytang/web/compare/v1.19.5...v1.20.0) (2025-03-25)
+
+
+### Features
+
+* add article pages to sitemap ([05d9661](https://github.com/harrytang/web/commit/05d96615462a5112bf3ba092168097670635fcf5))
+
+
+### Bug Fixes
+
+* **deps:** update nextjs monorepo to v15.2.3 ([#246](https://github.com/harrytang/web/issues/246)) ([b157a71](https://github.com/harrytang/web/commit/b157a7121d8f6227c2bf16e1f9d0db91860be9b4))
+* **deps:** update nextjs monorepo to v15.2.4 ([#252](https://github.com/harrytang/web/issues/252)) ([a9bd848](https://github.com/harrytang/web/commit/a9bd8483d6d3dad6aeebf1081f1fe1eb7c8bb73f))
+* **deps:** update tailwindcss monorepo to v4.0.15 ([#248](https://github.com/harrytang/web/issues/248)) ([e2c698d](https://github.com/harrytang/web/commit/e2c698dd6d677fd747754e5d4cff18906b0a182a))
+
 ### [1.19.5](https://github.com/harrytang/web/compare/v1.19.4...v1.19.5) (2025-03-16)
 
 
