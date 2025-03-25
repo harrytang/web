@@ -15,6 +15,7 @@ export async function generateMetadata({ params }: ArticlesIndexProps) {
   const seo = {
     ...page.attributes.seo,
     metaTitle: `${page.attributes.seo.metaTitle} - Page ${current}`,
+    metaDescription: `${page.attributes.seo.metaDescription} (Page ${current})`,
   }
   const path = current === '1' ? 'articles' : `articles/${current}`
   return generateSeoMeta(path, seo, 'website', page.attributes.locale)
