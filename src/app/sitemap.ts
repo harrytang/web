@@ -1,6 +1,6 @@
 import { getPublicSiteURL } from '@/lib/helper'
 import { MetadataRoute } from 'next'
-import { Blog } from '@/lib/blogs'
+import { Blog, getBlogs } from '@/lib/blogs'
 import { Page } from '@/lib/pages'
 import { fetchAPI } from '@/lib/strapi'
 
@@ -39,6 +39,18 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
     }
   })
 
+  // articles pages
+  const pageSize = parseInt(process.env.NEXT_PUBLIC_PAGE_SIZE!)
+  const blogs = await getBlogs(0, 1) // Fetch total count
+  const totalPages = Math.ceil(blogs.meta.pagination.total / pageSize)
+  const articlePageURLs = Array.from({ length: totalPages }, (_, i) => ({
+    url:
+      i === 0
+        ? `${publicSiteUrl}/articles`
+        : `${publicSiteUrl}/articles/${i + 1}`,
+    lastModified: new Date().toISOString(),
+  }))
+
   // pages
   const pageRes = await fetchAPI<Page[]>('/pages', {
     sort: 'createdAt:DESC',
@@ -55,7 +67,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
     }
   })
 
-  return [...pages, ...blogURLs, ...pageURLs]
+  return [...pages, ...blogURLs, ...pageURLs, ...articlePageURLs]
 }
 
 export default sitemap
