@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.20.1](https://github.com/harrytang/web/compare/v1.20.0...v1.20.1) (2025-03-28)
+
+
+### Bug Fixes
+
+* **deps:** update tailwindcss monorepo to v4.0.16 ([#253](https://github.com/harrytang/web/issues/253)) ([ebaa74b](https://github.com/harrytang/web/commit/ebaa74bcea11ba5009cb1d835eb7f53bf246ca2d))
+* **deps:** update tailwindcss monorepo to v4.0.17 ([#254](https://github.com/harrytang/web/issues/254)) ([6bd52dd](https://github.com/harrytang/web/commit/6bd52ddfb5c80b027f40120ea630ad50f6be58eb))
+
 ## [1.20.0](https://github.com/harrytang/web/compare/v1.19.5...v1.20.0) (2025-03-25)
 
 
