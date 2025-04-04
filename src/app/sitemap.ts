@@ -55,6 +55,13 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
   const pageRes = await fetchAPI<Page[]>('/pages', {
     sort: 'createdAt:DESC',
     fields: ['slug', 'updatedAt'],
+    filters: {
+      slug: {
+        $not: {
+          $eq: 'articles',
+        },
+      },
+    },
     pagination: {
       start: 0,
       limit: sitemapSize,
