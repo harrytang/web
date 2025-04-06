@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
+import { MagnifyingGlassIcon, ArrowPathIcon } from '@heroicons/react/20/solid'
 
 import { liteClient as algoliasearch } from 'algoliasearch/lite'
 import { SearchBox, Hits, Highlight, Configure } from 'react-instantsearch'
@@ -150,6 +150,11 @@ const AlgoliaSearch = () => {
                     <MagnifyingGlassIcon className="pointer-events-none absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2 text-zinc-400" />
                   )}
                   resetIconComponent={() => null}
+                  loadingIconComponent={() => (
+                    <div className="absolute top-1/2 left-1/2 -translate-y-1/2">
+                      <ArrowPathIcon className="h-4 w-4 animate-spin text-zinc-400" />
+                    </div>
+                  )}
                   classNames={{
                     input:
                       'w-full rounded-md border border-zinc-300 bg-white py-2 pl-10 pr-3 text-sm text-zinc-900 placeholder:text-zinc-400 shadow-sm focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 dark:border-zinc-700 dark:bg-zinc-700/[0.15] dark:text-zinc-100 dark:placeholder:text-zinc-500 dark:focus:border-amber-400 dark:focus:ring-amber-400/20',
