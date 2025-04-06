@@ -7,6 +7,8 @@ import remarkGfm from 'remark-gfm'
 
 /* local imports */
 import { BLUR_IMAGE } from '@/../const'
+import { isInternalLink } from '@/lib/helper'
+import Link from 'next/link'
 
 // Custom Image component for Markdown
 const MarkdownImage = ({ src, alt }: { src?: string; alt?: string }) => {
@@ -34,6 +36,16 @@ const MarkdownRenderer = ({ content }: { content: string }) => {
       rehypePlugins={[rehypeHighlight]}
       components={{
         img: ({ node, ...props }) => <MarkdownImage {...props} />,
+        a: ({ href = '', children, ...props }) =>
+          isInternalLink(href) ? (
+            <Link href={href} {...props}>
+              {children}
+            </Link>
+          ) : (
+            <a href={href} target="_blank" {...props}>
+              {children}
+            </a>
+          ),
       }}
     >
       {content}

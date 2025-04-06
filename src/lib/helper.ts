@@ -260,6 +260,9 @@ const formatDate = (dateString: string) => {
   })
 }
 
+const isInternalLink = (href: string) =>
+  href.startsWith('/') || href.startsWith('#')
+
 export {
   getPublicSiteURL,
   getStrapiURL,
@@ -272,4 +275,5 @@ export {
   clamp,
   categorizeItems,
   formatDate,
+  isInternalLink,
 }
