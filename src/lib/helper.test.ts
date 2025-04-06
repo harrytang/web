@@ -11,6 +11,7 @@ import {
   generateWebPageJsonLd,
   getPublicSiteURL,
   getStrapiURL,
+  isInternalLink,
 } from './helper'
 import { Use } from './uses'
 import { Profile } from './profile'
@@ -422,5 +423,17 @@ describe('formatDate', () => {
   it('should format the date correctly', () => {
     const dateString = '2021-07-28T00:00:00.000Z'
     expect(formatDate(dateString)).toBe('28 July 2021')
+  })
+})
+
+describe('isInternalLink', () => {
+  it('should return true for internal links', () => {
+    expect(isInternalLink('/internal-link')).toBe(true)
+    expect(isInternalLink('#internal-link')).toBe(true)
+  })
+
+  it('should return false for external links', () => {
+    expect(isInternalLink('https://external-link.com')).toBe(false)
+    expect(isInternalLink('http://external-link.com')).toBe(false)
   })
 })
