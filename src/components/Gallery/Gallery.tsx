@@ -10,14 +10,11 @@ type GalleryProps = {
 
 const Gallery: React.FC<GalleryProps> = ({ items }) => {
   const rotations = [
-    'rotate-3',
-    'rotate-1',
     'rotate-2',
-    'rotate-4',
-    '-rotate-1',
     '-rotate-2',
-    '-rotate-3',
-    '-rotate-3',
+    'rotate-2',
+    'rotate-2',
+    '-rotate-2',
   ]
   const middleIdx = Math.floor(items.length / 2)
 
@@ -29,7 +26,9 @@ const Gallery: React.FC<GalleryProps> = ({ items }) => {
             key={image.id}
             className={clsx(
               'relative aspect-9/10 w-44 flex-none overflow-hidden rounded-xl bg-zinc-100 sm:w-72 sm:rounded-2xl dark:bg-zinc-800',
-              rotations[Math.floor(Math.random() * rotations.length)],
+              idx <= 4
+                ? rotations[idx]
+                : rotations[Math.floor(Math.random() * rotations.length)],
             )}
           >
             <Image
