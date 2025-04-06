@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.21.0](https://github.com/harrytang/web/compare/v1.20.1...v1.21.0) (2025-04-06)
+
+
+### Features
+
+* add Algolia search ([d288d56](https://github.com/harrytang/web/commit/d288d562330947bb17c01357a191e08b1ad27b4b))
+* use Next Link for internal links ([119078d](https://github.com/harrytang/web/commit/119078d9c57f777485899db6856db4eb9279bebe))
+
+
+### Bug Fixes
+
+* **deps:** update dependency @headlessui/react to v2.2.1 ([#263](https://github.com/harrytang/web/issues/263)) ([b3df405](https://github.com/harrytang/web/commit/b3df40511e752d1f79ced81a916ded8a3c8e7559))
+* **deps:** update dependency typescript to v5.8.3 ([#265](https://github.com/harrytang/web/issues/265)) ([3eb55a8](https://github.com/harrytang/web/commit/3eb55a82d392dccd0c4e7212f616b18aeec6a8c5))
+* **deps:** update react monorepo to v19.1.0 ([#256](https://github.com/harrytang/web/issues/256)) ([b80507f](https://github.com/harrytang/web/commit/b80507f95c78a71da864d743aa2572f3c9760f4d))
+* duplicate /articles ([1411c36](https://github.com/harrytang/web/commit/1411c36e0fac081bf71726ccc88087a048ca9f41))
+
 ### [1.20.1](https://github.com/harrytang/web/compare/v1.20.0...v1.20.1) (2025-03-28)
 
 
