@@ -1,4 +1,5 @@
 import Webhook from '@/types/webhook'
+import { algoliasearch } from 'algoliasearch'
 import { revalidatePath, revalidateTag } from 'next/cache'
 import { NextRequest } from 'next/server'
 
@@ -63,6 +64,42 @@ const purgeCFCache = async () => {
   )
 }
 
+const algoliaPush = async (model: string, entry: any) => {
+  // check strapi event & model
+  if (model !== 'blog') {
+    console.info(`Skipping Algolia push for ${model} model`)
+    return
+  }
+
+  // push to algolia
+  console.info(`Pushing ${model} to Algolia`)
+  const client = algoliasearch(
+    process.env.NEXT_PUBLIC_ALGOLIA_APP_ID ?? '',
+    process.env.ALGOLIA_API_KEY ?? '',
+  )
+
+  // convert entry to algolia object
+  const article = {
+    objectID: entry.slug,
+    title: entry.title,
+    description: entry.seo.metaDescription,
+    image: {
+      url: entry.seo.metaImage.formats.thumbnail.url,
+      alt: entry.seo.metaImage.caption,
+    },
+    keywords: entry.seo.keywords,
+    publishedAt: entry.publishedAt,
+    createdAt: entry.createdAt,
+    updatedAt: entry.updatedAt,
+  }
+
+  const idxName = process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME ?? 'articles_index'
+  return await client.saveObject({
+    indexName: idxName,
+    body: article,
+  })
+}
+
 export async function POST(req: NextRequest) {
   authenticate(req)
 
@@ -70,6 +107,7 @@ export async function POST(req: NextRequest) {
 
   if (track.events.includes(event)) {
     revalidate(model, entry)
+    await algoliaPush(model, entry)
     await purgeCFCache()
   }
 

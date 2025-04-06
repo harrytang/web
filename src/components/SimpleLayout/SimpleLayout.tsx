@@ -3,7 +3,7 @@ import { Suspense } from 'react'
 
 // local imports
 import { Container } from '@/components/Container'
-import { SearchBox } from '@/components/SearchBox'
+import { AlgoliaSearch } from '@/components/AlgoliaSearch'
 import { Prose } from '@/components/Prose'
 
 type SimpleLayoutProps = {
@@ -35,7 +35,7 @@ const SimpleLayout: React.FC<SimpleLayoutProps> = ({
       )}
       {seachBox && (
         <Suspense>
-          <SearchBox />
+          <AlgoliaSearch />
         </Suspense>
       )}
       {children && <div className="mt-16 sm:mt-20">{children}</div>}
