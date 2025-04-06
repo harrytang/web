@@ -53,7 +53,7 @@ const searchClient = {
 function Hit({ hit }: { hit: ArticleHit }) {
   return (
     <article className="space-y-1 rounded-md p-3 hover:bg-zinc-100 dark:hover:bg-zinc-700">
-      <Link href={`blog/${hit.objectID}`}>
+      <Link href={`/blog/${hit.objectID}`}>
         <h1 className="text-base font-semibold text-zinc-900 dark:text-zinc-100">
           <Highlight
             attribute="title"
