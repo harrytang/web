@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.21.3](https://github.com/harrytang/web/compare/v1.21.2...v1.21.3) (2025-04-21)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @headlessui/react to v2.2.2 ([#275](https://github.com/harrytang/web/issues/275)) ([017a0e7](https://github.com/harrytang/web/commit/017a0e79c28bbcf4571b8b43e6b9663f499b039d))
+* **deps:** update dependency algoliasearch to v5.23.3 ([#266](https://github.com/harrytang/web/issues/266)) ([5acf315](https://github.com/harrytang/web/commit/5acf3155d1a6b6d18329a90061c61fb63467eceb))
+* **deps:** update dependency algoliasearch to v5.23.4 ([#272](https://github.com/harrytang/web/issues/272)) ([4a9830a](https://github.com/harrytang/web/commit/4a9830a715df0b6ddb8d48f31784c8ecf94a7f98))
+* **deps:** update dependency sharp to v0.34.1 ([#267](https://github.com/harrytang/web/issues/267)) ([7fa62c1](https://github.com/harrytang/web/commit/7fa62c1671d24e01d8030545c56fd70dab7f50cc))
+* **deps:** update nextjs monorepo to v15.3.1 ([#268](https://github.com/harrytang/web/issues/268)) ([9d4bb4d](https://github.com/harrytang/web/commit/9d4bb4d43e5e69f4abd0690165ab7289c2067bc9))
+* **deps:** update tailwindcss monorepo to v4.1.4 ([#274](https://github.com/harrytang/web/issues/274)) ([f6bad4e](https://github.com/harrytang/web/commit/f6bad4ef8946368ab27868b76655577bc782889c))
+
 ### [1.21.2](https://github.com/harrytang/web/compare/v1.21.1...v1.21.2) (2025-04-06)
 
 
