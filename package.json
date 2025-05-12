@@ -23,7 +23,7 @@
     "cheerio": "1.0.0",
     "clsx": "2.1.1",
     "fast-glob": "3.3.3",
-    "feed": "4.2.2",
+    "feed": "5.0.1",
     "highlight.js": "^11.11.1",
     "next": "15.3.2",
     "next-plausible": "3.12.4",
