@@ -19,7 +19,7 @@
     "@heroicons/react": "2.2.0",
     "@tailwindcss/postcss": "4.1.8",
     "@tailwindcss/typography": "0.5.16",
-    "algoliasearch": "5.25.0",
+    "algoliasearch": "5.27.0",
     "cheerio": "1.0.0",
     "clsx": "2.1.1",
     "fast-glob": "3.3.3",
