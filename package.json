@@ -20,7 +20,7 @@
     "@tailwindcss/postcss": "4.1.10",
     "@tailwindcss/typography": "0.5.16",
     "algoliasearch": "5.27.0",
-    "cheerio": "1.0.0",
+    "cheerio": "1.1.0",
     "clsx": "2.1.1",
     "fast-glob": "3.3.3",
     "feed": "5.1.0",
