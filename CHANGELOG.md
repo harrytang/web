@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.21.5](https://github.com/harrytang/web/compare/v1.21.4...v1.21.5) (2025-07-27)
+
+
+### Bug Fixes
+
+* **deps:** update dependency react-instantsearch to v7.16.1 ([#328](https://github.com/harrytang/web/issues/328)) ([8f8230b](https://github.com/harrytang/web/commit/8f8230b6aa210bb1d04c51232f3d80cc394a14e6))
+* **deps:** update nextjs monorepo to v15.3.5 ([#327](https://github.com/harrytang/web/issues/327)) ([dc0250d](https://github.com/harrytang/web/commit/dc0250daa0937650b1bc677c7c43ecc7606df08c))
+* **deps:** update tailwindcss monorepo to v4.1.11 ([#320](https://github.com/harrytang/web/issues/320)) ([c2a1f5f](https://github.com/harrytang/web/commit/c2a1f5ff9010e465da80429d2dff215d04490eb4))
+
 ### [1.21.4](https://github.com/harrytang/web/compare/v1.21.3...v1.21.4) (2025-06-20)
 
 
