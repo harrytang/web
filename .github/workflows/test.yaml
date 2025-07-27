@@ -20,9 +20,9 @@ jobs:
           cache: 'pnpm'
       - name: Install dependencies
         run: pnpm install
-      - uses: paambaati/codeclimate-action@v9.0.0
+      - name: test
+        run: pnpm run test:cov
         env:
-          CC_TEST_REPORTER_ID: a4885465a62f197bf6ddf66243de8404428a041283e63c1aa8235d0e959b54e8
           NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_STRAPI_API_URL }}
           NEXT_PUBLIC_STATUS_URL: ${{ vars.NEXT_PUBLIC_STATUS_URL }}
           NEXT_PUBLIC_SITE_NAME: ${{ vars.NEXT_PUBLIC_SITE_NAME }}
@@ -44,8 +44,6 @@ jobs:
           NEXT_PUBLIC_ALGOLIA_INDEX_NAME: ${{ vars.NEXT_PUBLIC_ALGOLIA_INDEX_NAME }}
           STRAPI_API_URL: ${{ vars.STRAPI_API_URL }}
           SITEMAP_SIZE: ${{ vars.SITEMAP_SIZE }}
-        with:
-          coverageCommand: pnpm run test:cov
   e2e-tests:
     name: E2E Tests
     timeout-minutes: 60
