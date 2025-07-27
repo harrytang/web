@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.21.6](https://github.com/harrytang/web/compare/v1.21.5...v1.21.6) (2025-07-27)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @headlessui/react to v2.2.6 ([#334](https://github.com/harrytang/web/issues/334)) ([a9563b3](https://github.com/harrytang/web/commit/a9563b3ec4734f9c57407eebcef1e45abc8b8263))
+* **deps:** update dependency algoliasearch to v5.34.1 ([#325](https://github.com/harrytang/web/issues/325)) ([2652a47](https://github.com/harrytang/web/commit/2652a47a0d658872f2249ea536b8c387bfb2338a))
+* **deps:** update dependency cheerio to v1.1.2 ([#335](https://github.com/harrytang/web/issues/335)) ([8713c04](https://github.com/harrytang/web/commit/8713c046aa5d88d303fcea96b554e86b7b8557a1))
+* **deps:** update dependency react-instantsearch to v7.16.2 ([#336](https://github.com/harrytang/web/issues/336)) ([1e94390](https://github.com/harrytang/web/commit/1e94390ed7e0b515969720f0cb90a9a8a6c61a24))
+* **deps:** update dependency react-instantsearch-nextjs to v1 ([#329](https://github.com/harrytang/web/issues/329)) ([9c5d0eb](https://github.com/harrytang/web/commit/9c5d0eb05cc8a2cfa2f52957ce94bb509f458afc))
+* **deps:** update dependency react-player to v2.16.1 ([#332](https://github.com/harrytang/web/issues/332)) ([43167bb](https://github.com/harrytang/web/commit/43167bb049c45ec185008a88a25fe5e16cdd75b0))
+* **deps:** update dependency sharp to v0.34.3 ([#331](https://github.com/harrytang/web/issues/331)) ([a051bd3](https://github.com/harrytang/web/commit/a051bd3b58946f97c6ea9f4f5e2410e3585ee59a))
+* pros for MarkdownImage ([0107231](https://github.com/harrytang/web/commit/01072314ab9dd319268e7e9e854e731fa78c4397))
+
 ### [1.21.5](https://github.com/harrytang/web/compare/v1.21.4...v1.21.5) (2025-07-27)
 
 
