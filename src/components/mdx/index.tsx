@@ -35,7 +35,12 @@ const MarkdownRenderer = ({ content }: { content: string }) => {
       remarkPlugins={[remarkGfm]}
       rehypePlugins={[rehypeHighlight]}
       components={{
-        img: ({ node, ...props }) => <MarkdownImage {...props} />,
+        img: ({ node, src, ...props }) => (
+          <MarkdownImage
+            src={typeof src === 'string' ? src : undefined}
+            {...props}
+          />
+        ),
         a: ({ href = '', children, ...props }) =>
           isInternalLink(href) ? (
             <Link href={href} {...props}>
