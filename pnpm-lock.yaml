@@ -60,8 +60,8 @@ importers:
         specifier: 7.16.1
         version: 7.16.1(algoliasearch@5.34.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react-instantsearch-nextjs:
-        specifier: 0.5.0
-        version: 0.5.0(next@15.3.5(@babel/core@7.26.0)(@playwright/test@1.53.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-instantsearch@7.16.1(algoliasearch@5.34.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))
+        specifier: 1.0.1
+        version: 1.0.1(next@15.3.5(@babel/core@7.26.0)(@playwright/test@1.53.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-instantsearch@7.16.1(algoliasearch@5.34.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))
       react-markdown:
         specifier: 10.1.0
         version: 10.1.0(@types/react@19.1.8)(react@19.1.0)
@@ -3193,8 +3193,8 @@ packages:
       algoliasearch: '>= 3.1 < 6'
       react: '>= 16.8.0 < 20'
 
-  react-instantsearch-nextjs@0.5.0:
-    resolution: {integrity: sha512-PQydmJfLfl6/prGHL2IyH/W83l7buV65q9vmAAqDuOHW0Xkg0WCvBJIw8raN+kStoQt0HDf4meisypCVv5xfBg==}
+  react-instantsearch-nextjs@1.0.1:
+    resolution: {integrity: sha512-PCqI1dr3qZO1pCxS6QSM75E3F0bDF9qvPLARysWWCZVhLQsu5+WZe7h6kd6FcUOPRPsSSZdzixQyJVplTxEJVg==}
     peerDependencies:
       next: '>= 13.4 < 16'
       react-instantsearch: '>= 7.1.0 < 8'
@@ -7609,7 +7609,7 @@ snapshots:
       react: 19.1.0
       use-sync-external-store: 1.5.0(react@19.1.0)
 
-  react-instantsearch-nextjs@0.5.0(next@15.3.5(@babel/core@7.26.0)(@playwright/test@1.53.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-instantsearch@7.16.1(algoliasearch@5.34.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)):
+  react-instantsearch-nextjs@1.0.1(next@15.3.5(@babel/core@7.26.0)(@playwright/test@1.53.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-instantsearch@7.16.1(algoliasearch@5.34.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)):
     dependencies:
       next: 15.3.5(@babel/core@7.26.0)(@playwright/test@1.53.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react-instantsearch: 7.16.1(algoliasearch@5.34.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
