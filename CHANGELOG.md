@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.22.0](https://github.com/harrytang/web/compare/v1.21.6...v1.22.0) (2025-08-17)
+
+
+### Features
+
+* auto gallery scrolling when needed ([d5a5b9b](https://github.com/harrytang/web/commit/d5a5b9b18ee10b137215b9e7740ee17873c24ca2))
+
+
+### Bug Fixes
+
+* **deps:** update dependency @headlessui/react to v2.2.7 ([#344](https://github.com/harrytang/web/issues/344)) ([748be3f](https://github.com/harrytang/web/commit/748be3fcc222a3441b25480d4e7cad20b350040f))
+* **deps:** update dependency algoliasearch to v5.35.0 ([#342](https://github.com/harrytang/web/issues/342)) ([976ea96](https://github.com/harrytang/web/commit/976ea965a9e63969335adf2aec660a2dd369e182))
+* **deps:** update dependency typescript to v5.9.2 ([#345](https://github.com/harrytang/web/issues/345)) ([c2c8b9b](https://github.com/harrytang/web/commit/c2c8b9b091ad43c611fa5f843f8faecc8722cb15))
+* **deps:** update nextjs monorepo to v15.4.4 ([#338](https://github.com/harrytang/web/issues/338)) ([9b5404f](https://github.com/harrytang/web/commit/9b5404fde3713b18563951b8d12b8b3fb6e73354))
+* **deps:** update nextjs monorepo to v15.4.5 ([#343](https://github.com/harrytang/web/issues/343)) ([6ea4ded](https://github.com/harrytang/web/commit/6ea4ded5b91979f7293d54b83498cd92fa396ea2))
+* **deps:** update nextjs monorepo to v15.4.6 ([#347](https://github.com/harrytang/web/issues/347)) ([cc826be](https://github.com/harrytang/web/commit/cc826bef63a31723b9280bb3b6e7c1da9d775605))
+* **deps:** update react monorepo to v19.1.1 ([#273](https://github.com/harrytang/web/issues/273)) ([abd381c](https://github.com/harrytang/web/commit/abd381c4a8e8dfbb9408ddaac39e3438c036d1f3))
+* **deps:** update tailwindcss monorepo to v4.1.12 ([#353](https://github.com/harrytang/web/issues/353)) ([9f4e232](https://github.com/harrytang/web/commit/9f4e232284d6a677f6f6063cb91bfeb6fcef6195))
+
 ### [1.21.6](https://github.com/harrytang/web/compare/v1.21.5...v1.21.6) (2025-07-27)
 
 
