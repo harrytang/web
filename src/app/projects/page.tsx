@@ -38,7 +38,7 @@ const Projects = async () => {
       >
         {projects.data.map((project) => (
           <Card as="li" key={project.attributes.name}>
-            <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
+            <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md ring-1 shadow-zinc-800/5 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
               <Image
                 src={project.attributes.icon.data.attributes.url}
                 alt={project.attributes.name}
@@ -54,7 +54,7 @@ const Projects = async () => {
               </CardLink>
             </h2>
             <CardDescription>{project.attributes.description}</CardDescription>
-            <p className="relative z-10 mt-6 flex text-sm font-medium text-zinc-400 transition group-hover:text-amber-500 dark:text-zinc-200">
+            <p className="dark: relative z-10 mt-6 flex text-sm font-medium text-amber-700 transition dark:text-amber-500">
               <LinkIcon className="h-6 w-6 flex-none" />
               <span className="ml-2">{project.attributes.link.label}</span>
             </p>
