@@ -37,7 +37,7 @@
     "react-player": "2.16.1",
     "rehype-highlight": "7.0.2",
     "remark-gfm": "4.0.1",
-    "sharp": "0.34.3",
+    "sharp": "0.34.4",
     "tailwindcss": "4.1.12",
     "typescript": "5.9.2"
   },
