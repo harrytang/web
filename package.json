@@ -17,7 +17,7 @@
   "dependencies": {
     "@headlessui/react": "2.2.9",
     "@heroicons/react": "2.2.0",
-    "@tailwindcss/postcss": "4.1.16",
+    "@tailwindcss/postcss": "4.1.17",
     "@tailwindcss/typography": "0.5.19",
     "algoliasearch": "5.41.0",
     "cheerio": "1.1.2",
@@ -38,7 +38,7 @@
     "rehype-highlight": "7.0.2",
     "remark-gfm": "4.0.1",
     "sharp": "0.34.5",
-    "tailwindcss": "4.1.16",
+    "tailwindcss": "4.1.17",
     "typescript": "5.9.3"
   },
   "devDependencies": {
