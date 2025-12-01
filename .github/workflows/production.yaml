@@ -51,6 +51,7 @@ jobs:
             NEXT_PUBLIC_ALGOLIA_API_KEY=${{ vars.NEXT_PUBLIC_ALGOLIA_API_KEY }}
             NEXT_PUBLIC_ALGOLIA_APP_ID=${{ vars.NEXT_PUBLIC_ALGOLIA_APP_ID }}
             NEXT_PUBLIC_ALGOLIA_INDEX_NAME=${{ vars.NEXT_PUBLIC_ALGOLIA_INDEX_NAME }}
+            NEXT_PUBLIC_UMAMI_WEBSITE_ID=${{ vars.NEXT_PUBLIC_UMAMI_WEBSITE_ID }}
             STRAPI_API_URL=${{ vars.STRAPI_API_URL }}
             SITEMAP_SIZE=${{ vars.SITEMAP_SIZE }}
           platforms: linux/arm64
