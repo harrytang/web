@@ -1,5 +1,4 @@
 import { type Metadata } from 'next'
-import PlausibleProvider from 'next-plausible'
 import { Providers } from '@/app/providers'
 import { Layout } from '@/components/Layout'
 import Script from 'next/script'
@@ -31,12 +30,12 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
       suppressHydrationWarning
     >
       <head>
-        <PlausibleProvider
-          domain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN!}
-          customDomain={process.env.NEXT_PUBLIC_PLAUSIBLE_SITE!}
-          enabled={process.env.NEXT_PUBLIC_PLAUSIBLE_ENABLED === 'true'}
-        />
-        <Script src="https://jwst.mxspl.me/script.js" data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID!}/>
+        {process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL && process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID && (
+          <Script
+            src={process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL}
+            data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID}
+          />
+        )}
       </head>
       <body className="flex h-full bg-zinc-50 dark:bg-black">
         <Providers>
