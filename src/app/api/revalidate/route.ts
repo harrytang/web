@@ -19,19 +19,18 @@ const track = {
 const dynamicModels = ['blog', 'page']
 
 const authenticate = (req: NextRequest) => {
-  const authorizationHeader = req.headers.get('Authorization')
-  if (!authorizationHeader || !authorizationHeader.startsWith('Bearer ')) {
-    return Response.json({
-      message: 'Unauthorized: Missing or invalid Bearer token',
-    })
+  const token = req.headers.get("authorization")?.replace("Bearer ", "");
+
+  if (!token || token !== process.env.REVALIDATE_TOKEN) {
+    console.warn("Unauthorized revalidation attempt.");
+    return Response.json(
+      { message: "Unauthorized: Missing or invalid Bearer token" },
+      { status: 401 }
+    );
   }
-  const bearerToken = authorizationHeader.split(' ')[1]
-  if (bearerToken !== process.env.REVALIDATE_TOKEN) {
-    return Response.json({
-      message: 'Unauthorized: Missing or invalid Bearer token',
-    })
-  }
-}
+
+  // valid → return nothing (or return true if you prefer)
+};
 
 const revalidate = (model: string, entry: any) => {
   // dynamic paths
@@ -101,7 +100,8 @@ const algoliaPush = async (model: string, entry: any) => {
 }
 
 export async function POST(req: NextRequest) {
-  authenticate(req)
+  const authResult = authenticate(req)
+  if (authResult) return authResult
 
   const { event, model, entry }: Webhook = await req.json()
 
