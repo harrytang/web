@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.22.3](https://github.com/harrytang/web/compare/v1.22.2...v1.22.3) (2025-12-03)
+
+
+### Bug Fixes
+
+* **deps:** update algolia-instantsearch monorepo ([#388](https://github.com/harrytang/web/issues/388)) ([f10a263](https://github.com/harrytang/web/commit/f10a26365ead8c2655d062817dfd8f49b25858f4))
+
 ### [1.22.2](https://github.com/harrytang/web/compare/v1.22.1...v1.22.2) (2025-12-01)
 
 
