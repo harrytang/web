@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.22.4](https://github.com/harrytang/web/compare/v1.22.3...v1.22.4) (2025-12-03)
+
+
+### Bug Fixes
+
+* **deps:** update dependency algoliasearch to v5.45.0 ([#383](https://github.com/harrytang/web/issues/383)) ([0011199](https://github.com/harrytang/web/commit/0011199fabcf261a4d2479c6851a58988519f636))
+* revalidate auth check ([3ca29e6](https://github.com/harrytang/web/commit/3ca29e648bf491e9154268baecfe3af8bf06769f))
+
 ### [1.22.3](https://github.com/harrytang/web/compare/v1.22.2...v1.22.3) (2025-12-03)
 
 
