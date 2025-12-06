@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.22.5](https://github.com/harrytang/web/compare/v1.22.4...v1.22.5) (2025-12-06)
+
+
+### Bug Fixes
+
+* **deps:** update dependency next to v15.5.7 [security] ([#395](https://github.com/harrytang/web/issues/395)) ([8b30875](https://github.com/harrytang/web/commit/8b308759bb20b0f1edee652d551ab95ce3bb5c7a))
+
 ### [1.22.4](https://github.com/harrytang/web/compare/v1.22.3...v1.22.4) (2025-12-03)
 
 
