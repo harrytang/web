@@ -1,5 +1,5 @@
 # Base image with minimal footprint
-FROM node:22-alpine AS base
+FROM node:24-alpine AS base
 
 # Set environment variables for PNPM
 ENV PNPM_HOME="/pnpm"
@@ -79,7 +79,7 @@ RUN pnpm run build
 ########################
 ### Production Stage ###
 ########################
-FROM node:22-alpine AS runner
+FROM node:24-alpine AS runner
 
 # Set NODE_ENV for production and define the application port
 ENV NODE_ENV=production \
