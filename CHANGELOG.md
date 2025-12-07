@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.22.6](https://github.com/harrytang/web/compare/v1.22.5...v1.22.6) (2025-12-07)
+
+
+### Bug Fixes
+
+* **deps:** update algolia-instantsearch monorepo ([#396](https://github.com/harrytang/web/issues/396)) ([ec02211](https://github.com/harrytang/web/commit/ec02211f6450019b0aba1e9a390c5271383dc3e3))
+* **deps:** update dependency algoliasearch to v5.46.0 ([#399](https://github.com/harrytang/web/issues/399)) ([4ac3c52](https://github.com/harrytang/web/commit/4ac3c5297d07dd1e3b2d5a1aca291cf9d9f6d24b))
+* **deps:** update react monorepo to v19.2.1 ([#397](https://github.com/harrytang/web/issues/397)) ([4f0d281](https://github.com/harrytang/web/commit/4f0d2818619d9250e425c31a860ed310e9d922c1))
+
 ### [1.22.5](https://github.com/harrytang/web/compare/v1.22.4...v1.22.5) (2025-12-06)
 
 
