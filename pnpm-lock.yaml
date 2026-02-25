@@ -54,11 +54,11 @@ importers:
         specifier: 19.2.4
         version: 19.2.4(react@19.2.4)
       react-instantsearch:
-        specifier: 7.20.2
-        version: 7.20.2(algoliasearch@5.48.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        specifier: 7.26.0
+        version: 7.26.0(algoliasearch@5.48.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       react-instantsearch-nextjs:
-        specifier: 1.0.8
-        version: 1.0.8(next@15.5.12(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.57.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-instantsearch@7.20.2(algoliasearch@5.48.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))
+        specifier: 1.1.0
+        version: 1.1.0(next@15.5.12(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.57.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-instantsearch@7.26.0(algoliasearch@5.48.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))
       react-markdown:
         specifier: 10.1.0
         version: 10.1.0(@types/react@19.2.13)(react@19.2.4)
@@ -143,22 +143,6 @@ packages:
 
   '@adobe/css-tools@4.4.1':
     resolution: {integrity: sha512-12WGKBQzjUAI4ayyF4IAtfw2QR/IDoqk6jTddXDhtYTJF9ASmoE1zst7cVtP0aL/F1jUJL5r+JxKXKEgHNbEUQ==}
-
-  '@ai-sdk/gateway@2.0.0':
-    resolution: {integrity: sha512-Gj0PuawK7NkZuyYgO/h5kDK/l6hFOjhLdTq3/Lli1FTl47iGmwhH1IZQpAL3Z09BeFYWakcwUmn02ovIm2wy9g==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      zod: ^3.25.76 || ^4.1.8
-
-  '@ai-sdk/provider-utils@3.0.12':
-    resolution: {integrity: sha512-ZtbdvYxdMoria+2SlNarEk6Hlgyf+zzcznlD55EAl+7VZvJaSg2sqPvwArY7L6TfDEDJsnCq0fdhBSkYo0Xqdg==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      zod: ^3.25.76 || ^4.1.8
-
-  '@ai-sdk/provider@2.0.0':
-    resolution: {integrity: sha512-6o7Y2SeO9vFKB8lArHXehNuusnpddKPk7xqL7T2/b+OvXMRIXUO1rR4wcv1hAFUAT9avGZshty3Wlua/XA7TvA==}
-    engines: {node: '>=18'}
 
   '@algolia/abtesting@1.14.0':
     resolution: {integrity: sha512-cZfj+1Z1dgrk3YPtNQNt0H9Rr67P8b4M79JjUKGS0d7/EbFbGxGgSu6zby5f22KXo3LT0LZa4O2c6VVbupJuDg==}
@@ -922,11 +906,11 @@ packages:
   '@sinonjs/fake-timers@10.3.0':
     resolution: {integrity: sha512-V4BG07kuYSUkTCSBHG8G8TNhM+F19jXFWnQtzj+we8DrkpSBCee9Z3Ms8yiGer/dlmhe35/Xdgyo3/0rQKg7YA==}
 
-  '@standard-schema/spec@1.0.0':
-    resolution: {integrity: sha512-m2bOd0f2RT9k8QJx1JN85cZYyH1RqFBdlwtkSlf4tBDYLCiiZnv1fIIwacK6cqwXavOydf0NPToMQgpKq+dVlA==}
-
   '@swc/helpers@0.5.15':
     resolution: {integrity: sha512-JQ5TuMi45Owi4/BIMAJBoSQoOJu12oOk/gADqlcUL9JEdHB8vyjUSsxqeNXnmXHjYKMi2WcYtezGEEhqUI/E2g==}
+
+  '@swc/helpers@0.5.18':
+    resolution: {integrity: sha512-TXTnIcNJQEKwThMMqBXsZ4VGAza6bvN4pa41Rkqoio6QBKMvo+5lexeTMScGCIxtzgQJzElcvIltani+adC5PQ==}
 
   '@tailwindcss/node@4.1.18':
     resolution: {integrity: sha512-DoR7U1P7iYhw16qJ49fgXUlry1t4CpXeErJHnQ44JgTSKMaZUdf17cfn5mHchfJ4KRBZRFA/Coo+MUF5+gOaCQ==}
@@ -1230,10 +1214,6 @@ packages:
   '@ungap/structured-clone@1.2.1':
     resolution: {integrity: sha512-fEzPV3hSkSMltkw152tJKNARhOupqbH96MZWyRjNaYZOMIzbrTeQDG+MTc6Mr2pgzFQzFxAfmhGDNP5QK++2ZA==}
 
-  '@vercel/oidc@3.0.3':
-    resolution: {integrity: sha512-yNEQvPcVrK9sIe637+I0jD6leluPxzwJKx/Haw6F4H77CdDsszUn5V3o96LPziXkSNE2B83+Z3mjqGKBK/R6Gg==}
-    engines: {node: '>= 20'}
-
   abab@2.0.6:
     resolution: {integrity: sha512-j2afSsaIENvHZN2B8GOpF566vZ5WVk5opAiMTvWgaQT8DkbOqsTfvNAvHoRGU2zzP8cPoqys+xHTRDWW8L+/BA==}
     deprecated: Use your platform's native atob() and btoa() methods instead
@@ -1271,17 +1251,11 @@ packages:
     resolution: {integrity: sha512-jRR5wdylq8CkOe6hei19GGZnxM6rBGwFl3Bg0YItGDimvjGtAvdZk4Pu6Cl4u4Igsws4a1fd1Vq3ezrhn4KmFw==}
     engines: {node: '>= 14'}
 
-  ai@5.0.77:
-    resolution: {integrity: sha512-w0xP/guV27qLUR+60ru7dSDfF1Wlk6lPEHtXPBLfa8TNQ8Qc4FZ1RE9UGAdZmZU396FA6lKtP9P89Jzb5Z+Hnw==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      zod: ^3.25.76 || ^4.1.8
-
   ajv@6.12.6:
     resolution: {integrity: sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==}
 
-  algoliasearch-helper@3.26.1:
-    resolution: {integrity: sha512-CAlCxm4fYBXtvc5MamDzP6Svu8rW4z9me4DCBY1rQ2UDJ0u0flWmusQ8M3nOExZsLLRcUwUPoRAPMrhzOG3erw==}
+  algoliasearch-helper@3.28.0:
+    resolution: {integrity: sha512-GBN0xsxGggaCPElZq24QzMdfphrjIiV2xA+hRXE4/UMpN3nsF2WrM8q+x80OGvGpJWtB7F+4Hq5eSfWwuejXrg==}
     peerDependencies:
       algoliasearch: '>= 3.1 < 6'
 
@@ -1921,10 +1895,6 @@ packages:
     resolution: {integrity: sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==}
     engines: {node: '>=0.10.0'}
 
-  eventsource-parser@3.0.6:
-    resolution: {integrity: sha512-Vo1ab+QXPzZ4tCa8SwIHJFaSzy4R6SHf7BY79rFBDf0idraZWAkYrDjDj8uWaSm3S2TK+hJ7/t1CEmZ7jXw+pg==}
-    engines: {node: '>=18.0.0'}
-
   execa@5.1.1:
     resolution: {integrity: sha512-8uSpZZocAZRBAPIEINJj3Lo9HyGitllczc27Eh5YYojjMFMn8yHMDMaUHE2Jqfq05D/wucwI4JGURyXt1vchyg==}
     engines: {node: '>=10'}
@@ -2207,11 +2177,11 @@ packages:
   inline-style-parser@0.2.4:
     resolution: {integrity: sha512-0aO8FkhNZlj/ZIbNi7Lxxr12obT7cL1moPfE4tg1LkX7LlLfC6DeX4l2ZEud1ukP9jNQyNnfzQVqwbwmAATY4Q==}
 
-  instantsearch-ui-components@0.15.2:
-    resolution: {integrity: sha512-DgNdAqATp/ohcCWAs1tp5yZ7ojeagW7hnojuvbWXDkPoOGxLC70wFRYS5jm/nv0evVrkepVbOWYFr3iVFGY8Eg==}
+  instantsearch-ui-components@0.20.0:
+    resolution: {integrity: sha512-wZ+GT8lb10m3r6+9TEVLDQeB1YNRgXFSFSsfhzh4jUFMVDiovY+NE+cj7oNFk7GzFWvxQvXd7aPjTLDD7RkhnA==}
 
-  instantsearch.js@4.85.1:
-    resolution: {integrity: sha512-fmFbTUrONO/1V7VdI4Ykcof4HOD2S86vuvwfvdaZFgI11+JXT18G5RjjpGLMEtrypDOwZFSNxkvWXnNmB8zz/g==}
+  instantsearch.js@4.90.0:
+    resolution: {integrity: sha512-HfMMvQCsmrLikx93skFNXsoX+zkPEqzszYuFbh1nKMI7qy18QfL+yG7BKX/mt7HPC/SbP+k4vZQzXgIT2+SXPw==}
     peerDependencies:
       algoliasearch: '>= 3.1 < 6'
 
@@ -2570,9 +2540,6 @@ packages:
 
   json-schema-traverse@0.4.1:
     resolution: {integrity: sha512-xbbCH5dCYU5T8LcEhhuh7HJ88HXuW3qsI3Y0zOZFKfZEHcpWiHU/Jxzk629Brsab/mMiHQti9wMP+845RPe3Vg==}
-
-  json-schema@0.4.0:
-    resolution: {integrity: sha512-es94M3nTIfsEPisRafak+HDLfHXnKBhV3vU5eqPcS3flIWqcxJWgXHXiey3YrpaNsanY5ei1VoYEbOzijuq9BA==}
 
   json-stable-stringify-without-jsonify@1.0.1:
     resolution: {integrity: sha512-Bdboy+l7tA3OGW6FjyFHWkP5LuByj1Tk33Ljyq0axyzdk9//JSi2u3fP1QSmd1KNwq6VOKYGlAu87CisVir6Pw==}
@@ -3239,10 +3206,6 @@ packages:
     resolution: {integrity: sha512-V/yCWTTF7VJ9hIh18Ugr2zhJMP01MY7c5kh4J870L7imm6/DIzBsNLTXzMwUA3yZ5b/KBqLx8Kp3uRvd7xSe3Q==}
     engines: {node: '>=0.6'}
 
-  qs@6.9.7:
-    resolution: {integrity: sha512-IhMFgUmuNpyRfxA90umL7ByLlgRXu6tIfKPpF5TmcfRLlLCckfP/g3IQmju6jjpu+Hh8rA+2p6A27ZSPOOHdKw==}
-    engines: {node: '>=0.6'}
-
   querystringify@2.2.0:
     resolution: {integrity: sha512-FIqgj2EUvTa7R50u0rGsyTftzjYmv/a3hO345bZNrqabNqjtgiDMgmo4mkUjd+nzU5oF3dClKqFIPUKybUyqoQ==}
 
@@ -3257,20 +3220,20 @@ packages:
   react-fast-compare@3.2.2:
     resolution: {integrity: sha512-nsO+KSNgo1SbJqJEYRE9ERzo7YtYbou/OqjSQKxV7jcKox7+usiUVZOAC+XnDOABXggQTno0Y1CpVnuWEc1boQ==}
 
-  react-instantsearch-core@7.20.2:
-    resolution: {integrity: sha512-tCvOgl8BjlpFqhBc6bs/IQBzqhpCKjEqCGwFq1IeCoNDoM+i7E4Zdsrgi+gHL1WZIasPs4WrvvSRXIC+szKKBA==}
+  react-instantsearch-core@7.26.0:
+    resolution: {integrity: sha512-Pi+sUkOLQhWG0rv550YowJHk0wLVGiLiz6SK3s0Fbz4V2tJqd2t692jZ29zNWJPooFLHzMjTDQ4Wf2CDLXfHDw==}
     peerDependencies:
       algoliasearch: '>= 3.1 < 6'
       react: '>= 16.8.0 < 20'
 
-  react-instantsearch-nextjs@1.0.8:
-    resolution: {integrity: sha512-vN1MJc4c0Ev34HVWClV01I9AhOy7r/F1YguxLlCuhEzFiGprBaXrDsAzN6JF3LMDfhpqxfPp8w+GdDa21eqeng==}
+  react-instantsearch-nextjs@1.1.0:
+    resolution: {integrity: sha512-eKUp30/ML5W9I58hqlNnmejvCnFFBfJdENgkOHfmNMCUfCNAd9TDRONENZG3CQ6pEJ0PnghZIPCe60v6ZSRxWQ==}
     peerDependencies:
       next: '>= 13.4 < 17'
       react-instantsearch: '>= 7.1.0 < 8'
 
-  react-instantsearch@7.20.2:
-    resolution: {integrity: sha512-GlKEeK6dJYbM/JJq9/5KbFbmQghICc2Zsk0Bia+y2R0Xumx2XnCe6USZorfjLrRPW268YtWh2NJGf695sKviNQ==}
+  react-instantsearch@7.26.0:
+    resolution: {integrity: sha512-XzkNdH5ZVuwEyl7IUQabyi5OEqKWsEo6ny72saLdNCIfXL0O6wkcQvfhSzursoqw1zrwq3r0s+3dKRY4tVh6Cw==}
     peerDependencies:
       algoliasearch: '>= 3.1 < 6'
       react: '>= 16.8.0 < 20'
@@ -3915,24 +3878,6 @@ snapshots:
   '@acemir/cssom@0.9.28': {}
 
   '@adobe/css-tools@4.4.1': {}
-
-  '@ai-sdk/gateway@2.0.0(zod@4.1.12)':
-    dependencies:
-      '@ai-sdk/provider': 2.0.0
-      '@ai-sdk/provider-utils': 3.0.12(zod@4.1.12)
-      '@vercel/oidc': 3.0.3
-      zod: 4.1.12
-
-  '@ai-sdk/provider-utils@3.0.12(zod@4.1.12)':
-    dependencies:
-      '@ai-sdk/provider': 2.0.0
-      '@standard-schema/spec': 1.0.0
-      eventsource-parser: 3.0.6
-      zod: 4.1.12
-
-  '@ai-sdk/provider@2.0.0':
-    dependencies:
-      json-schema: 0.4.0
 
   '@algolia/abtesting@1.14.0':
     dependencies:
@@ -4706,7 +4651,8 @@ snapshots:
 
   '@nolyfill/is-core-module@1.0.39': {}
 
-  '@opentelemetry/api@1.9.0': {}
+  '@opentelemetry/api@1.9.0':
+    optional: true
 
   '@playwright/test@1.57.0':
     dependencies:
@@ -4775,9 +4721,11 @@ snapshots:
     dependencies:
       '@sinonjs/commons': 3.0.1
 
-  '@standard-schema/spec@1.0.0': {}
-
   '@swc/helpers@0.5.15':
+    dependencies:
+      tslib: 2.8.1
+
+  '@swc/helpers@0.5.18':
     dependencies:
       tslib: 2.8.1
 
@@ -5094,8 +5042,6 @@ snapshots:
 
   '@ungap/structured-clone@1.2.1': {}
 
-  '@vercel/oidc@3.0.3': {}
-
   abab@2.0.6: {}
 
   abbrev@1.1.1: {}
@@ -5125,14 +5071,6 @@ snapshots:
 
   agent-base@7.1.3: {}
 
-  ai@5.0.77(zod@4.1.12):
-    dependencies:
-      '@ai-sdk/gateway': 2.0.0(zod@4.1.12)
-      '@ai-sdk/provider': 2.0.0
-      '@ai-sdk/provider-utils': 3.0.12(zod@4.1.12)
-      '@opentelemetry/api': 1.9.0
-      zod: 4.1.12
-
   ajv@6.12.6:
     dependencies:
       fast-deep-equal: 3.1.3
@@ -5140,7 +5078,7 @@ snapshots:
       json-schema-traverse: 0.4.1
       uri-js: 4.4.1
 
-  algoliasearch-helper@3.26.1(algoliasearch@5.48.0):
+  algoliasearch-helper@3.28.0(algoliasearch@5.48.0):
     dependencies:
       '@algolia/events': 4.0.1
       algoliasearch: 5.48.0
@@ -5977,8 +5915,6 @@ snapshots:
 
   esutils@2.0.3: {}
 
-  eventsource-parser@3.0.6: {}
-
   execa@5.1.1:
     dependencies:
       cross-spawn: 7.0.6
@@ -6306,31 +6242,30 @@ snapshots:
 
   inline-style-parser@0.2.4: {}
 
-  instantsearch-ui-components@0.15.2(react@19.2.4):
+  instantsearch-ui-components@0.20.0(react@19.2.4):
     dependencies:
-      '@babel/runtime': 7.27.6
-      ai: 5.0.77(zod@4.1.12)
+      '@swc/helpers': 0.5.18
       markdown-to-jsx: 7.7.16(react@19.2.4)
       zod: 4.1.12
       zod-to-json-schema: 3.24.6(zod@4.1.12)
     transitivePeerDependencies:
       - react
 
-  instantsearch.js@4.85.1(algoliasearch@5.48.0):
+  instantsearch.js@4.90.0(algoliasearch@5.48.0):
     dependencies:
       '@algolia/events': 4.0.1
+      '@swc/helpers': 0.5.18
       '@types/dom-speech-recognition': 0.0.1
       '@types/google.maps': 3.58.1
       '@types/hogan.js': 3.0.5
       '@types/qs': 6.14.0
-      ai: 5.0.77(zod@4.1.12)
       algoliasearch: 5.48.0
-      algoliasearch-helper: 3.26.1(algoliasearch@5.48.0)
+      algoliasearch-helper: 3.28.0(algoliasearch@5.48.0)
       hogan.js: 3.0.2
       htm: 3.1.1
-      instantsearch-ui-components: 0.15.2(react@19.2.4)
+      instantsearch-ui-components: 0.20.0(react@19.2.4)
       preact: 10.26.4
-      qs: 6.9.7
+      qs: 6.14.2
       react: 19.2.4
       search-insights: 2.17.3
       zod: 4.1.12
@@ -6932,8 +6867,6 @@ snapshots:
   json-parse-even-better-errors@2.3.1: {}
 
   json-schema-traverse@0.4.1: {}
-
-  json-schema@0.4.0: {}
 
   json-stable-stringify-without-jsonify@1.0.1: {}
 
@@ -7725,8 +7658,6 @@ snapshots:
     dependencies:
       side-channel: 1.1.0
 
-  qs@6.9.7: {}
-
   querystringify@2.2.0: {}
 
   queue-microtask@1.2.3: {}
@@ -7738,32 +7669,32 @@ snapshots:
 
   react-fast-compare@3.2.2: {}
 
-  react-instantsearch-core@7.20.2(algoliasearch@5.48.0)(react@19.2.4):
+  react-instantsearch-core@7.26.0(algoliasearch@5.48.0)(react@19.2.4):
     dependencies:
-      '@babel/runtime': 7.27.6
-      ai: 5.0.77(zod@4.1.12)
+      '@swc/helpers': 0.5.18
       algoliasearch: 5.48.0
-      algoliasearch-helper: 3.26.1(algoliasearch@5.48.0)
-      instantsearch.js: 4.85.1(algoliasearch@5.48.0)
+      algoliasearch-helper: 3.28.0(algoliasearch@5.48.0)
+      instantsearch.js: 4.90.0(algoliasearch@5.48.0)
       react: 19.2.4
       use-sync-external-store: 1.5.0(react@19.2.4)
       zod: 4.1.12
       zod-to-json-schema: 3.24.6(zod@4.1.12)
 
-  react-instantsearch-nextjs@1.0.8(next@15.5.12(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.57.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-instantsearch@7.20.2(algoliasearch@5.48.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)):
+  react-instantsearch-nextjs@1.1.0(next@15.5.12(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.57.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-instantsearch@7.26.0(algoliasearch@5.48.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)):
     dependencies:
+      '@swc/helpers': 0.5.18
       next: 15.5.12(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.57.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      react-instantsearch: 7.20.2(algoliasearch@5.48.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      react-instantsearch: 7.26.0(algoliasearch@5.48.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
 
-  react-instantsearch@7.20.2(algoliasearch@5.48.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
+  react-instantsearch@7.26.0(algoliasearch@5.48.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
     dependencies:
-      '@babel/runtime': 7.27.6
+      '@swc/helpers': 0.5.18
       algoliasearch: 5.48.0
-      instantsearch-ui-components: 0.15.2(react@19.2.4)
-      instantsearch.js: 4.85.1(algoliasearch@5.48.0)
+      instantsearch-ui-components: 0.20.0(react@19.2.4)
+      instantsearch.js: 4.90.0(algoliasearch@5.48.0)
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
-      react-instantsearch-core: 7.20.2(algoliasearch@5.48.0)(react@19.2.4)
+      react-instantsearch-core: 7.26.0(algoliasearch@5.48.0)(react@19.2.4)
 
   react-is@16.13.1: {}
 
