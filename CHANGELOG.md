@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.23.0](https://github.com/harrytang/web/compare/v1.22.7...v1.23.0) (2026-02-27)
+
+
+### Features
+
+* Add 'Buy me a coffee' component to blog posts ([28d718c](https://github.com/harrytang/web/commit/28d718cf2b5f0caf6c496a6294a13d424724e974))
+* Add 'Buy me a coffee' link to footer navigation ([076fa55](https://github.com/harrytang/web/commit/076fa5562c5e73243a85798730e0fa185bc02270))
+* Add NEXT_PUBLIC_BMC_URL to Dockerfile ([13d730c](https://github.com/harrytang/web/commit/13d730c33acfaca358d56767be8121fa46a47f65))
+* Introduce NEXT_PUBLIC_BMC_URL environment variable ([041796c](https://github.com/harrytang/web/commit/041796c2d228cd90835ce14fb07c44a75b3d3b09))
+
+
+### Bug Fixes
+
+* **deps:** update algolia-instantsearch monorepo ([#403](https://github.com/harrytang/web/issues/403)) ([7c00abb](https://github.com/harrytang/web/commit/7c00abbae947f6eab5afff802553df454eb7493e))
+* **deps:** update dependency algoliasearch to v5.46.1 ([#416](https://github.com/harrytang/web/issues/416)) ([320c138](https://github.com/harrytang/web/commit/320c13825449509b5d5acbe6ba23bfffd5d67afc))
+* **deps:** update dependency algoliasearch to v5.46.2 ([#417](https://github.com/harrytang/web/issues/417)) ([16d409e](https://github.com/harrytang/web/commit/16d409e5477bf668bc974cc5f3b9aa9acf5ca0e1))
+* **deps:** update dependency algoliasearch to v5.46.3 ([#426](https://github.com/harrytang/web/issues/426)) ([794b364](https://github.com/harrytang/web/commit/794b36457bec1fda2d2181a5e70339e71d31c682))
+* **deps:** update dependency algoliasearch to v5.48.0 ([#431](https://github.com/harrytang/web/issues/431)) ([cfff584](https://github.com/harrytang/web/commit/cfff584540f742c92cff0b606c038ee487959924))
+* **deps:** update dependency next to v15.5.10 [security] ([#433](https://github.com/harrytang/web/issues/433)) ([7652016](https://github.com/harrytang/web/commit/76520161de991baa92af6821f12711ea78810c77))
+* **deps:** update dependency next to v15.5.8 [security] ([#410](https://github.com/harrytang/web/issues/410)) ([a0d7037](https://github.com/harrytang/web/commit/a0d7037873b1055e5947e81f187106057ccb37ed))
+* **deps:** update dependency qs to v6.14.1 ([#419](https://github.com/harrytang/web/issues/419)) ([67e6b14](https://github.com/harrytang/web/commit/67e6b14cd321c381ceacf7ad9e5c218098a2e108))
+* **deps:** update dependency qs to v6.14.2 [security] ([#440](https://github.com/harrytang/web/issues/440)) ([48424fa](https://github.com/harrytang/web/commit/48424fa259c877319ab4ae48d2c0a0259f92949a))
+* **deps:** update nextjs monorepo to v15.5.12 ([#436](https://github.com/harrytang/web/issues/436)) ([88f9ac5](https://github.com/harrytang/web/commit/88f9ac5f394976b2029d602b484fbdfc73a962c4))
+* **deps:** update nextjs monorepo to v15.5.9 ([#407](https://github.com/harrytang/web/issues/407)) ([1032021](https://github.com/harrytang/web/commit/10320210b75972b70ec420be188ff25b75daf809))
+* **deps:** update react monorepo ([#437](https://github.com/harrytang/web/issues/437)) ([6878fad](https://github.com/harrytang/web/commit/6878fade9cf764f5c3e37753d041faa70d4373f6))
+* **deps:** update react monorepo to v19.2.3 ([#408](https://github.com/harrytang/web/issues/408)) ([e1765e9](https://github.com/harrytang/web/commit/e1765e936c611282446cbdbc7cd1155904715059))
+* **deps:** update tailwindcss monorepo to v4.1.18 ([#406](https://github.com/harrytang/web/issues/406)) ([8f26203](https://github.com/harrytang/web/commit/8f26203c013998db2c35994ca217e88bb0235d7b))
+
 ### [1.22.7](https://github.com/harrytang/web/compare/v1.22.6...v1.22.7) (2025-12-07)
 
 ### [1.22.6](https://github.com/harrytang/web/compare/v1.22.5...v1.22.6) (2025-12-07)
