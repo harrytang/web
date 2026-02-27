@@ -24,6 +24,15 @@ const Footer: React.FC = () => {
       path: '/credits',
     },
     {
+      name: (
+        <>
+          Buy me a coffee
+          <span className="sr-only">Buy me a coffee</span>
+        </>
+      ),
+      path: process.env.NEXT_PUBLIC_BMC_URL!,
+    },
+    {
       name: 'Status',
       path: process.env.NEXT_PUBLIC_STATUS_URL!,
     },
