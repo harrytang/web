@@ -56,6 +56,7 @@ jobs:
             NEXT_PUBLIC_ALGOLIA_INDEX_NAME=${{ vars.NEXT_PUBLIC_ALGOLIA_INDEX_NAME }}
             NEXT_PUBLIC_UMAMI_WEBSITE_ID=${{ vars.NEXT_PUBLIC_UMAMI_WEBSITE_ID }}
             NEXT_PUBLIC_UMAMI_SCRIPT_URL=${{ vars.NEXT_PUBLIC_UMAMI_SCRIPT_URL }}
+            NEXT_PUBLIC_BMC_URL=${{ vars.NEXT_PUBLIC_BMC_URL }}
             STRAPI_API_URL=${{ vars.STRAPI_API_URL }}
             SITEMAP_SIZE=${{ vars.SITEMAP_SIZE }}
           platforms: linux/arm64
