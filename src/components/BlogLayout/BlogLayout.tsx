@@ -18,6 +18,7 @@ import { Blog } from '@/lib/blogs'
 import { formatDate } from '@/lib/helper'
 import { BLUR_IMAGE } from '@/../const'
 import { MarkdownRenderer } from '../mdx'
+import BMC from './BMC'
 
 // dynamic imports
 const ReactPlayer = dynamic(() => import('react-player'), { ssr: false })
@@ -159,6 +160,10 @@ const BlogLayout: React.FC<BlogLayoutProps> = ({ blog }) => {
               )}
 
               <MarkdownRenderer content={blog.attributes.content} />
+
+              {/* Buy me a coffee */}
+              <BMC />
+
               {/* Intersection Observer Trigger */}
               <div ref={commentTriggerRef} className="relative">
                 <div
