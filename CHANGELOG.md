@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.23.1](https://github.com/harrytang/web/compare/v1.23.0...v1.23.1) (2026-03-28)
+
+
+### Bug Fixes
+
+* **deps:** update algolia-instantsearch monorepo ([#404](https://github.com/harrytang/web/issues/404)) ([61568bd](https://github.com/harrytang/web/commit/61568bda6cfd0a99c0911dcefb9a793a39de5f9d))
+* **deps:** update dependency feed to v5.2.0 ([#424](https://github.com/harrytang/web/issues/424)) ([cdd9d1b](https://github.com/harrytang/web/commit/cdd9d1b16d37be5b644e27d838fd21670ba1f429))
+* **deps:** update dependency next to v15.5.13 [security] ([#441](https://github.com/harrytang/web/issues/441)) ([38944cb](https://github.com/harrytang/web/commit/38944cb42a614f1958b475f8bdea619a39352782))
+* **deps:** update dependency next to v15.5.14 [security] ([#442](https://github.com/harrytang/web/issues/442)) ([5e76335](https://github.com/harrytang/web/commit/5e76335b086e0284a09c5f2d5850cab42c68e833))
+
 ## [1.23.0](https://github.com/harrytang/web/compare/v1.22.7...v1.23.0) (2026-02-27)
 
 
