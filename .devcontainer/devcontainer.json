@@ -1,0 +1,21 @@
+{
+	"image": "mcr.microsoft.com/devcontainers/typescript-node",
+	"features": {
+		"ghcr.io/devcontainers/features/common-utils:2": {
+			"configureZshAsDefaultShell": true
+		}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": ["biomejs.biome"],
+			"settings": {
+				"biome.enable": true,
+				"editor.formatOnSave": true,
+				"editor.defaultFormatter": "biomejs.biome",
+				"[typescriptreact]": {
+					"editor.defaultFormatter": "biomejs.biome"
+				}
+			}
+		}
+	}
+}
