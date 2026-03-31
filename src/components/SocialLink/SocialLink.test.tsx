@@ -23,15 +23,18 @@ jest.mock("next/link", () => {
 
 jest.mock("next/image", () => ({
 	__esModule: true,
-	default: (props: Record<string, unknown>) =>
-		React.createElement(
+	default: (props: Record<string, unknown>) => {
+		const { unoptimized: _unoptimized, ...imgProps } =
+			props as React.ImgHTMLAttributes<HTMLImageElement> & {
+				unoptimized?: boolean;
+			};
+
+		return React.createElement(
 			"picture",
 			null,
-			React.createElement(
-				"img",
-				props as unknown as React.ImgHTMLAttributes<HTMLImageElement>,
-			),
-		),
+			React.createElement("img", imgProps),
+		);
+	},
 }));
 
 jest.mock("clsx", () => {
