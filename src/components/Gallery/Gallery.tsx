@@ -54,13 +54,13 @@ const Gallery: React.FC<GalleryProps> = ({ items }) => {
 		const interval = setInterval(() => {
 			setIsAnimating(true);
 			setTimeout(() => {
+				setIsAnimating(false);
 				setIsFading(true);
 				setTimeout(() => {
 					setDisplayItems((prev) => {
 						if (prev.length <= 1) return prev;
 						return [...prev.slice(1), prev[0]];
 					});
-					setIsAnimating(false);
 					setIsFading(false);
 				}, 400); // fade duration
 			}, 600); // slide duration

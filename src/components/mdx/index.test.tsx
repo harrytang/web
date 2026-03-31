@@ -11,7 +11,7 @@ jest.mock("react-markdown", () => ({
 		children: string;
 		components?: {
 			img?: (props: {
-				src?: string;
+				src?: string | number;
 				alt?: string;
 				node?: unknown;
 			}) => JSX.Element;
@@ -29,9 +29,17 @@ jest.mock("react-markdown", () => ({
 			return components.img({ src: imageMatch[2], alt: imageMatch[1] });
 		}
 
+		if (content === "IMG_NON_STRING_SRC" && components?.img) {
+			return components.img({ src: 123, alt: "numeric src" });
+		}
+
 		const linkMatch = content.match(/^\[(.*)\]\((.*)\)$/);
 		if (linkMatch && components?.a) {
 			return components.a({ href: linkMatch[2], children: linkMatch[1] });
+		}
+
+		if (content === "NO_HREF_LINK" && components?.a) {
+			return components.a({ children: "NoHref" });
 		}
 
 		return <>{content}</>;
@@ -123,5 +131,35 @@ describe("MarkdownRenderer", () => {
 		expect(link).toHaveAttribute("href", "https://github.com");
 		expect(link).toHaveAttribute("target", "_blank");
 		expect(mockedIsInternalLink).toHaveBeenCalledWith("https://github.com");
+	});
+
+	it("does not render image component when markdown image src is empty", () => {
+		render(<MarkdownRenderer content="![NoSrc]()" />);
+
+		expect(screen.queryByTestId("markdown-image")).not.toBeInTheDocument();
+	});
+
+	it("handles link with empty href via default value", () => {
+		mockedIsInternalLink.mockReturnValue(false);
+		render(<MarkdownRenderer content="[Empty]()" />);
+
+		const anchor = screen.getByText("Empty").closest("a");
+		expect(anchor).toHaveAttribute("href", "");
+		expect(mockedIsInternalLink).toHaveBeenCalledWith("");
+	});
+
+	it("defaults href when markdown link omits href attribute", () => {
+		mockedIsInternalLink.mockReturnValue(false);
+		render(<MarkdownRenderer content="NO_HREF_LINK" />);
+
+		const anchor = screen.getByText("NoHref").closest("a");
+		expect(anchor).toHaveAttribute("href", "");
+		expect(mockedIsInternalLink).toHaveBeenCalledWith("");
+	});
+
+	it("does not render image when src is not a string type", () => {
+		render(<MarkdownRenderer content="IMG_NON_STRING_SRC" />);
+
+		expect(screen.queryByTestId("markdown-image")).not.toBeInTheDocument();
 	});
 });

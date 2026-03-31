@@ -92,10 +92,6 @@ export default function CommentBox({ location }: CommentBoxProps) {
 	);
 
 	useEffect(() => {
-		if (typeof window === "undefined") {
-			return;
-		}
-
 		const handleSystemThemeChange = (e: MediaQueryListEvent) => {
 			if (theme === "system") {
 				setPreferredTheme(e.matches ? "dark" : "light");
@@ -115,13 +111,10 @@ export default function CommentBox({ location }: CommentBoxProps) {
 		}
 	}, [theme]);
 
-	useEffect(() => {
-		if (typeof window === "undefined") {
-			return;
-		}
-
-		return manageScript(location, preferredTheme);
-	}, [location, preferredTheme]);
+	useEffect(
+		() => manageScript(location, preferredTheme),
+		[location, preferredTheme],
+	);
 
 	return (
 		<Fragment>

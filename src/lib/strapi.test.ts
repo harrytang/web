@@ -88,6 +88,25 @@ describe("strapi", () => {
 		errorSpy.mockRestore();
 	});
 
+	it("fetchAPI omits query string when params serialize empty", async () => {
+		mockedStringify.mockReturnValue("");
+		(global.fetch as jest.Mock).mockResolvedValue({
+			ok: true,
+			json: async () => ({
+				data: [],
+				meta: { pagination: { start: 0, limit: 0, total: 0 } },
+			}),
+		});
+
+		await fetchAPI("/flat", {});
+
+		expect(mockedGetStrapiURL).toHaveBeenCalledWith("/api/flat");
+		expect(global.fetch).toHaveBeenCalledWith(
+			"https://cms.example/api/flat",
+			expect.any(Object),
+		);
+	});
+
 	it("getAllEntitySlugs paginates and concatenates all slugs", async () => {
 		process.env.SITEMAP_SIZE = "2";
 		mockedStringify
@@ -128,5 +147,27 @@ describe("strapi", () => {
 
 		expect(result).toEqual(["a", "b", "c", "d", "e"]);
 		expect(global.fetch).toHaveBeenCalledTimes(3);
+	});
+
+	it("getAllEntitySlugs uses default sitemap size when env is missing", async () => {
+		delete process.env.SITEMAP_SIZE;
+		mockedStringify.mockReturnValue(
+			"locale=all&pagination%5Blimit%5D=1000&pagination%5Bstart%5D=0",
+		);
+		(global.fetch as jest.Mock).mockResolvedValue({
+			ok: true,
+			json: async () => ({
+				data: [{ attributes: { slug: "only" } }],
+				meta: { pagination: { start: 0, limit: 1000, total: 1 } },
+			}),
+		});
+
+		const result = await getAllEntitySlugs("pages");
+
+		expect(result).toEqual(["only"]);
+		expect(mockedStringify).toHaveBeenCalledWith({
+			locale: "all",
+			pagination: { limit: 1000, start: 0 },
+		});
 	});
 });

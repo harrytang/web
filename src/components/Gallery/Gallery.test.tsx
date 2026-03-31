@@ -146,4 +146,77 @@ describe("Gallery", () => {
 		const animatedWrapper = images[0].closest(".flex-none");
 		expect(animatedWrapper).toHaveStyle({ transform: "translateX(-196px)" });
 	});
+
+	it("syncs display items when props change", () => {
+		const first = [createMedia(1, "First"), createMedia(2, "Second")];
+		const second = [createMedia(3, "Third"), createMedia(4, "Fourth")];
+		const { rerender } = render(<Gallery items={first} />);
+
+		expect(screen.getAllByTestId("gallery-image")[0]).toHaveAttribute(
+			"data-alt",
+			"First",
+		);
+
+		rerender(<Gallery items={second} />);
+
+		expect(screen.getAllByTestId("gallery-image")[0]).toHaveAttribute(
+			"data-alt",
+			"Third",
+		);
+	});
+
+	it("applies animating, fading, then default styles during rotation lifecycle", () => {
+		(window.matchMedia as jest.Mock).mockReturnValue({ matches: true });
+		Object.defineProperty(window, "innerWidth", {
+			writable: true,
+			value: 375,
+		});
+		render(<Gallery items={[createMedia(1, "A"), createMedia(2, "B")]} />);
+
+		act(() => {
+			jest.advanceTimersByTime(5000);
+		});
+
+		let wrapper = screen
+			.getAllByTestId("gallery-image")[0]
+			.closest(".flex-none");
+		expect(wrapper).toHaveStyle({
+			opacity: "1",
+			transform: "translateX(-196px)",
+		});
+
+		act(() => {
+			jest.advanceTimersByTime(600);
+		});
+
+		wrapper = screen.getAllByTestId("gallery-image")[0].closest(".flex-none");
+		expect(wrapper).toHaveStyle({ opacity: "0", transform: "translateX(0px)" });
+
+		act(() => {
+			jest.advanceTimersByTime(400);
+		});
+
+		wrapper = screen.getAllByTestId("gallery-image")[0].closest(".flex-none");
+		expect(wrapper).toHaveStyle({ opacity: "1", transform: "translateX(0)" });
+	});
+
+	it("handles rotation setter shortcut when items reduce to one during animation", () => {
+		(window.matchMedia as jest.Mock).mockReturnValue({ matches: true });
+		Object.defineProperty(window, "innerWidth", {
+			writable: true,
+			value: 375,
+		});
+		const { rerender } = render(
+			<Gallery items={[createMedia(1, "A"), createMedia(2, "B")]} />,
+		);
+
+		act(() => {
+			jest.advanceTimersByTime(5000);
+		});
+
+		rerender(<Gallery items={[createMedia(1, "A")]} />);
+
+		const wrapper = screen.getByTestId("gallery-image").closest(".flex-none");
+		expect(wrapper).toBeDefined();
+	});
 });

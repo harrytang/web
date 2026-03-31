@@ -11,6 +11,7 @@ let capturedSearchClient: {
 		requests: { indexName: string; params: { query?: string } }[],
 	) => Promise<unknown>;
 } | null = null;
+let capturedIndexName: string | null = null;
 
 jest.mock("next/link", () => ({
 	__esModule: true,
@@ -39,6 +40,7 @@ jest.mock("react-instantsearch-nextjs", () => ({
 	InstantSearchNext: ({
 		children,
 		searchClient,
+		indexName,
 	}: {
 		children: React.ReactNode;
 		searchClient: {
@@ -46,8 +48,10 @@ jest.mock("react-instantsearch-nextjs", () => ({
 				requests: { indexName: string; params: { query?: string } }[],
 			) => Promise<TObject>;
 		};
+		indexName: string;
 	}) => {
 		capturedSearchClient = searchClient;
+		capturedIndexName = indexName;
 		return <div data-testid="instant-search">{children}</div>;
 	},
 }));
@@ -101,6 +105,7 @@ describe("AlgoliaSearch", () => {
 	beforeEach(() => {
 		jest.clearAllMocks();
 		capturedSearchClient = null;
+		capturedIndexName = null;
 		document.body.className = "";
 		algoliaSearchMock.mockResolvedValue({ results: [] });
 	});
@@ -172,5 +177,20 @@ describe("AlgoliaSearch", () => {
 		expect(algoliaSearchMock).toHaveBeenCalledWith([
 			{ indexName: "articles_index", params: { query: "react" } },
 		]);
+	});
+
+	it("uses default index name and does not prevent non-Tab keys", () => {
+		delete process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME;
+		render(<AlgoliaSearch />);
+		fireEvent.focus(screen.getByPlaceholderText("Search articles"));
+
+		expect(capturedIndexName).toBe("articles_index");
+
+		const keyEvent = new KeyboardEvent("keydown", {
+			key: "Escape",
+			cancelable: true,
+		});
+		document.dispatchEvent(keyEvent);
+		expect(keyEvent.defaultPrevented).toBe(false);
 	});
 });

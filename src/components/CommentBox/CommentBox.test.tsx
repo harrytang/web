@@ -134,4 +134,13 @@ describe("CommentBox", () => {
 		expect(document.getElementById("comments-script")).not.toBeInTheDocument();
 		expect(removeEventListenerMock).toHaveBeenCalled();
 	});
+
+	it("handles relative location path and URL without trailing slash", async () => {
+		render(<CommentBox location="/blog/test" />);
+
+		await waitFor(() => {
+			const script = document.getElementById("comments-script");
+			expect(script?.innerHTML).toContain('url: "');
+		});
+	});
 });
