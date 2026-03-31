@@ -30,6 +30,7 @@ const config: Config = {
 	// An array of glob patterns indicating a set of files for which coverage information should be collected
 	collectCoverageFrom: [
 		"src/**/*.{ts,tsx}",
+		"!src/types/**",
 		"!src/**/*.d.ts",
 		"!src/**/*.test.{ts,tsx}",
 		"!src/**/*.spec.{ts,tsx}",
