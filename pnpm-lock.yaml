@@ -40,7 +40,7 @@ importers:
         version: 11.11.1
       next:
         specifier: 15.5.14
-        version: 15.5.14(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.58.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        version: 15.5.14(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.59.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       next-themes:
         specifier: 0.4.6
         version: 0.4.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -58,7 +58,7 @@ importers:
         version: 7.29.0(algoliasearch@5.50.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       react-instantsearch-nextjs:
         specifier: 1.1.4
-        version: 1.1.4(next@15.5.14(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.58.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-instantsearch@7.29.0(algoliasearch@5.50.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))
+        version: 1.1.4(next@15.5.14(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.59.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-instantsearch@7.29.0(algoliasearch@5.50.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))
       react-markdown:
         specifier: 10.1.0
         version: 10.1.0(@types/react@19.2.14)(react@19.2.4)
@@ -85,8 +85,8 @@ importers:
         specifier: 2.4.10
         version: 2.4.10
       '@playwright/test':
-        specifier: 1.58.2
-        version: 1.58.2
+        specifier: 1.59.0
+        version: 1.59.0
       '@testing-library/jest-dom':
         specifier: 6.9.1
         version: 6.9.1
@@ -846,8 +846,8 @@ packages:
     resolution: {integrity: sha512-3giAOQvZiH5F9bMlMiv8+GSPMeqg0dbaeo58/0SlA9sxSqZhnUtxzX9/2FzyhS9sWQf5S0GJE0AKBrFqjpeYcg==}
     engines: {node: '>=8.0.0'}
 
-  '@playwright/test@1.58.2':
-    resolution: {integrity: sha512-akea+6bHYBBfA9uQqSYmlJXn61cTa+jbO87xVLCWbTqbWadRVmhxlXATaOjOgcBaWU4ePo0wB41KMFv3o35IXA==}
+  '@playwright/test@1.59.0':
+    resolution: {integrity: sha512-TOA5sTLd49rTDaZpYpvCQ9hGefHQq/OYOyCVnGqS2mjMfX+lGZv2iddIJd0I48cfxqSPttS9S3OuLKyylHcO1w==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -2506,13 +2506,13 @@ packages:
     resolution: {integrity: sha512-HRDzbaKjC+AOWVXxAU/x54COGeIv9eb+6CkDSQoNTt4XyWoIJvuPsXizxu/Fr23EiekbtZwmh1IcIG/l/a10GQ==}
     engines: {node: '>=8'}
 
-  playwright-core@1.58.2:
-    resolution: {integrity: sha512-yZkEtftgwS8CsfYo7nm0KE8jsvm6i/PTgVtB8DL726wNf6H2IMsDuxCpJj59KDaxCtSnrWan2AeDqM7JBaultg==}
+  playwright-core@1.59.0:
+    resolution: {integrity: sha512-PW/X/IoZ6BMUUy8rpwHEZ8Kc0IiLIkgKYGNFaMs5KmQhcfLILNx9yCQD0rnWeWfz1PNeqcFP1BsihQhDOBCwZw==}
     engines: {node: '>=18'}
     hasBin: true
 
-  playwright@1.58.2:
-    resolution: {integrity: sha512-vA30H8Nvkq/cPBnNw4Q8TWz1EJyqgpuinBcHET0YVJVFldr8JDNiU9LaWAE1KqSkRYazuaBhTpB5ZzShOezQ6A==}
+  playwright@1.59.0:
+    resolution: {integrity: sha512-wihGScriusvATUxmhfENxg0tj1vHEFeIwxlnPFKQTOQVd7aG08mUfvvniRP/PtQOC+2Bs52kBOC/Up1jTXeIbw==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -3848,9 +3848,9 @@ snapshots:
   '@opentelemetry/api@1.9.0':
     optional: true
 
-  '@playwright/test@1.58.2':
+  '@playwright/test@1.59.0':
     dependencies:
-      playwright: 1.58.2
+      playwright: 1.59.0
 
   '@react-aria/focus@3.20.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
@@ -5811,7 +5811,7 @@ snapshots:
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
 
-  next@15.5.14(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.58.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
+  next@15.5.14(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.59.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
     dependencies:
       '@next/env': 15.5.14
       '@swc/helpers': 0.5.15
@@ -5830,7 +5830,7 @@ snapshots:
       '@next/swc-win32-arm64-msvc': 15.5.14
       '@next/swc-win32-x64-msvc': 15.5.14
       '@opentelemetry/api': 1.9.0
-      '@playwright/test': 1.58.2
+      '@playwright/test': 1.59.0
       sharp: 0.34.5
     transitivePeerDependencies:
       - '@babel/core'
@@ -5934,11 +5934,11 @@ snapshots:
     dependencies:
       find-up: 4.1.0
 
-  playwright-core@1.58.2: {}
+  playwright-core@1.59.0: {}
 
-  playwright@1.58.2:
+  playwright@1.59.0:
     dependencies:
-      playwright-core: 1.58.2
+      playwright-core: 1.59.0
     optionalDependencies:
       fsevents: 2.3.2
 
@@ -6020,10 +6020,10 @@ snapshots:
       zod: 4.1.12
       zod-to-json-schema: 3.24.6(zod@4.1.12)
 
-  react-instantsearch-nextjs@1.1.4(next@15.5.14(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.58.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-instantsearch@7.29.0(algoliasearch@5.50.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)):
+  react-instantsearch-nextjs@1.1.4(next@15.5.14(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.59.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-instantsearch@7.29.0(algoliasearch@5.50.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)):
     dependencies:
       '@swc/helpers': 0.5.18
-      next: 15.5.14(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.58.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      next: 15.5.14(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.59.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       react-instantsearch: 7.29.0(algoliasearch@5.50.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
 
   react-instantsearch@7.29.0(algoliasearch@5.50.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
