@@ -22,7 +22,7 @@
 		"cheerio": "1.2.0",
 		"clsx": "2.1.1",
 		"fast-glob": "3.3.3",
-		"feed": "5.2.0",
+		"feed": "5.2.1",
 		"highlight.js": "^11.11.1",
 		"next": "15.5.15",
 		"next-themes": "0.4.6",
