@@ -103,8 +103,8 @@ importers:
         specifier: 24.12.2
         version: 24.12.2
       '@types/qs':
-        specifier: 6.15.0
-        version: 6.15.0
+        specifier: 6.15.1
+        version: 6.15.1
       '@types/react':
         specifier: 19.2.14
         version: 19.2.14
@@ -1117,8 +1117,8 @@ packages:
   '@types/node@24.12.2':
     resolution: {integrity: sha512-A1sre26ke7HDIuY/M23nd9gfB+nrmhtYyMINbjI1zHJxYteKR6qSMX56FsmjMcDb3SMcjJg5BiRRgOCC/yBD0g==}
 
-  '@types/qs@6.15.0':
-    resolution: {integrity: sha512-JawvT8iBVWpzTrz3EGw9BTQFg3BQNmwERdKE22vlTxawwtbyUSlMppvZYKLZzB5zgACXdXxbD3m1bXaMqP/9ow==}
+  '@types/qs@6.15.1':
+    resolution: {integrity: sha512-GZHUBZR9hckSUhrxmp1nG6NwdpM9fCunJwyThLW1X3AyHgd9IlHb6VANpQQqDr2o/qQp6McZ3y/IA2rVzKzSbw==}
 
   '@types/react-dom@19.2.3':
     resolution: {integrity: sha512-jp2L/eY6fn+KgVVQAOqYItbF0VY/YApe5Mz2F0aykSO8gx31bYCZyvSeYxCHKvzHG5eZjc+zyaS5BrBWya2+kQ==}
@@ -4117,7 +4117,7 @@ snapshots:
     dependencies:
       undici-types: 7.16.0
 
-  '@types/qs@6.15.0': {}
+  '@types/qs@6.15.1': {}
 
   '@types/react-dom@19.2.3(@types/react@19.2.14)':
     dependencies:
@@ -4827,7 +4827,7 @@ snapshots:
       '@types/dom-speech-recognition': 0.0.1
       '@types/google.maps': 3.58.1
       '@types/hogan.js': 3.0.5
-      '@types/qs': 6.15.0
+      '@types/qs': 6.15.1
       algoliasearch: 5.50.2
       algoliasearch-helper: 3.28.1(algoliasearch@5.50.2)
       hogan.js: 3.0.2
