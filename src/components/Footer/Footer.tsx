@@ -46,6 +46,17 @@ const Footer: React.FC = () => {
                 ))}
               </div>
               <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                Hosted by{' '}
+                <a
+                  href="https://maxspell.com/cloud-hosting"
+                  target="_blank"
+                  rel="noopener"
+                  className="hover:text-zinc-700 dark:hover:text-zinc-300"
+                >
+                  Maxspell
+                </a>
+              </p>
+              <p className="text-sm text-zinc-500 dark:text-zinc-400">
                 &copy; {new Date().getFullYear()}{' '}
                 {process.env.NEXT_PUBLIC_SITE_NAME}. All rights reserved.
               </p>
