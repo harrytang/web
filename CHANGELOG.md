@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.23.3](https://github.com/harrytang/web/compare/v1.23.2...v1.23.3) (2026-05-09)
+
+
+### Bug Fixes
+
+* **deps:** update algolia-instantsearch monorepo ([#453](https://github.com/harrytang/web/issues/453)) ([f686a70](https://github.com/harrytang/web/commit/f686a708a5f12a89ed7835f96fb04ea33da9e007))
+* **deps:** update algolia-instantsearch monorepo ([#459](https://github.com/harrytang/web/issues/459)) ([2713d66](https://github.com/harrytang/web/commit/2713d666f4003a42897afa16adc361bce43c50a7))
+* **deps:** update dependency @headlessui/react to v2.2.10 ([#465](https://github.com/harrytang/web/issues/465)) ([60f8704](https://github.com/harrytang/web/commit/60f87047b546dacfc19ae86d496f1ab310528348))
+* **deps:** update dependency algoliasearch to v5.50.1 ([#462](https://github.com/harrytang/web/issues/462)) ([d863ee2](https://github.com/harrytang/web/commit/d863ee2a5a88e168229541bdfa50ee6027a57899))
+* **deps:** update dependency algoliasearch to v5.50.2 ([#472](https://github.com/harrytang/web/issues/472)) ([92780de](https://github.com/harrytang/web/commit/92780de904783212678c995dbaf73cca48286328))
+* **deps:** update dependency cheerio to v1.2.0 ([#448](https://github.com/harrytang/web/issues/448)) ([7f5d9f8](https://github.com/harrytang/web/commit/7f5d9f800b6e71ed691479bd6bdeb0ca29ed749d))
+* **deps:** update dependency feed to v5.2.1 ([#473](https://github.com/harrytang/web/issues/473)) ([c996df4](https://github.com/harrytang/web/commit/c996df4cd03fb01bfea3e4c01b60ebed51c2d62d))
+* **deps:** update dependency next to v15.5.15 ([#466](https://github.com/harrytang/web/issues/466)) ([ebc703d](https://github.com/harrytang/web/commit/ebc703d87535320c81b9bab3001e9d7c775fe601))
+* **deps:** update dependency next to v15.5.16 ([#482](https://github.com/harrytang/web/issues/482)) ([d0de5f5](https://github.com/harrytang/web/commit/d0de5f56416d6b7637e487080e4ee966310fa778))
+* **deps:** update dependency next to v15.5.18 ([#485](https://github.com/harrytang/web/issues/485)) ([0c63e2b](https://github.com/harrytang/web/commit/0c63e2bdf4a6b1c11ce308367836303afff25508))
+* **deps:** update dependency qs to v6.15.0 ([#449](https://github.com/harrytang/web/issues/449)) ([d8de28c](https://github.com/harrytang/web/commit/d8de28cb5aae71aee73610b67d279cc6421f811d))
+* **deps:** update dependency qs to v6.15.1 ([#467](https://github.com/harrytang/web/issues/467)) ([3b96d01](https://github.com/harrytang/web/commit/3b96d01df02e8be4155a42d9d281d5d991ad0959))
+* **deps:** update react monorepo to v19.2.5 ([#468](https://github.com/harrytang/web/issues/468)) ([0344896](https://github.com/harrytang/web/commit/03448969fa6aedf93a6c99c21a5b60882e959d85))
+* **deps:** update react monorepo to v19.2.6 ([#481](https://github.com/harrytang/web/issues/481)) ([eeeae29](https://github.com/harrytang/web/commit/eeeae29ca4c641bf9c6541190fa12bd908f7078e))
+* **deps:** update tailwindcss monorepo to v4.2.2 ([#450](https://github.com/harrytang/web/issues/450)) ([e8f313a](https://github.com/harrytang/web/commit/e8f313a14f8aa4fa5c85d9bb97d47c1368b6fa03))
+* **deps:** update tailwindcss monorepo to v4.2.3 ([#474](https://github.com/harrytang/web/issues/474)) ([fabdc46](https://github.com/harrytang/web/commit/fabdc46a28bacab8a28742f515d220f77d146462))
+* **deps:** update tailwindcss monorepo to v4.2.4 ([#475](https://github.com/harrytang/web/issues/475)) ([b16c906](https://github.com/harrytang/web/commit/b16c906ef615d67fe686d3bb5c4047016656528f))
+
 ### [1.23.2](https://github.com/harrytang/web/compare/v1.23.1...v1.23.2) (2026-03-28)
 
 
