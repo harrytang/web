@@ -1,6 +1,5 @@
 import { render } from "@testing-library/react";
 import { usePathname } from "next/navigation";
-import React from "react";
 import NavItem from "./NavItem";
 
 // Mocking next/navigation usePathname hook

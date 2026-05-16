@@ -13,6 +13,9 @@ const Avatar: React.FC<AvatarProps> = ({
 	className,
 	...props
 }) => {
+	const avatarUrl = process.env.NEXT_PUBLIC_AVATAR_URL ?? "";
+	const siteName = process.env.NEXT_PUBLIC_SITE_NAME ?? "Site";
+
 	return (
 		<Link
 			href="/"
@@ -22,10 +25,10 @@ const Avatar: React.FC<AvatarProps> = ({
 			{...props}
 		>
 			<Image
-				src={process.env.NEXT_PUBLIC_AVATAR_URL!}
+				src={avatarUrl}
 				width="512"
 				height="512"
-				alt={process.env.NEXT_PUBLIC_SITE_NAME!}
+				alt={siteName}
 				sizes={large ? "4rem" : "2.25rem"}
 				className={clsx(
 					"rounded-full bg-zinc-100 object-cover dark:bg-zinc-800",

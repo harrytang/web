@@ -18,6 +18,26 @@ const track = {
 // dynamic paths
 const dynamicModels = ["blog", "page"];
 
+type RevalidateEntry = {
+	slug?: string;
+	title?: string;
+	seo?: {
+		metaDescription?: string;
+		metaImage?: {
+			formats?: {
+				thumbnail?: {
+					url?: string;
+				};
+			};
+			caption?: string;
+		};
+		keywords?: string[];
+	};
+	publishedAt?: string;
+	createdAt?: string;
+	updatedAt?: string;
+};
+
 const authenticate = (req: NextRequest) => {
 	const token = req.headers.get("authorization")?.replace("Bearer ", "");
 
@@ -32,9 +52,9 @@ const authenticate = (req: NextRequest) => {
 	// valid → return nothing (or return true if you prefer)
 };
 
-const revalidate = (model: string, entry: any) => {
+const revalidate = (model: string, entry: RevalidateEntry) => {
 	// dynamic paths
-	if (dynamicModels.includes(model)) {
+	if (dynamicModels.includes(model) && entry.slug) {
 		console.info(`Revalidating tag: ${model}-${entry.slug}`);
 		revalidateTag(`${model}-${entry.slug}`, "max");
 	}
@@ -63,10 +83,15 @@ const purgeCFCache = async () => {
 	);
 };
 
-const algoliaPush = async (model: string, entry: any) => {
+const algoliaPush = async (model: string, entry: RevalidateEntry) => {
 	// check strapi event & model
 	if (model !== "blog") {
 		console.info(`Skipping Algolia push for ${model} model`);
+		return;
+	}
+
+	if (!entry.slug || !entry.title || !entry.seo?.metaDescription) {
+		console.warn("Skipping Algolia push due to incomplete blog payload");
 		return;
 	}
 
@@ -83,10 +108,10 @@ const algoliaPush = async (model: string, entry: any) => {
 		title: entry.title,
 		description: entry.seo.metaDescription,
 		image: {
-			url: entry.seo.metaImage.formats.thumbnail.url,
-			alt: entry.seo.metaImage.caption,
+			url: entry.seo.metaImage?.formats?.thumbnail?.url,
+			alt: entry.seo.metaImage?.caption,
 		},
-		keywords: entry.seo.keywords,
+		keywords: entry.seo.keywords ?? [],
 		publishedAt: entry.publishedAt,
 		createdAt: entry.createdAt,
 		updatedAt: entry.updatedAt,

@@ -25,11 +25,11 @@ const Footer: React.FC = () => {
 		},
 		{
 			name: "Buy Me a Coffee",
-			path: process.env.NEXT_PUBLIC_BMC_URL!,
+			path: process.env.NEXT_PUBLIC_BMC_URL ?? "#",
 		},
 		{
 			name: "Status",
-			path: process.env.NEXT_PUBLIC_STATUS_URL!,
+			path: process.env.NEXT_PUBLIC_STATUS_URL ?? "#",
 		},
 	];
 	return (

@@ -1,7 +1,7 @@
 type Webhook = {
 	event: string;
 	model: string;
-	entry: any;
+	entry: Record<string, unknown>;
 };
 
 export default Webhook;

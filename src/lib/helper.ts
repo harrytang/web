@@ -25,6 +25,8 @@ const getPublicSiteURL = () => {
 	return publicSiteUrl;
 };
 
+const getSiteName = () => process.env.NEXT_PUBLIC_SITE_NAME ?? "Site";
+
 const generateSeoMeta = (
 	path: string,
 	seo: Seo,
@@ -99,7 +101,7 @@ const generateWebPageJsonLd = ({
 		description,
 		publisher: {
 			"@type": "Person",
-			name: process.env.NEXT_PUBLIC_SITE_NAME!,
+			name: getSiteName(),
 			url: publicSiteUrl,
 		},
 	};
@@ -110,7 +112,7 @@ const generatePersonJsonLd = (profile: Profile) => {
 	return {
 		"@context": "https://schema.org",
 		"@type": "Person",
-		name: process.env.NEXT_PUBLIC_SITE_NAME!,
+		name: getSiteName(),
 		image: profile.attributes.portraitPhoto.data.attributes.url,
 		jobTitle: profile.attributes.title,
 		url: publicSiteUrl,
@@ -130,7 +132,7 @@ const generateArticleJsonLd = (blog: Blog) => {
 		url: `${publicSiteUrl}/blog/${blog.attributes.slug}`,
 		author: {
 			"@type": "Person",
-			name: process.env.NEXT_PUBLIC_SITE_NAME!,
+			name: getSiteName(),
 			url: publicSiteUrl,
 		},
 		name: blog.attributes.title,
@@ -143,7 +145,7 @@ const generateArticleJsonLd = (blog: Blog) => {
 		},
 		publisher: {
 			"@type": "Person",
-			name: process.env.NEXT_PUBLIC_SITE_NAME!,
+			name: getSiteName(),
 			url: publicSiteUrl,
 		},
 
@@ -177,12 +179,12 @@ const generateListArticleJsonLd = (blogs: Blog[]) => {
 					},
 					author: {
 						"@type": "Person",
-						name: process.env.NEXT_PUBLIC_SITE_NAME!,
+						name: getSiteName(),
 						url: publicSiteUrl,
 					},
 					publisher: {
 						"@type": "Person",
-						name: process.env.NEXT_PUBLIC_SITE_NAME!,
+						name: getSiteName(),
 						url: publicSiteUrl,
 					},
 				},
@@ -218,7 +220,7 @@ const generateProfilePageJsonLd = (profile: Profile, hasPart: Blog[] = []) => {
 		mainEntity: {
 			"@id": "#person",
 			"@type": "Person",
-			name: process.env.NEXT_PUBLIC_SITE_NAME!,
+			name: getSiteName(),
 			image: profile.attributes.portraitPhoto.data.attributes.url,
 			jobTitle: profile.attributes.title,
 			url: publicSiteUrl,

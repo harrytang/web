@@ -26,10 +26,7 @@ const Role = async ({ role }: { role: Work }) => {
 					{role.attributes.company} | {role.attributes.place}
 				</dd>
 				<dt className="sr-only">Date</dt>
-				<dd
-					className="ml-auto text-xs text-zinc-500 dark:text-zinc-400"
-					aria-label={`${role.attributes.start} until ${endLabel}`}
-				>
+				<dd className="ml-auto text-xs text-zinc-500 dark:text-zinc-400">
 					<time dateTime={role.attributes.start}>{role.attributes.start}</time>{" "}
 					<span aria-hidden="true">—</span>{" "}
 					<time dateTime={endDate}>{endLabel}</time>

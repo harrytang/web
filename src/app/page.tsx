@@ -24,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
 const Home = async () => {
 	const blogs = await getBlogs(
 		0,
-		parseInt(process.env.NEXT_PUBLIC_HOME_PAGE_SIZE!),
+		parseInt(process.env.NEXT_PUBLIC_HOME_PAGE_SIZE ?? "6", 10),
 	);
 	const profile = await getProfile();
 
@@ -42,8 +42,12 @@ const Home = async () => {
 						{profile.data.attributes.welcome}
 					</p>
 					<div className="mt-6 flex gap-6">
-						{profile.data.attributes.socials.map((social, idx) => (
-							<Link key={idx} className="group -m-1 p-1" href={social.href}>
+						{profile.data.attributes.socials.map((social) => (
+							<Link
+								key={social.href}
+								className="group -m-1 p-1"
+								href={social.href}
+							>
 								<Image
 									src={social.icon.data.attributes.url}
 									alt={social.icon.data.attributes.caption}
@@ -70,10 +74,7 @@ const Home = async () => {
 					</div>
 				</div>
 			</Container>
-			<script
-				type="application/ld+json"
-				dangerouslySetInnerHTML={{ __html: JSON.stringify(person) }}
-			/>
+			<script type="application/ld+json">{JSON.stringify(person)}</script>
 		</>
 	);
 };

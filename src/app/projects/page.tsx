@@ -32,10 +32,7 @@ const Projects = async () => {
 			subtitle={page.attributes.subtitle}
 			content={page.attributes.content}
 		>
-			<ul
-				role="list"
-				className="grid grid-cols-1 gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-3"
-			>
+			<ul className="grid grid-cols-1 gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
 				{projects.data.map((project) => (
 					<Card as="li" key={project.attributes.name}>
 						<div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md ring-1 shadow-zinc-800/5 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
@@ -62,10 +59,7 @@ const Projects = async () => {
 				))}
 			</ul>
 
-			<script
-				type="application/ld+json"
-				dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonld) }}
-			/>
+			<script type="application/ld+json">{JSON.stringify(jsonld)}</script>
 		</SimpleLayout>
 	);
 };

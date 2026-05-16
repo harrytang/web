@@ -1,5 +1,4 @@
 import { render } from "@testing-library/react";
-import React from "react";
 import "@testing-library/jest-dom";
 import type { Menu } from "@/lib/menus";
 import DesktopNavigation from "./DesktopNavigation";

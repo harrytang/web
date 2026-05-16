@@ -9,7 +9,7 @@ export const revalidate = 3600; // 1 hour
 const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
 	const publicSiteUrl = getPublicSiteURL();
 	const sitemapSize = process.env.SITEMAP_SIZE
-		? parseInt(process.env.SITEMAP_SIZE)
+		? parseInt(process.env.SITEMAP_SIZE, 10)
 		: 1000;
 	// static pages
 	const pages = [
@@ -40,7 +40,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
 	});
 
 	// articles pages
-	const pageSize = parseInt(process.env.NEXT_PUBLIC_PAGE_SIZE!);
+	const pageSize = parseInt(process.env.NEXT_PUBLIC_PAGE_SIZE ?? "10", 10);
 	const blogs = await getBlogs(0, 1); // Fetch total count
 	const totalPages = Math.ceil(blogs.meta.pagination.total / pageSize);
 	const articlePageURLs = Array.from({ length: totalPages }, (_, i) => ({

@@ -1,11 +1,12 @@
 import { render } from "@testing-library/react";
-import React from "react";
 import Avatar from "./Avatar";
+
+const siteName = process.env.NEXT_PUBLIC_SITE_NAME ?? "Site";
 
 describe("Avatar", () => {
 	it("renders correctly with default props", () => {
 		const { getByAltText } = render(<Avatar />);
-		const imageElement = getByAltText(process.env.NEXT_PUBLIC_SITE_NAME!);
+		const imageElement = getByAltText(siteName);
 		expect(imageElement).toHaveAttribute("width", "512");
 		expect(imageElement).toHaveAttribute("height", "512");
 		expect(imageElement).toHaveClass("h-9 w-9");
@@ -14,7 +15,7 @@ describe("Avatar", () => {
 	it("renders correctly with large prop", () => {
 		const { getByAltText } = render(<Avatar large />);
 
-		const imageElement = getByAltText(process.env.NEXT_PUBLIC_SITE_NAME!);
+		const imageElement = getByAltText(siteName);
 		expect(imageElement).toHaveClass("h-16 w-16");
 	});
 

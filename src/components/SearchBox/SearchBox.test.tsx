@@ -1,7 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useRouter, useSearchParams } from "next/navigation";
-import React from "react";
 import SearchBox from "./SearchBox";
 
 jest.mock("next/navigation", () => ({

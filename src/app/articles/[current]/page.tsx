@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: ArticlesIndexProps) {
 }
 
 export async function generateStaticParams(): Promise<{ current: string }[]> {
-	const pageSize = parseInt(process.env.NEXT_PUBLIC_PAGE_SIZE!);
+	const pageSize = parseInt(process.env.NEXT_PUBLIC_PAGE_SIZE ?? "10", 10);
 	const blogs = await getBlogs(0, 1); // Fetch total count
 	const totalPages = Math.ceil(blogs.meta.pagination.total / pageSize);
 	return Array.from({ length: totalPages }, (_, i) => ({
@@ -49,7 +49,7 @@ const ArticlesIndex = async ({ params }: ArticlesIndexProps) => {
 	// blogs & pagination
 	const { current } = await params;
 	const pageIdx = parseInt(current || "1", 10) - 1;
-	const pageSize = parseInt(process.env.NEXT_PUBLIC_PAGE_SIZE!);
+	const pageSize = parseInt(process.env.NEXT_PUBLIC_PAGE_SIZE ?? "10", 10);
 	const start = pageIdx * pageSize;
 	const blogs = await getBlogs(start, pageSize);
 	const articlesJsonld = generateListArticleJsonLd(blogs.data);
@@ -72,14 +72,10 @@ const ArticlesIndex = async ({ params }: ArticlesIndexProps) => {
 				<div className="mt-10">
 					<Pagination totalPages={totalPages} currentPage={pageIdx + 1} />
 				</div>
-				<script
-					type="application/ld+json"
-					dangerouslySetInnerHTML={{ __html: JSON.stringify(pageJsonld) }}
-				/>
-				<script
-					type="application/ld+json"
-					dangerouslySetInnerHTML={{ __html: JSON.stringify(articlesJsonld) }}
-				/>
+				<script type="application/ld+json">{JSON.stringify(pageJsonld)}</script>
+				<script type="application/ld+json">
+					{JSON.stringify(articlesJsonld)}
+				</script>
 			</SimpleLayout>
 		</div>
 	);

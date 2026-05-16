@@ -51,10 +51,10 @@ const About: React.FC = async () => {
 					</div>
 				</div>
 				<div className="lg:pl-20">
-					<ul role="list">
-						{profile.data.attributes.socials.map((social, idx) => (
+					<ul>
+						{profile.data.attributes.socials.map((social) => (
 							<SocialLink
-								key={idx}
+								key={social.href}
 								href={social.href}
 								icon={social.icon.data}
 								className="mt-4"
@@ -65,10 +65,7 @@ const About: React.FC = async () => {
 					</ul>
 				</div>
 			</div>
-			<script
-				type="application/ld+json"
-				dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonld) }}
-			></script>
+			<script type="application/ld+json">{JSON.stringify(jsonld)}</script>
 		</Container>
 	);
 };

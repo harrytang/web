@@ -13,7 +13,7 @@ type MoreArticleProps = {
 };
 
 const MoreArticle: React.FC<MoreArticleProps> = ({ total, type }) => {
-	const limit = parseInt(process.env.NEXT_PUBLIC_PAGE_SIZE!);
+	const limit = parseInt(process.env.NEXT_PUBLIC_PAGE_SIZE ?? "10", 10);
 	const [start, setStart] = useState(limit);
 	const [articles, setArticles] = useState<Blog[]>([]);
 	const [disabled, setDisabled] = useState(total <= limit);

@@ -62,10 +62,7 @@ const Expertise = async () => {
 					</div>
 				</div>
 			</div>
-			<script
-				type="application/ld+json"
-				dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonld) }}
-			/>
+			<script type="application/ld+json">{JSON.stringify(jsonld)}</script>
 		</SimpleLayout>
 	);
 };

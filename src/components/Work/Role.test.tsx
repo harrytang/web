@@ -104,13 +104,14 @@ describe("Role", () => {
 		expect(container.querySelector("li")).toBeInTheDocument();
 	});
 
-	it("has accessible aria-label for date range", async () => {
+	it("renders semantic date range with time elements", async () => {
 		const component = await Role({ role: mockRole });
-		render(component);
+		const { container } = render(component);
 
-		expect(
-			screen.getByLabelText("2020-01-01 until 2023-12-31"),
-		).toBeInTheDocument();
+		const timeElements = container.querySelectorAll("time");
+		expect(timeElements).toHaveLength(2);
+		expect(timeElements[0]).toHaveAttribute("datetime", "2020-01-01");
+		expect(timeElements[1]).toHaveAttribute("datetime", "2023-12-31");
 	});
 
 	it("has sr-only labels for accessibility", async () => {

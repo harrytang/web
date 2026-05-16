@@ -12,11 +12,14 @@ export const contentType = "image/png";
 
 // Image generation
 export default function Icon() {
+	const iconUrl = process.env.NEXT_PUBLIC_ICON_URL ?? "";
+	const siteName = process.env.NEXT_PUBLIC_SITE_NAME ?? "Site";
+
 	return new ImageResponse(
-		// eslint-disable-next-line @next/next/no-img-element
+		// biome-ignore lint/performance/noImgElement: ImageResponse in next/og renders static image markup, not DOM img optimization targets.
 		<img
-			src={process.env.NEXT_PUBLIC_ICON_URL!}
-			alt={process.env.NEXT_PUBLIC_SITE_NAME!}
+			src={iconUrl}
+			alt={siteName}
 			style={{
 				width: "100%",
 				height: "100%",

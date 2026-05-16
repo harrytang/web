@@ -43,10 +43,7 @@ const Gear = async () => {
 					</ToolsSection>
 				))}
 			</div>
-			<script
-				type="application/ld+json"
-				dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonld) }}
-			/>
+			<script type="application/ld+json">{JSON.stringify(jsonld)}</script>
 		</SimpleLayout>
 	);
 };

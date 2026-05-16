@@ -54,10 +54,7 @@ const Page: React.FC<PageProps> = async ({ params }) => {
 			subtitle={page.attributes.subtitle}
 			content={page.attributes.content}
 		>
-			<script
-				type="application/ld+json"
-				dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonld) }}
-			/>
+			<script type="application/ld+json">{JSON.stringify(jsonld)}</script>
 		</SimpleLayout>
 	);
 };

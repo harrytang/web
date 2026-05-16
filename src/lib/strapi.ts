@@ -47,15 +47,21 @@ const fetchAPI = async <T>(
 };
 
 const getAllEntitySlugs = async (entity: string) => {
+	type SlugEntity = {
+		attributes: {
+			slug: string;
+		};
+	};
+
 	let allSlugs: string[] = [];
 	let start = 0;
 	const limit = process.env.SITEMAP_SIZE
-		? parseInt(process.env.SITEMAP_SIZE)
+		? parseInt(process.env.SITEMAP_SIZE, 10)
 		: 1000;
 	let hasMore = true;
 
 	while (hasMore) {
-		const res = await fetchAPI<any[]>(`/${entity}`, {
+		const res = await fetchAPI<SlugEntity[]>(`/${entity}`, {
 			locale: "all",
 			pagination: { limit, start },
 		});

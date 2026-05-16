@@ -40,10 +40,7 @@ const Blog = async ({ params }: BlogProps) => {
 	return (
 		<>
 			<BlogLayout blog={blog} />
-			<script
-				type="application/ld+json"
-				dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonld) }}
-			/>
+			<script type="application/ld+json">{JSON.stringify(jsonld)}</script>
 		</>
 	);
 };

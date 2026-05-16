@@ -15,7 +15,14 @@ jest.mock("@headlessui/react", () => {
 	const originalModule = jest.requireActual("@headlessui/react");
 	return {
 		...originalModule,
-		PopoverButton: ({ as: Component, children, ...props }: any) => (
+		PopoverButton: ({
+			as: Component,
+			children,
+			...props
+		}: {
+			as: React.ElementType;
+			children: React.ReactNode;
+		} & Record<string, unknown>) => (
 			<Component {...props}>{children}</Component>
 		),
 	};

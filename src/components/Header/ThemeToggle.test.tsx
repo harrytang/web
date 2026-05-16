@@ -1,5 +1,4 @@
 import { fireEvent, render } from "@testing-library/react";
-import React from "react";
 import "@testing-library/jest-dom";
 import { useTheme } from "next-themes";
 import ThemeToggle from "./ThemeToggle";
@@ -24,7 +23,7 @@ describe("ThemeToggle", () => {
 	});
 
 	it("renders correctly with light theme", () => {
-		const { getByLabelText, getByRole } = render(<ThemeToggle />);
+		const { getByRole } = render(<ThemeToggle />);
 
 		const buttonElement = getByRole("button");
 		expect(buttonElement).toHaveAttribute("aria-label", "Switch to dark theme");
