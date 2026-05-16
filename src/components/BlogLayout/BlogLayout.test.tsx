@@ -17,8 +17,8 @@ jest.mock("next/dynamic", () => ({
 			if (typeof props.location === "string") {
 				return <div data-testid="comment-box">{props.location}</div>;
 			}
-			if (typeof props.url === "string") {
-				return <div data-testid="react-player">{props.url}</div>;
+			if (typeof props.src === "string") {
+				return <div data-testid="react-player">{props.src}</div>;
 			}
 			return <div data-testid="dynamic-component" />;
 		};

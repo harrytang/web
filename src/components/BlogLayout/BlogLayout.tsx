@@ -123,7 +123,7 @@ const BlogLayout: React.FC<BlogLayoutProps> = ({ blog }) => {
 									<div className="player-wrapper">
 										<ReactPlayer
 											className="react-player"
-											url={blog.attributes.mediaUrl}
+											src={blog.attributes.mediaUrl}
 											width="100%"
 											height="100%"
 											controls={true}
