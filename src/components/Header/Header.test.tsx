@@ -294,4 +294,40 @@ describe("Header", () => {
 		const callCountAfter = setPropertySpy.mock.calls.length;
 		expect(callCountAfter).toBeGreaterThanOrEqual(callCountBefore);
 	});
+
+	it("falls back to zero downDelay when avatar offsetTop is undefined", () => {
+		mockUsePathname.mockReturnValue("/");
+		let scrollHandler: (() => void) | undefined;
+		jest.spyOn(window, "addEventListener").mockImplementation((event, cb) => {
+			if (event === "scroll") {
+				scrollHandler = cb as () => void;
+			}
+		});
+		const setPropertySpy = jest.spyOn(
+			document.documentElement.style,
+			"setProperty",
+		);
+		Object.defineProperty(window, "scrollY", { value: 0, writable: true });
+
+		const offsetTopGetter = jest.spyOn(
+			HTMLElement.prototype,
+			"offsetTop",
+			"get",
+		);
+		offsetTopGetter.mockImplementation(function (this: HTMLElement) {
+			if (
+				(this as HTMLElement).className.includes(
+					"order-last mt-[calc(--spacing(16)-(--spacing(3)))]",
+				)
+			) {
+				return undefined as unknown as number;
+			}
+			return 0;
+		});
+
+		render(<Header />);
+		scrollHandler?.();
+
+		expect(setPropertySpy).toHaveBeenCalledWith("--content-offset", "0px");
+	});
 });

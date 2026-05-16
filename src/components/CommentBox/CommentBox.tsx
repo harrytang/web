@@ -59,9 +59,6 @@ const removeScript = (id: string, parentElement: HTMLElement) => {
 };
 
 const manageScript = (location: string, theme: string) => {
-	if (typeof window === "undefined") {
-		return () => {};
-	}
 	const { document } = window;
 	if (document.getElementById("remark42")) {
 		insertScript("comments-script", document.body, theme, location);
@@ -70,9 +67,6 @@ const manageScript = (location: string, theme: string) => {
 };
 
 const getPreferredTheme = (theme: string) => {
-	if (typeof window === "undefined") {
-		return theme;
-	}
 	if (theme === "system") {
 		const prefersDark =
 			window.matchMedia?.("(prefers-color-scheme: dark)")?.matches ?? false;

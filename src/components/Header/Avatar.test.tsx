@@ -1,10 +1,17 @@
 import { render } from "@testing-library/react";
 import Avatar from "./Avatar";
 
-const siteName = process.env.NEXT_PUBLIC_SITE_NAME ?? "Site";
-
 describe("Avatar", () => {
+	const originalAvatarUrl = process.env.NEXT_PUBLIC_AVATAR_URL;
+	const originalSiteName = process.env.NEXT_PUBLIC_SITE_NAME;
+
+	afterEach(() => {
+		process.env.NEXT_PUBLIC_AVATAR_URL = originalAvatarUrl;
+		process.env.NEXT_PUBLIC_SITE_NAME = originalSiteName;
+	});
+
 	it("renders correctly with default props", () => {
+		const siteName = process.env.NEXT_PUBLIC_SITE_NAME ?? "Site";
 		const { getByAltText } = render(<Avatar />);
 		const imageElement = getByAltText(siteName);
 		expect(imageElement).toHaveAttribute("width", "512");
@@ -13,6 +20,7 @@ describe("Avatar", () => {
 	});
 
 	it("renders correctly with large prop", () => {
+		const siteName = process.env.NEXT_PUBLIC_SITE_NAME ?? "Site";
 		const { getByAltText } = render(<Avatar large />);
 
 		const imageElement = getByAltText(siteName);
@@ -38,5 +46,14 @@ describe("Avatar", () => {
 
 		const linkElement = container.querySelector("a");
 		expect(linkElement).toHaveClass("pointer-events-auto");
+	});
+
+	it("falls back to default site name and empty avatar url when env vars are missing", () => {
+		delete process.env.NEXT_PUBLIC_AVATAR_URL;
+		delete process.env.NEXT_PUBLIC_SITE_NAME;
+
+		const { getByAltText } = render(<Avatar />);
+		const imageElement = getByAltText("Site");
+		expect(imageElement).toBeInTheDocument();
 	});
 });

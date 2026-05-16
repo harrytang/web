@@ -60,15 +60,18 @@ jest.mock("react-instantsearch", () => ({
 	SearchBox: ({
 		placeholder,
 		submitIconComponent,
+		resetIconComponent,
 		loadingIconComponent,
 	}: {
 		placeholder: string;
 		submitIconComponent: () => React.ReactNode;
+		resetIconComponent: () => React.ReactNode;
 		loadingIconComponent: () => React.ReactNode;
 	}) => (
 		<div>
 			<input aria-label="algolia-search" placeholder={placeholder} />
 			<div data-testid="submit-icon">{submitIconComponent()}</div>
+			<div data-testid="reset-icon-wrapper">{resetIconComponent()}</div>
 			<div data-testid="loading-icon-wrapper">{loadingIconComponent()}</div>
 		</div>
 	),

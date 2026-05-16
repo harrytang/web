@@ -149,4 +149,67 @@ describe("CommentBox", () => {
 			expect(script?.innerHTML).toContain('url: "');
 		});
 	});
+
+	it("trims trailing slash for absolute location URLs", async () => {
+		render(<CommentBox location="https://site.example/blog/test/" />);
+
+		await waitFor(() => {
+			const script = document.getElementById("comments-script");
+			expect(script?.innerHTML).toContain(
+				'url: "https://site.example/blog/test"',
+			);
+		});
+	});
+
+	it("falls back to current location when location prop is empty", async () => {
+		render(<CommentBox location="" />);
+
+		await waitFor(() => {
+			const script = document.getElementById("comments-script");
+			expect(script?.innerHTML).toContain(window.location.origin);
+		});
+	});
+
+	it("defaults to system theme when theme hook returns undefined", async () => {
+		setMockTheme(undefined);
+		render(<CommentBox location="https://site.example/blog/test" />);
+
+		await waitFor(() => {
+			const script = document.getElementById("comments-script");
+			expect(script?.innerHTML).toContain('theme: "system"');
+		});
+	});
+
+	it("updates script theme to light when system theme change reports non-dark", async () => {
+		setMockTheme("system");
+		render(<CommentBox location="https://site.example/blog/test" />);
+
+		await waitFor(() => {
+			expect(document.getElementById("comments-script")).toBeInTheDocument();
+		});
+
+		act(() => {
+			mediaChangeHandler?.({ matches: false } as MediaQueryListEvent);
+		});
+
+		await waitFor(() => {
+			const script = document.getElementById("comments-script");
+			expect(script?.innerHTML).toContain('theme: "light"');
+		});
+	});
+
+	it("handles missing matchMedia API when theme resolves away from system", async () => {
+		setMockTheme(undefined);
+		Object.defineProperty(window, "matchMedia", {
+			writable: true,
+			value: undefined,
+		});
+
+		render(<CommentBox location="https://site.example/blog/test" />);
+
+		await waitFor(() => {
+			const script = document.getElementById("comments-script");
+			expect(script?.innerHTML).toContain('theme: "system"');
+		});
+	});
 });

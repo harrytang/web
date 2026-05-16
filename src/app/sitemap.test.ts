@@ -16,6 +16,8 @@ jest.mock("@/lib/strapi", () => ({
 }));
 
 describe("sitemap route", () => {
+	const originalPageSize = process.env.NEXT_PUBLIC_PAGE_SIZE;
+
 	beforeEach(() => {
 		(getPublicSiteURL as jest.Mock).mockReturnValue("https://example.com");
 		(getBlogs as jest.Mock).mockResolvedValue({
@@ -43,6 +45,10 @@ describe("sitemap route", () => {
 					},
 				],
 			});
+	});
+
+	afterEach(() => {
+		process.env.NEXT_PUBLIC_PAGE_SIZE = originalPageSize;
 	});
 
 	it("exports expected revalidate value", () => {
@@ -96,6 +102,27 @@ describe("sitemap route", () => {
 			expect.objectContaining({
 				pagination: { start: 0, limit: 1000 },
 			}),
+		);
+	});
+
+	it("uses default article page size when NEXT_PUBLIC_PAGE_SIZE is not set", async () => {
+		delete process.env.NEXT_PUBLIC_PAGE_SIZE;
+		(fetchAPI as jest.Mock).mockReset();
+		(fetchAPI as jest.Mock)
+			.mockResolvedValueOnce({ data: [] })
+			.mockResolvedValueOnce({ data: [] });
+		(getBlogs as jest.Mock).mockResolvedValueOnce({
+			meta: { pagination: { total: 21 } },
+		});
+
+		const result = await sitemap();
+
+		expect(getBlogs).toHaveBeenCalledWith(0, 1);
+		expect(result).toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({ url: "https://example.com/articles/2" }),
+				expect.objectContaining({ url: "https://example.com/articles/3" }),
+			]),
 		);
 	});
 });

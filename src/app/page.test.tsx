@@ -76,6 +76,8 @@ jest.mock("@/lib/helper", () => ({
 }));
 
 describe("home page", () => {
+	const originalHomePageSize = process.env.NEXT_PUBLIC_HOME_PAGE_SIZE;
+
 	beforeEach(() => {
 		(getProfile as jest.Mock).mockResolvedValue({
 			data: {
@@ -124,6 +126,10 @@ describe("home page", () => {
 		});
 	});
 
+	afterEach(() => {
+		process.env.NEXT_PUBLIC_HOME_PAGE_SIZE = originalHomePageSize;
+	});
+
 	it("generates metadata from seo helper + profile", async () => {
 		const result = await generateMetadata();
 
@@ -152,5 +158,13 @@ describe("home page", () => {
 		expect(jsonLdScript?.innerHTML).toContain(
 			process.env.NEXT_PUBLIC_SITE_NAME,
 		);
+	});
+
+	it("uses default home page size when env is missing", async () => {
+		delete process.env.NEXT_PUBLIC_HOME_PAGE_SIZE;
+
+		await Home();
+
+		expect(getBlogs).toHaveBeenCalledWith(0, 6);
 	});
 });

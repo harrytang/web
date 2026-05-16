@@ -158,6 +158,23 @@ describe("generatePersonJsonLd", () => {
 	);
 });
 
+describe("site name fallback", () => {
+	const originalSiteName = process.env.NEXT_PUBLIC_SITE_NAME;
+
+	afterEach(() => {
+		process.env.NEXT_PUBLIC_SITE_NAME = originalSiteName;
+	});
+
+	it("uses default site name when NEXT_PUBLIC_SITE_NAME is missing", () => {
+		delete process.env.NEXT_PUBLIC_SITE_NAME;
+		const profile = profileJson.data as Profile;
+
+		const personJsonLd = generatePersonJsonLd(profile);
+
+		expect(personJsonLd.name).toBe("Site");
+	});
+});
+
 describe("generateArticleJsonLd", () => {
 	it("should generate Article JSON-LD correctly", () => {
 		const blog = blogJson;

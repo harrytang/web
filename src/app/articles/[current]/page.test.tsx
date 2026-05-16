@@ -72,6 +72,8 @@ jest.mock("@/lib/helper", () => ({
 }));
 
 describe("articles paginated page", () => {
+	const originalPageSize = process.env.NEXT_PUBLIC_PAGE_SIZE;
+
 	beforeEach(() => {
 		jest.clearAllMocks();
 
@@ -114,6 +116,10 @@ describe("articles paginated page", () => {
 			"@type": "ItemList",
 			numberOfItems: 2,
 		});
+	});
+
+	afterEach(() => {
+		process.env.NEXT_PUBLIC_PAGE_SIZE = originalPageSize;
 	});
 
 	it("generates metadata for the first articles page", async () => {
@@ -218,5 +224,31 @@ describe("articles paginated page", () => {
 
 		expect(getBlogs).toHaveBeenCalledWith(0, pageSize);
 		expect(screen.getByTestId("pagination")).toHaveTextContent("Page 1 of");
+	});
+
+	it("uses default page size when NEXT_PUBLIC_PAGE_SIZE is missing", async () => {
+		delete process.env.NEXT_PUBLIC_PAGE_SIZE;
+		(getBlogs as jest.Mock).mockResolvedValueOnce({
+			data: [],
+			meta: { pagination: { total: 21 } },
+		});
+
+		const params = await generateStaticParams();
+		expect(params).toEqual([
+			{ current: "1" },
+			{ current: "2" },
+			{ current: "3" },
+		]);
+
+		(getBlogs as jest.Mock).mockResolvedValue({
+			data: [{ id: 1, attributes: { title: "Post 1" } }],
+			meta: { pagination: { total: 21 } },
+		});
+		const ui = await ArticlesIndex({
+			params: Promise.resolve({ current: "2" }),
+		});
+		render(ui);
+
+		expect(getBlogs).toHaveBeenCalledWith(10, 10);
 	});
 });

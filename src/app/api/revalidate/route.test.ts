@@ -217,4 +217,56 @@ describe("api revalidate route", () => {
 			expect.objectContaining({ indexName: "articles_index" }),
 		);
 	});
+
+	it("skips algolia push when blog payload is incomplete", async () => {
+		const req = makeReq("Bearer secret-token", {
+			event: "entry.update",
+			model: "blog",
+			entry: {
+				slug: "incomplete",
+				seo: {
+					metaDescription: "present but missing title",
+				},
+			},
+		});
+
+		await POST(req);
+
+		expect(console.warn).toHaveBeenCalledWith(
+			"Skipping Algolia push due to incomplete blog payload",
+		);
+		expect(algoliasearch).not.toHaveBeenCalled();
+		expect(fetchMock).toHaveBeenCalledTimes(1);
+	});
+
+	it("defaults algolia keywords to empty array when missing", async () => {
+		const req = makeReq("Bearer secret-token", {
+			event: "entry.create",
+			model: "blog",
+			entry: {
+				slug: "no-keywords",
+				title: "No Keywords",
+				seo: {
+					metaDescription: "Desc",
+					metaImage: {
+						caption: "Cover",
+						formats: { thumbnail: { url: "https://cdn/image.jpg" } },
+					},
+				},
+				publishedAt: "2026-01-01T00:00:00.000Z",
+				createdAt: "2026-01-01T00:00:00.000Z",
+				updatedAt: "2026-01-02T00:00:00.000Z",
+			},
+		});
+
+		await POST(req);
+
+		expect(saveObject).toHaveBeenCalledWith(
+			expect.objectContaining({
+				body: expect.objectContaining({
+					keywords: [],
+				}),
+			}),
+		);
+	});
 });

@@ -18,6 +18,11 @@ jest.mock(
 
 describe("MoreArticle", () => {
 	const mockGetBlogs = getBlogs as jest.Mock;
+	const originalPageSize = process.env.NEXT_PUBLIC_PAGE_SIZE;
+
+	afterEach(() => {
+		process.env.NEXT_PUBLIC_PAGE_SIZE = originalPageSize;
+	});
 
 	it("renders correctly", async () => {
 		render(<MoreArticle total={6} type="compact" />);
@@ -55,5 +60,18 @@ describe("MoreArticle", () => {
 
 		// Button should not be present as all articles are loaded
 		expect(screen.queryByText("Load more")).not.toBeInTheDocument();
+	});
+
+	it("uses default page size when NEXT_PUBLIC_PAGE_SIZE is missing", async () => {
+		delete process.env.NEXT_PUBLIC_PAGE_SIZE;
+		mockGetBlogs.mockResolvedValueOnce({
+			data: listBlogs2 as Blog[],
+			meta: { pagination: { total: 25 } },
+		});
+
+		render(<MoreArticle total={25} type="compact" />);
+		await userEvent.click(screen.getByText("Load more"));
+
+		expect(mockGetBlogs).toHaveBeenCalledWith(10, 10);
 	});
 });

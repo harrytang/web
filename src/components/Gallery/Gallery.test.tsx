@@ -219,6 +219,10 @@ describe("Gallery", () => {
 
 		rerender(<Gallery items={[createMedia(1, "A")]} />);
 
+		act(() => {
+			jest.advanceTimersByTime(700);
+		});
+
 		const wrapper = screen.getByTestId("gallery-image").closest(".flex-none");
 		expect(wrapper).toBeDefined();
 	});
