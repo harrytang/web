@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.24.0](https://github.com/harrytang/web/compare/v1.23.3...v1.24.0) (2026-05-16)
+
+
+### Features
+
+* add copy to clipboard to markdown code blocks ([5766d4d](https://github.com/harrytang/web/commit/5766d4dd3647d4734f39900d6f02335bdad6f627))
+
+
+### Bug Fixes
+
+* extract full text from code block children for clipboard ([03f67ef](https://github.com/harrytang/web/commit/03f67ef94e95b97890e9e54f731f7dc5203c9f1f))
+
 ### [1.23.3](https://github.com/harrytang/web/compare/v1.23.2...v1.23.3) (2026-05-09)
 
 
