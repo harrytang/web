@@ -153,7 +153,7 @@ describe("api revalidate route", () => {
 
 		await POST(req);
 
-		expect(revalidateTag).toHaveBeenCalledWith("blog-my-post");
+		expect(revalidateTag).toHaveBeenCalledWith("blog-my-post", "max");
 		expect(revalidatePath).toHaveBeenCalledWith("/articles/[current]", "page");
 		expect(revalidatePath).toHaveBeenCalledWith("/", "page");
 

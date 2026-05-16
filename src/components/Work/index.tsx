@@ -1,4 +1,4 @@
-import Work from './Work'
-import Role from './Role'
+import Role from "./Role";
+import Work from "./Work";
 
-export { Work, Role }
+export { Role, Work };

@@ -1,4 +1,4 @@
-import Tool from './Tool'
-import ToolsSection from './ToolsSection'
+import Tool from "./Tool";
+import ToolsSection from "./ToolsSection";
 
-export { Tool, ToolsSection }
+export { Tool, ToolsSection };

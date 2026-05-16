@@ -1,20 +1,20 @@
-import clsx from 'clsx'
+import clsx from "clsx";
 
-export default function Card<T extends React.ElementType = 'div'>({
-  as,
-  className,
-  children,
-}: Omit<React.ComponentPropsWithoutRef<T>, 'as' | 'className'> & {
-  as?: T
-  className?: string
+export default function Card<T extends React.ElementType = "div">({
+	as,
+	className,
+	children,
+}: Omit<React.ComponentPropsWithoutRef<T>, "as" | "className"> & {
+	as?: T;
+	className?: string;
 }) {
-  let Component = as ?? 'div'
+	const Component = as ?? "div";
 
-  return (
-    <Component
-      className={clsx(className, 'group relative flex flex-col items-start')}
-    >
-      {children}
-    </Component>
-  )
+	return (
+		<Component
+			className={clsx(className, "group relative flex flex-col items-start")}
+		>
+			{children}
+		</Component>
+	);
 }

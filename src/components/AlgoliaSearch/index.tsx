@@ -1,3 +1,3 @@
-import AlgoliaSearch from './AlgoliaSearch'
+import AlgoliaSearch from "./AlgoliaSearch";
 
-export { AlgoliaSearch }
+export { AlgoliaSearch };

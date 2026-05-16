@@ -1,23 +1,23 @@
-'use client'
+"use client";
 
-import { createContext } from 'react'
-import { usePathname } from 'next/navigation'
-import { ThemeProvider } from 'next-themes'
-import { usePrevious } from '@/hooks'
-import { ThemeWatcher } from '@/components/ThemeWatcher'
+import { usePathname } from "next/navigation";
+import { ThemeProvider } from "next-themes";
+import { createContext } from "react";
+import { ThemeWatcher } from "@/components/ThemeWatcher";
+import { usePrevious } from "@/hooks";
 
-export const AppContext = createContext<{ previousPathname?: string }>({})
+export const AppContext = createContext<{ previousPathname?: string }>({});
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  let pathname = usePathname()
-  let previousPathname = usePrevious(pathname)
+	const pathname = usePathname();
+	const previousPathname = usePrevious(pathname);
 
-  return (
-    <AppContext.Provider value={{ previousPathname }}>
-      <ThemeProvider attribute="class" disableTransitionOnChange>
-        <ThemeWatcher />
-        {children}
-      </ThemeProvider>
-    </AppContext.Provider>
-  )
+	return (
+		<AppContext.Provider value={{ previousPathname }}>
+			<ThemeProvider attribute="class" disableTransitionOnChange>
+				<ThemeWatcher />
+				{children}
+			</ThemeProvider>
+		</AppContext.Provider>
+	);
 }

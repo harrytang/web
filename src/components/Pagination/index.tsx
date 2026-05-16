@@ -1,2 +1,3 @@
-import Pagination from './Pagination'
-export { Pagination }
+import Pagination from "./Pagination";
+
+export { Pagination };

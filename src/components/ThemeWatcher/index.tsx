@@ -1,3 +1,3 @@
-import ThemeWatcher from './ThemeWatcher'
+import ThemeWatcher from "./ThemeWatcher";
 
-export { ThemeWatcher }
+export { ThemeWatcher };

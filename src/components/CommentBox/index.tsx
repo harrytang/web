@@ -1,2 +1,3 @@
-import CommentBox from './CommentBox'
-export { CommentBox }
+import CommentBox from "./CommentBox";
+
+export { CommentBox };

@@ -1,3 +1,3 @@
-import SocialLink from './SocialLink'
+import SocialLink from "./SocialLink";
 
-export { SocialLink }
+export { SocialLink };

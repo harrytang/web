@@ -1,3 +1,3 @@
-import Prose from './Prose'
+import Prose from "./Prose";
 
-export { Prose }
+export { Prose };

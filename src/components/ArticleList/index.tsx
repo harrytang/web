@@ -1,3 +1,3 @@
-import ArticleList from './ArticleList'
+import ArticleList from "./ArticleList";
 
-export { ArticleList }
+export { ArticleList };

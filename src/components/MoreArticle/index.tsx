@@ -1,3 +1,3 @@
-import MoreArticle from './MoreArticle'
+import MoreArticle from "./MoreArticle";
 
-export { MoreArticle }
+export { MoreArticle };

@@ -1,10 +1,5 @@
 import React from "react";
-import { getProfile } from "@/lib/profile";
 import RootLayout, { metadata } from "./layout";
-
-jest.mock("@/lib/profile", () => ({
-	getProfile: jest.fn(),
-}));
 
 jest.mock("@/app/providers", () => ({
 	Providers: ({ children }: { children: React.ReactNode }) => (
@@ -18,30 +13,13 @@ jest.mock("@/components/Layout", () => ({
 	),
 }));
 
-jest.mock("next/script", () => ({
-	__esModule: true,
-	default: (props: React.ComponentProps<"script">) => <script {...props} />,
-}));
-
 describe("app layout", () => {
-	beforeEach(() => {
-		(getProfile as jest.Mock).mockResolvedValue({
-			data: {
-				attributes: {
-					title: "Builder",
-					seo: { metaDescription: "Profile page description" },
-				},
-			},
-		});
-	});
-
-	it("builds metadata from profile and site env", async () => {
-		await expect(metadata()).resolves.toEqual({
+	it("builds metadata from site env", () => {
+		expect(metadata).toEqual({
 			title: {
 				template: `%s - ${process.env.NEXT_PUBLIC_SITE_NAME}`,
-				default: `${process.env.NEXT_PUBLIC_SITE_NAME} - Builder`,
+				default: `${process.env.NEXT_PUBLIC_SITE_NAME}`,
 			},
-			description: "Profile page description",
 		});
 	});
 
@@ -78,25 +56,13 @@ describe("app layout", () => {
 		expect(content.props.children).toBe("child-node");
 	});
 
-	it("renders umami script when env vars are present", () => {
-		type UmamiScriptProps = React.ComponentProps<"script"> & {
-			"data-website-id"?: string;
-		};
-
+	it("renders an empty head element", () => {
 		const tree = RootLayout({
 			children: <span>child-node</span>,
 		}) as React.ReactElement;
 		const [head] = React.Children.toArray(
 			(tree.props as { children: React.ReactNode }).children,
 		) as [React.ReactElement<{ children: React.ReactNode }>];
-		const scripts = React.Children.toArray(
-			head.props.children,
-		) as React.ReactElement<UmamiScriptProps>[];
-
-		expect(scripts).toHaveLength(1);
-		expect(scripts[0].props.src).toBe(process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL);
-		expect(scripts[0].props["data-website-id"]).toBe(
-			process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID,
-		);
+		expect(head.props.children).toBeUndefined();
 	});
 });

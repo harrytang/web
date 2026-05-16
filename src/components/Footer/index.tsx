@@ -1,4 +1,4 @@
-import Footer from './Footer'
-import NavLink from './NavLink'
+import Footer from "./Footer";
+import NavLink from "./NavLink";
 
-export { Footer, NavLink }
+export { Footer, NavLink };

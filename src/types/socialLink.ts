@@ -1,11 +1,11 @@
-import type { Media } from '@/types/media'
+import type { Media } from "@/types/media";
 
 type SocialLink = {
-  title: string
-  href: string
-  icon: {
-    data: Media
-  }
-}
+	title: string;
+	href: string;
+	icon: {
+		data: Media;
+	};
+};
 
-export type { SocialLink }
+export type { SocialLink };

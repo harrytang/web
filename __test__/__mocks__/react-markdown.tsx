@@ -1,7 +1,7 @@
-import React from 'react'
+import type React from "react";
 
 function ReactMarkdown({ children }: { children: React.ReactNode }) {
-  return <>{children}</>
+	return <>{children}</>;
 }
 
-export default ReactMarkdown
+export default ReactMarkdown;

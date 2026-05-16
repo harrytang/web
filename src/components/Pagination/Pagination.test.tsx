@@ -34,7 +34,9 @@ describe("Pagination", () => {
 	it("renders the first-page state with next link and trailing ellipsis", () => {
 		render(<Pagination totalPages={5} currentPage={1} />);
 
-		expect(screen.queryByRole("link", { name: "Previous" })).not.toBeInTheDocument();
+		expect(
+			screen.queryByRole("link", { name: "Previous" }),
+		).not.toBeInTheDocument();
 		expect(screen.getByRole("link", { name: "1" })).toHaveAttribute(
 			"href",
 			"/articles",
@@ -111,7 +113,9 @@ describe("Pagination", () => {
 			"href",
 			"/articles/6",
 		);
-		expect(screen.queryByRole("link", { name: "Next" })).not.toBeInTheDocument();
+		expect(
+			screen.queryByRole("link", { name: "Next" }),
+		).not.toBeInTheDocument();
 		expect(screen.getByRole("link", { name: "5" })).toHaveAttribute(
 			"href",
 			"/articles/5",
