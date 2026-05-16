@@ -1,4 +1,10 @@
-import { render, screen } from "@testing-library/react";
+import {
+	act,
+	fireEvent,
+	render,
+	screen,
+	waitFor,
+} from "@testing-library/react";
 import { isInternalLink } from "@/lib/helper";
 import { MarkdownRenderer } from "./index";
 
@@ -10,6 +16,10 @@ jest.mock("react-markdown", () => ({
 	}: {
 		children: string;
 		components?: {
+			code?: (props: {
+				className?: string;
+				children?: React.ReactNode;
+			}) => JSX.Element;
 			img?: (props: {
 				src?: string | number;
 				alt?: string;
@@ -40,6 +50,14 @@ jest.mock("react-markdown", () => ({
 
 		if (content === "NO_HREF_LINK" && components?.a) {
 			return components.a({ children: "NoHref" });
+		}
+
+		const codeMatch = content.match(/^```(\w+)\n([\s\S]*)```$/);
+		if (codeMatch && components?.code) {
+			return components.code({
+				className: `language-${codeMatch[1]}`,
+				children: codeMatch[2],
+			});
 		}
 
 		return <>{content}</>;
@@ -93,8 +111,15 @@ const mockedIsInternalLink = isInternalLink as jest.MockedFunction<
 >;
 
 describe("MarkdownRenderer", () => {
+	const writeText = jest.fn().mockResolvedValue(undefined);
+
 	beforeEach(() => {
 		mockedIsInternalLink.mockReset();
+		writeText.mockClear();
+		Object.defineProperty(global.navigator, "clipboard", {
+			value: { writeText },
+			configurable: true,
+		});
 	});
 
 	it("renders markdown text content", () => {
@@ -161,5 +186,35 @@ describe("MarkdownRenderer", () => {
 		render(<MarkdownRenderer content="IMG_NON_STRING_SRC" />);
 
 		expect(screen.queryByTestId("markdown-image")).not.toBeInTheDocument();
+	});
+
+	it("renders copy button for fenced code blocks and copies code content", async () => {
+		jest.useFakeTimers();
+
+		render(
+			<MarkdownRenderer content={"```yaml\nname: test\nenabled: true\n```"} />,
+		);
+
+		expect(screen.getByText("yaml")).toBeInTheDocument();
+		const copyButton = screen.getByRole("button", { name: "Copy" });
+		fireEvent.click(copyButton);
+
+		expect(writeText).toHaveBeenCalledWith("name: test\nenabled: true");
+
+		await waitFor(() => {
+			expect(
+				screen.getByRole("button", { name: "✓ Copied" }),
+			).toBeInTheDocument();
+		});
+
+		act(() => {
+			jest.advanceTimersByTime(3000);
+		});
+
+		await waitFor(() => {
+			expect(screen.getByRole("button", { name: "Copy" })).toBeInTheDocument();
+		});
+
+		jest.useRealTimers();
 	});
 });

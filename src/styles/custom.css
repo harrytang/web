@@ -8,3 +8,97 @@
 	top: 0;
 	left: 0;
 }
+
+.mdx-code-scroll {
+	scrollbar-width: thin;
+	scrollbar-color: #94a3b8 #f8fafc;
+}
+
+.mdx-code-scroll::-webkit-scrollbar {
+	height: 8px;
+}
+
+.mdx-code-scroll::-webkit-scrollbar-track {
+	background: #f8fafc;
+	border-radius: 9999px;
+}
+
+.mdx-code-scroll::-webkit-scrollbar-thumb {
+	background: #94a3b8;
+	border-radius: 9999px;
+	border: 1px solid #f8fafc;
+}
+
+.mdx-code-scroll::-webkit-scrollbar-thumb:hover {
+	background: #64748b;
+}
+
+.dark .mdx-code-scroll {
+	scrollbar-color: #64748b #020913;
+}
+
+.dark .mdx-code-scroll::-webkit-scrollbar-track {
+	background: #020913;
+}
+
+.dark .mdx-code-scroll::-webkit-scrollbar-thumb {
+	background: #64748b;
+	border-color: #020913;
+}
+
+.dark .mdx-code-scroll::-webkit-scrollbar-thumb:hover {
+	background: #94a3b8;
+}
+
+/* Light mode syntax colors for markdown code blocks */
+.mdx-code-scroll .hljs {
+	background: transparent;
+	color: #24292f;
+	padding: 0;
+	margin: 0;
+}
+
+.mdx-code-scroll .hljs-comment,
+.mdx-code-scroll .hljs-quote {
+	color: #6e7781;
+}
+
+.mdx-code-scroll .hljs-keyword,
+.mdx-code-scroll .hljs-selector-tag,
+.mdx-code-scroll .hljs-literal,
+.mdx-code-scroll .hljs-section,
+.mdx-code-scroll .hljs-link {
+	color: #cf222e;
+}
+
+.mdx-code-scroll .hljs-string,
+.mdx-code-scroll .hljs-title,
+.mdx-code-scroll .hljs-name,
+.mdx-code-scroll .hljs-attribute,
+.mdx-code-scroll .hljs-symbol,
+.mdx-code-scroll .hljs-bullet,
+.mdx-code-scroll .hljs-addition {
+	color: #116329;
+}
+
+.mdx-code-scroll .hljs-number,
+.mdx-code-scroll .hljs-meta,
+.mdx-code-scroll .hljs-built_in,
+.mdx-code-scroll .hljs-type,
+.mdx-code-scroll .hljs-params,
+.mdx-code-scroll .hljs-template-variable {
+	color: #0550ae;
+}
+
+.mdx-code-scroll .hljs-variable,
+.mdx-code-scroll .hljs-selector-class,
+.mdx-code-scroll .hljs-selector-id,
+.mdx-code-scroll .hljs-selector-attr,
+.mdx-code-scroll .hljs-selector-pseudo {
+	color: #953800;
+}
+
+/* Keep highlight.js github-dark look in dark mode */
+.dark .mdx-code-scroll .hljs {
+	color: inherit;
+}
