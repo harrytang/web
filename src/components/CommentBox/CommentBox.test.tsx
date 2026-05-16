@@ -50,7 +50,13 @@ describe("CommentBox", () => {
 			destroy: jest.fn(),
 			createInstance: jest.fn(),
 		};
-		window.remark_config = { site_id: "site-123" };
+		window.remark_config = {
+			host: "https://comments.example",
+			site_id: "site-123",
+			url: "https://site.example/blog/test",
+			theme: "light",
+			no_footer: true,
+		};
 	});
 
 	afterEach(() => {

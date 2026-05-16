@@ -3,7 +3,8 @@
 	"version": "1.23.3",
 	"private": false,
 	"scripts": {
-		"dev": "next dev",
+		"clean:next": "rm -rf .next",
+		"dev": "pnpm run clean:next && next dev",
 		"build": "next build",
 		"start": "next start",
 		"test": "jest",
@@ -37,7 +38,7 @@
 		"remark-gfm": "4.0.1",
 		"sharp": "0.34.5",
 		"tailwindcss": "4.3.0",
-		"typescript": "5.9.3"
+		"typescript": "6.0.3"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.4.15",

@@ -154,7 +154,7 @@ describe("Header", () => {
 		Object.defineProperty(window, "scrollY", { value: 120, writable: true });
 		jest
 			.spyOn(HTMLElement.prototype, "getBoundingClientRect")
-			.mockImplementation(function () {
+			.mockImplementation(function (this: HTMLElement) {
 				if ((this as HTMLElement).className.includes("top-0 z-10 h-16 pt-6")) {
 					return {
 						x: 0,
@@ -231,7 +231,7 @@ describe("Header", () => {
 		Object.defineProperty(window, "scrollY", { value: 0, writable: true });
 		jest
 			.spyOn(HTMLElement.prototype, "getBoundingClientRect")
-			.mockImplementation(function () {
+			.mockImplementation(function (this: HTMLElement) {
 				if ((this as HTMLElement).className.includes("top-0 z-10 h-16 pt-6")) {
 					return {
 						x: 0,
