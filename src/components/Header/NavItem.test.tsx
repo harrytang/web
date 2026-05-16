@@ -54,4 +54,30 @@ describe("NavItem", () => {
 		const childElement = getByText("Child Element");
 		expect(childElement).toBeInTheDocument();
 	});
+
+	it("treats nested paths as active", () => {
+		(usePathname as jest.Mock).mockReturnValue("/active-path/details");
+
+		const { getByText } = render(
+			<NavItem href="/active-path">Active Nested Link</NavItem>,
+		);
+
+		const linkElement = getByText("Active Nested Link");
+		expect(linkElement).toHaveClass("text-amber-700 dark:text-amber-500");
+		expect(linkElement.querySelector("span")).toBeInTheDocument();
+	});
+
+	it("falls back to empty pathname when router pathname is unavailable", () => {
+		(usePathname as jest.Mock).mockReturnValue(undefined);
+
+		const { getByText } = render(
+			<NavItem href="/active-path">Fallback Path Link</NavItem>,
+		);
+
+		const linkElement = getByText("Fallback Path Link");
+		expect(linkElement).toHaveClass(
+			"hover:text-amber-600 dark:hover:text-amber-600",
+		);
+		expect(linkElement.querySelector("span")).not.toBeInTheDocument();
+	});
 });
