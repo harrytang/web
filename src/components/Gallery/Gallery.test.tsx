@@ -165,7 +165,7 @@ describe("Gallery", () => {
 		);
 	});
 
-	it("applies animating, fading, then default styles during rotation lifecycle", () => {
+	it("applies animating then default styles during rotation lifecycle", () => {
 		(window.matchMedia as jest.Mock).mockReturnValue({ matches: true });
 		Object.defineProperty(window, "innerWidth", {
 			writable: true,
@@ -190,10 +190,13 @@ describe("Gallery", () => {
 		});
 
 		wrapper = screen.getAllByTestId("gallery-image")[0].closest(".flex-none");
-		expect(wrapper).toHaveStyle({ opacity: "0", transform: "translateX(0px)" });
+		expect(wrapper).toHaveStyle({
+			opacity: "1",
+			transform: "translateX(-196px)",
+		});
 
 		act(() => {
-			jest.advanceTimersByTime(400);
+			jest.advanceTimersByTime(100);
 		});
 
 		wrapper = screen.getAllByTestId("gallery-image")[0].closest(".flex-none");

@@ -30,14 +30,11 @@ const Gallery: React.FC<GalleryProps> = ({ items }) => {
 
 	const [displayItems, setDisplayItems] = useState(items);
 	const [isAnimating, setIsAnimating] = useState(false);
-	const [isFading, setIsFading] = useState(false);
 
-	// Animate when new items come in
+	// Sync local display order only when the incoming prop changes.
 	useEffect(() => {
-		if (items !== displayItems) {
-			setDisplayItems(items);
-		}
-	}, [items, displayItems]);
+		setDisplayItems(items);
+	}, [items]);
 
 	// Auto-rotate gallery for small screens
 	useEffect(() => {
@@ -51,49 +48,37 @@ const Gallery: React.FC<GalleryProps> = ({ items }) => {
 			return;
 		}
 
+		let slideTimeout: ReturnType<typeof setTimeout> | undefined;
 		const interval = setInterval(() => {
 			setIsAnimating(true);
-			setTimeout(() => {
+			slideTimeout = setTimeout(() => {
+				setDisplayItems((prev) => {
+					if (prev.length <= 1) return prev;
+					return [...prev.slice(1), prev[0]];
+				});
 				setIsAnimating(false);
-				setIsFading(true);
-				setTimeout(() => {
-					setDisplayItems((prev) => {
-						if (prev.length <= 1) return prev;
-						return [...prev.slice(1), prev[0]];
-					});
-					setIsFading(false);
-				}, 400); // fade duration
-			}, 600); // slide duration
+			}, 700); // slide duration
 		}, 5000);
-		return () => clearInterval(interval);
+		return () => {
+			clearInterval(interval);
+			if (slideTimeout) clearTimeout(slideTimeout);
+		};
 	}, [items]);
 
 	// Helper to get slide style
-	const getSlideStyle = (
-		isAnimating: boolean,
-		isFading: boolean,
-		slideDistance: number,
-	) => {
+	const getSlideStyle = (isAnimating: boolean, slideDistance: number) => {
 		if (isAnimating) {
 			return {
 				transform: `translateX(-${slideDistance}px)`,
 				opacity: 1,
-				transition:
-					"transform 0.7s cubic-bezier(0.4,0,0.2,1), opacity 0.4s cubic-bezier(0.4,0,0.2,1)",
-			};
-		}
-		if (isFading) {
-			return {
-				transform: "translateX(0px)",
-				opacity: 0,
-				transition: "opacity 0.4s cubic-bezier(0.4,0,0.2,1)",
+				transition: "transform 0.7s cubic-bezier(0.4,0,0.2,1)",
 			};
 		}
 		// Default: visible and no transform
 		return {
 			transform: "translateX(0)",
 			opacity: 1,
-			transition: "opacity 0.4s cubic-bezier(0.4,0,0.2,1)",
+			transition: "none",
 		};
 	};
 
@@ -104,11 +89,7 @@ const Gallery: React.FC<GalleryProps> = ({ items }) => {
 					const originalIdx = items.findIndex((item) => item.id === image.id);
 					const { photoWidth, photoGap } = getPhotoDimensions();
 					const slideDistance = photoWidth + photoGap;
-					const slideStyle = getSlideStyle(
-						isAnimating,
-						isFading,
-						slideDistance,
-					);
+					const slideStyle = getSlideStyle(isAnimating, slideDistance);
 					return (
 						<div key={image.id} style={slideStyle} className="flex-none">
 							<div
