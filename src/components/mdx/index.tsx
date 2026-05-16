@@ -91,10 +91,9 @@ const MarkdownRenderer = ({ content }: { content: string }) => {
 				pre: ({ children }) => <>{children}</>,
 				code: ({ className, children, ...props }) => {
 					const languageMatch = /language-(\w+)/.exec(className ?? "");
-					const isBlock = Boolean(languageMatch);
 					const codeText = getNodeText(children).replace(/\n$/, "");
 
-					if (!isBlock) {
+					if (!languageMatch) {
 						return (
 							<code className={className} {...props}>
 								{children}
