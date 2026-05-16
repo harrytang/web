@@ -1,56 +1,50 @@
-import React from 'react'
-import { render, screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
-import { useSearchParams } from 'next/navigation'
-import SearchBox from './SearchBox'
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { useRouter, useSearchParams } from "next/navigation";
+import React from "react";
+import SearchBox from "./SearchBox";
 
-jest.mock('next/navigation', () => ({
-  useSearchParams: jest.fn().mockReturnValue(new URLSearchParams('')),
-}))
+jest.mock("next/navigation", () => ({
+	useSearchParams: jest.fn().mockReturnValue(new URLSearchParams("")),
+	useRouter: jest.fn(),
+}));
 
-describe('SearchBox', () => {
-  const originalLocation = window.location
+describe("SearchBox", () => {
+	const push = jest.fn();
 
-  beforeAll(() => {
-    delete (window as any).location
-    global.window.location = { assign: jest.fn() } as any
-  })
+	beforeEach(() => {
+		(useRouter as jest.Mock).mockReturnValue({ push });
+		(useSearchParams as jest.Mock).mockReturnValue(new URLSearchParams(""));
+		push.mockClear();
+	});
 
-  afterAll(() => {
-    global.window.location = originalLocation
-  })
+	it("renders the search input with the default value", () => {
+		render(<SearchBox />);
+		const inputElement = screen.getByPlaceholderText("Search Articles");
+		expect(inputElement).toBeInTheDocument();
+		expect(inputElement).toHaveValue("");
+	});
 
-  beforeEach(() => {
-    ;(window.location.assign as jest.Mock).mockClear()
-  })
+	it("submits the form and navigates to the search results page", async () => {
+		render(<SearchBox />);
+		const inputElement = screen.getByPlaceholderText("Search Articles");
+		await userEvent.type(inputElement, "test search{enter}");
+		expect(push).toHaveBeenCalledWith("/search?q=test search");
+	});
 
-  it('renders the search input with the default value', () => {
-    render(<SearchBox />)
-    const inputElement = screen.getByPlaceholderText('Search Articles')
-    expect(inputElement).toBeInTheDocument()
-    expect(inputElement).toHaveValue('')
-  })
+	it("displays the correct default value from search params", () => {
+		(useSearchParams as jest.Mock).mockReturnValue(
+			new URLSearchParams("q=default search"),
+		);
+		render(<SearchBox />);
+		const inputElement = screen.getByPlaceholderText("Search Articles");
+		expect(inputElement).toHaveValue("default search");
+	});
 
-  it('submits the form and navigates to the search results page', async () => {
-    render(<SearchBox />)
-    const inputElement = screen.getByPlaceholderText('Search Articles')
-    await userEvent.type(inputElement, 'test search{enter}')
-    expect(window.location.href).toBe('/search?q=test search')
-  })
-
-  it('displays the correct default value from search params', () => {
-    ;(useSearchParams as jest.Mock).mockReturnValue(
-      new URLSearchParams('q=default search'),
-    )
-    render(<SearchBox />)
-    const inputElement = screen.getByPlaceholderText('Search Articles')
-    expect(inputElement).toHaveValue('default search')
-  })
-
-  it('prevents form submission with an empty input', async () => {
-    render(<SearchBox />)
-    const inputElement = screen.getByPlaceholderText('Search Articles')
-    await userEvent.type(inputElement, '{enter}')
-    expect(window.location.assign).not.toHaveBeenCalled()
-  })
-})
+	it("prevents form submission with an empty input", async () => {
+		render(<SearchBox />);
+		const inputElement = screen.getByPlaceholderText("Search Articles");
+		await userEvent.type(inputElement, "{enter}");
+		expect(push).not.toHaveBeenCalled();
+	});
+});

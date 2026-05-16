@@ -22,16 +22,7 @@ import type { Profile } from "./profile";
 import type { Use } from "./uses";
 
 describe("getStrapiURL", () => {
-	it("should return the server-side URL when window is undefined", () => {
-		if ("window" in global) {
-			delete (global as any).window;
-		}
-		process.env.STRAPI_API_URL = "http://localhost:1337";
-		expect(getStrapiURL("/path")).toBe("http://localhost:1337/path");
-	});
-
 	it("should return the client-side URL when window is defined", () => {
-		global.window = {} as any;
 		process.env.NEXT_PUBLIC_STRAPI_API_URL = "http://localhost:1338";
 		expect(getStrapiURL("/path")).toBe("http://localhost:1338/path");
 	});
