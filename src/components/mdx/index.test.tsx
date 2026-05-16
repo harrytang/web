@@ -60,6 +60,31 @@ jest.mock("react-markdown", () => ({
 			});
 		}
 
+		if (content === "CODE_COMPLEX_CHILDREN" && components?.code) {
+			return components.code({
+				className: "language-bash",
+				children: [
+					"docker compose run --,",
+					<span key="label">sh.acme.autoload.domain=example.com</span>,
+					", \\\n  -e DEPLOY_DOCKER_CONTAINER_LABEL=,",
+					<span key="same">sh.acme.autoload.domain=example.com</span>,
+				],
+			});
+		}
+
+		if (content === "CODE_INLINE" && components?.code) {
+			return components.code({
+				children: "echo hello",
+			});
+		}
+
+		if (content === "CODE_BOOLEAN_CHILD" && components?.code) {
+			return components.code({
+				className: "language-bash",
+				children: [false, "echo ok"],
+			});
+		}
+
 		return <>{content}</>;
 	},
 }));
@@ -120,6 +145,10 @@ describe("MarkdownRenderer", () => {
 			value: { writeText },
 			configurable: true,
 		});
+	});
+
+	afterEach(() => {
+		jest.useRealTimers();
 	});
 
 	it("renders markdown text content", () => {
@@ -216,5 +245,71 @@ describe("MarkdownRenderer", () => {
 		});
 
 		jest.useRealTimers();
+	});
+
+	it("copies text content from highlighted token nodes without [object Object]", async () => {
+		render(<MarkdownRenderer content="CODE_COMPLEX_CHILDREN" />);
+
+		await act(async () => {
+			fireEvent.click(screen.getByRole("button", { name: "Copy" }));
+		});
+
+		expect(writeText).toHaveBeenCalledTimes(1);
+		const copiedText = writeText.mock.calls[0][0] as string;
+		expect(copiedText).toContain(
+			"-e DEPLOY_DOCKER_CONTAINER_LABEL=,sh.acme.autoload.domain=example.com",
+		);
+		expect(copiedText).not.toContain("[object Object]");
+	});
+
+	it("renders inline code without copy controls", () => {
+		render(<MarkdownRenderer content="CODE_INLINE" />);
+
+		expect(screen.getByText("echo hello")).toBeInTheDocument();
+		expect(
+			screen.queryByRole("button", { name: "Copy" }),
+		).not.toBeInTheDocument();
+	});
+
+	it("handles clipboard-unavailable environment without changing copy state", async () => {
+		Object.defineProperty(global.navigator, "clipboard", {
+			value: undefined,
+			configurable: true,
+		});
+
+		render(<MarkdownRenderer content={"```bash\necho hello\n```"} />);
+
+		await act(async () => {
+			fireEvent.click(screen.getByRole("button", { name: "Copy" }));
+		});
+
+		expect(writeText).not.toHaveBeenCalled();
+		expect(screen.getByRole("button", { name: "Copy" })).toBeInTheDocument();
+	});
+
+	it("clears previous copy timeout when copy is clicked repeatedly", async () => {
+		jest.useFakeTimers();
+		const clearTimeoutSpy = jest.spyOn(global, "clearTimeout");
+
+		render(<MarkdownRenderer content={"```bash\necho hello\n```"} />);
+
+		await act(async () => {
+			fireEvent.click(screen.getByRole("button", { name: "Copy" }));
+		});
+		await act(async () => {
+			fireEvent.click(screen.getByRole("button", { name: "✓ Copied" }));
+		});
+
+		expect(clearTimeoutSpy).toHaveBeenCalled();
+	});
+
+	it("ignores non-text nodes while extracting code text", async () => {
+		render(<MarkdownRenderer content="CODE_BOOLEAN_CHILD" />);
+
+		await act(async () => {
+			fireEvent.click(screen.getByRole("button", { name: "Copy" }));
+		});
+
+		expect(writeText).toHaveBeenCalledWith("echo ok");
 	});
 });

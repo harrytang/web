@@ -5,7 +5,15 @@ import ReactMarkdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
 import "highlight.js/styles/github-dark.css";
 import Link from "next/link";
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+	isValidElement,
+	type ReactElement,
+	type ReactNode,
+	useCallback,
+	useEffect,
+	useRef,
+	useState,
+} from "react";
 import remarkGfm from "remark-gfm";
 /* local imports */
 import { BLUR_IMAGE } from "@/../const";
@@ -28,6 +36,23 @@ const MarkdownImage = ({ src, alt }: { src?: string; alt?: string }) => {
 			blurDataURL={BLUR_IMAGE}
 		/>
 	);
+};
+
+const getNodeText = (node: ReactNode): string => {
+	if (typeof node === "string" || typeof node === "number") {
+		return String(node);
+	}
+
+	if (Array.isArray(node)) {
+		return node.map((item) => getNodeText(item)).join("");
+	}
+
+	if (isValidElement(node)) {
+		const element = node as ReactElement<{ children?: ReactNode }>;
+		return getNodeText(element.props.children);
+	}
+
+	return "";
 };
 
 const MarkdownRenderer = ({ content }: { content: string }) => {
@@ -67,8 +92,7 @@ const MarkdownRenderer = ({ content }: { content: string }) => {
 				code: ({ className, children, ...props }) => {
 					const languageMatch = /language-(\w+)/.exec(className ?? "");
 					const isBlock = Boolean(languageMatch);
-					const codeText = String(children).replace(/\n$/, "");
-					const codeKey = `${languageMatch?.[1] ?? "code"}:${codeText}`;
+					const codeText = getNodeText(children).replace(/\n$/, "");
 
 					if (!isBlock) {
 						return (
@@ -78,10 +102,13 @@ const MarkdownRenderer = ({ content }: { content: string }) => {
 						);
 					}
 
+					const language = languageMatch[1];
+					const codeKey = `${language}:${codeText}`;
+
 					return (
 						<div className="my-4 overflow-hidden rounded-xl border border-zinc-300 bg-zinc-50 shadow-sm dark:border-zinc-700 dark:bg-zinc-900">
 							<div className="flex items-center justify-between border-b border-zinc-300 bg-zinc-100 px-3 py-2 text-xs text-zinc-700 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-200">
-								<span>{languageMatch?.[1] ?? "code"}</span>
+								<span>{language}</span>
 								<button
 									type="button"
 									onClick={() => {
