@@ -100,6 +100,11 @@ jobs:
           NEXT_PUBLIC_BMC_URL: ${{ vars.NEXT_PUBLIC_BMC_URL }}
           STRAPI_API_URL: ${{ vars.STRAPI_API_URL }}
           SITEMAP_SIZE: ${{ vars.SITEMAP_SIZE }}
+      - name: Prepare standalone runtime assets
+        run: |
+          mkdir -p .next/standalone/.next
+          cp -r public .next/standalone/public
+          cp -r .next/static .next/standalone/.next/static
       - name: Get Playwright Version
         run: echo "PLAYWRIGHT_VERSION=$(pnpm show playwright version)" >> $GITHUB_ENV
       - name: Cache playwright binaries
