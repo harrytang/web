@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.25.0](https://github.com/harrytang/web/compare/v1.24.1...v1.25.0) (2026-05-17)
+
+
+### Features
+
+* add Umami analytics tracking ([2c076fc](https://github.com/harrytang/web/commit/2c076fc70d544f90c52bc52baecd5a248d6cbd54))
+
+
+### Bug Fixes
+
+* **deps:** update dependency qs to v6.15.2 ([#488](https://github.com/harrytang/web/issues/488)) ([0f9ae00](https://github.com/harrytang/web/commit/0f9ae00a79936c2e324d0242635b51d02cd438f6))
+
 ### [1.24.1](https://github.com/harrytang/web/compare/v1.24.0...v1.24.1) (2026-05-16)
 
 ## [1.24.0](https://github.com/harrytang/web/compare/v1.23.3...v1.24.0) (2026-05-16)
