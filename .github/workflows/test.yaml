@@ -103,8 +103,12 @@ jobs:
       - name: Prepare standalone runtime assets
         run: |
           mkdir -p .next/standalone/.next
-          cp -r public .next/standalone/public
-          cp -r .next/static .next/standalone/.next/static
+          if [ -d public ]; then
+            cp -r public .next/standalone/public
+          fi
+          if [ -d .next/static ]; then
+            cp -r .next/static .next/standalone/.next/static
+          fi
       - name: Get Playwright Version
         run: echo "PLAYWRIGHT_VERSION=$(pnpm show playwright version)" >> $GITHUB_ENV
       - name: Cache playwright binaries
