@@ -22,9 +22,11 @@ test.describe("Blog pages", () => {
 	});
 
 	test("should show not found for unknown blog slug", async ({ page }) => {
-		await page.goto("/blog/this-slug-should-not-exist-e2e");
+		const response = await page.goto("/blog/this-slug-should-not-exist-e2e");
+		expect(response).not.toBeNull();
+		expect(response?.status()).toBe(404);
 
-		await expect(page.locator("h1")).toContainText("Page not found");
+		await expect(page.getByText("Page not found")).toBeVisible();
 		await expect(
 			page.getByRole("link", { name: "Go back home" }),
 		).toBeVisible();

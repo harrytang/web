@@ -56,16 +56,22 @@ test.describe("Gallery Component", () => {
 		await page.goto("/");
 
 		// Find the gallery wrapper with overflow-hidden
-		const galleryWrapper = page.locator(
-			"div.-my-4.flex.justify-center.overflow-hidden",
-		);
+		const galleryWrapper = page
+			.locator("div.-my-4.flex.justify-center.overflow-hidden")
+			.first();
 		await expect(galleryWrapper).toBeVisible();
+		await expect(galleryWrapper).toHaveClass(/overflow-hidden/);
 
-		// Verify overflow-hidden is applied
-		const overflowValue = await galleryWrapper.evaluate((el) => {
-			return window.getComputedStyle(el).overflow;
+		// Browser engines can report shorthand overflow differently.
+		const overflow = await galleryWrapper.evaluate((el) => {
+			const style = window.getComputedStyle(el);
+			return {
+				overflowX: style.overflowX,
+				overflowY: style.overflowY,
+			};
 		});
-		expect(overflowValue).toBe("hidden");
+		expect(["hidden", "clip"]).toContain(overflow.overflowX);
+		expect(["hidden", "clip"]).toContain(overflow.overflowY);
 	});
 
 	test("should show gallery images with correct dimensions on desktop", async ({
