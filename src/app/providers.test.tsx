@@ -23,6 +23,11 @@ jest.mock("@/components/ThemeWatcher", () => ({
 	ThemeWatcher: () => <div data-testid="theme-watcher" />,
 }));
 
+jest.mock("@/components/Umami/Umami", () => ({
+	__esModule: true,
+	default: () => <div data-testid="umami" />,
+}));
+
 const Consumer = () => {
 	const ctx = useContext(AppContext);
 	return <div data-testid="previous-path">{ctx.previousPathname ?? ""}</div>;
@@ -41,6 +46,7 @@ describe("providers", () => {
 		);
 
 		expect(screen.getByTestId("theme-provider")).toBeInTheDocument();
+		expect(screen.getByTestId("umami")).toBeInTheDocument();
 		expect(screen.getByTestId("theme-watcher")).toBeInTheDocument();
 		expect(screen.getByTestId("child")).toBeInTheDocument();
 		expect(screen.getByTestId("previous-path")).toHaveTextContent(

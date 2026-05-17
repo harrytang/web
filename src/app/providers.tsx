@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { ThemeProvider } from "next-themes";
 import { createContext } from "react";
 import { ThemeWatcher } from "@/components/ThemeWatcher";
+import Umami from "@/components/Umami/Umami";
 import { usePrevious } from "@/hooks";
 
 export const AppContext = createContext<{ previousPathname?: string }>({});
@@ -15,6 +16,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
 	return (
 		<AppContext.Provider value={{ previousPathname }}>
 			<ThemeProvider attribute="class" disableTransitionOnChange>
+				<Umami />
 				<ThemeWatcher />
 				{children}
 			</ThemeProvider>
