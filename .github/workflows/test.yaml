@@ -44,6 +44,11 @@ jobs:
           NEXT_PUBLIC_BMC_URL: ${{ vars.NEXT_PUBLIC_BMC_URL }}
           STRAPI_API_URL: ${{ vars.STRAPI_API_URL }}
           SITEMAP_SIZE: ${{ vars.SITEMAP_SIZE }}
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+  
   e2e-tests:
     name: E2E Tests
     timeout-minutes: 60
