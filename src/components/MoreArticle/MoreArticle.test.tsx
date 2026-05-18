@@ -1,10 +1,38 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import listBlogs2 from "@/../__test__/fixtures/listBlogs2.json";
-import listBlogs3 from "@/../__test__/fixtures/listBlogs3.json";
 import { type Blog, getBlogs } from "@/lib/blogs";
 // local imports
 import MoreArticle from "./MoreArticle";
+
+const listBlogs2: Partial<Blog>[] = [
+	{
+		id: 1,
+		attributes: { slug: "post-1" },
+	},
+	{
+		id: 2,
+		attributes: { slug: "post-2" },
+	},
+	{
+		id: 3,
+		attributes: { slug: "post-3" },
+	},
+	{
+		id: 4,
+		attributes: { slug: "post-4" },
+	},
+	{
+		id: 5,
+		attributes: { slug: "post-5" },
+	},
+];
+
+const listBlogs3: Partial<Blog>[] = [
+	{
+		id: 6,
+		attributes: { slug: "post-6" },
+	},
+];
 
 jest.mock("@/lib/blogs", () => ({
 	getBlogs: jest.fn(),

@@ -1,9 +1,3 @@
-/** biome-ignore-all lint/style/noNonNullAssertion: test */
-import blogJson from "./../../__test__/fixtures/blog.json";
-import blogsJson from "./../../__test__/fixtures/blogs.json";
-import profileJson from "./../../__test__/fixtures/profile.json";
-// test data
-import usesJson from "./../../__test__/fixtures/uses.json";
 import {
 	categorizeItems,
 	clamp,
@@ -20,6 +14,147 @@ import {
 } from "./helper";
 import type { Profile } from "./profile";
 import type { Use } from "./uses";
+
+const blogJson = {
+	id: 1,
+	attributes: {
+		title: "First Post",
+		slug: "first-post",
+		content: "content",
+		locale: "en",
+		publishedAt: "2024-01-10T00:00:00.000Z",
+		createdAt: "2024-01-01T00:00:00.000Z",
+		updatedAt: "2024-01-11T00:00:00.000Z",
+		seo: {
+			metaTitle: "First Post Meta",
+			metaDescription: "First post description",
+			keywords: ["nextjs", "testing"],
+			metaImage: {
+				data: {
+					attributes: {
+						url: "https://cdn.example.com/image-1.jpg",
+						width: 1200,
+						height: 630,
+					},
+				},
+			},
+			metaSocial: [
+				{
+					socialNetwork: "Facebook",
+					title: "Facebook Title",
+					description: "Facebook Description",
+					image: {
+						data: {
+							attributes: {
+								url: "https://cdn.example.com/facebook.jpg",
+								width: 1200,
+								height: 630,
+							},
+						},
+					},
+				},
+				{
+					socialNetwork: "Twitter",
+					title: "Twitter Title",
+					description: "Twitter Description",
+					image: {
+						data: {
+							attributes: {
+								url: "https://cdn.example.com/twitter.jpg",
+								width: 1200,
+								height: 630,
+							},
+						},
+					},
+				},
+			],
+		},
+	},
+};
+
+const blogsJson = [
+	blogJson,
+	{
+		id: 2,
+		attributes: {
+			title: "Second Post",
+			slug: "second-post",
+			content: "content",
+			locale: "en",
+			publishedAt: "2024-02-10T00:00:00.000Z",
+			createdAt: "2024-02-01T00:00:00.000Z",
+			updatedAt: "2024-02-11T00:00:00.000Z",
+			seo: {
+				metaTitle: "Second Post Meta",
+				metaDescription: "Second post description",
+				keywords: ["react", "schema"],
+				metaImage: {
+					data: {
+						attributes: {
+							url: "https://cdn.example.com/image-2.jpg",
+							width: 1200,
+							height: 630,
+						},
+					},
+				},
+				metaSocial: [],
+			},
+		},
+	},
+];
+
+const profileJson = {
+	data: {
+		id: 1,
+		attributes: {
+			title: "Software Engineer",
+			createdAt: "2024-01-01T00:00:00.000Z",
+			updatedAt: "2024-01-02T00:00:00.000Z",
+			portraitPhoto: {
+				data: {
+					attributes: {
+						url: "https://cdn.example.com/portrait.jpg",
+					},
+				},
+			},
+			socials: [
+				{ href: "https://github.com/example" },
+				{ href: "https://linkedin.com/in/example" },
+				{ href: "https://x.com/example" },
+				{ href: "https://example.com" },
+			],
+		},
+	},
+};
+
+const usesJson = {
+	data: [
+		{
+			attributes: {
+				title: "MacBook Pro",
+				description:
+					"My 16” MacBook Pro with M1 Max chip and 64GB RAM (2021) offers exceptional performance and efficiency, making it an essential tool for software development and everyday tasks.",
+				category: "Workstation",
+				createdAt: "2024-04-01T15:50:12.467Z",
+				updatedAt: "2024-07-13T15:11:22.000Z",
+				publishedAt: "2024-04-01T15:50:14.274Z",
+			},
+			id: 9,
+		},
+		{
+			attributes: {
+				title: "DataGrip",
+				description:
+					"JetBrains DataGrip is a powerful database management tool that provides advanced features for efficient data handling, SQL development, and database administration, enhancing productivity for developers and data professionals.",
+				category: "Development",
+				createdAt: "2024-04-01T15:52:11.246Z",
+				updatedAt: "2024-07-13T15:22:19.872Z",
+				publishedAt: "2024-04-01T15:52:14.963Z",
+			},
+			id: 10,
+		},
+	],
+};
 
 describe("getStrapiURL", () => {
 	it("should return the client-side URL when window is defined", () => {
