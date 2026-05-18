@@ -1,6 +1,7 @@
 import { algoliasearch } from "algoliasearch";
 import { revalidatePath, revalidateTag } from "next/cache";
 import type { NextRequest } from "next/server";
+import { purgeCFCache } from "@/lib/cloudflare";
 import type Webhook from "@/types/webhook";
 
 // tracking event/paths
@@ -119,9 +120,10 @@ export async function POST(req: NextRequest) {
 	if (track.events.includes(event)) {
 		revalidate(model, entry);
 		await algoliaPush(model, entry);
+		await purgeCFCache();
 	}
 
 	return Response.json({
-		message: "On-Demand Revalidation complete.",
+		message: "On-Demand Revalidation complete. Cloudflare Cache purged.",
 	});
 }
