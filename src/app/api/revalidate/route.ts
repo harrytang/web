@@ -68,21 +68,6 @@ const revalidate = (model: string, entry: RevalidateEntry) => {
 	}
 };
 
-const purgeCFCache = async () => {
-	console.info("Purging Cloudflare Cache");
-	await fetch(
-		`https://api.cloudflare.com/client/v4/zones/${process.env.CF_ZONE_ID}/purge_cache`,
-		{
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${process.env.CF_API_TOKEN}`,
-			},
-			body: JSON.stringify({ purge_everything: true }),
-		},
-	);
-};
-
 const algoliaPush = async (model: string, entry: RevalidateEntry) => {
 	// check strapi event & model
 	if (model !== "blog") {
@@ -134,10 +119,9 @@ export async function POST(req: NextRequest) {
 	if (track.events.includes(event)) {
 		revalidate(model, entry);
 		await algoliaPush(model, entry);
-		await purgeCFCache();
 	}
 
 	return Response.json({
-		message: "On-Demand Revalidation complete. Cloudflare Cache purged.",
+		message: "On-Demand Revalidation complete.",
 	});
 }
