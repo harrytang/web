@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.26.0](https://github.com/harrytang/web/compare/v1.25.2...v1.26.0) (2026-05-18)
+
+
+### Features
+
+* **cache:** Introduce configurable Cloudflare purge on startup ([c808012](https://github.com/harrytang/web/commit/c8080129013e483df6e2fb38e3078035f97f1941))
+* **cache:** purge Cloudflare cache after on-demand revalidation ([b28a888](https://github.com/harrytang/web/commit/b28a888061ed4f61129a966caadc2eee64d5c628))
+
 ### [1.25.2](https://github.com/harrytang/web/compare/v1.25.1...v1.25.2) (2026-05-17)
 
 ### [1.25.1](https://github.com/harrytang/web/compare/v1.25.0...v1.25.1) (2026-05-17)
