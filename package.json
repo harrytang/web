@@ -51,7 +51,7 @@
 		"@types/jest": "30.0.0",
 		"@types/node": "24.12.4",
 		"@types/qs": "6.15.1",
-		"@types/react": "19.2.14",
+		"@types/react": "19.2.15",
 		"@types/react-dom": "19.2.3",
 		"@types/webpack-env": "1.18.8",
 		"jest": "30.4.2",
