@@ -45,7 +45,7 @@ jobs:
           STRAPI_API_URL: ${{ vars.STRAPI_API_URL }}
           SITEMAP_SIZE: ${{ vars.SITEMAP_SIZE }}
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v6
+        uses: codecov/codecov-action@v7
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
   
