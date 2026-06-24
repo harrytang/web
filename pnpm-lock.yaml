@@ -54,11 +54,11 @@ importers:
         specifier: 19.2.6
         version: 19.2.6(react@19.2.6)
       react-instantsearch:
-        specifier: 7.32.3
-        version: 7.32.3(algoliasearch@5.52.1)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+        specifier: 7.36.0
+        version: 7.36.0(algoliasearch@5.52.1)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       react-instantsearch-nextjs:
-        specifier: 1.2.3
-        version: 1.2.3(next@16.2.6(@babel/core@7.29.0)(@playwright/test@1.60.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react-instantsearch@7.32.3(algoliasearch@5.52.1)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))
+        specifier: 1.2.9
+        version: 1.2.9(next@16.2.6(@babel/core@7.29.0)(@playwright/test@1.60.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react-instantsearch@7.36.0(algoliasearch@5.52.1)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))
       react-markdown:
         specifier: 10.1.0
         version: 10.1.0(@types/react@19.2.14)(react@19.2.6)
@@ -2156,11 +2156,11 @@ packages:
   inline-style-parser@0.2.4:
     resolution: {integrity: sha512-0aO8FkhNZlj/ZIbNi7Lxxr12obT7cL1moPfE4tg1LkX7LlLfC6DeX4l2ZEud1ukP9jNQyNnfzQVqwbwmAATY4Q==}
 
-  instantsearch-ui-components@0.26.1:
-    resolution: {integrity: sha512-oWP8d130JXFpFQzDnTrZ2qdEJf0ZSz0qDuaemoK8K7tQchoHTqE7NA3S9I5Kos9VDPSzwv9D2relAh6L0yLMzw==}
+  instantsearch-ui-components@0.31.0:
+    resolution: {integrity: sha512-mdbxlzsCQKs4IygXEibO29LrA8uFtToBKQyHUHeQiHvPWOdZWxhBZ1ZE1C6GjmKnOBZWDnVAn/rwhNKTYhCFKw==}
 
-  instantsearch.js@4.97.0:
-    resolution: {integrity: sha512-+HVczmXa5TdvnaYj37Pe5nSaSSmYffwl8RUciEpQQYCTxwv9MU7R866A5vL+JMAS9GhQAa4ZUgZeTk7PMaTjZw==}
+  instantsearch.js@4.102.0:
+    resolution: {integrity: sha512-Ury18PgLVyQ7NFlWLJI/DvPGaM+tMW+AntjsEADA/2ZJ1MS+iX/END2ojLcHSWfp2oeHWAs6fG8x/hbcgm2g5Q==}
     peerDependencies:
       algoliasearch: '>= 3.1 < 6'
 
@@ -2947,10 +2947,6 @@ packages:
   pure-rand@7.0.1:
     resolution: {integrity: sha512-oTUZM/NAZS8p7ANR3SHh30kXB+zK2r2BPcEn/awJIbOvq82WoMN4p62AWWp3Hhw50G0xMsw1mhIBLqHw64EcNQ==}
 
-  qs@6.15.1:
-    resolution: {integrity: sha512-6YHEFRL9mfgcAvql/XhwTvf5jKcOiiupt2FiJxHkiX1z4j7WL8J/jRHYLluORvc1XxB5rV20KoeK00gVJamspg==}
-    engines: {node: '>=0.6'}
-
   qs@6.15.2:
     resolution: {integrity: sha512-Rzq0KEyX/w/tEybncDgdkZrJgVUsUMk3xjh3t5bv3S1HTAtg+uOYt72+ZfwiQwKdysThkTBdL/rTi6HDmX9Ddw==}
     engines: {node: '>=0.6'}
@@ -2963,20 +2959,20 @@ packages:
     peerDependencies:
       react: ^19.2.6
 
-  react-instantsearch-core@7.32.3:
-    resolution: {integrity: sha512-J+SbvmJD5ptQDYeVoKPciAWNxK6Nukjlksolo/EacsD7CA6yJRmzg4/us3drE27EsK0vuLtmEe1BKmFAxvA9fQ==}
+  react-instantsearch-core@7.36.0:
+    resolution: {integrity: sha512-fabUeh82h6j6ph6SNa6m7aJxLRUWldncO+nR2RgZ6tb9J5sDKNGHepQWptSorLQM3TRWJQWzMCUf5FHxe5YWag==}
     peerDependencies:
       algoliasearch: '>= 3.1 < 6'
       react: '>= 16.8.0 < 20'
 
-  react-instantsearch-nextjs@1.2.3:
-    resolution: {integrity: sha512-6nbm8+ogLgdDD+m4ih5VBxcaZGTa2c7VsFxTOVcKkqD6ryCg9xZb5GcaI7va4cydgJCs1FRAnisGl0Mou3Eitw==}
+  react-instantsearch-nextjs@1.2.9:
+    resolution: {integrity: sha512-qM8JGYdXGQvWmk2/DSIZfomVrNVbydBYialP7rZdYPV6XFsPHKXjYJX7lQplANlh8vgspUV9HpfYvZ4m08DuvA==}
     peerDependencies:
       next: '>= 13.4 < 17'
       react-instantsearch: '>= 7.1.0 < 8'
 
-  react-instantsearch@7.32.3:
-    resolution: {integrity: sha512-/kRimDSx4E0WuG7bcbx8KGWsBc/70WbeFPPauqYKR5iLUtNeOfCIyrEtP9iL2wRvgIss9EAPDQ7LFZm9lrONdw==}
+  react-instantsearch@7.36.0:
+    resolution: {integrity: sha512-yvD5Edgm8aGl37vbSnF2xa2eQsaOsKJ9wlY4LkcPwx2p4eBj2JHv32YH1esnhhmguzuyTAmh8xEfg6Qbf+YyZg==}
     peerDependencies:
       algoliasearch: '>= 3.1 < 6'
       react: '>= 16.8.0 < 20'
@@ -3493,14 +3489,6 @@ packages:
 
   youtube-video-element@1.9.0:
     resolution: {integrity: sha512-Hh0dbQM+FVlUaYUbpYkZNUvdKxTNcSNvTGzkQKYShltnX+LRHEp2eYvC2Zm43eU8Np+CBZuoNR2i+seCYzzAyg==}
-
-  zod-to-json-schema@3.24.6:
-    resolution: {integrity: sha512-h/z3PKvcTcTetyjl1fkj79MHNEjm+HpD6NXheWjzOekY7kV+lwDYnHw+ivHkijnCSMz1yJaWBD9vu/Fcmk+vEg==}
-    peerDependencies:
-      zod: ^3.24.1
-
-  zod@4.1.12:
-    resolution: {integrity: sha512-JInaHOamG8pt5+Ey8kGmdcAcg3OL9reK8ltczgHTAwNhMys/6ThXHityHxVV2p3fkw/c+MAvBHFVYHFZDmjMCQ==}
 
   zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
@@ -4382,8 +4370,8 @@ snapshots:
 
   '@jridgewell/remapping@2.3.5':
     dependencies:
-      '@jridgewell/gen-mapping': 0.3.8
-      '@jridgewell/trace-mapping': 0.3.25
+      '@jridgewell/gen-mapping': 0.3.13
+      '@jridgewell/trace-mapping': 0.3.31
 
   '@jridgewell/resolve-uri@3.1.2': {}
 
@@ -5612,16 +5600,14 @@ snapshots:
 
   inline-style-parser@0.2.4: {}
 
-  instantsearch-ui-components@0.26.1(react@19.2.6):
+  instantsearch-ui-components@0.31.0(react@19.2.6):
     dependencies:
       '@swc/helpers': 0.5.18
       markdown-to-jsx: 7.7.16(react@19.2.6)
-      zod: 4.1.12
-      zod-to-json-schema: 3.24.6(zod@4.1.12)
     transitivePeerDependencies:
       - react
 
-  instantsearch.js@4.97.0(algoliasearch@5.52.1):
+  instantsearch.js@4.102.0(algoliasearch@5.52.1):
     dependencies:
       '@algolia/events': 4.0.1
       '@swc/helpers': 0.5.18
@@ -5633,13 +5619,11 @@ snapshots:
       algoliasearch-helper: 3.29.1(algoliasearch@5.52.1)
       hogan.js: 3.0.2
       htm: 3.1.1
-      instantsearch-ui-components: 0.26.1(react@19.2.6)
+      instantsearch-ui-components: 0.31.0(react@19.2.6)
       preact: 10.26.4
-      qs: 6.15.1
+      qs: 6.15.2
       react: 19.2.6
       search-insights: 2.17.3
-      zod: 4.1.12
-      zod-to-json-schema: 3.24.6(zod@4.1.12)
 
   is-alphabetical@2.0.1: {}
 
@@ -6798,10 +6782,6 @@ snapshots:
 
   pure-rand@7.0.1: {}
 
-  qs@6.15.1:
-    dependencies:
-      side-channel: 1.1.0
-
   qs@6.15.2:
     dependencies:
       side-channel: 1.1.0
@@ -6813,32 +6793,30 @@ snapshots:
       react: 19.2.6
       scheduler: 0.27.0
 
-  react-instantsearch-core@7.32.3(algoliasearch@5.52.1)(react@19.2.6):
+  react-instantsearch-core@7.36.0(algoliasearch@5.52.1)(react@19.2.6):
     dependencies:
       '@swc/helpers': 0.5.18
       algoliasearch: 5.52.1
       algoliasearch-helper: 3.29.1(algoliasearch@5.52.1)
-      instantsearch.js: 4.97.0(algoliasearch@5.52.1)
+      instantsearch.js: 4.102.0(algoliasearch@5.52.1)
       react: 19.2.6
       use-sync-external-store: 1.5.0(react@19.2.6)
-      zod: 4.1.12
-      zod-to-json-schema: 3.24.6(zod@4.1.12)
 
-  react-instantsearch-nextjs@1.2.3(next@16.2.6(@babel/core@7.29.0)(@playwright/test@1.60.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react-instantsearch@7.32.3(algoliasearch@5.52.1)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)):
+  react-instantsearch-nextjs@1.2.9(next@16.2.6(@babel/core@7.29.0)(@playwright/test@1.60.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react-instantsearch@7.36.0(algoliasearch@5.52.1)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)):
     dependencies:
       '@swc/helpers': 0.5.18
       next: 16.2.6(@babel/core@7.29.0)(@playwright/test@1.60.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
-      react-instantsearch: 7.32.3(algoliasearch@5.52.1)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+      react-instantsearch: 7.36.0(algoliasearch@5.52.1)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
 
-  react-instantsearch@7.32.3(algoliasearch@5.52.1)(react-dom@19.2.6(react@19.2.6))(react@19.2.6):
+  react-instantsearch@7.36.0(algoliasearch@5.52.1)(react-dom@19.2.6(react@19.2.6))(react@19.2.6):
     dependencies:
       '@swc/helpers': 0.5.18
       algoliasearch: 5.52.1
-      instantsearch-ui-components: 0.26.1(react@19.2.6)
-      instantsearch.js: 4.97.0(algoliasearch@5.52.1)
+      instantsearch-ui-components: 0.31.0(react@19.2.6)
+      instantsearch.js: 4.102.0(algoliasearch@5.52.1)
       react: 19.2.6
       react-dom: 19.2.6(react@19.2.6)
-      react-instantsearch-core: 7.32.3(algoliasearch@5.52.1)(react@19.2.6)
+      react-instantsearch-core: 7.36.0(algoliasearch@5.52.1)(react@19.2.6)
 
   react-is@16.13.1: {}
 
@@ -7409,11 +7387,5 @@ snapshots:
   youtube-video-element@1.9.0:
     dependencies:
       media-played-ranges-mixin: 0.1.0
-
-  zod-to-json-schema@3.24.6(zod@4.1.12):
-    dependencies:
-      zod: 4.1.12
-
-  zod@4.1.12: {}
 
   zwitch@2.0.4: {}
