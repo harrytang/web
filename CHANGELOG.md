@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.27.0](https://github.com/harrytang/web/compare/v1.26.0...v1.27.0) (2026-06-24)
+
+
+### Features
+
+* add share icons, update hosted by maxspell ([a531eaf](https://github.com/harrytang/web/commit/a531eaf4f2228fe45e362a11ca1d5bd2a4d9f71c))
+
 ## [1.26.0](https://github.com/harrytang/web/compare/v1.25.2...v1.26.0) (2026-05-18)
 
 
