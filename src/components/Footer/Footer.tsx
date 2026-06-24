@@ -50,15 +50,27 @@ const Footer: React.FC = () => {
 								{process.env.NEXT_PUBLIC_SITE_NAME}. All rights reserved.
 							</p>
 						</div>
-						<p className="mt-6 text-center text-sm text-zinc-500 dark:text-zinc-400">
-							Hosted by{" "}
+						<p className="mt-6 flex items-end justify-center gap-2 text-center text-sm leading-none text-zinc-500 dark:text-zinc-400">
+							<span className="relative top-px leading-none">Hosted by</span>
 							<a
 								href="https://maxspell.com/cloud-hosting"
 								target="_blank"
 								rel="noopener noreferrer"
-								className="hover:text-zinc-700 dark:hover:text-zinc-300"
+								aria-label="Maxspell cloud hosting"								
+								className="inline-flex h-5 items-end leading-none hover:opacity-80 cursor-pointer"
 							>
-								Maxspell
+								<img
+									src="https://maxspell.com/logo.svg"
+									alt=""
+									aria-hidden="true"
+									className="block h-5 w-auto dark:hidden"
+								/>
+								<img
+									src="https://maxspell.com/logo-dark.svg"
+									alt=""
+									aria-hidden="true"
+									className="hidden h-5 w-auto dark:block"
+								/>
 							</a>
 						</p>
 					</ContainerInner>

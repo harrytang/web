@@ -36,6 +36,50 @@ const BlogLayout: React.FC<BlogLayoutProps> = ({ blog }) => {
 	const [isPlaying, setIsPlaying] = useState(false);
 	const commentTriggerRef = useRef<HTMLDivElement | null>(null);
 	const hasVideo = blog.attributes.mediaUrl;
+	const postUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/blog/${blog.attributes.slug}`;
+	const encodedPostUrl = encodeURIComponent(postUrl);
+	const encodedTitle = encodeURIComponent(blog.attributes.title);
+	const shareLinks = [
+		{
+			name: "X",
+			href: `https://x.com/intent/post?url=${encodedPostUrl}&text=${encodedTitle}`,
+			icon: (
+				<svg
+					viewBox="0 0 24 24"
+					aria-hidden="true"
+					className="h-5 w-5 cursor-pointer"
+				>
+					<path fill="currentColor" d="M13.9 10.5 21.3 2h-1.8l-6.4 7.4L8 2H2l7.8 11.3L2 22h1.8l6.8-7.8L16 22h6l-8.1-11.5Zm-2.4 2.8-.8-1.1L4.4 3.3h2.7l5 7.1.8 1.1 6.6 9.4h-2.7l-5.3-7.6Z" />
+				</svg>
+			),
+		},
+		{
+			name: "Facebook",
+			href: `https://www.facebook.com/sharer/sharer.php?u=${encodedPostUrl}`,
+			icon: (
+				<svg
+					viewBox="0 0 24 24"
+					aria-hidden="true"
+					className="h-5 w-5 cursor-pointer"
+				>
+					<path fill="currentColor" d="M22 12.1C22 6.5 17.5 2 11.9 2S2 6.5 2 12.1c0 5 3.7 9.2 8.4 10v-7.1H7.9v-2.9h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6v1.9h2.8l-.4 2.9h-2.3v7.1c4.8-.8 8.4-5 8.4-10Z" />
+				</svg>
+			),
+		},
+		{
+			name: "LinkedIn",
+			href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedPostUrl}`,
+			icon: (
+				<svg
+					viewBox="0 0 24 24"
+					aria-hidden="true"
+					className="h-5 w-5 cursor-pointer"
+				>
+					<path fill="currentColor" d="M20.4 20.5h-3.6v-5.6c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9v5.7H9.3V9h3.4v1.6h.1c.5-.9 1.7-1.8 3.4-1.8 3.6 0 4.3 2.4 4.3 5.5v6.2ZM5.2 7.4a2.1 2.1 0 1 1 0-4.2 2.1 2.1 0 0 1 0 4.2Zm1.8 13.1H3.4V9H7v11.5Z" />
+				</svg>
+			),
+		},
+	];
 
 	useEffect(() => {
 		const observer = new IntersectionObserver(
@@ -79,6 +123,24 @@ const BlogLayout: React.FC<BlogLayoutProps> = ({ blog }) => {
 							<h1 className="mt-6 text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
 								{blog.attributes.title}
 							</h1>
+							<nav
+								aria-label="Share this post"
+								className="mt-6 flex gap-3"
+							>
+								{shareLinks.map((link) => (
+									<a
+										key={link.name}
+										href={link.href}
+										target="_blank"
+										rel="noopener noreferrer"
+										aria-label={`Share on ${link.name}`}
+										style={{ cursor: "pointer" }}
+										className="flex h-9 w-9 cursor-pointer items-center justify-center rounded border border-zinc-200 text-zinc-500 transition hover:border-zinc-300 hover:bg-zinc-50 hover:text-zinc-800 dark:border-zinc-700/60 dark:text-zinc-400 dark:hover:border-zinc-600 dark:hover:bg-zinc-800/60 dark:hover:text-zinc-100"
+									>
+										{link.icon}
+									</a>
+								))}
+							</nav>
 							<time
 								dateTime={blog.attributes.publishedAt}
 								className="order-first flex items-center text-base text-zinc-500 dark:text-zinc-500"

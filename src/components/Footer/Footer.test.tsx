@@ -35,6 +35,22 @@ describe("Footer", () => {
 		expect(screen.getByText(copyrightText)).toBeInTheDocument();
 	});
 
+	it("renders Maxspell logo link", () => {
+		const { container } = render(<Footer />);
+
+		expect(
+			screen.getByRole("link", { name: "Maxspell cloud hosting" }),
+		).toHaveAttribute("href", "https://maxspell.com/cloud-hosting");
+		expect(
+			container.querySelector('img[src="https://maxspell.com/logo.svg"]'),
+		).toBeInTheDocument();
+		expect(
+			container.querySelector(
+				'img[src="https://maxspell.com/logo-dark.svg"]',
+			),
+		).toBeInTheDocument();
+	});
+
 	it("falls back to hash links for optional external links", () => {
 		delete process.env.NEXT_PUBLIC_BMC_URL;
 		delete process.env.NEXT_PUBLIC_STATUS_URL;

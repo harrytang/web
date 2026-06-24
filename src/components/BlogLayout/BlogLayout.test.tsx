@@ -155,6 +155,26 @@ describe("BlogLayout", () => {
 		expect(screen.getByText("Cover caption")).toBeInTheDocument();
 	});
 
+	it("renders social sharing links under the title", () => {
+		render(<BlogLayout blog={createBlog()} />);
+
+		const encodedUrl = encodeURIComponent("https://site.example/blog/test-blog");
+		const encodedTitle = encodeURIComponent("Test Blog");
+
+		expect(screen.getByLabelText("Share on X")).toHaveAttribute(
+			"href",
+			`https://x.com/intent/post?url=${encodedUrl}&text=${encodedTitle}`,
+		);
+		expect(screen.getByLabelText("Share on Facebook")).toHaveAttribute(
+			"href",
+			`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
+		);
+		expect(screen.getByLabelText("Share on LinkedIn")).toHaveAttribute(
+			"href",
+			`https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
+		);
+	});
+
 	it("renders back button and calls router.back", async () => {
 		render(
 			<AppContext.Provider value={{ previousPathname: "/articles" }}>
