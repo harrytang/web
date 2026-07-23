@@ -12,12 +12,16 @@ export interface Work {
 		place: string;
 		start: string;
 		end: string | null;
+		url?: {
+			href: string;
+			label: string;
+		} | null;
 	};
 }
 
 export async function getWorks() {
 	const res = fetchAPI<Work[]>("/works", {
-		populate: ["logo"],
+		populate: ["logo", "url"],
 		sort: "start:DESC",
 	});
 	return res;

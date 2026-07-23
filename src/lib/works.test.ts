@@ -21,7 +21,7 @@ describe("works", () => {
 		await getWorks();
 
 		expect(mockedFetchAPI).toHaveBeenCalledWith("/works", {
-			populate: ["logo"],
+			populate: ["logo", "url"],
 			sort: "start:DESC",
 		});
 	});
