@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.28.0](https://github.com/harrytang/web/compare/v1.27.1...v1.28.0) (2026-07-23)
+
+
+### Features
+
+* **work:** Make company names in work experience clickable ([566e8e1](https://github.com/harrytang/web/commit/566e8e19a2bdcd57410a9d040ddc154280134419))
+
+
+### Bug Fixes
+
+* **deps:** update dependency algoliasearch to v5.56.0 ([#509](https://github.com/harrytang/web/issues/509)) ([d40b6d4](https://github.com/harrytang/web/commit/d40b6d4d46780ecfa23524e3b5919540455224c6))
+* **deps:** update dependency feed to v6 ([#508](https://github.com/harrytang/web/issues/508)) ([decf0d3](https://github.com/harrytang/web/commit/decf0d35f7264ef7a120e4adeb8064feea1bfa25))
+* **deps:** update dependency next to v16.2.10 ([#506](https://github.com/harrytang/web/issues/506)) ([1b94b1c](https://github.com/harrytang/web/commit/1b94b1c301d3636bd57733c6995b944fdef029ed))
+* **deps:** update dependency qs to v6.15.3 ([#502](https://github.com/harrytang/web/issues/502)) ([9431af4](https://github.com/harrytang/web/commit/9431af45f49d3895b34559de421fdf4b7228bcbd))
+* **deps:** update dependency sharp to v0.35.3 ([#507](https://github.com/harrytang/web/issues/507)) ([ab6b003](https://github.com/harrytang/web/commit/ab6b00302672eee8df1285a82948b88602856793))
+* **deps:** update tailwindcss monorepo to v4.3.3 ([#504](https://github.com/harrytang/web/issues/504)) ([5997243](https://github.com/harrytang/web/commit/5997243d98258191736d5f4e4ed3fd71684388b9))
+
 ### [1.27.1](https://github.com/harrytang/web/compare/v1.27.0...v1.27.1) (2026-06-24)
 
 ## [1.27.0](https://github.com/harrytang/web/compare/v1.26.0...v1.27.0) (2026-06-24)
