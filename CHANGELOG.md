@@ -2,6 +2,42 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.28.4](https://github.com/harrytang/web/compare/v1.28.0...v1.28.4) (2026-09-03)
+
+
+### Bug Fixes
+
+* **deps:** update algolia-instantsearch monorepo ([#503](https://github.com/harrytang/web/issues/503)) ([d92af4b](https://github.com/harrytang/web/commit/d92af4b3e2a208b89c590d0004c2146f4b8a50b2))
+* **deps:** update dependency algoliasearch to v5.57.0 ([#526](https://github.com/harrytang/web/issues/526)) ([4fe55e4](https://github.com/harrytang/web/commit/4fe55e4376837ce2c09778d81245181a8067b48e))
+* **deps:** update dependency next to v16.2.11 [security] ([#518](https://github.com/harrytang/web/issues/518)) ([8c42b00](https://github.com/harrytang/web/commit/8c42b007419489f7895a3c6fd30ba9575a4554de))
+* **deps:** update dependency qs to v6.16.0 [security] ([#535](https://github.com/harrytang/web/issues/535)) ([73f84ba](https://github.com/harrytang/web/commit/73f84babba58f9d7513cef80e883884ac021b0de))
+* **deps:** update dependency sharp to v0.35.4 ([#530](https://github.com/harrytang/web/issues/530)) ([6a7375c](https://github.com/harrytang/web/commit/6a7375cc27082d4c349a77031019b32dedd1dccc))
+* **deps:** update react monorepo to v19.2.8 ([#519](https://github.com/harrytang/web/issues/519)) ([c09ec87](https://github.com/harrytang/web/commit/c09ec874beb9cdc9149db34e27771874fb3b325c))
+
+### [1.28.3](https://github.com/harrytang/web/compare/v1.28.0...v1.28.3) (2026-09-03)
+
+
+### Bug Fixes
+
+* **deps:** update algolia-instantsearch monorepo ([#503](https://github.com/harrytang/web/issues/503)) ([d92af4b](https://github.com/harrytang/web/commit/d92af4b3e2a208b89c590d0004c2146f4b8a50b2))
+* **deps:** update dependency algoliasearch to v5.57.0 ([#526](https://github.com/harrytang/web/issues/526)) ([4fe55e4](https://github.com/harrytang/web/commit/4fe55e4376837ce2c09778d81245181a8067b48e))
+* **deps:** update dependency next to v16.2.11 [security] ([#518](https://github.com/harrytang/web/issues/518)) ([8c42b00](https://github.com/harrytang/web/commit/8c42b007419489f7895a3c6fd30ba9575a4554de))
+* **deps:** update dependency qs to v6.16.0 [security] ([#535](https://github.com/harrytang/web/issues/535)) ([73f84ba](https://github.com/harrytang/web/commit/73f84babba58f9d7513cef80e883884ac021b0de))
+* **deps:** update dependency sharp to v0.35.4 ([#530](https://github.com/harrytang/web/issues/530)) ([6a7375c](https://github.com/harrytang/web/commit/6a7375cc27082d4c349a77031019b32dedd1dccc))
+* **deps:** update react monorepo to v19.2.8 ([#519](https://github.com/harrytang/web/issues/519)) ([c09ec87](https://github.com/harrytang/web/commit/c09ec874beb9cdc9149db34e27771874fb3b325c))
+
+### [1.28.2](https://github.com/harrytang/web/compare/v1.28.0...v1.28.2) (2026-09-03)
+
+
+### Bug Fixes
+
+* **deps:** update algolia-instantsearch monorepo ([#503](https://github.com/harrytang/web/issues/503)) ([d92af4b](https://github.com/harrytang/web/commit/d92af4b3e2a208b89c590d0004c2146f4b8a50b2))
+* **deps:** update dependency algoliasearch to v5.57.0 ([#526](https://github.com/harrytang/web/issues/526)) ([4fe55e4](https://github.com/harrytang/web/commit/4fe55e4376837ce2c09778d81245181a8067b48e))
+* **deps:** update dependency next to v16.2.11 [security] ([#518](https://github.com/harrytang/web/issues/518)) ([8c42b00](https://github.com/harrytang/web/commit/8c42b007419489f7895a3c6fd30ba9575a4554de))
+* **deps:** update dependency qs to v6.16.0 [security] ([#535](https://github.com/harrytang/web/issues/535)) ([73f84ba](https://github.com/harrytang/web/commit/73f84babba58f9d7513cef80e883884ac021b0de))
+* **deps:** update dependency sharp to v0.35.4 ([#530](https://github.com/harrytang/web/issues/530)) ([6a7375c](https://github.com/harrytang/web/commit/6a7375cc27082d4c349a77031019b32dedd1dccc))
+* **deps:** update react monorepo to v19.2.8 ([#519](https://github.com/harrytang/web/issues/519)) ([c09ec87](https://github.com/harrytang/web/commit/c09ec874beb9cdc9149db34e27771874fb3b325c))
+
 ## [1.28.0](https://github.com/harrytang/web/compare/v1.27.1...v1.28.0) (2026-07-23)
 
 
