@@ -5,7 +5,7 @@ on: workflow_call
 jobs:
   coverage:
     name: Coverage
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     environment:
       name: test
     steps:
@@ -54,7 +54,7 @@ jobs:
     timeout-minutes: 60
     environment:
       name: test
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-26.04-arm
     steps:
       - name: Checkout
         uses: actions/checkout@v7
