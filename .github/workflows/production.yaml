@@ -9,7 +9,7 @@ jobs:
     uses: ./.github/workflows/test.yaml
   build-push:
     name: Build ARM64 image
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-26.04-arm
     needs: test
     environment:
       name: production
