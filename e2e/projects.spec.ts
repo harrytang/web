@@ -1,11 +1,10 @@
-import { expect, request, test } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 import type { Page } from "@/lib/pages";
 import type { Project } from "@/lib/projects";
+import { newStrapiContext } from "./strapi";
 
 test("should open the Projects page", async ({ page }) => {
-	const reqCtx = await request.newContext({
-		baseURL: process.env.NEXT_PUBLIC_STRAPI_API_URL,
-	});
+	const reqCtx = await newStrapiContext();
 	// fetch page from the API
 	const pagesResponse = await reqCtx.get(`/api/pages?filters[slug]=projects`);
 	const { data: pages } = (await pagesResponse.json()) as { data: Page[] };

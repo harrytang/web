@@ -1,24 +1,20 @@
-import { expect, request, test } from "@playwright/test";
-import type { Blog } from "@/lib/blogs";
+import { expect, test } from "@playwright/test";
 import type { Profile } from "@/lib/profile";
+import { getLatestBlogs, newStrapiContext } from "./strapi";
 
 test("should open the Home page", async ({ page }) => {
 	// Fetch the profile data from the API
-	const reqCtx = await request.newContext({
-		baseURL: process.env.NEXT_PUBLIC_STRAPI_API_URL,
-	});
+	const reqCtx = await newStrapiContext();
 	const apiResponse = await reqCtx.get(
 		"/api/profile?populate[0]=socials&populate[1]=photos",
 	);
 	const { data } = (await apiResponse.json()) as { data: Profile };
 
 	// fetch blogs data from the API
-	const blogsResponse = await reqCtx.get(
-		`/api/blogs?pagination[limit]=${process.env.NEXT_PUBLIC_HOME_PAGE_SIZE}&sort=publishedAt:desc&locale=all`,
+	const blogs = await getLatestBlogs(
+		reqCtx,
+		parseInt(process.env.NEXT_PUBLIC_HOME_PAGE_SIZE ?? "6", 10),
 	);
-	const { data: blogs } = (await blogsResponse.json()) as {
-		data: Blog[];
-	};
 
 	// Open the page
 	await page.goto("/");
