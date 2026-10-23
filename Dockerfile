@@ -64,8 +64,8 @@ ENV NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL} \
     SITEMAP_SIZE=${SITEMAP_SIZE} \
     NEXT_TELEMETRY_DISABLED=1
 
-# Fetch dependencies
-COPY pnpm-lock.yaml /app
+# Fetch dependencies (pnpm-workspace.yaml holds allowBuilds and minimumReleaseAge)
+COPY pnpm-lock.yaml pnpm-workspace.yaml /app
 RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm fetch
 
 # Install dependencies
