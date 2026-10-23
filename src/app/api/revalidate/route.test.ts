@@ -97,7 +97,7 @@ describe("api revalidate route", () => {
 
 	it("does nothing for unsupported event type", async () => {
 		const req = makeReq("Bearer secret-token", {
-			event: "entry.delete",
+			event: "media.create",
 			model: "blog",
 			entry: { slug: "my-post" },
 		});
@@ -117,7 +117,10 @@ describe("api revalidate route", () => {
 		const req = makeReq("Bearer secret-token", {
 			event: "entry.update",
 			model: "profile",
-			entry: { slug: "harry-profile" },
+			entry: {
+				slug: "harry-profile",
+				publishedAt: "2026-01-01T00:00:00.000Z",
+			},
 		});
 
 		await POST(req);
@@ -227,6 +230,7 @@ describe("api revalidate route", () => {
 				seo: {
 					metaDescription: "present but missing title",
 				},
+				publishedAt: "2026-01-01T00:00:00.000Z",
 			},
 		});
 
@@ -267,6 +271,78 @@ describe("api revalidate route", () => {
 					keywords: [],
 				}),
 			}),
+		);
+	});
+
+	describe("draft & publish events", () => {
+		const blogEntry = (publishedAt: string | null) => ({
+			slug: "my-post",
+			title: "My Post",
+			seo: {
+				metaDescription: "Desc",
+				metaImage: {
+					caption: "Cover",
+					formats: { thumbnail: { url: "https://cdn/image.jpg" } },
+				},
+			},
+			publishedAt,
+			createdAt: "2026-01-01T00:00:00.000Z",
+			updatedAt: "2026-01-02T00:00:00.000Z",
+		});
+
+		it("ignores draft saves, which Strapi 5 sends as entry.update with publishedAt null", async () => {
+			const req = makeReq("Bearer secret-token", {
+				event: "entry.update",
+				model: "blog",
+				entry: blogEntry(null),
+			});
+
+			await POST(req);
+
+			expect(revalidateTag).not.toHaveBeenCalled();
+			expect(revalidatePath).not.toHaveBeenCalled();
+			expect(algoliasearch).not.toHaveBeenCalled();
+			expect(fetchMock).not.toHaveBeenCalled();
+		});
+
+		it("revalidates, pushes to algolia and purges cloudflare on entry.publish", async () => {
+			const req = makeReq("Bearer secret-token", {
+				event: "entry.publish",
+				model: "blog",
+				entry: blogEntry("2026-01-03T00:00:00.000Z"),
+			});
+
+			await POST(req);
+
+			expect(revalidateTag).toHaveBeenCalledWith("blog-my-post", "max");
+			expect(revalidatePath).toHaveBeenCalledWith("/articles/[current]", "page");
+			expect(saveObject).toHaveBeenCalledWith(
+				expect.objectContaining({
+					body: expect.objectContaining({
+						objectID: "my-post",
+						publishedAt: "2026-01-03T00:00:00.000Z",
+					}),
+				}),
+			);
+			expect(fetchMock).toHaveBeenCalledTimes(1);
+		});
+
+		it.each(["entry.unpublish", "entry.delete"])(
+			"revalidates and purges cloudflare without pushing to algolia on %s",
+			async (event) => {
+				const req = makeReq("Bearer secret-token", {
+					event,
+					model: "blog",
+					entry: blogEntry(null),
+				});
+
+				await POST(req);
+
+				expect(revalidateTag).toHaveBeenCalledWith("blog-my-post", "max");
+				expect(revalidatePath).toHaveBeenCalledWith("/", "page");
+				expect(algoliasearch).not.toHaveBeenCalled();
+				expect(fetchMock).toHaveBeenCalledTimes(1);
+			},
 		);
 	});
 });

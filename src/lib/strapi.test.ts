@@ -1,6 +1,11 @@
 import qs from "qs";
 import { getStrapiURL } from "./helper";
-import { fetchAPI, getAllEntitySlugs } from "./strapi";
+import {
+	fetchAPI,
+	fetchEntries,
+	getAllEntitySlugs,
+	getLocales,
+} from "./strapi";
 
 jest.mock("qs", () => ({
 	stringify: jest.fn(),
@@ -12,13 +17,46 @@ jest.mock("./helper", () => ({
 
 const mockedStringify = jest.mocked(qs.stringify);
 const mockedGetStrapiURL = jest.mocked(getStrapiURL);
+const realQs = jest.requireActual<typeof qs>("qs");
+
+type SlugRow = { slug: string };
+
+// Minimal Strapi REST API: rows per locale, honouring start/limit and the api.rest.maxLimit cap
+const fakeStrapi = (rowsByLocale: Record<string, SlugRow[]>, maxLimit = 100) =>
+	jest.fn(async (url: string) => {
+		const { pathname, search } = new URL(url);
+		if (pathname === "/api/i18n/locales") {
+			return {
+				ok: true,
+				json: async () => Object.keys(rowsByLocale).map((code) => ({ code })),
+			};
+		}
+		const params = realQs.parse(search.slice(1)) as {
+			locale?: string;
+			pagination?: { start?: string; limit?: string };
+		};
+		const rows = rowsByLocale[params.locale ?? "en"] ?? [];
+		const start = Number(params.pagination?.start ?? 0);
+		const limit = Math.min(Number(params.pagination?.limit ?? 25), maxLimit);
+		return {
+			ok: true,
+			json: async () => ({
+				data: rows
+					.slice(start, start + limit)
+					.map((attributes, i) => ({ id: start + i + 1, attributes })),
+				meta: { pagination: { start, limit, total: rows.length } },
+			}),
+		};
+	});
+
+const slugRows = (...slugs: string[]) => slugs.map((slug) => ({ slug }));
 
 describe("strapi", () => {
 	const originalFetch = global.fetch;
 
 	beforeEach(() => {
 		jest.clearAllMocks();
-		mockedStringify.mockReturnValue("locale=all");
+		mockedStringify.mockReturnValue("locale=en");
 		mockedGetStrapiURL.mockImplementation(
 			(path = "") => `https://cms.example${path}`,
 		);
@@ -28,6 +66,13 @@ describe("strapi", () => {
 	afterEach(() => {
 		global.fetch = originalFetch;
 	});
+
+	const useFakeStrapi = (rowsByLocale: Record<string, SlugRow[]>, maxLimit?: number) => {
+		mockedStringify.mockImplementation(realQs.stringify);
+		const fake = fakeStrapi(rowsByLocale, maxLimit);
+		global.fetch = fake as unknown as typeof fetch;
+		return fake;
+	};
 
 	it("fetchAPI builds url and returns json payload", async () => {
 		Object.defineProperty(process.env, "NODE_ENV", { value: "production" });
@@ -40,15 +85,18 @@ describe("strapi", () => {
 		});
 
 		const result = await fetchAPI<{ id: number }[]>("/blogs", {
-			locale: "all",
+			locale: "en",
 		});
 
-		expect(mockedStringify).toHaveBeenCalledWith({ locale: "all" });
-		expect(mockedGetStrapiURL).toHaveBeenCalledWith("/api/blogs?locale=all");
+		expect(mockedStringify).toHaveBeenCalledWith({ locale: "en" });
+		expect(mockedGetStrapiURL).toHaveBeenCalledWith("/api/blogs?locale=en");
 		expect(global.fetch).toHaveBeenCalledWith(
-			"https://cms.example/api/blogs?locale=all",
+			"https://cms.example/api/blogs?locale=en",
 			expect.objectContaining({
-				headers: { "Content-Type": "application/json" },
+				headers: {
+					"Content-Type": "application/json",
+					"Strapi-Response-Format": "v4",
+				},
 				cache: "force-cache",
 			}),
 		);
@@ -68,7 +116,7 @@ describe("strapi", () => {
 		await fetchAPI("/pages", {});
 
 		expect(global.fetch).toHaveBeenCalledWith(
-			"https://cms.example/api/pages?locale=all",
+			"https://cms.example/api/pages?locale=en",
 			expect.objectContaining({ cache: "no-store" }),
 		);
 	});
@@ -107,67 +155,96 @@ describe("strapi", () => {
 		);
 	});
 
-	it("getAllEntitySlugs paginates and concatenates all slugs", async () => {
-		process.env.SITEMAP_SIZE = "2";
-		mockedStringify
-			.mockReturnValueOnce(
-				"locale=all&pagination%5Blimit%5D=2&pagination%5Bstart%5D=0",
-			)
-			.mockReturnValueOnce(
-				"locale=all&pagination%5Blimit%5D=2&pagination%5Bstart%5D=2",
-			)
-			.mockReturnValueOnce(
-				"locale=all&pagination%5Blimit%5D=2&pagination%5Bstart%5D=4",
-			);
+	it("getLocales returns the locale codes configured in Strapi", async () => {
+		useFakeStrapi({ en: [], vi: [] });
 
-		(global.fetch as jest.Mock)
-			.mockResolvedValueOnce({
-				ok: true,
-				json: async () => ({
-					data: [{ attributes: { slug: "a" } }, { attributes: { slug: "b" } }],
-					meta: { pagination: { start: 0, limit: 2, total: 5 } },
-				}),
-			})
-			.mockResolvedValueOnce({
-				ok: true,
-				json: async () => ({
-					data: [{ attributes: { slug: "c" } }, { attributes: { slug: "d" } }],
-					meta: { pagination: { start: 2, limit: 2, total: 5 } },
-				}),
-			})
-			.mockResolvedValueOnce({
-				ok: true,
-				json: async () => ({
-					data: [{ attributes: { slug: "e" } }],
-					meta: { pagination: { start: 4, limit: 2, total: 5 } },
-				}),
-			});
-
-		const result = await getAllEntitySlugs("blogs");
-
-		expect(result).toEqual(["a", "b", "c", "d", "e"]);
-		expect(global.fetch).toHaveBeenCalledTimes(3);
+		await expect(getLocales()).resolves.toEqual(["en", "vi"]);
 	});
 
-	it("getAllEntitySlugs uses default sitemap size when env is missing", async () => {
-		delete process.env.SITEMAP_SIZE;
-		mockedStringify.mockReturnValue(
-			"locale=all&pagination%5Blimit%5D=1000&pagination%5Bstart%5D=0",
+	it("getLocales throws when Strapi rejects the request", async () => {
+		const errorSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+		mockedStringify.mockReturnValue("");
+		(global.fetch as jest.Mock).mockResolvedValue({
+			ok: false,
+			statusText: "Forbidden",
+		});
+
+		await expect(getLocales()).rejects.toThrow(
+			"An error occured please try again",
 		);
+
+		errorSpy.mockRestore();
+	});
+
+	it("fetchEntries keeps paging when Strapi caps the page size", async () => {
+		useFakeStrapi({ en: slugRows("a", "b", "c", "d", "e") }, 2);
+
+		const result = await fetchEntries<{ attributes: SlugRow }>(
+			"/blogs",
+			{ locale: "en" },
+			{ pageSize: 5 },
+		);
+
+		expect(result.entries.map((entry) => entry.attributes.slug)).toEqual([
+			"a",
+			"b",
+			"c",
+			"d",
+			"e",
+		]);
+		expect(result.total).toBe(5);
+	});
+
+	it("fetchEntries stops once it has count entries", async () => {
+		const fake = useFakeStrapi({ en: slugRows("a", "b", "c", "d", "e") });
+
+		const result = await fetchEntries<{ attributes: SlugRow }>(
+			"/blogs",
+			{ locale: "en" },
+			{ pageSize: 3, count: 3 },
+		);
+
+		expect(result.entries.map((entry) => entry.attributes.slug)).toEqual([
+			"a",
+			"b",
+			"c",
+		]);
+		expect(result.total).toBe(5);
+		expect(fake).toHaveBeenCalledTimes(1);
+	});
+
+	it("fetchEntries stops when a page comes back empty", async () => {
+		mockedStringify.mockImplementation(realQs.stringify);
 		(global.fetch as jest.Mock).mockResolvedValue({
 			ok: true,
 			json: async () => ({
-				data: [{ attributes: { slug: "only" } }],
-				meta: { pagination: { start: 0, limit: 1000, total: 1 } },
+				data: [],
+				meta: { pagination: { start: 0, limit: 10, total: 10 } },
 			}),
 		});
 
+		const result = await fetchEntries("/blogs", {}, { pageSize: 10 });
+
+		expect(result).toEqual({ entries: [], total: 10 });
+		expect(global.fetch).toHaveBeenCalledTimes(1);
+	});
+
+	it("getAllEntitySlugs collects slugs from every locale", async () => {
+		process.env.SITEMAP_SIZE = "2";
+		useFakeStrapi({ en: slugRows("a", "b", "c"), vi: slugRows("d") }, 2);
+
+		const result = await getAllEntitySlugs("blogs");
+
+		expect(result).toEqual(["a", "b", "c", "d"]);
+	});
+
+	it("getAllEntitySlugs pages past the API cap with the default sitemap size", async () => {
+		delete process.env.SITEMAP_SIZE;
+		const slugs = Array.from({ length: 150 }, (_, i) => `post-${i}`);
+		useFakeStrapi({ en: slugRows(...slugs) });
+
 		const result = await getAllEntitySlugs("pages");
 
-		expect(result).toEqual(["only"]);
-		expect(mockedStringify).toHaveBeenCalledWith({
-			locale: "all",
-			pagination: { limit: 1000, start: 0 },
-		});
+		expect(result).toEqual(slugs);
 	});
 });
