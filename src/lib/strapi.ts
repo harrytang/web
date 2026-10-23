@@ -1,11 +1,7 @@
 import qs from "qs";
 import { getStrapiURL } from "./helper";
 
-const fetchAPI = async <T>(
-	path: string,
-	urlParamsObject: object = {},
-	options: object = {},
-): Promise<{
+type StrapiResponse<T> = {
 	data: T;
 	meta: {
 		pagination: {
@@ -14,7 +10,13 @@ const fetchAPI = async <T>(
 			total: number;
 		};
 	};
-}> => {
+};
+
+const request = async <T>(
+	path: string,
+	urlParamsObject: object = {},
+	options: object = {},
+): Promise<T> => {
 	// Merge default and user options
 	const cache = (
 		process.env.NODE_ENV === "development" ? "no-store" : "force-cache"
@@ -22,6 +24,8 @@ const fetchAPI = async <T>(
 	const mergedOptions = {
 		headers: {
 			"Content-Type": "application/json",
+			// keeps the v4 data.attributes shape on Strapi 5; Strapi 4 ignores it
+			"Strapi-Response-Format": "v4",
 		},
 		cache,
 		...options,
@@ -39,11 +43,60 @@ const fetchAPI = async <T>(
 		console.error(response.statusText);
 		throw new Error(`An error occured please try again`);
 	}
-	const res = await response.json();
+	return response.json();
+};
+
+const fetchAPI = async <T>(
+	path: string,
+	urlParamsObject: object = {},
+	options: object = {},
+): Promise<StrapiResponse<T>> => {
+	const res = await request<StrapiResponse<T>>(path, urlParamsObject, options);
 	return {
 		data: res.data,
 		meta: res.meta,
 	};
+};
+
+// Strapi 5 has no locale=all, so queries across locales run once per locale
+const getLocales = async () => {
+	const locales = await request<{ code: string }[]>("/i18n/locales");
+	return locales.map((locale) => locale.code);
+};
+
+// Fetch up to `count` entries in pages of `pageSize`. Strapi caps each page at
+// api.rest.maxLimit, so advance by the rows received, not the rows asked for.
+const fetchEntries = async <T>(
+	path: string,
+	urlParamsObject: object,
+	{
+		pageSize,
+		count = Number.POSITIVE_INFINITY,
+	}: { pageSize: number; count?: number },
+	options: object = {},
+) => {
+	const entries: T[] = [];
+	let total = 0;
+	let hasMore = true;
+
+	while (hasMore) {
+		const res = await fetchAPI<T[]>(
+			path,
+			{
+				...urlParamsObject,
+				pagination: {
+					limit: Math.min(pageSize, count - entries.length),
+					start: entries.length,
+				},
+			},
+			options,
+		);
+		entries.push(...res.data);
+		total = res.meta.pagination.total;
+		hasMore = res.data.length > 0 && entries.length < Math.min(count, total);
+	}
+
+	return { entries, total };
 };
 
 const getAllEntitySlugs = async (entity: string) => {
@@ -53,30 +106,19 @@ const getAllEntitySlugs = async (entity: string) => {
 		};
 	};
 
-	let allSlugs: string[] = [];
-	let start = 0;
-	const limit = process.env.SITEMAP_SIZE
+	const pageSize = process.env.SITEMAP_SIZE
 		? parseInt(process.env.SITEMAP_SIZE, 10)
 		: 1000;
-	let hasMore = true;
+	const locales = await getLocales();
+	const results = await Promise.all(
+		locales.map((locale) =>
+			fetchEntries<SlugEntity>(`/${entity}`, { locale }, { pageSize }),
+		),
+	);
 
-	while (hasMore) {
-		const res = await fetchAPI<SlugEntity[]>(`/${entity}`, {
-			locale: "all",
-			pagination: { limit, start },
-		});
-
-		// Extract slugs from the response
-		const slugs = res.data.map((item) => item.attributes.slug);
-		allSlugs = allSlugs.concat(slugs);
-
-		// Check if there are more items to fetch
-		const total = res.meta.pagination.total;
-		start += limit;
-		hasMore = start < total;
-	}
-
-	return allSlugs;
+	return results.flatMap((res) =>
+		res.entries.map((item) => item.attributes.slug),
+	);
 };
 
-export { fetchAPI, getAllEntitySlugs };
+export { fetchAPI, fetchEntries, getAllEntitySlugs, getLocales };

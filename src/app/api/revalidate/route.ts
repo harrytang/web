@@ -6,7 +6,11 @@ import type Webhook from "@/types/webhook";
 
 // tracking event/paths
 const track = {
-	events: ["entry.create", "entry.update"],
+	// these change the site only once published: Strapi 5 sends entry.update with
+	// publishedAt null for draft saves and just before every entry.publish
+	events: ["entry.create", "entry.update", "entry.publish"],
+	// these take content off the site
+	removalEvents: ["entry.unpublish", "entry.delete"],
 	models: {
 		blog: ["/articles/[current]", "/"],
 		project: ["/projects"],
@@ -116,10 +120,11 @@ export async function POST(req: NextRequest) {
 	if (authResult) return authResult;
 
 	const { event, model, entry }: Webhook = await req.json();
+	const published = track.events.includes(event) && Boolean(entry.publishedAt);
 
-	if (track.events.includes(event)) {
+	if (published || track.removalEvents.includes(event)) {
 		revalidate(model, entry);
-		await algoliaPush(model, entry);
+		if (published) await algoliaPush(model, entry);
 		await purgeCFCache();
 	}
 

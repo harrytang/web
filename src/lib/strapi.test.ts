@@ -67,7 +67,10 @@ describe("strapi", () => {
 		global.fetch = originalFetch;
 	});
 
-	const useFakeStrapi = (rowsByLocale: Record<string, SlugRow[]>, maxLimit?: number) => {
+	const useFakeStrapi = (
+		rowsByLocale: Record<string, SlugRow[]>,
+		maxLimit?: number,
+	) => {
 		mockedStringify.mockImplementation(realQs.stringify);
 		const fake = fakeStrapi(rowsByLocale, maxLimit);
 		global.fetch = fake as unknown as typeof fetch;
