@@ -1,6 +1,6 @@
 {
 	"name": "harrytang-web",
-	"version": "1.28.4",
+	"version": "1.29.0",
 	"private": false,
 	"type": "module",
 	"scripts": {

@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.29.0](https://github.com/harrytang/web/compare/v1.28.4...v1.29.0) (2026-10-23)
+
+
+### Features
+
+* fetch Strapi content in a way that works on Strapi 4 and 5 ([6e2c70c](https://github.com/harrytang/web/commit/6e2c70c5e2e1c973dbec045fe711a8a8a1a82b5a))
+
+
+### Bug Fixes
+
+* **deps:** update algolia-instantsearch monorepo ([#539](https://github.com/harrytang/web/issues/539)) ([fda793e](https://github.com/harrytang/web/commit/fda793ecd16031e53cfac520d1f2dd06234f6d6a))
+* **deps:** update algolia-instantsearch monorepo ([#547](https://github.com/harrytang/web/issues/547)) ([ffa77c9](https://github.com/harrytang/web/commit/ffa77c913da37cb595cee695a8fce60a6d4996c2))
+* **docker:** apply pnpm-workspace.yaml settings during pnpm fetch ([5ab66e6](https://github.com/harrytang/web/commit/5ab66e64a5b4b298d2f47930d3da5233769c2da0))
+
 ### [1.28.4](https://github.com/harrytang/web/compare/v1.28.0...v1.28.4) (2026-09-03)
 
 
