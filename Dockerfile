@@ -8,6 +8,8 @@ ENV PATH="$PNPM_HOME:$PATH"
 # Enable corepack for package management
 RUN corepack enable
 RUN npm i -g corepack@latest
+# Pin pnpm to the version dev compose uses (CI uses 11.x); unpinned, corepack pulls the newest major
+RUN corepack install -g pnpm@11.17.0
 
 # Set working directory
 WORKDIR /app
