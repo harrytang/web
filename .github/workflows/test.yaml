@@ -73,16 +73,18 @@ jobs:
         uses: actions/cache@v6
         with:
           # See here for caching with `yarn` https://github.com/actions/cache/blob/main/examples.md#node---yarn or you can leverage caching with actions/setup-node https://github.com/actions/setup-node
-          # Keep the compiler cache only: the fetch cache holds Strapi responses with no expiry,
-          # so restoring it makes the build render whatever the CMS returned in an earlier run.
           path: |
             ${{ github.workspace }}/.next/cache
-            !${{ github.workspace }}/.next/cache/fetch-cache
           # Generate a new cache whenever packages or source files change.
           key: ${{ runner.os }}-nextjs-${{ github.ref_name }}-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
           # If source files changed but packages didn't, rebuild from a prior cache.
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ github.ref_name }}-${{ hashFiles('**/pnpm-lock.yaml') }}-
+      # The fetch cache holds Strapi responses with no expiry; restored, it makes the build render
+      # what the CMS returned in an earlier run while the e2e specs compare against the live API.
+      # (A "!" exclusion in the cache path above did not keep it out.)
+      - name: Drop cached CMS responses
+        run: rm -rf .next/cache/fetch-cache
       - name: Build NextJS
         run: pnpm run build
         env:
