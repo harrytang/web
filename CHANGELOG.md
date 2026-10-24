@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.29.1](https://github.com/harrytang/web/compare/v1.29.0...v1.29.1) (2026-10-24)
+
+
+### Bug Fixes
+
+* revalidate on entry.publish even when Strapi sends entry null ([b58b277](https://github.com/harrytang/web/commit/b58b2778970fcbf9855a29dc190011f3e8da4d57))
+
 ## [1.29.0](https://github.com/harrytang/web/compare/v1.28.4...v1.29.0) (2026-10-23)
 
 
