@@ -347,5 +347,54 @@ describe("api revalidate route", () => {
 				expect(fetchMock).toHaveBeenCalledTimes(1);
 			},
 		);
+
+		// Strapi 5 re-reads the entry after commit; through a lagging Galera replica the
+		// read can miss the new published row, so the payload carries entry: null
+		it("still revalidates static paths when entry.publish arrives with entry null", async () => {
+			const req = makeReq("Bearer secret-token", {
+				event: "entry.publish",
+				model: "profile",
+				entry: null,
+			});
+
+			const res = await POST(req);
+
+			expect(res.status).toBe(200);
+			expect(revalidatePath).toHaveBeenCalledWith("/about", "page");
+			expect(revalidatePath).toHaveBeenCalledWith("/", "page");
+			expect(fetchMock).toHaveBeenCalledTimes(1);
+			expect(console.warn).toHaveBeenCalledWith(
+				"Webhook entry.publish for profile has no entry; revalidating static paths only",
+			);
+		});
+
+		it("revalidates blog list pages but skips the tag and algolia when entry.publish has entry null", async () => {
+			const req = makeReq("Bearer secret-token", {
+				event: "entry.publish",
+				model: "blog",
+				entry: null,
+			});
+
+			await POST(req);
+
+			expect(revalidateTag).not.toHaveBeenCalled();
+			expect(revalidatePath).toHaveBeenCalledWith("/articles/[current]", "page");
+			expect(algoliasearch).not.toHaveBeenCalled();
+			expect(fetchMock).toHaveBeenCalledTimes(1);
+		});
+
+		it("ignores entry.update with entry null instead of crashing", async () => {
+			const req = makeReq("Bearer secret-token", {
+				event: "entry.update",
+				model: "blog",
+				entry: null,
+			});
+
+			const res = await POST(req);
+
+			expect(res.status).toBe(200);
+			expect(revalidatePath).not.toHaveBeenCalled();
+			expect(fetchMock).not.toHaveBeenCalled();
+		});
 	});
 });
