@@ -8,17 +8,16 @@ import {
 
 export interface Blog {
 	id: number;
-	attributes: {
-		title: string;
-		slug: string;
-		content: string;
-		mediaUrl?: string;
-		locale: string;
-		seo: Seo;
-		createdAt: string;
-		updatedAt: string;
-		publishedAt: string;
-	};
+	documentId: string;
+	title: string;
+	slug: string;
+	content: string;
+	mediaUrl?: string;
+	locale: string;
+	seo: Seo;
+	createdAt: string;
+	updatedAt: string;
+	publishedAt: string;
 }
 
 const getBlog = async (slug: string) => {
@@ -71,11 +70,7 @@ const getBlogs = async (
 
 	const data = results
 		.flatMap((res) => res.entries)
-		.sort(
-			(a, b) =>
-				Date.parse(b.attributes.publishedAt) -
-				Date.parse(a.attributes.publishedAt),
-		)
+		.sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt))
 		.slice(start, count);
 	const total = results.reduce((sum, res) => sum + res.total, 0);
 

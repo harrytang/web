@@ -3,20 +3,17 @@ import { fetchAPI } from "./strapi";
 
 export interface Work {
 	id: number;
-	attributes: {
-		company: string;
-		title: string;
-		logo: {
-			data: Media;
-		};
-		place: string;
-		start: string;
-		end: string | null;
-		url?: {
-			href: string;
-			label: string;
-		} | null;
-	};
+	documentId: string;
+	company: string;
+	title: string;
+	logo: Media;
+	place: string;
+	start: string;
+	end: string | null;
+	url?: {
+		href: string;
+		label: string;
+	} | null;
 }
 
 export async function getWorks() {

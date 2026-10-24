@@ -58,16 +58,16 @@ const generateSeoMeta = (
 			images: facebookData
 				? [
 						{
-							url: facebookData.image.data.attributes.url,
-							width: facebookData.image.data.attributes.width,
-							height: facebookData.image.data.attributes.height,
+							url: facebookData.image.url,
+							width: facebookData.image.width,
+							height: facebookData.image.height,
 						},
 					]
 				: [
 						{
-							url: seo.metaImage.data.attributes.url,
-							width: seo.metaImage.data.attributes.width,
-							height: seo.metaImage.data.attributes.height,
+							url: seo.metaImage.url,
+							width: seo.metaImage.width,
+							height: seo.metaImage.height,
 						},
 					],
 			locale: locale,
@@ -78,9 +78,7 @@ const generateSeoMeta = (
 			cardType: "summary_large_image",
 			title: twitterData?.title || seo.metaTitle,
 			description: twitterData?.description || seo.metaDescription,
-			images: twitterData
-				? [twitterData.image.data.attributes.url]
-				: [seo.metaImage.data.attributes.url],
+			images: twitterData ? [twitterData.image.url] : [seo.metaImage.url],
 		},
 	};
 };
@@ -113,35 +111,35 @@ const generatePersonJsonLd = (profile: Profile) => {
 		"@context": "https://schema.org",
 		"@type": "Person",
 		name: getSiteName(),
-		image: profile.attributes.portraitPhoto.data.attributes.url,
-		jobTitle: profile.attributes.title,
+		image: profile.portraitPhoto.url,
+		jobTitle: profile.title,
 		url: publicSiteUrl,
-		sameAs: profile.attributes.socials.map((link) => link.href), // other urls
+		sameAs: profile.socials.map((link) => link.href), // other urls
 	};
 };
 
 const generateArticleJsonLd = (blog: Blog) => {
 	const publicSiteUrl = getPublicSiteURL();
-	const createdAt = blog.attributes.createdAt;
-	const publishedAt = blog.attributes.publishedAt;
-	const modifiedAt = blog.attributes.updatedAt;
+	const createdAt = blog.createdAt;
+	const publishedAt = blog.publishedAt;
+	const modifiedAt = blog.updatedAt;
 
 	return {
 		"@context": "https://schema.org",
 		"@type": "Article",
-		url: `${publicSiteUrl}/blog/${blog.attributes.slug}`,
+		url: `${publicSiteUrl}/blog/${blog.slug}`,
 		author: {
 			"@type": "Person",
 			name: getSiteName(),
 			url: publicSiteUrl,
 		},
-		name: blog.attributes.title,
-		headline: blog.attributes.seo.metaDescription,
+		name: blog.title,
+		headline: blog.seo.metaDescription,
 		image: {
 			"@type": "ImageObject",
-			url: blog.attributes.seo.metaImage.data.attributes.url,
-			width: blog.attributes.seo.metaImage.data.attributes.width,
-			height: blog.attributes.seo.metaImage.data.attributes.height,
+			url: blog.seo.metaImage.url,
+			width: blog.seo.metaImage.width,
+			height: blog.seo.metaImage.height,
 		},
 		publisher: {
 			"@type": "Person",
@@ -166,16 +164,16 @@ const generateListArticleJsonLd = (blogs: Blog[]) => {
 				position: index + 1,
 				item: {
 					"@type": "Article",
-					url: `${publicSiteUrl}/blog/${blog.attributes.slug}`,
-					headline: blog.attributes.title,
-					datePublished: blog.attributes.publishedAt,
-					dateModified: blog.attributes.updatedAt,
-					dateCreated: blog.attributes.createdAt,
+					url: `${publicSiteUrl}/blog/${blog.slug}`,
+					headline: blog.title,
+					datePublished: blog.publishedAt,
+					dateModified: blog.updatedAt,
+					dateCreated: blog.createdAt,
 					image: {
 						"@type": "ImageObject",
-						url: blog.attributes.seo.metaImage.data.attributes.url,
-						width: blog.attributes.seo.metaImage.data.attributes.width,
-						height: blog.attributes.seo.metaImage.data.attributes.height,
+						url: blog.seo.metaImage.url,
+						width: blog.seo.metaImage.width,
+						height: blog.seo.metaImage.height,
 					},
 					author: {
 						"@type": "Person",
@@ -198,33 +196,33 @@ const generateProfilePageJsonLd = (profile: Profile, hasPart: Blog[] = []) => {
 	const hasPartList = hasPart.map((blog) => {
 		return {
 			"@type": "Article",
-			headline: blog.attributes.title,
-			url: `${publicSiteUrl}/blog/${blog.attributes.slug}`,
+			headline: blog.title,
+			url: `${publicSiteUrl}/blog/${blog.slug}`,
 			image: {
 				"@type": "ImageObject",
-				url: blog.attributes.seo.metaImage.data.attributes.url,
-				width: blog.attributes.seo.metaImage.data.attributes.width,
-				height: blog.attributes.seo.metaImage.data.attributes.height,
+				url: blog.seo.metaImage.url,
+				width: blog.seo.metaImage.width,
+				height: blog.seo.metaImage.height,
 			},
-			datePublished: blog.attributes.publishedAt,
-			dateModified: blog.attributes.updatedAt,
-			dateCreated: blog.attributes.createdAt,
+			datePublished: blog.publishedAt,
+			dateModified: blog.updatedAt,
+			dateCreated: blog.createdAt,
 			author: { "@id": "#person" },
 		};
 	});
 	const profilePage = {
 		"@context": "https://schema.org",
 		"@type": "ProfilePage",
-		dateCreated: profile.attributes.createdAt,
-		dateModified: profile.attributes.updatedAt,
+		dateCreated: profile.createdAt,
+		dateModified: profile.updatedAt,
 		mainEntity: {
 			"@id": "#person",
 			"@type": "Person",
 			name: getSiteName(),
-			image: profile.attributes.portraitPhoto.data.attributes.url,
-			jobTitle: profile.attributes.title,
+			image: profile.portraitPhoto.url,
+			jobTitle: profile.title,
 			url: publicSiteUrl,
-			sameAs: profile.attributes.socials.map((link) => link.href), // other urls
+			sameAs: profile.socials.map((link) => link.href), // other urls
 		},
 	};
 	return hasPart.length > 0
@@ -243,7 +241,7 @@ const categorizeItems = (items: Use[]) => {
 
 	// Group items by category
 	items.forEach((item) => {
-		const { category } = item.attributes;
+		const { category } = item;
 		if (!categoryMap[category]) {
 			categoryMap[category] = [];
 		}

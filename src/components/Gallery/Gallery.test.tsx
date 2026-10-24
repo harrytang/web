@@ -24,6 +24,7 @@ jest.mock("next/image", () => ({
 
 const createMedia = (id: number, caption: string): Media => ({
 	id,
+	documentId: `media-${id}`,
 	name: `image-${id}`,
 	alternativeText: caption,
 	caption,

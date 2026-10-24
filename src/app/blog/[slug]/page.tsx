@@ -20,12 +20,7 @@ export async function generateMetadata({ params }: BlogProps) {
 	const { slug } = await params;
 	const blog = await getBlog(slug);
 	if (blog) {
-		return generateSeoMeta(
-			`blog/${slug}`,
-			blog.attributes.seo,
-			"article",
-			blog.attributes.locale,
-		);
+		return generateSeoMeta(`blog/${slug}`, blog.seo, "article", blog.locale);
 	}
 }
 

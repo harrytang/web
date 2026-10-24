@@ -24,8 +24,6 @@ const request = async <T>(
 	const mergedOptions = {
 		headers: {
 			"Content-Type": "application/json",
-			// keeps the v4 data.attributes shape on Strapi 5; Strapi 4 ignores it
-			"Strapi-Response-Format": "v4",
 		},
 		cache,
 		...options,
@@ -101,9 +99,7 @@ const fetchEntries = async <T>(
 
 const getAllEntitySlugs = async (entity: string) => {
 	type SlugEntity = {
-		attributes: {
-			slug: string;
-		};
+		slug: string;
 	};
 
 	const pageSize = process.env.SITEMAP_SIZE
@@ -116,9 +112,7 @@ const getAllEntitySlugs = async (entity: string) => {
 		),
 	);
 
-	return results.flatMap((res) =>
-		res.entries.map((item) => item.attributes.slug),
-	);
+	return results.flatMap((res) => res.entries.map((item) => item.slug));
 };
 
 export { fetchAPI, fetchEntries, getAllEntitySlugs, getLocales };

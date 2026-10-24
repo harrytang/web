@@ -3,16 +3,13 @@ import { fetchAPI } from "./strapi";
 
 export interface Skill {
 	id: number;
-	attributes: {
-		name: string;
-		content: string;
-		image: {
-			data: Media;
-		};
-		createdAt: string;
-		updatedAt: string;
-		publishedAt: string;
-	};
+	documentId: string;
+	name: string;
+	content: string;
+	image: Media;
+	createdAt: string;
+	updatedAt: string;
+	publishedAt: string;
 }
 
 export async function listRandomSkill() {

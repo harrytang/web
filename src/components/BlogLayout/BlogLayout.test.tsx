@@ -69,6 +69,7 @@ import BlogLayout from "./BlogLayout";
 
 const createBlog = (mediaUrl?: string): Blog => ({
 	id: 1,
+	documentId: "blog-1",
 	title: "Test Blog",
 	slug: "test-blog",
 	content: "Test markdown content",
@@ -88,6 +89,7 @@ const createBlog = (mediaUrl?: string): Blog => ({
 		canonicalURL: null,
 		metaImage: {
 			id: 10,
+			documentId: "media-10",
 			name: "cover",
 			alternativeText: "Cover",
 			caption: "Cover caption",

@@ -35,10 +35,10 @@ const BlogLayout: React.FC<BlogLayoutProps> = ({ blog }) => {
 	const [showComments, setShowComments] = useState(false);
 	const [isPlaying, setIsPlaying] = useState(false);
 	const commentTriggerRef = useRef<HTMLDivElement | null>(null);
-	const hasVideo = blog.attributes.mediaUrl;
-	const postUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/blog/${blog.attributes.slug}`;
+	const hasVideo = blog.mediaUrl;
+	const postUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/blog/${blog.slug}`;
 	const encodedPostUrl = encodeURIComponent(postUrl);
-	const encodedTitle = encodeURIComponent(blog.attributes.title);
+	const encodedTitle = encodeURIComponent(blog.title);
 	const shareLinks = [
 		{
 			name: "X",
@@ -49,7 +49,10 @@ const BlogLayout: React.FC<BlogLayoutProps> = ({ blog }) => {
 					aria-hidden="true"
 					className="h-5 w-5 cursor-pointer"
 				>
-					<path fill="currentColor" d="M13.9 10.5 21.3 2h-1.8l-6.4 7.4L8 2H2l7.8 11.3L2 22h1.8l6.8-7.8L16 22h6l-8.1-11.5Zm-2.4 2.8-.8-1.1L4.4 3.3h2.7l5 7.1.8 1.1 6.6 9.4h-2.7l-5.3-7.6Z" />
+					<path
+						fill="currentColor"
+						d="M13.9 10.5 21.3 2h-1.8l-6.4 7.4L8 2H2l7.8 11.3L2 22h1.8l6.8-7.8L16 22h6l-8.1-11.5Zm-2.4 2.8-.8-1.1L4.4 3.3h2.7l5 7.1.8 1.1 6.6 9.4h-2.7l-5.3-7.6Z"
+					/>
 				</svg>
 			),
 		},
@@ -62,7 +65,10 @@ const BlogLayout: React.FC<BlogLayoutProps> = ({ blog }) => {
 					aria-hidden="true"
 					className="h-5 w-5 cursor-pointer"
 				>
-					<path fill="currentColor" d="M22 12.1C22 6.5 17.5 2 11.9 2S2 6.5 2 12.1c0 5 3.7 9.2 8.4 10v-7.1H7.9v-2.9h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6v1.9h2.8l-.4 2.9h-2.3v7.1c4.8-.8 8.4-5 8.4-10Z" />
+					<path
+						fill="currentColor"
+						d="M22 12.1C22 6.5 17.5 2 11.9 2S2 6.5 2 12.1c0 5 3.7 9.2 8.4 10v-7.1H7.9v-2.9h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6v1.9h2.8l-.4 2.9h-2.3v7.1c4.8-.8 8.4-5 8.4-10Z"
+					/>
 				</svg>
 			),
 		},
@@ -75,7 +81,10 @@ const BlogLayout: React.FC<BlogLayoutProps> = ({ blog }) => {
 					aria-hidden="true"
 					className="h-5 w-5 cursor-pointer"
 				>
-					<path fill="currentColor" d="M20.4 20.5h-3.6v-5.6c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9v5.7H9.3V9h3.4v1.6h.1c.5-.9 1.7-1.8 3.4-1.8 3.6 0 4.3 2.4 4.3 5.5v6.2ZM5.2 7.4a2.1 2.1 0 1 1 0-4.2 2.1 2.1 0 0 1 0 4.2Zm1.8 13.1H3.4V9H7v11.5Z" />
+					<path
+						fill="currentColor"
+						d="M20.4 20.5h-3.6v-5.6c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9v5.7H9.3V9h3.4v1.6h.1c.5-.9 1.7-1.8 3.4-1.8 3.6 0 4.3 2.4 4.3 5.5v6.2ZM5.2 7.4a2.1 2.1 0 1 1 0-4.2 2.1 2.1 0 0 1 0 4.2Zm1.8 13.1H3.4V9H7v11.5Z"
+					/>
 				</svg>
 			),
 		},
@@ -118,15 +127,12 @@ const BlogLayout: React.FC<BlogLayoutProps> = ({ blog }) => {
 							<ArrowLeftIcon className="h-4 w-4 stroke-zinc-500 transition group-hover:stroke-zinc-700 dark:stroke-zinc-500 dark:group-hover:stroke-zinc-400" />
 						</button>
 					)}
-					<article lang={blog.attributes.locale}>
+					<article lang={blog.locale}>
 						<header className="flex flex-col">
 							<h1 className="mt-6 text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
-								{blog.attributes.title}
+								{blog.title}
 							</h1>
-							<nav
-								aria-label="Share this post"
-								className="mt-6 flex gap-3"
-							>
+							<nav aria-label="Share this post" className="mt-6 flex gap-3">
 								{shareLinks.map((link) => (
 									<a
 										key={link.name}
@@ -142,13 +148,11 @@ const BlogLayout: React.FC<BlogLayoutProps> = ({ blog }) => {
 								))}
 							</nav>
 							<time
-								dateTime={blog.attributes.publishedAt}
+								dateTime={blog.publishedAt}
 								className="order-first flex items-center text-base text-zinc-500 dark:text-zinc-500"
 							>
 								<span className="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500" />
-								<span className="ml-3">
-									{formatDate(blog.attributes.publishedAt)}
-								</span>
+								<span className="ml-3">{formatDate(blog.publishedAt)}</span>
 							</time>
 						</header>
 						<Prose className="mt-8" data-mdx-content>
@@ -157,12 +161,10 @@ const BlogLayout: React.FC<BlogLayoutProps> = ({ blog }) => {
 								<div className="relative aspect-video w-full overflow-hidden rounded-md bg-gray-900">
 									<Image
 										className="h-full w-full object-cover"
-										src={blog.attributes.seo.metaImage.data.attributes.url}
-										alt={blog.attributes.seo.metaImage.data.attributes.caption}
-										width={blog.attributes.seo.metaImage.data.attributes.width}
-										height={
-											blog.attributes.seo.metaImage.data.attributes.height
-										}
+										src={blog.seo.metaImage.url}
+										alt={blog.seo.metaImage.caption}
+										width={blog.seo.metaImage.width}
+										height={blog.seo.metaImage.height}
 										priority={true}
 										loading="eager"
 										placeholder="blur"
@@ -185,7 +187,7 @@ const BlogLayout: React.FC<BlogLayoutProps> = ({ blog }) => {
 									<div className="player-wrapper">
 										<ReactPlayer
 											className="react-player"
-											src={blog.attributes.mediaUrl}
+											src={blog.mediaUrl}
 											width="100%"
 											height="100%"
 											controls={true}
@@ -200,12 +202,10 @@ const BlogLayout: React.FC<BlogLayoutProps> = ({ blog }) => {
 								<figure className="mt-16">
 									<Image
 										className="rounded-md object-cover"
-										src={blog.attributes.seo.metaImage.data.attributes.url}
-										alt={blog.attributes.seo.metaImage.data.attributes.caption}
-										width={blog.attributes.seo.metaImage.data.attributes.width}
-										height={
-											blog.attributes.seo.metaImage.data.attributes.height
-										}
+										src={blog.seo.metaImage.url}
+										alt={blog.seo.metaImage.caption}
+										width={blog.seo.metaImage.width}
+										height={blog.seo.metaImage.height}
 										priority={true}
 										loading="eager"
 										placeholder="blur"
@@ -216,12 +216,12 @@ const BlogLayout: React.FC<BlogLayoutProps> = ({ blog }) => {
 											className="mt-0.5 h-5 w-5 flex-none text-gray-300"
 											aria-hidden="true"
 										/>
-										{blog.attributes.seo.metaImage.data.attributes.caption}
+										{blog.seo.metaImage.caption}
 									</figcaption>
 								</figure>
 							)}
 
-							<MarkdownRenderer content={blog.attributes.content} />
+							<MarkdownRenderer content={blog.content} />
 
 							{/* Buy me a coffee */}
 							<BMC />
@@ -239,7 +239,7 @@ const BlogLayout: React.FC<BlogLayoutProps> = ({ blog }) => {
 							{/* Lazy Load Comments when user scrolls to the end */}
 							{showComments && (
 								<CommentBox
-									location={`${process.env.NEXT_PUBLIC_SITE_URL}/blog/${blog.attributes.slug}`}
+									location={`${process.env.NEXT_PUBLIC_SITE_URL}/blog/${blog.slug}`}
 								/>
 							)}
 						</Prose>

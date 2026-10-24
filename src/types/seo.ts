@@ -5,7 +5,7 @@ type MetaSocial = {
 	socialNetwork: string;
 	title: string;
 	description: string;
-	image: { data: Media };
+	image: Media;
 };
 
 type Seo = {
@@ -17,7 +17,7 @@ type Seo = {
 	structuredData: string | null;
 	metaViewport: string | null;
 	canonicalURL: string | null;
-	metaImage: { data: Media };
+	metaImage: Media;
 	metaSocial: MetaSocial[];
 };
 

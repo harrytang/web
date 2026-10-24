@@ -2,14 +2,13 @@ import { fetchAPI } from "./strapi";
 
 export interface Use {
 	id: number;
-	attributes: {
-		title: string;
-		description: string;
-		category: string;
-		createdAt: string;
-		updatedAt: string;
-		publishedAt: string;
-	};
+	documentId: string;
+	title: string;
+	description: string;
+	category: string;
+	createdAt: string;
+	updatedAt: string;
+	publishedAt: string;
 }
 
 export async function getUses() {

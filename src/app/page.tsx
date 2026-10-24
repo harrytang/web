@@ -14,10 +14,10 @@ import { getProfile } from "@/lib/profile";
 
 export async function generateMetadata(): Promise<Metadata> {
 	const profile = await getProfile();
-	const seo = generateSeoMeta("", profile.data.attributes.seo, "profile", "en");
+	const seo = generateSeoMeta("", profile.data.seo, "profile", "en");
 	return {
 		...seo,
-		title: `${process.env.NEXT_PUBLIC_SITE_NAME} - ${profile.data.attributes.title}`,
+		title: `${process.env.NEXT_PUBLIC_SITE_NAME} - ${profile.data.title}`,
 	};
 }
 
@@ -36,32 +36,32 @@ const Home = async () => {
 			<Container className="mt-9">
 				<div className="max-w-2xl">
 					<h1 className="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
-						{profile.data.attributes.title}
+						{profile.data.title}
 					</h1>
 					<p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
-						{profile.data.attributes.welcome}
+						{profile.data.welcome}
 					</p>
 					<div className="mt-6 flex gap-6">
-						{profile.data.attributes.socials.map((social) => (
+						{profile.data.socials.map((social) => (
 							<Link
 								key={social.href}
 								className="group -m-1 p-1"
 								href={social.href}
 							>
 								<Image
-									src={social.icon.data.attributes.url}
-									alt={social.icon.data.attributes.caption}
+									src={social.icon.url}
+									alt={social.icon.caption}
 									className="h-6 w-6 fill-zinc-500 transition group-hover:fill-zinc-600 hover:brightness-75 dark:fill-zinc-400 dark:group-hover:fill-zinc-300 dark:hover:brightness-125"
 									unoptimized
-									width={social.icon.data.attributes.width}
-									height={social.icon.data.attributes.height}
+									width={social.icon.width}
+									height={social.icon.height}
 								/>
 							</Link>
 						))}
 					</div>
 				</div>
 			</Container>
-			<Gallery items={profile.data.attributes.photos.data} />
+			<Gallery items={profile.data.photos} />
 			<Container className="mt-24 md:mt-28">
 				<div className="mx-auto grid max-w-xl grid-cols-1 gap-y-20 lg:max-w-none lg:grid-cols-2">
 					<div className="flex flex-col gap-16">

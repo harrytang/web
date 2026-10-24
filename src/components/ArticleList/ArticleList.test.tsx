@@ -3,6 +3,7 @@ import type { Blog } from "@/lib/blogs";
 import ArticleList from "./ArticleList";
 
 const mockArticle: Blog = {
+	documentId: "blog-1",
 	slug: "test-article",
 	title: "Test Article",
 	publishedAt: "2023-06-01T00:00:00.000Z",
@@ -17,6 +18,7 @@ const mockArticle: Blog = {
 		canonicalURL: null,
 		metaImage: {
 			id: 0,
+			documentId: "media-0",
 			name: "",
 			alternativeText: "",
 			caption: "",

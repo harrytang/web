@@ -5,23 +5,18 @@ import { fetchAPI } from "./strapi";
 
 export interface Profile {
 	id: number;
-	attributes: {
-		title: string;
-		welcome: string;
-		about: string;
-		biography: string;
-		photos: {
-			data: Media[];
-		};
-		portraitPhoto: {
-			data: Media;
-		};
-		seo: Seo;
-		socials: SocialLink[];
-		createdAt: string;
-		updatedAt: string;
-		publishedAt: string;
-	};
+	documentId: string;
+	title: string;
+	welcome: string;
+	about: string;
+	biography: string;
+	photos: Media[];
+	portraitPhoto: Media;
+	seo: Seo;
+	socials: SocialLink[];
+	createdAt: string;
+	updatedAt: string;
+	publishedAt: string;
 }
 
 export async function getProfile() {

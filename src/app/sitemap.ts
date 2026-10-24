@@ -34,8 +34,8 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
 	});
 	const blogURLs = blogRes.data.map((blog) => {
 		return {
-			url: `${publicSiteUrl}/blog/${blog.attributes.slug}`,
-			lastModified: new Date(blog.attributes.updatedAt).toISOString(),
+			url: `${publicSiteUrl}/blog/${blog.slug}`,
+			lastModified: new Date(blog.updatedAt).toISOString(),
 		};
 	});
 
@@ -69,8 +69,8 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
 	});
 	const pageURLs = pageRes.data.map((page) => {
 		return {
-			url: `${publicSiteUrl}/${page.attributes.slug}`,
-			lastModified: new Date(page.attributes.updatedAt).toISOString(),
+			url: `${publicSiteUrl}/${page.slug}`,
+			lastModified: new Date(page.updatedAt).toISOString(),
 		};
 	});
 

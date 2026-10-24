@@ -17,20 +17,16 @@ const ArticleList: React.FC<ArticleListProps> = ({ article, type }) => {
 	if (type === "compact") {
 		return (
 			<Card as="article">
-				<CardTitle href={`/blog/${article.attributes.slug}`}>
-					{article.attributes.title}
-				</CardTitle>
+				<CardTitle href={`/blog/${article.slug}`}>{article.title}</CardTitle>
 				<CardEyebrow
 					className="text-zinc-500"
 					as="time"
-					dateTime={article.attributes.publishedAt}
+					dateTime={article.publishedAt}
 					decorate
 				>
-					{formatDate(article.attributes.publishedAt)}
+					{formatDate(article.publishedAt)}
 				</CardEyebrow>
-				<CardDescription>
-					{article.attributes.seo.metaDescription}
-				</CardDescription>
+				<CardDescription>{article.seo.metaDescription}</CardDescription>
 				<CardCta>Read article</CardCta>
 			</Card>
 		);
@@ -39,28 +35,24 @@ const ArticleList: React.FC<ArticleListProps> = ({ article, type }) => {
 		return (
 			<article className="md:grid md:grid-cols-4 md:items-baseline">
 				<Card className="md:col-span-3">
-					<CardTitle href={`/blog/${article.attributes.slug}`}>
-						{article.attributes.title}
-					</CardTitle>
+					<CardTitle href={`/blog/${article.slug}`}>{article.title}</CardTitle>
 					<CardEyebrow
 						as="time"
-						dateTime={article.attributes.publishedAt}
+						dateTime={article.publishedAt}
 						className="text-zinc-500 md:hidden"
 						decorate
 					>
-						{formatDate(article.attributes.publishedAt)}
+						{formatDate(article.publishedAt)}
 					</CardEyebrow>
-					<CardDescription>
-						{article.attributes.seo.metaDescription}
-					</CardDescription>
+					<CardDescription>{article.seo.metaDescription}</CardDescription>
 					<CardCta>Read article</CardCta>
 				</Card>
 				<CardEyebrow
 					as="time"
-					dateTime={article.attributes.publishedAt}
+					dateTime={article.publishedAt}
 					className="mt-1 hidden text-zinc-500 md:block"
 				>
-					{formatDate(article.attributes.publishedAt)}
+					{formatDate(article.publishedAt)}
 				</CardEyebrow>
 			</article>
 		);

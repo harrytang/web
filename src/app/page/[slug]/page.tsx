@@ -28,12 +28,7 @@ export async function generateMetadata({ params }: PageProps) {
 	console.info(`Rendering /page/${slug}`);
 	const page = await getPage(slug);
 	if (page && !IGNORED.includes(slug)) {
-		return generateSeoMeta(
-			`${slug}`,
-			page.attributes.seo,
-			"website",
-			page.attributes.locale,
-		);
+		return generateSeoMeta(`${slug}`, page.seo, "website", page.locale);
 	}
 }
 
@@ -45,15 +40,12 @@ const Page: React.FC<PageProps> = async ({ params }) => {
 	}
 
 	const jsonld = generateWebPageJsonLd({
-		name: page.attributes.title,
-		description: page.attributes.seo.metaDescription,
+		name: page.title,
+		description: page.seo.metaDescription,
 	});
 
 	return (
-		<SimpleLayout
-			subtitle={page.attributes.subtitle}
-			content={page.attributes.content}
-		>
+		<SimpleLayout subtitle={page.subtitle} content={page.content}>
 			<script type="application/ld+json">{JSON.stringify(jsonld)}</script>
 		</SimpleLayout>
 	);

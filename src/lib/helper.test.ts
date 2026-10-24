@@ -112,6 +112,7 @@ const usesJson = {
 			updatedAt: "2024-07-13T15:11:22.000Z",
 			publishedAt: "2024-04-01T15:50:14.274Z",
 			id: 9,
+			documentId: "use-9",
 		},
 		{
 			title: "DataGrip",
@@ -122,6 +123,7 @@ const usesJson = {
 			updatedAt: "2024-07-13T15:22:19.872Z",
 			publishedAt: "2024-04-01T15:52:14.963Z",
 			id: 10,
+			documentId: "use-10",
 		},
 	],
 };
@@ -510,6 +512,7 @@ describe("categorizeItems", () => {
 					updatedAt: "2024-07-13T15:11:22.000Z",
 					publishedAt: "2024-04-01T15:50:14.274Z",
 					id: 9,
+					documentId: "use-9",
 				},
 			],
 			Development: [
@@ -522,6 +525,7 @@ describe("categorizeItems", () => {
 					updatedAt: "2024-07-13T15:22:19.872Z",
 					publishedAt: "2024-04-01T15:52:14.963Z",
 					id: 10,
+					documentId: "use-10",
 				},
 			],
 		});

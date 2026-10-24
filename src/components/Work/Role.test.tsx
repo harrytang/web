@@ -31,6 +31,7 @@ jest.mock("next/link", () => ({
 
 const mockRole: Work = {
 	id: 1,
+	documentId: "work-1",
 	title: "Senior Developer",
 	company: "Tech Corp",
 	place: "San Francisco",
@@ -42,6 +43,7 @@ const mockRole: Work = {
 	},
 	logo: {
 		id: 1,
+		documentId: "media-1",
 		url: "https://example.com/logo.png",
 		caption: "Company Logo",
 		width: 100,

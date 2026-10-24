@@ -44,6 +44,7 @@ jest.mock("clsx", () => {
 
 const mockIcon: Media = {
 	id: 1,
+	documentId: "media-1",
 	name: "Twitter Icon",
 	caption: "Twitter",
 	url: "https://example.com/twitter-icon.svg",
