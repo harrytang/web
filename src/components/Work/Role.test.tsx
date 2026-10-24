@@ -31,39 +31,33 @@ jest.mock("next/link", () => ({
 
 const mockRole: Work = {
 	id: 1,
-	attributes: {
-		title: "Senior Developer",
-		company: "Tech Corp",
-		place: "San Francisco",
-		start: "2020-01-01",
-		end: "2023-12-31",
-		url: {
-			href: "https://example.com/company",
-			label: "Tech Corp",
-		},
-		logo: {
-			data: {
-				id: 1,
-				attributes: {
-					url: "https://example.com/logo.png",
-					caption: "Company Logo",
-					width: 100,
-					height: 100,
-					name: "logo",
-					mime: "image/png",
-					size: 1000,
-					previewUrl: null,
-					alternativeText: "Logo",
-					formats: {},
-					hash: "abc123",
-					ext: ".png",
-					provider: "local",
-					provider_metadata: null,
-					createdAt: "2024-01-01",
-					updatedAt: "2024-01-01",
-				},
-			},
-		},
+	title: "Senior Developer",
+	company: "Tech Corp",
+	place: "San Francisco",
+	start: "2020-01-01",
+	end: "2023-12-31",
+	url: {
+		href: "https://example.com/company",
+		label: "Tech Corp",
+	},
+	logo: {
+		id: 1,
+		url: "https://example.com/logo.png",
+		caption: "Company Logo",
+		width: 100,
+		height: 100,
+		name: "logo",
+		mime: "image/png",
+		size: 1000,
+		previewUrl: null,
+		alternativeText: "Logo",
+		formats: {},
+		hash: "abc123",
+		ext: ".png",
+		provider: "local",
+		provider_metadata: null,
+		createdAt: "2024-01-01",
+		updatedAt: "2024-01-01",
 	},
 };
 
@@ -96,12 +90,10 @@ describe("Role", () => {
 	it("uses Next link behavior for internal urls", async () => {
 		const roleWithInternalUrl: Work = {
 			...mockRole,
-			attributes: {
-				...mockRole.attributes,
-				url: {
-					href: "/projects",
-					label: "Tech Corp",
-				},
+			...mockRole,
+			url: {
+				href: "/projects",
+				label: "Tech Corp",
 			},
 		};
 
@@ -115,12 +107,10 @@ describe("Role", () => {
 	it("falls back to company name when url label is empty", async () => {
 		const roleWithEmptyLabel: Work = {
 			...mockRole,
-			attributes: {
-				...mockRole.attributes,
-				url: {
-					href: "https://example.com/fallback",
-					label: "",
-				},
+			...mockRole,
+			url: {
+				href: "https://example.com/fallback",
+				label: "",
 			},
 		};
 
@@ -132,10 +122,8 @@ describe("Role", () => {
 	it("renders plain company text when work url is not provided", async () => {
 		const roleWithoutUrl: Work = {
 			...mockRole,
-			attributes: {
-				...mockRole.attributes,
-				url: null,
-			},
+			...mockRole,
+			url: null,
 		};
 
 		const body = await mount(roleWithoutUrl);
@@ -146,10 +134,8 @@ describe("Role", () => {
 	it("renders plain company text when work url is undefined", async () => {
 		const roleWithoutUrlProperty: Work = {
 			...mockRole,
-			attributes: {
-				...mockRole.attributes,
-				url: undefined,
-			},
+			...mockRole,
+			url: undefined,
 		};
 
 		const body = await mount(roleWithoutUrlProperty);
@@ -173,10 +159,8 @@ describe("Role", () => {
 	it("renders Present when end date is not provided", async () => {
 		const roleWithoutEnd: Work = {
 			...mockRole,
-			attributes: {
-				...mockRole.attributes,
-				end: null,
-			},
+			...mockRole,
+			end: null,
 		};
 
 		const body = await mount(roleWithoutEnd);

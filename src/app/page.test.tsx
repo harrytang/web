@@ -81,29 +81,21 @@ describe("home page", () => {
 	beforeEach(() => {
 		(getProfile as jest.Mock).mockResolvedValue({
 			data: {
-				attributes: {
-					title: "Software Builder",
-					welcome: "Welcome to my website",
-					seo: { metaDescription: "Profile SEO description" },
-					socials: [
-						{
-							href: "https://github.com/example",
-							icon: {
-								data: {
-									attributes: {
-										url: "https://cdn.example/icon-github.svg",
-										caption: "GitHub",
-										width: 24,
-										height: 24,
-									},
-								},
-							},
+				title: "Software Builder",
+				welcome: "Welcome to my website",
+				seo: { metaDescription: "Profile SEO description" },
+				socials: [
+					{
+						href: "https://github.com/example",
+						icon: {
+							url: "https://cdn.example/icon-github.svg",
+							caption: "GitHub",
+							width: 24,
+							height: 24,
 						},
-					],
-					photos: {
-						data: [{ id: 1 }, { id: 2 }],
 					},
-				},
+				],
+				photos: [{ id: 1 }, { id: 2 }],
 			},
 		});
 

@@ -43,15 +43,13 @@ describe("generic page route", () => {
 
 		(getPageSlugs as jest.Mock).mockResolvedValue(["about", "gear", "uses"]);
 		(getPage as jest.Mock).mockResolvedValue({
-			attributes: {
-				title: "Uses",
-				subtitle: "Default setup",
-				content: "A plain content page.",
-				locale: "en",
-				seo: {
-					metaTitle: "Uses SEO",
-					metaDescription: "Uses page description",
-				},
+			title: "Uses",
+			subtitle: "Default setup",
+			content: "A plain content page.",
+			locale: "en",
+			seo: {
+				metaTitle: "Uses SEO",
+				metaDescription: "Uses page description",
 			},
 		});
 		(generateSeoMeta as jest.Mock).mockReturnValue({

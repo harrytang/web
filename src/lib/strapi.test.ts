@@ -43,7 +43,7 @@ const fakeStrapi = (rowsByLocale: Record<string, SlugRow[]>, maxLimit = 100) =>
 			json: async () => ({
 				data: rows
 					.slice(start, start + limit)
-					.map((attributes, i) => ({ id: start + i + 1, attributes })),
+					.map((row, i) => ({ id: start + i + 1, ...row })),
 				meta: { pagination: { start, limit, total: rows.length } },
 			}),
 		};
@@ -98,7 +98,6 @@ describe("strapi", () => {
 			expect.objectContaining({
 				headers: {
 					"Content-Type": "application/json",
-					"Strapi-Response-Format": "v4",
 				},
 				cache: "force-cache",
 			}),
@@ -182,13 +181,13 @@ describe("strapi", () => {
 	it("fetchEntries keeps paging when Strapi caps the page size", async () => {
 		useFakeStrapi({ en: slugRows("a", "b", "c", "d", "e") }, 2);
 
-		const result = await fetchEntries<{ attributes: SlugRow }>(
+		const result = await fetchEntries<SlugRow>(
 			"/blogs",
 			{ locale: "en" },
 			{ pageSize: 5 },
 		);
 
-		expect(result.entries.map((entry) => entry.attributes.slug)).toEqual([
+		expect(result.entries.map((entry) => entry.slug)).toEqual([
 			"a",
 			"b",
 			"c",
@@ -201,17 +200,13 @@ describe("strapi", () => {
 	it("fetchEntries stops once it has count entries", async () => {
 		const fake = useFakeStrapi({ en: slugRows("a", "b", "c", "d", "e") });
 
-		const result = await fetchEntries<{ attributes: SlugRow }>(
+		const result = await fetchEntries<SlugRow>(
 			"/blogs",
 			{ locale: "en" },
 			{ pageSize: 3, count: 3 },
 		);
 
-		expect(result.entries.map((entry) => entry.attributes.slug)).toEqual([
-			"a",
-			"b",
-			"c",
-		]);
+		expect(result.entries.map((entry) => entry.slug)).toEqual(["a", "b", "c"]);
 		expect(result.total).toBe(5);
 		expect(fake).toHaveBeenCalledTimes(1);
 	});

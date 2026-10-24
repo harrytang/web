@@ -9,8 +9,8 @@ jest.mock("next/navigation", () => ({
 }));
 
 jest.mock("@/components/BlogLayout", () => ({
-	BlogLayout: ({ blog }: { blog: { attributes: { title: string } } }) => (
-		<article data-testid="blog-layout">{blog.attributes.title}</article>
+	BlogLayout: ({ blog }: { blog: { title: string } }) => (
+		<article data-testid="blog-layout">{blog.title}</article>
 	),
 }));
 
@@ -34,13 +34,11 @@ describe("blog page", () => {
 		]);
 		(getBlog as jest.Mock).mockResolvedValue({
 			id: 10,
-			attributes: {
-				title: "First Post",
-				locale: "en",
-				seo: {
-					metaTitle: "First Post SEO",
-					metaDescription: "A detailed article",
-				},
+			title: "First Post",
+			locale: "en",
+			seo: {
+				metaTitle: "First Post SEO",
+				metaDescription: "A detailed article",
 			},
 		});
 		(generateSeoMeta as jest.Mock).mockReturnValue({
@@ -103,7 +101,7 @@ describe("blog page", () => {
 		expect(screen.getByTestId("blog-layout")).toHaveTextContent("First Post");
 		expect(generateArticleJsonLd).toHaveBeenCalledWith(
 			expect.objectContaining({
-				attributes: expect.objectContaining({ title: "First Post" }),
+				title: "First Post",
 			}),
 		);
 

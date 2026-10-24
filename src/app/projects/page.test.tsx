@@ -74,56 +74,42 @@ describe("projects page", () => {
 		jest.clearAllMocks();
 
 		(getPage as jest.Mock).mockResolvedValue({
-			attributes: {
-				title: "Projects",
-				subtitle: "Things I have built",
-				content: "Selected product and engineering work.",
-				locale: "en",
-				seo: {
-					metaTitle: "Projects SEO",
-					metaDescription: "Projects page description",
-				},
+			title: "Projects",
+			subtitle: "Things I have built",
+			content: "Selected product and engineering work.",
+			locale: "en",
+			seo: {
+				metaTitle: "Projects SEO",
+				metaDescription: "Projects page description",
 			},
 		});
 
 		(getProjects as jest.Mock).mockResolvedValue({
 			data: [
 				{
-					attributes: {
-						name: "Project Atlas",
-						description: "A data-heavy internal platform.",
-						icon: {
-							data: {
-								attributes: {
-									url: "https://cdn.example.com/atlas.png",
-									width: 32,
-									height: 32,
-								},
-							},
-						},
-						link: {
-							href: "https://example.com/atlas",
-							label: "example.com/atlas",
-						},
+					name: "Project Atlas",
+					description: "A data-heavy internal platform.",
+					icon: {
+						url: "https://cdn.example.com/atlas.png",
+						width: 32,
+						height: 32,
+					},
+					link: {
+						href: "https://example.com/atlas",
+						label: "example.com/atlas",
 					},
 				},
 				{
-					attributes: {
-						name: "Project Beacon",
-						description: "An analytics and observability suite.",
-						icon: {
-							data: {
-								attributes: {
-									url: "https://cdn.example.com/beacon.png",
-									width: 32,
-									height: 32,
-								},
-							},
-						},
-						link: {
-							href: "https://example.com/beacon",
-							label: "example.com/beacon",
-						},
+					name: "Project Beacon",
+					description: "An analytics and observability suite.",
+					icon: {
+						url: "https://cdn.example.com/beacon.png",
+						width: 32,
+						height: 32,
+					},
+					link: {
+						href: "https://example.com/beacon",
+						label: "example.com/beacon",
 					},
 				},
 			],

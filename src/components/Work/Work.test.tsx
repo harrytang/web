@@ -8,42 +8,30 @@ jest.mock("@/lib/works", () => ({
 			data: [
 				{
 					id: 1,
-					attributes: {
-						title: "Senior Developer",
-						company: "Tech Corp",
-						place: "San Francisco",
-						start: "2020-01-01",
-						end: "2023-12-31",
-						logo: {
-							data: {
-								attributes: {
-									url: "https://example.com/logo1.png",
-									caption: "Tech Corp Logo",
-									width: 100,
-									height: 100,
-								},
-							},
-						},
+					title: "Senior Developer",
+					company: "Tech Corp",
+					place: "San Francisco",
+					start: "2020-01-01",
+					end: "2023-12-31",
+					logo: {
+						url: "https://example.com/logo1.png",
+						caption: "Tech Corp Logo",
+						width: 100,
+						height: 100,
 					},
 				},
 				{
 					id: 2,
-					attributes: {
-						title: "Developer",
-						company: "Start Up Inc",
-						place: "New York",
-						start: "2018-06-01",
-						end: "2019-12-31",
-						logo: {
-							data: {
-								attributes: {
-									url: "https://example.com/logo2.png",
-									caption: "Start Up Logo",
-									width: 100,
-									height: 100,
-								},
-							},
-						},
+					title: "Developer",
+					company: "Start Up Inc",
+					place: "New York",
+					start: "2018-06-01",
+					end: "2019-12-31",
+					logo: {
+						url: "https://example.com/logo2.png",
+						caption: "Start Up Logo",
+						width: 100,
+						height: 100,
 					},
 				},
 			],
@@ -57,7 +45,7 @@ jest.mock("@heroicons/react/20/solid", () => ({
 
 jest.mock("./Role", () => {
 	return function MockRole({ role }: { role: WorkType }) {
-		return <li data-testid={`role-${role.id}`}>{role.attributes.title}</li>;
+		return <li data-testid={`role-${role.id}`}>{role.title}</li>;
 	};
 });
 

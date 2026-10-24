@@ -20,7 +20,8 @@ const mockedGetLocales = jest.mocked(getLocales);
 
 const blog = (slug: string, publishedAt: string) => ({
 	id: 1,
-	attributes: { slug, publishedAt },
+	slug,
+	publishedAt,
 });
 
 // newest first within each locale, as Strapi returns them for sort=publishedAt:desc
@@ -86,10 +87,7 @@ describe("blogs", () => {
 	it("getBlogs merges every locale, newest first", async () => {
 		const result = await getBlogs(0, 2);
 
-		expect(result.data.map((post) => post.attributes.slug)).toEqual([
-			"e1",
-			"v1",
-		]);
+		expect(result.data.map((post) => post.slug)).toEqual(["e1", "v1"]);
 		expect(result.meta.pagination).toEqual({ start: 0, limit: 2, total: 3 });
 		expect(mockedFetchEntries).toHaveBeenCalledWith(
 			"/blogs",
@@ -104,7 +102,7 @@ describe("blogs", () => {
 	it("getBlogs paginates over the merged list", async () => {
 		const result = await getBlogs(2, 2);
 
-		expect(result.data.map((post) => post.attributes.slug)).toEqual(["e2"]);
+		expect(result.data.map((post) => post.slug)).toEqual(["e2"]);
 		expect(result.meta.pagination).toEqual({ start: 2, limit: 2, total: 3 });
 		expect(mockedFetchEntries).toHaveBeenCalledWith(
 			"/blogs",

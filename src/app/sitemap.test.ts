@@ -28,20 +28,16 @@ describe("sitemap route", () => {
 			.mockResolvedValueOnce({
 				data: [
 					{
-						attributes: {
-							slug: "first-blog",
-							updatedAt: "2026-01-05T00:00:00.000Z",
-						},
+						slug: "first-blog",
+						updatedAt: "2026-01-05T00:00:00.000Z",
 					},
 				],
 			})
 			.mockResolvedValueOnce({
 				data: [
 					{
-						attributes: {
-							slug: "projects",
-							updatedAt: "2026-02-05T00:00:00.000Z",
-						},
+						slug: "projects",
+						updatedAt: "2026-02-05T00:00:00.000Z",
 					},
 				],
 			});
