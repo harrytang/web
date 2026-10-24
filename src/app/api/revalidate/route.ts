@@ -120,11 +120,21 @@ export async function POST(req: NextRequest) {
 	if (authResult) return authResult;
 
 	const { event, model, entry }: Webhook = await req.json();
-	const published = track.events.includes(event) && Boolean(entry.publishedAt);
+	// Strapi 5 re-reads the entry after commit; through a lagging Galera replica that read
+	// can miss a just-published row, so the event happened but entry is null
+	if (!entry && event === "entry.publish") {
+		console.warn(
+			`Webhook ${event} for ${model} has no entry; revalidating static paths only`,
+		);
+	}
+	const payload = entry ?? {};
+	const published =
+		event === "entry.publish" ||
+		(track.events.includes(event) && Boolean(payload.publishedAt));
 
 	if (published || track.removalEvents.includes(event)) {
-		revalidate(model, entry);
-		if (published) await algoliaPush(model, entry);
+		revalidate(model, payload);
+		if (published) await algoliaPush(model, payload);
 		await purgeCFCache();
 	}
 
