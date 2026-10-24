@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.30.0](https://github.com/harrytang/web/compare/v1.29.1...v1.30.0) (2026-10-24)
+
+
+### Features
+
+* read native Strapi 5 responses and drop the v4 compatibility header ([9fbd9fa](https://github.com/harrytang/web/commit/9fbd9fa0c049fdb3872f18887c32534fa00d3f18))
+
 ### [1.29.1](https://github.com/harrytang/web/compare/v1.29.0...v1.29.1) (2026-10-24)
 
 
