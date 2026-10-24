@@ -12,10 +12,10 @@ test("should open the About page", async ({ page }) => {
 	await page.goto("/");
 
 	// Check that the title is correct
-	await expect(page.locator("h1")).toContainText(data.attributes.title);
+	await expect(page.locator("h1")).toContainText(data.title);
 
 	// check the social links are displayed
-	for (const social of data.attributes.socials) {
+	for (const social of data.socials) {
 		expect(page.locator(`a[href="${social.href}"]`)).toBeDefined();
 	}
 });

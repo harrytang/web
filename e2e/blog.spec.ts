@@ -10,9 +10,9 @@ test.describe("Blog pages", () => {
 		expect(blogs.length).toBeGreaterThan(0);
 		const blog = blogs[0];
 
-		await page.goto(`/blog/${blog.attributes.slug}`);
+		await page.goto(`/blog/${blog.slug}`);
 
-		await expect(page.locator("h1")).toContainText(blog.attributes.title);
+		await expect(page.locator("h1")).toContainText(blog.title);
 		await expect(page.locator("article[lang]")).toBeVisible();
 	});
 

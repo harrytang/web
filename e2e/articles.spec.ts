@@ -18,12 +18,10 @@ test("should open the Articles page", async ({ page }) => {
 	await page.goto(`/articles/1`);
 
 	// Check that the subtitle is correct
-	await expect(page.locator("h1")).toContainText(pages[0].attributes.subtitle);
+	await expect(page.locator("h1")).toContainText(pages[0].subtitle);
 
 	// Check that the blogs are displayed
 	for (const blog of blogs) {
-		await expect(
-			page.locator(`h2:has-text("${blog.attributes.title}")`),
-		).toBeVisible();
+		await expect(page.locator(`h2:has-text("${blog.title}")`)).toBeVisible();
 	}
 });

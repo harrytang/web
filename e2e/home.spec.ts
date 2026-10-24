@@ -20,24 +20,20 @@ test("should open the Home page", async ({ page }) => {
 	await page.goto("/");
 
 	// Check that the title is correct
-	await expect(page.locator("h1")).toContainText(data.attributes.title);
+	await expect(page.locator("h1")).toContainText(data.title);
 
 	// check the social links are displayed
-	for (const social of data.attributes.socials) {
+	for (const social of data.socials) {
 		expect(page.locator(`a[href="${social.href}"]`)).toBeDefined();
 	}
 
 	// check that the photos are displayed
-	for (const photo of data.attributes.photos.data) {
-		expect(
-			page.locator(`img[alt="${photo.attributes.caption}"]`),
-		).toBeDefined();
+	for (const photo of data.photos) {
+		expect(page.locator(`img[alt="${photo.caption}"]`)).toBeDefined();
 	}
 
 	// Check that the blogs are displayed
 	for (const blog of blogs) {
-		await expect(
-			page.locator(`h2:has-text("${blog.attributes.title}")`),
-		).toBeVisible();
+		await expect(page.locator(`h2:has-text("${blog.title}")`)).toBeVisible();
 	}
 });

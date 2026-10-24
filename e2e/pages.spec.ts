@@ -21,6 +21,6 @@ slugs.forEach((slug) => {
 		await page.goto(`/${slug}`);
 
 		// Check that the subtitle is correct
-		await expect(page.locator("h1")).toContainText(data[0].attributes.subtitle);
+		await expect(page.locator("h1")).toContainText(data[0].subtitle);
 	});
 });

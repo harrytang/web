@@ -1,12 +1,8 @@
 import { type APIRequestContext, request } from "@playwright/test";
 import type { Blog } from "@/lib/blogs";
 
-// Same request shape as the web app, so Strapi 5 answers in the v4 format too
 const newStrapiContext = () =>
-	request.newContext({
-		baseURL: process.env.NEXT_PUBLIC_STRAPI_API_URL,
-		extraHTTPHeaders: { "Strapi-Response-Format": "v4" },
-	});
+	request.newContext({ baseURL: process.env.NEXT_PUBLIC_STRAPI_API_URL });
 
 // Strapi 5 has no locale=all: merge the newest posts of every locale
 const getLatestBlogs = async (reqCtx: APIRequestContext, limit: number) => {
@@ -23,11 +19,7 @@ const getLatestBlogs = async (reqCtx: APIRequestContext, limit: number) => {
 
 	return blogsByLocale
 		.flat()
-		.sort(
-			(a, b) =>
-				Date.parse(b.attributes.publishedAt) -
-				Date.parse(a.attributes.publishedAt),
-		)
+		.sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt))
 		.slice(0, limit);
 };
 
