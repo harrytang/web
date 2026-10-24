@@ -378,7 +378,10 @@ describe("api revalidate route", () => {
 			await POST(req);
 
 			expect(revalidateTag).not.toHaveBeenCalled();
-			expect(revalidatePath).toHaveBeenCalledWith("/articles/[current]", "page");
+			expect(revalidatePath).toHaveBeenCalledWith(
+				"/articles/[current]",
+				"page",
+			);
 			expect(algoliasearch).not.toHaveBeenCalled();
 			expect(fetchMock).toHaveBeenCalledTimes(1);
 		});
