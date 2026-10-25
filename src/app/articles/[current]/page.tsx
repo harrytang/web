@@ -13,12 +13,12 @@ export async function generateMetadata({ params }: ArticlesIndexProps) {
 	const page = await getPage("articles");
 	const { current } = await params;
 	const seo = {
-		...page.attributes.seo,
-		metaTitle: `${page.attributes.seo.metaTitle} - Page ${current}`,
-		metaDescription: `${page.attributes.seo.metaDescription} (Page ${current})`,
+		...page.seo,
+		metaTitle: `${page.seo.metaTitle} - Page ${current}`,
+		metaDescription: `${page.seo.metaDescription} (Page ${current})`,
 	};
 	const path = current === "1" ? "articles" : `articles/${current}`;
-	return generateSeoMeta(path, seo, "website", page.attributes.locale);
+	return generateSeoMeta(path, seo, "website", page.locale);
 }
 
 export async function generateStaticParams(): Promise<{ current: string }[]> {
@@ -42,8 +42,8 @@ const ArticlesIndex = async ({ params }: ArticlesIndexProps) => {
 	// article page
 	const articlePage = await getPage("articles");
 	const pageJsonld = generateWebPageJsonLd({
-		name: articlePage.attributes.title,
-		description: articlePage.attributes.seo.metaDescription,
+		name: articlePage.title,
+		description: articlePage.seo.metaDescription,
 	});
 
 	// blogs & pagination
@@ -58,8 +58,8 @@ const ArticlesIndex = async ({ params }: ArticlesIndexProps) => {
 	return (
 		<div id="blogs">
 			<SimpleLayout
-				subtitle={articlePage.attributes.subtitle}
-				content={articlePage.attributes.content}
+				subtitle={articlePage.subtitle}
+				content={articlePage.content}
 				seachBox={true}
 			>
 				<div className="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40">

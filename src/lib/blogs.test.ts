@@ -9,68 +9,91 @@ jest.mock("./strapi", () => ({
 const mockedFetchAPI = jest.mocked(fetchAPI);
 const mockedGetAllEntitySlugs = jest.mocked(getAllEntitySlugs);
 
+const blog = (slug: string, publishedAt: string) => ({
+	id: 1,
+	slug,
+	publishedAt,
+});
+
+const strapiPage = (
+	data: ReturnType<typeof blog>[],
+	start: number,
+	limit: number,
+	total: number,
+) => ({ data, meta: { pagination: { start, limit, total } } });
+
 describe("blogs", () => {
 	beforeEach(() => {
 		jest.clearAllMocks();
+		mockedFetchAPI.mockResolvedValue(strapiPage([], 0, 25, 0) as never);
 	});
 
-	it("getBlog requests by slug and returns first blog", async () => {
-		mockedFetchAPI.mockResolvedValue({
-			data: [{ id: 1, attributes: { slug: "hello" } }],
-			meta: { pagination: { start: 0, limit: 1, total: 1 } },
-		} as never);
+	it("getBlog looks the slug up across every locale in one request", async () => {
+		const post = blog("xin-chao", "2026-02-01T00:00:00.000Z");
+		mockedFetchAPI.mockResolvedValue(strapiPage([post], 0, 25, 1) as never);
 
-		const result = await getBlog("hello");
+		const result = await getBlog("xin-chao");
 
+		expect(mockedFetchAPI).toHaveBeenCalledTimes(1);
 		expect(mockedFetchAPI).toHaveBeenCalledWith(
 			"/blogs",
 			expect.objectContaining({
-				filters: { slug: "hello" },
-				locale: "all",
+				filters: { slug: "xin-chao" },
+				locale: "*",
 			}),
-			{ next: { tags: ["blog-hello"] } },
+			{ next: { tags: ["blog-xin-chao"] } },
 		);
-		expect(result).toEqual({ id: 1, attributes: { slug: "hello" } });
+		expect(result).toEqual(post);
 	});
 
-	it("getBlogs uses default pagination fallback values", async () => {
+	it("getBlog returns undefined when no locale has the slug", async () => {
+		const result = await getBlog("missing");
+
+		expect(mockedFetchAPI).toHaveBeenCalledTimes(1);
+		expect(result).toBeUndefined();
+	});
+
+	it("getBlogs asks Strapi for one page of every locale, newest first", async () => {
+		const page = strapiPage(
+			[
+				blog("e1", "2026-03-01T00:00:00.000Z"),
+				blog("v1", "2026-02-01T00:00:00.000Z"),
+			],
+			0,
+			2,
+			3,
+		);
+		mockedFetchAPI.mockResolvedValue(page as never);
+
+		const result = await getBlogs(0, 2);
+
+		expect(mockedFetchAPI).toHaveBeenCalledTimes(1);
+		expect(mockedFetchAPI).toHaveBeenCalledWith("/blogs", {
+			populate: ["seo", "seo.metaImage"],
+			sort: "publishedAt:desc",
+			locale: "*",
+			pagination: { start: 0, limit: 2 },
+		});
+		expect(result).toEqual(page);
+	});
+
+	it("getBlogs lets Strapi skip to a later page", async () => {
+		await getBlogs(20, 10);
+
+		expect(mockedFetchAPI).toHaveBeenCalledWith(
+			"/blogs",
+			expect.objectContaining({ pagination: { start: 20, limit: 10 } }),
+		);
+	});
+
+	it("getBlogs defaults to the first NEXT_PUBLIC_PAGE_SIZE posts", async () => {
 		process.env.NEXT_PUBLIC_PAGE_SIZE = "12";
-		mockedFetchAPI.mockResolvedValue({
-			data: [],
-			meta: { pagination: { start: 0, limit: 12, total: 0 } },
-		} as never);
 
 		await getBlogs();
 
 		expect(mockedFetchAPI).toHaveBeenCalledWith(
 			"/blogs",
-			expect.objectContaining({
-				sort: "publishedAt:desc",
-				locale: "all",
-				pagination: {
-					limit: "12",
-					start: 0,
-				},
-			}),
-		);
-	});
-
-	it("getBlogs respects provided start and limit", async () => {
-		mockedFetchAPI.mockResolvedValue({
-			data: [],
-			meta: { pagination: { start: 5, limit: 3, total: 0 } },
-		} as never);
-
-		await getBlogs(5, 3);
-
-		expect(mockedFetchAPI).toHaveBeenCalledWith(
-			"/blogs",
-			expect.objectContaining({
-				pagination: {
-					limit: 3,
-					start: 5,
-				},
-			}),
+			expect.objectContaining({ pagination: { start: 0, limit: 12 } }),
 		);
 	});
 

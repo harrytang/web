@@ -3,19 +3,16 @@ import { fetchAPI } from "./strapi";
 
 export interface Project {
 	id: number;
-	attributes: {
-		name: string;
-		description: string;
-		createdAt: string;
-		updatedAt: string;
-		publishedAt: string;
-		icon: {
-			data: Media;
-		};
-		link: {
-			href: string;
-			label: string;
-		};
+	documentId: string;
+	name: string;
+	description: string;
+	createdAt: string;
+	updatedAt: string;
+	publishedAt: string;
+	icon: Media;
+	link: {
+		href: string;
+		label: string;
 	};
 }
 

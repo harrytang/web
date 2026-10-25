@@ -96,14 +96,14 @@ const Gallery: React.FC<GalleryProps> = ({ items }) => {
 								)}
 							>
 								<Image
-									src={image.attributes.url}
-									alt={image.attributes.caption}
+									src={image.url}
+									alt={image.caption}
 									sizes="(min-width: 640px) 18rem, 11rem"
 									className={clsx(
 										"absolute inset-0 h-full w-full object-cover",
 									)}
-									width={image.attributes.width}
-									height={image.attributes.height}
+									width={image.width}
+									height={image.height}
 									priority={middleIdx === originalIdx}
 									placeholder="blur"
 									blurDataURL={BLUR_IMAGE}

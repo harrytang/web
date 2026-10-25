@@ -28,20 +28,16 @@ describe("sitemap route", () => {
 			.mockResolvedValueOnce({
 				data: [
 					{
-						attributes: {
-							slug: "first-blog",
-							updatedAt: "2026-01-05T00:00:00.000Z",
-						},
+						slug: "first-blog",
+						updatedAt: "2026-01-05T00:00:00.000Z",
 					},
 				],
 			})
 			.mockResolvedValueOnce({
 				data: [
 					{
-						attributes: {
-							slug: "projects",
-							updatedAt: "2026-02-05T00:00:00.000Z",
-						},
+						slug: "projects",
+						updatedAt: "2026-02-05T00:00:00.000Z",
 					},
 				],
 			});
@@ -75,6 +71,16 @@ describe("sitemap route", () => {
 		);
 		// 2 static pages + 1 blog + 1 project + totalPages article pages
 		expect(result).toHaveLength(2 + 1 + 1 + totalPages);
+	});
+
+	it("lists blog posts from every locale, since /blog/[slug] serves them all", async () => {
+		await sitemap();
+
+		expect(fetchAPI).toHaveBeenNthCalledWith(
+			1,
+			"/blogs",
+			expect.objectContaining({ locale: "*" }),
+		);
 	});
 
 	it("uses default sitemap size when SITEMAP_SIZE is not set", async () => {

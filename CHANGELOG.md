@@ -2,6 +2,53 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.30.2](https://github.com/harrytang/web/compare/v1.30.1...v1.30.2) (2026-10-25)
+
+
+### Bug Fixes
+
+* **deps:** update algolia-instantsearch monorepo ([#553](https://github.com/harrytang/web/issues/553)) ([ea8062b](https://github.com/harrytang/web/commit/ea8062bdd6c774b1f674e7057777f02e8ced7e51))
+* **deps:** update dependency algoliasearch to v5.60.0 ([#543](https://github.com/harrytang/web/issues/543)) ([610655e](https://github.com/harrytang/web/commit/610655ef3de65e804907fa4151adaad2c2755b3b))
+* **deps:** update dependency next to v16.4.1 [security] ([#545](https://github.com/harrytang/web/issues/545)) ([1817ff3](https://github.com/harrytang/web/commit/1817ff3521f5ba374d697f322e4fa4fdcc35c339))
+* **deps:** update dependency typescript to v7 ([#511](https://github.com/harrytang/web/issues/511)) ([74ca2ad](https://github.com/harrytang/web/commit/74ca2adcb88667ef62753101c7d6dc141c7871d3)), closes [#545](https://github.com/harrytang/web/issues/545)
+* **deps:** update react monorepo ([#544](https://github.com/harrytang/web/issues/544)) ([51fc0e9](https://github.com/harrytang/web/commit/51fc0e983ad2e2a2d5b072ca3ec541eadb44fabb))
+
+### [1.30.1](https://github.com/harrytang/web/compare/v1.30.0...v1.30.1) (2026-10-25)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sharp to v0.35.5 [security] ([#555](https://github.com/harrytang/web/issues/555)) ([10e57ac](https://github.com/harrytang/web/commit/10e57ac9e67732d1721c2e54aecb904f23c27e72))
+* read every locale with locale=* and drop unpublished posts from Algolia ([3df567c](https://github.com/harrytang/web/commit/3df567cd3c2d3e10a6a44cfc7726e814603ba4ed))
+
+## [1.30.0](https://github.com/harrytang/web/compare/v1.29.1...v1.30.0) (2026-10-24)
+
+
+### Features
+
+* read native Strapi 5 responses and drop the v4 compatibility header ([9fbd9fa](https://github.com/harrytang/web/commit/9fbd9fa0c049fdb3872f18887c32534fa00d3f18))
+
+### [1.29.1](https://github.com/harrytang/web/compare/v1.29.0...v1.29.1) (2026-10-24)
+
+
+### Bug Fixes
+
+* revalidate on entry.publish even when Strapi sends entry null ([b58b277](https://github.com/harrytang/web/commit/b58b2778970fcbf9855a29dc190011f3e8da4d57))
+
+## [1.29.0](https://github.com/harrytang/web/compare/v1.28.4...v1.29.0) (2026-10-23)
+
+
+### Features
+
+* fetch Strapi content in a way that works on Strapi 4 and 5 ([6e2c70c](https://github.com/harrytang/web/commit/6e2c70c5e2e1c973dbec045fe711a8a8a1a82b5a))
+
+
+### Bug Fixes
+
+* **deps:** update algolia-instantsearch monorepo ([#539](https://github.com/harrytang/web/issues/539)) ([fda793e](https://github.com/harrytang/web/commit/fda793ecd16031e53cfac520d1f2dd06234f6d6a))
+* **deps:** update algolia-instantsearch monorepo ([#547](https://github.com/harrytang/web/issues/547)) ([ffa77c9](https://github.com/harrytang/web/commit/ffa77c913da37cb595cee695a8fce60a6d4996c2))
+* **docker:** apply pnpm-workspace.yaml settings during pnpm fetch ([5ab66e6](https://github.com/harrytang/web/commit/5ab66e64a5b4b298d2f47930d3da5233769c2da0))
+
 ### [1.28.4](https://github.com/harrytang/web/compare/v1.28.0...v1.28.4) (2026-09-03)
 
 

@@ -34,11 +34,11 @@ jest.mock("@/components/ArticleList", () => ({
 		article,
 		type,
 	}: {
-		article: { id: number; attributes: { title: string } };
+		article: { id: number; title: string };
 		type: string;
 	}) => (
 		<article data-testid="article-item" data-type={type}>
-			{article.attributes.title}
+			{article.title}
 		</article>
 	),
 }));
@@ -78,22 +78,20 @@ describe("articles paginated page", () => {
 		jest.clearAllMocks();
 
 		(getPage as jest.Mock).mockResolvedValue({
-			attributes: {
-				title: "Articles",
-				subtitle: "Latest writing",
-				content: "Browse all posts",
-				locale: "en",
-				seo: {
-					metaTitle: "Articles",
-					metaDescription: "All article pages",
-				},
+			title: "Articles",
+			subtitle: "Latest writing",
+			content: "Browse all posts",
+			locale: "en",
+			seo: {
+				metaTitle: "Articles",
+				metaDescription: "All article pages",
 			},
 		});
 
 		(getBlogs as jest.Mock).mockResolvedValue({
 			data: [
-				{ id: 101, attributes: { title: "Post 101" } },
-				{ id: 102, attributes: { title: "Post 102" } },
+				{ id: 101, title: "Post 101" },
+				{ id: 102, title: "Post 102" },
 			],
 			meta: {
 				pagination: { total: 25 },
@@ -191,8 +189,8 @@ describe("articles paginated page", () => {
 			description: "All article pages",
 		});
 		expect(generateListArticleJsonLd).toHaveBeenCalledWith([
-			{ id: 101, attributes: { title: "Post 101" } },
-			{ id: 102, attributes: { title: "Post 102" } },
+			{ id: 101, title: "Post 101" },
+			{ id: 102, title: "Post 102" },
 		]);
 
 		expect(screen.getByTestId("simple-layout")).toHaveAttribute(
@@ -241,7 +239,7 @@ describe("articles paginated page", () => {
 		]);
 
 		(getBlogs as jest.Mock).mockResolvedValue({
-			data: [{ id: 1, attributes: { title: "Post 1" } }],
+			data: [{ id: 1, title: "Post 1" }],
 			meta: { pagination: { total: 21 } },
 		});
 		const ui = await ArticlesIndex({

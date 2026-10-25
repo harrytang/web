@@ -50,47 +50,33 @@ describe("expertise page", () => {
 		jest.clearAllMocks();
 
 		(getPage as jest.Mock).mockResolvedValue({
-			attributes: {
-				title: "Expertise",
-				subtitle: "Skills and strengths",
-				content: "A curated list of professional skills.",
-				locale: "en",
-				seo: {
-					metaTitle: "Expertise SEO",
-					metaDescription: "Expertise page description",
-				},
+			title: "Expertise",
+			subtitle: "Skills and strengths",
+			content: "A curated list of professional skills.",
+			locale: "en",
+			seo: {
+				metaTitle: "Expertise SEO",
+				metaDescription: "Expertise page description",
 			},
 		});
 
 		(listRandomSkill as jest.Mock).mockResolvedValue([
 			{
-				attributes: {
-					name: "TypeScript",
-					content: "Building reliable frontends and APIs.",
-					image: {
-						data: {
-							attributes: {
-								url: "https://cdn.example.com/typescript.svg",
-								width: 96,
-								height: 96,
-							},
-						},
-					},
+				name: "TypeScript",
+				content: "Building reliable frontends and APIs.",
+				image: {
+					url: "https://cdn.example.com/typescript.svg",
+					width: 96,
+					height: 96,
 				},
 			},
 			{
-				attributes: {
-					name: "React",
-					content: "Designing component systems and product UI.",
-					image: {
-						data: {
-							attributes: {
-								url: "https://cdn.example.com/react.svg",
-								width: 96,
-								height: 96,
-							},
-						},
-					},
+				name: "React",
+				content: "Designing component systems and product UI.",
+				image: {
+					url: "https://cdn.example.com/react.svg",
+					width: 96,
+					height: 96,
 				},
 			},
 		]);

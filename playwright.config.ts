@@ -6,9 +6,11 @@ import { defineConfig, devices } from "@playwright/test";
  * https://github.com/motdotla/dotenv
  */
 // require('dotenv').config();
-const baseUrl = process.env.CI
-	? "http://127.0.0.1:3000"
-	: `http://${os.hostname()}:3000`;
+// PLAYWRIGHT_BASE_URL runs the suite against a deployed site (staging, prod) instead of a local build
+const remoteBaseUrl = process.env.PLAYWRIGHT_BASE_URL;
+const baseUrl =
+	remoteBaseUrl ??
+	(process.env.CI ? "http://127.0.0.1:3000" : `http://${os.hostname()}:3000`);
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -79,10 +81,12 @@ export default defineConfig({
 	//   url: 'http://127.0.0.1:3000',
 	//   reuseExistingServer: !process.env.CI,
 	// },
-	webServer: {
-		command: "node .next/standalone/server.js",
-		url: baseUrl,
-		timeout: 3 * 1000,
-		reuseExistingServer: !process.env.CI,
-	},
+	webServer: remoteBaseUrl
+		? undefined
+		: {
+				command: "node .next/standalone/server.js",
+				url: baseUrl,
+				timeout: 3 * 1000,
+				reuseExistingServer: !process.env.CI,
+			},
 });

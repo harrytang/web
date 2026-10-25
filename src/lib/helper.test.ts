@@ -1,3 +1,4 @@
+import type { Blog } from "./blogs";
 import {
 	categorizeItems,
 	clamp,
@@ -17,141 +18,115 @@ import type { Use } from "./uses";
 
 const blogJson = {
 	id: 1,
-	attributes: {
-		title: "First Post",
-		slug: "first-post",
-		content: "content",
-		locale: "en",
-		publishedAt: "2024-01-10T00:00:00.000Z",
-		createdAt: "2024-01-01T00:00:00.000Z",
-		updatedAt: "2024-01-11T00:00:00.000Z",
-		seo: {
-			metaTitle: "First Post Meta",
-			metaDescription: "First post description",
-			keywords: ["nextjs", "testing"],
-			metaImage: {
-				data: {
-					attributes: {
-						url: "https://cdn.example.com/image-1.jpg",
-						width: 1200,
-						height: 630,
-					},
+	documentId: "blog-1",
+	title: "First Post",
+	slug: "first-post",
+	content: "content",
+	locale: "en",
+	publishedAt: "2024-01-10T00:00:00.000Z",
+	createdAt: "2024-01-01T00:00:00.000Z",
+	updatedAt: "2024-01-11T00:00:00.000Z",
+	seo: {
+		metaTitle: "First Post Meta",
+		metaDescription: "First post description",
+		keywords: "nextjs, testing",
+		metaImage: {
+			url: "https://cdn.example.com/image-1.jpg",
+			width: 1200,
+			height: 630,
+		},
+		metaSocial: [
+			{
+				socialNetwork: "Facebook",
+				title: "Facebook Title",
+				description: "Facebook Description",
+				image: {
+					url: "https://cdn.example.com/facebook.jpg",
+					width: 1200,
+					height: 630,
 				},
 			},
-			metaSocial: [
-				{
-					socialNetwork: "Facebook",
-					title: "Facebook Title",
-					description: "Facebook Description",
-					image: {
-						data: {
-							attributes: {
-								url: "https://cdn.example.com/facebook.jpg",
-								width: 1200,
-								height: 630,
-							},
-						},
-					},
+			{
+				socialNetwork: "Twitter",
+				title: "Twitter Title",
+				description: "Twitter Description",
+				image: {
+					url: "https://cdn.example.com/twitter.jpg",
+					width: 1200,
+					height: 630,
 				},
-				{
-					socialNetwork: "Twitter",
-					title: "Twitter Title",
-					description: "Twitter Description",
-					image: {
-						data: {
-							attributes: {
-								url: "https://cdn.example.com/twitter.jpg",
-								width: 1200,
-								height: 630,
-							},
-						},
-					},
-				},
-			],
-		},
+			},
+		],
 	},
-};
+} as Blog;
 
 const blogsJson = [
 	blogJson,
 	{
 		id: 2,
-		attributes: {
-			title: "Second Post",
-			slug: "second-post",
-			content: "content",
-			locale: "en",
-			publishedAt: "2024-02-10T00:00:00.000Z",
-			createdAt: "2024-02-01T00:00:00.000Z",
-			updatedAt: "2024-02-11T00:00:00.000Z",
-			seo: {
-				metaTitle: "Second Post Meta",
-				metaDescription: "Second post description",
-				keywords: ["react", "schema"],
-				metaImage: {
-					data: {
-						attributes: {
-							url: "https://cdn.example.com/image-2.jpg",
-							width: 1200,
-							height: 630,
-						},
-					},
-				},
-				metaSocial: [],
+		documentId: "blog-2",
+		title: "Second Post",
+		slug: "second-post",
+		content: "content",
+		locale: "en",
+		publishedAt: "2024-02-10T00:00:00.000Z",
+		createdAt: "2024-02-01T00:00:00.000Z",
+		updatedAt: "2024-02-11T00:00:00.000Z",
+		seo: {
+			metaTitle: "Second Post Meta",
+			metaDescription: "Second post description",
+			keywords: "react, schema",
+			metaImage: {
+				url: "https://cdn.example.com/image-2.jpg",
+				width: 1200,
+				height: 630,
 			},
+			metaSocial: [] as Blog["seo"]["metaSocial"],
 		},
-	},
+	} as Blog,
 ];
 
 const profileJson = {
 	data: {
 		id: 1,
-		attributes: {
-			title: "Software Engineer",
-			createdAt: "2024-01-01T00:00:00.000Z",
-			updatedAt: "2024-01-02T00:00:00.000Z",
-			portraitPhoto: {
-				data: {
-					attributes: {
-						url: "https://cdn.example.com/portrait.jpg",
-					},
-				},
-			},
-			socials: [
-				{ href: "https://github.com/example" },
-				{ href: "https://linkedin.com/in/example" },
-				{ href: "https://x.com/example" },
-				{ href: "https://example.com" },
-			],
+		title: "Software Engineer",
+		createdAt: "2024-01-01T00:00:00.000Z",
+		updatedAt: "2024-01-02T00:00:00.000Z",
+		portraitPhoto: {
+			url: "https://cdn.example.com/portrait.jpg",
 		},
+		socials: [
+			{ href: "https://github.com/example" },
+			{ href: "https://linkedin.com/in/example" },
+			{ href: "https://x.com/example" },
+			{ href: "https://example.com" },
+		],
 	},
 };
 
 const usesJson = {
 	data: [
 		{
-			attributes: {
-				title: "MacBook Pro",
-				description:
-					"My 16” MacBook Pro with M1 Max chip and 64GB RAM (2021) offers exceptional performance and efficiency, making it an essential tool for software development and everyday tasks.",
-				category: "Workstation",
-				createdAt: "2024-04-01T15:50:12.467Z",
-				updatedAt: "2024-07-13T15:11:22.000Z",
-				publishedAt: "2024-04-01T15:50:14.274Z",
-			},
+			title: "MacBook Pro",
+			description:
+				"My 16” MacBook Pro with M1 Max chip and 64GB RAM (2021) offers exceptional performance and efficiency, making it an essential tool for software development and everyday tasks.",
+			category: "Workstation",
+			createdAt: "2024-04-01T15:50:12.467Z",
+			updatedAt: "2024-07-13T15:11:22.000Z",
+			publishedAt: "2024-04-01T15:50:14.274Z",
 			id: 9,
+			documentId: "use-9",
 		},
 		{
-			attributes: {
-				title: "DataGrip",
-				description:
-					"JetBrains DataGrip is a powerful database management tool that provides advanced features for efficient data handling, SQL development, and database administration, enhancing productivity for developers and data professionals.",
-				category: "Development",
-				createdAt: "2024-04-01T15:52:11.246Z",
-				updatedAt: "2024-07-13T15:22:19.872Z",
-				publishedAt: "2024-04-01T15:52:14.963Z",
-			},
+			title: "DataGrip",
+			description:
+				"JetBrains DataGrip is a powerful database management tool that provides advanced features for efficient data handling, SQL development, and database administration, enhancing productivity for developers and data professionals.",
+			category: "Development",
+			createdAt: "2024-04-01T15:52:11.246Z",
+			updatedAt: "2024-07-13T15:22:19.872Z",
+			publishedAt: "2024-04-01T15:52:14.963Z",
 			id: 10,
+			documentId: "use-10",
 		},
 	],
 };
@@ -177,7 +152,7 @@ describe("getPublicSiteURL", () => {
 
 describe("generateSeoMeta", () => {
 	it("should generate SEO metadata correctly with Facebook and Twitter data", () => {
-		const seo = blogJson.attributes.seo;
+		const seo = blogJson.seo;
 
 		const result = generateSeoMeta("test-path", seo, "article", "en_US");
 		const publicSiteUrl = getPublicSiteURL();
@@ -196,9 +171,9 @@ describe("generateSeoMeta", () => {
 				siteName: process.env.NEXT_PUBLIC_SITE_NAME,
 				images: [
 					{
-						url: seo.metaSocial[0].image.data.attributes.url,
-						width: seo.metaSocial[0].image.data.attributes.width,
-						height: seo.metaSocial[0].image.data.attributes.height,
+						url: seo.metaSocial[0].image.url,
+						width: seo.metaSocial[0].image.width,
+						height: seo.metaSocial[0].image.height,
 					},
 				],
 				locale: "en_US",
@@ -209,13 +184,13 @@ describe("generateSeoMeta", () => {
 				cardType: "summary_large_image",
 				title: seo.metaSocial[1].title,
 				description: seo.metaSocial[1].description,
-				images: [seo.metaSocial[1].image.data.attributes.url],
+				images: [seo.metaSocial[1].image.url],
 			},
 		});
 	});
 
 	it("should generate SEO metadata correctly without Facebook and Twitter data", () => {
-		const seo = blogJson.attributes.seo;
+		const seo = blogJson.seo;
 		// remove Facebook and Twitter data
 		seo.metaSocial = [];
 
@@ -236,9 +211,9 @@ describe("generateSeoMeta", () => {
 				siteName: process.env.NEXT_PUBLIC_SITE_NAME,
 				images: [
 					{
-						url: seo.metaImage.data.attributes.url,
-						width: seo.metaImage.data.attributes.width,
-						height: seo.metaImage.data.attributes.height,
+						url: seo.metaImage.url,
+						width: seo.metaImage.width,
+						height: seo.metaImage.height,
 					},
 				],
 				locale: "en_US",
@@ -249,7 +224,7 @@ describe("generateSeoMeta", () => {
 				cardType: "summary_large_image",
 				title: seo.metaTitle,
 				description: seo.metaDescription,
-				images: [seo.metaImage.data.attributes.url],
+				images: [seo.metaImage.url],
 			},
 		});
 	});
@@ -285,10 +260,10 @@ describe("generatePersonJsonLd", () => {
 			"@context": "https://schema.org",
 			"@type": "Person",
 			name: process.env.NEXT_PUBLIC_SITE_NAME,
-			image: profile.attributes.portraitPhoto.data.attributes.url,
-			jobTitle: profile.attributes.title,
+			image: profile.portraitPhoto.url,
+			jobTitle: profile.title,
 			url: publicSiteUrl,
-			sameAs: profile.attributes.socials.map((link) => link.href),
+			sameAs: profile.socials.map((link) => link.href),
 		}),
 	);
 });
@@ -320,28 +295,28 @@ describe("generateArticleJsonLd", () => {
 		expect(result).toEqual({
 			"@context": "https://schema.org",
 			"@type": "Article",
-			url: `${publicSiteUrl}/blog/${blog.attributes.slug}`,
+			url: `${publicSiteUrl}/blog/${blog.slug}`,
 			author: {
 				"@type": "Person",
 				name: process.env.NEXT_PUBLIC_SITE_NAME!,
 				url: publicSiteUrl,
 			},
-			name: blog.attributes.title,
-			headline: blog.attributes.seo.metaDescription,
+			name: blog.title,
+			headline: blog.seo.metaDescription,
 			image: {
 				"@type": "ImageObject",
-				url: blog.attributes.seo.metaImage.data.attributes.url,
-				width: blog.attributes.seo.metaImage.data.attributes.width,
-				height: blog.attributes.seo.metaImage.data.attributes.height,
+				url: blog.seo.metaImage.url,
+				width: blog.seo.metaImage.width,
+				height: blog.seo.metaImage.height,
 			},
 			publisher: {
 				"@type": "Person",
 				name: process.env.NEXT_PUBLIC_SITE_NAME!,
 				url: publicSiteUrl,
 			},
-			datePublished: blog.attributes.publishedAt,
-			dateModified: blog.attributes.updatedAt,
-			dateCreated: blog.attributes.createdAt,
+			datePublished: blog.publishedAt,
+			dateModified: blog.updatedAt,
+			dateCreated: blog.createdAt,
 		});
 	});
 });
@@ -362,16 +337,16 @@ describe("generateListArticleJsonLd", () => {
 					position: 1,
 					item: {
 						"@type": "Article",
-						url: `${publicSiteUrl}/blog/${blogs[0].attributes.slug}`,
-						headline: blogs[0].attributes.title,
-						datePublished: blogs[0].attributes.publishedAt,
-						dateModified: blogs[0].attributes.updatedAt,
-						dateCreated: blogs[0].attributes.createdAt,
+						url: `${publicSiteUrl}/blog/${blogs[0].slug}`,
+						headline: blogs[0].title,
+						datePublished: blogs[0].publishedAt,
+						dateModified: blogs[0].updatedAt,
+						dateCreated: blogs[0].createdAt,
 						image: {
 							"@type": "ImageObject",
-							url: blogs[0].attributes.seo.metaImage.data.attributes.url,
-							width: blogs[0].attributes.seo.metaImage.data.attributes.width,
-							height: blogs[0].attributes.seo.metaImage.data.attributes.height,
+							url: blogs[0].seo.metaImage.url,
+							width: blogs[0].seo.metaImage.width,
+							height: blogs[0].seo.metaImage.height,
 						},
 						author: {
 							"@type": "Person",
@@ -390,16 +365,16 @@ describe("generateListArticleJsonLd", () => {
 					position: 2,
 					item: {
 						"@type": "Article",
-						url: `${publicSiteUrl}/blog/${blogs[1].attributes.slug}`,
-						headline: blogs[1].attributes.title,
-						datePublished: blogs[1].attributes.publishedAt,
-						dateModified: blogs[1].attributes.updatedAt,
-						dateCreated: blogs[1].attributes.createdAt,
+						url: `${publicSiteUrl}/blog/${blogs[1].slug}`,
+						headline: blogs[1].title,
+						datePublished: blogs[1].publishedAt,
+						dateModified: blogs[1].updatedAt,
+						dateCreated: blogs[1].createdAt,
 						image: {
 							"@type": "ImageObject",
-							url: blogs[1].attributes.seo.metaImage.data.attributes.url,
-							width: blogs[1].attributes.seo.metaImage.data.attributes.width,
-							height: blogs[1].attributes.seo.metaImage.data.attributes.height,
+							url: blogs[1].seo.metaImage.url,
+							width: blogs[1].seo.metaImage.width,
+							height: blogs[1].seo.metaImage.height,
 						},
 						author: {
 							"@type": "Person",
@@ -428,20 +403,20 @@ describe("generateProfilePageJsonLd", () => {
 		expect(result).toEqual({
 			"@context": "https://schema.org",
 			"@type": "ProfilePage",
-			dateCreated: profile.attributes.createdAt,
-			dateModified: profile.attributes.updatedAt,
+			dateCreated: profile.createdAt,
+			dateModified: profile.updatedAt,
 			mainEntity: {
 				"@id": "#person",
 				"@type": "Person",
 				name: process.env.NEXT_PUBLIC_SITE_NAME!,
-				image: profile.attributes.portraitPhoto.data.attributes.url,
-				jobTitle: profile.attributes.title,
+				image: profile.portraitPhoto.url,
+				jobTitle: profile.title,
 				url: publicSiteUrl,
 				sameAs: [
-					profile.attributes.socials[0].href,
-					profile.attributes.socials[1].href,
-					profile.attributes.socials[2].href,
-					profile.attributes.socials[3].href,
+					profile.socials[0].href,
+					profile.socials[1].href,
+					profile.socials[2].href,
+					profile.socials[3].href,
 				],
 			},
 		});
@@ -458,51 +433,51 @@ describe("generateProfilePageJsonLd", () => {
 		expect(result).toEqual({
 			"@context": "https://schema.org",
 			"@type": "ProfilePage",
-			dateCreated: profile.attributes.createdAt,
-			dateModified: profile.attributes.updatedAt,
+			dateCreated: profile.createdAt,
+			dateModified: profile.updatedAt,
 			mainEntity: {
 				"@id": "#person",
 				"@type": "Person",
 				name: process.env.NEXT_PUBLIC_SITE_NAME!,
-				image: profile.attributes.portraitPhoto.data.attributes.url,
-				jobTitle: profile.attributes.title,
+				image: profile.portraitPhoto.url,
+				jobTitle: profile.title,
 				url: publicSiteUrl,
 				sameAs: [
-					profile.attributes.socials[0].href,
-					profile.attributes.socials[1].href,
-					profile.attributes.socials[2].href,
-					profile.attributes.socials[3].href,
+					profile.socials[0].href,
+					profile.socials[1].href,
+					profile.socials[2].href,
+					profile.socials[3].href,
 				],
 			},
 			hasPart: [
 				{
 					"@type": "Article",
-					headline: hasPart[0].attributes.title,
-					url: `${publicSiteUrl}/blog/${hasPart[0].attributes.slug}`,
+					headline: hasPart[0].title,
+					url: `${publicSiteUrl}/blog/${hasPart[0].slug}`,
 					image: {
 						"@type": "ImageObject",
-						url: hasPart[0].attributes.seo.metaImage.data.attributes.url,
-						width: hasPart[0].attributes.seo.metaImage.data.attributes.width,
-						height: hasPart[0].attributes.seo.metaImage.data.attributes.height,
+						url: hasPart[0].seo.metaImage.url,
+						width: hasPart[0].seo.metaImage.width,
+						height: hasPart[0].seo.metaImage.height,
 					},
-					datePublished: hasPart[0].attributes.publishedAt,
-					dateModified: hasPart[0].attributes.updatedAt,
-					dateCreated: hasPart[0].attributes.createdAt,
+					datePublished: hasPart[0].publishedAt,
+					dateModified: hasPart[0].updatedAt,
+					dateCreated: hasPart[0].createdAt,
 					author: { "@id": "#person" },
 				},
 				{
 					"@type": "Article",
-					headline: hasPart[1].attributes.title,
-					url: `${publicSiteUrl}/blog/${hasPart[1].attributes.slug}`,
+					headline: hasPart[1].title,
+					url: `${publicSiteUrl}/blog/${hasPart[1].slug}`,
 					image: {
 						"@type": "ImageObject",
-						url: hasPart[1].attributes.seo.metaImage.data.attributes.url,
-						width: hasPart[1].attributes.seo.metaImage.data.attributes.width,
-						height: hasPart[1].attributes.seo.metaImage.data.attributes.height,
+						url: hasPart[1].seo.metaImage.url,
+						width: hasPart[1].seo.metaImage.width,
+						height: hasPart[1].seo.metaImage.height,
 					},
-					datePublished: hasPart[1].attributes.publishedAt,
-					dateModified: hasPart[1].attributes.updatedAt,
-					dateCreated: hasPart[1].attributes.createdAt,
+					datePublished: hasPart[1].publishedAt,
+					dateModified: hasPart[1].updatedAt,
+					dateCreated: hasPart[1].createdAt,
 					author: { "@id": "#person" },
 				},
 			],
@@ -532,30 +507,28 @@ describe("categorizeItems", () => {
 		expect(result).toEqual({
 			Workstation: [
 				{
-					attributes: {
-						title: "MacBook Pro",
-						description:
-							"My 16” MacBook Pro with M1 Max chip and 64GB RAM (2021) offers exceptional performance and efficiency, making it an essential tool for software development and everyday tasks.",
-						category: "Workstation",
-						createdAt: "2024-04-01T15:50:12.467Z",
-						updatedAt: "2024-07-13T15:11:22.000Z",
-						publishedAt: "2024-04-01T15:50:14.274Z",
-					},
+					title: "MacBook Pro",
+					description:
+						"My 16” MacBook Pro with M1 Max chip and 64GB RAM (2021) offers exceptional performance and efficiency, making it an essential tool for software development and everyday tasks.",
+					category: "Workstation",
+					createdAt: "2024-04-01T15:50:12.467Z",
+					updatedAt: "2024-07-13T15:11:22.000Z",
+					publishedAt: "2024-04-01T15:50:14.274Z",
 					id: 9,
+					documentId: "use-9",
 				},
 			],
 			Development: [
 				{
-					attributes: {
-						title: "DataGrip",
-						description:
-							"JetBrains DataGrip is a powerful database management tool that provides advanced features for efficient data handling, SQL development, and database administration, enhancing productivity for developers and data professionals.",
-						category: "Development",
-						createdAt: "2024-04-01T15:52:11.246Z",
-						updatedAt: "2024-07-13T15:22:19.872Z",
-						publishedAt: "2024-04-01T15:52:14.963Z",
-					},
+					title: "DataGrip",
+					description:
+						"JetBrains DataGrip is a powerful database management tool that provides advanced features for efficient data handling, SQL development, and database administration, enhancing productivity for developers and data professionals.",
+					category: "Development",
+					createdAt: "2024-04-01T15:52:11.246Z",
+					updatedAt: "2024-07-13T15:22:19.872Z",
+					publishedAt: "2024-04-01T15:52:14.963Z",
 					id: 10,
+					documentId: "use-10",
 				},
 			],
 		});

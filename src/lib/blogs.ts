@@ -3,21 +3,21 @@ import { fetchAPI, getAllEntitySlugs } from "./strapi";
 
 export interface Blog {
 	id: number;
-	attributes: {
-		title: string;
-		slug: string;
-		content: string;
-		mediaUrl?: string;
-		locale: string;
-		seo: Seo;
-		createdAt: string;
-		updatedAt: string;
-		publishedAt: string;
-	};
+	documentId: string;
+	title: string;
+	slug: string;
+	content: string;
+	mediaUrl?: string;
+	locale: string;
+	seo: Seo;
+	createdAt: string;
+	updatedAt: string;
+	publishedAt: string;
 }
 
+// Posts exist in several locales; locale=* makes Strapi search, sort and paginate across all of them
 const getBlog = async (slug: string) => {
-	const res = fetchAPI<Blog[]>(
+	const res = await fetchAPI<Blog[]>(
 		"/blogs",
 		{
 			populate: [
@@ -29,24 +29,24 @@ const getBlog = async (slug: string) => {
 			filters: {
 				slug: slug,
 			},
-			locale: "all",
+			locale: "*",
 		},
 		{
 			next: { tags: [`blog-${slug}`] },
 		},
 	);
-	return (await res).data[0];
+	return res.data[0];
 };
 
-const getBlogs = async (start?: number, limit?: number) => {
+const getBlogs = async (
+	start = 0,
+	limit = parseInt(process.env.NEXT_PUBLIC_PAGE_SIZE ?? "10", 10),
+) => {
 	return await fetchAPI<Blog[]>("/blogs", {
 		populate: ["seo", "seo.metaImage"],
 		sort: "publishedAt:desc",
-		locale: "all",
-		pagination: {
-			limit: limit ?? process.env.NEXT_PUBLIC_PAGE_SIZE,
-			start: start ?? 0,
-		},
+		locale: "*",
+		pagination: { start, limit },
 	});
 };
 

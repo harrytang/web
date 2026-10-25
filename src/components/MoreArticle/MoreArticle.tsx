@@ -30,13 +30,7 @@ const MoreArticle: React.FC<MoreArticleProps> = ({ total, type }) => {
 	return (
 		<>
 			{articles.map((article) => {
-				return (
-					<ArticleList
-						article={article}
-						key={article.attributes.slug}
-						type={type}
-					/>
-				);
+				return <ArticleList article={article} key={article.slug} type={type} />;
 			})}
 
 			{!disabled && (

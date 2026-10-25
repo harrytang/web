@@ -22,6 +22,7 @@ jest.mock("algoliasearch", () => ({
 
 describe("api revalidate route", () => {
 	const saveObject = jest.fn();
+	const deleteObject = jest.fn();
 	const fetchMock = jest.fn();
 	const responseJson = jest.fn();
 
@@ -52,7 +53,8 @@ describe("api revalidate route", () => {
 		});
 
 		saveObject.mockResolvedValue({ taskID: 1 });
-		(algoliasearch as jest.Mock).mockReturnValue({ saveObject });
+		deleteObject.mockResolvedValue({ taskID: 2 });
+		(algoliasearch as jest.Mock).mockReturnValue({ saveObject, deleteObject });
 
 		jest.spyOn(console, "info").mockImplementation(() => {});
 		jest.spyOn(console, "warn").mockImplementation(() => {});
@@ -97,7 +99,7 @@ describe("api revalidate route", () => {
 
 	it("does nothing for unsupported event type", async () => {
 		const req = makeReq("Bearer secret-token", {
-			event: "entry.delete",
+			event: "media.create",
 			model: "blog",
 			entry: { slug: "my-post" },
 		});
@@ -117,7 +119,10 @@ describe("api revalidate route", () => {
 		const req = makeReq("Bearer secret-token", {
 			event: "entry.update",
 			model: "profile",
-			entry: { slug: "harry-profile" },
+			entry: {
+				slug: "harry-profile",
+				publishedAt: "2026-01-01T00:00:00.000Z",
+			},
 		});
 
 		await POST(req);
@@ -227,6 +232,7 @@ describe("api revalidate route", () => {
 				seo: {
 					metaDescription: "present but missing title",
 				},
+				publishedAt: "2026-01-01T00:00:00.000Z",
 			},
 		});
 
@@ -268,5 +274,168 @@ describe("api revalidate route", () => {
 				}),
 			}),
 		);
+	});
+
+	describe("draft & publish events", () => {
+		const blogEntry = (publishedAt: string | null) => ({
+			slug: "my-post",
+			title: "My Post",
+			seo: {
+				metaDescription: "Desc",
+				metaImage: {
+					caption: "Cover",
+					formats: { thumbnail: { url: "https://cdn/image.jpg" } },
+				},
+			},
+			publishedAt,
+			createdAt: "2026-01-01T00:00:00.000Z",
+			updatedAt: "2026-01-02T00:00:00.000Z",
+		});
+
+		it("ignores draft saves, which Strapi 5 sends as entry.update with publishedAt null", async () => {
+			const req = makeReq("Bearer secret-token", {
+				event: "entry.update",
+				model: "blog",
+				entry: blogEntry(null),
+			});
+
+			await POST(req);
+
+			expect(revalidateTag).not.toHaveBeenCalled();
+			expect(revalidatePath).not.toHaveBeenCalled();
+			expect(algoliasearch).not.toHaveBeenCalled();
+			expect(fetchMock).not.toHaveBeenCalled();
+		});
+
+		it("revalidates, pushes to algolia and purges cloudflare on entry.publish", async () => {
+			const req = makeReq("Bearer secret-token", {
+				event: "entry.publish",
+				model: "blog",
+				entry: blogEntry("2026-01-03T00:00:00.000Z"),
+			});
+
+			await POST(req);
+
+			expect(revalidateTag).toHaveBeenCalledWith("blog-my-post", "max");
+			expect(revalidatePath).toHaveBeenCalledWith(
+				"/articles/[current]",
+				"page",
+			);
+			expect(saveObject).toHaveBeenCalledWith(
+				expect.objectContaining({
+					body: expect.objectContaining({
+						objectID: "my-post",
+						publishedAt: "2026-01-03T00:00:00.000Z",
+					}),
+				}),
+			);
+			expect(fetchMock).toHaveBeenCalledTimes(1);
+		});
+
+		// the payload is the published row being removed, so publishedAt is still set
+		it.each(["entry.unpublish", "entry.delete"])(
+			"revalidates, purges cloudflare and removes the post from algolia on %s",
+			async (event) => {
+				const req = makeReq("Bearer secret-token", {
+					event,
+					model: "blog",
+					entry: blogEntry("2026-01-03T00:00:00.000Z"),
+				});
+
+				await POST(req);
+
+				expect(revalidateTag).toHaveBeenCalledWith("blog-my-post", "max");
+				expect(revalidatePath).toHaveBeenCalledWith("/", "page");
+				expect(deleteObject).toHaveBeenCalledWith({
+					indexName: "articles_index",
+					objectID: "my-post",
+				});
+				expect(saveObject).not.toHaveBeenCalled();
+				expect(fetchMock).toHaveBeenCalledTimes(1);
+			},
+		);
+
+		it("skips the algolia removal when the removal payload has no slug", async () => {
+			const req = makeReq("Bearer secret-token", {
+				event: "entry.delete",
+				model: "blog",
+				entry: null,
+			});
+
+			const res = await POST(req);
+
+			expect(res.status).toBe(200);
+			expect(deleteObject).not.toHaveBeenCalled();
+			expect(console.warn).toHaveBeenCalledWith(
+				"Skipping Algolia removal due to missing blog slug",
+			);
+			expect(fetchMock).toHaveBeenCalledTimes(1);
+		});
+
+		it("leaves algolia alone when a non-blog entry is unpublished", async () => {
+			const req = makeReq("Bearer secret-token", {
+				event: "entry.unpublish",
+				model: "project",
+				entry: { publishedAt: "2026-01-03T00:00:00.000Z" },
+			});
+
+			await POST(req);
+
+			expect(revalidatePath).toHaveBeenCalledWith("/projects", "page");
+			expect(algoliasearch).not.toHaveBeenCalled();
+			expect(fetchMock).toHaveBeenCalledTimes(1);
+		});
+
+		// Strapi 5 re-reads the entry after commit; through a lagging Galera replica the
+		// read can miss the new published row, so the payload carries entry: null
+		it("still revalidates static paths when entry.publish arrives with entry null", async () => {
+			const req = makeReq("Bearer secret-token", {
+				event: "entry.publish",
+				model: "profile",
+				entry: null,
+			});
+
+			const res = await POST(req);
+
+			expect(res.status).toBe(200);
+			expect(revalidatePath).toHaveBeenCalledWith("/about", "page");
+			expect(revalidatePath).toHaveBeenCalledWith("/", "page");
+			expect(fetchMock).toHaveBeenCalledTimes(1);
+			expect(console.warn).toHaveBeenCalledWith(
+				"Webhook entry.publish for profile has no entry; revalidating static paths only",
+			);
+		});
+
+		it("revalidates blog list pages but skips the tag and algolia when entry.publish has entry null", async () => {
+			const req = makeReq("Bearer secret-token", {
+				event: "entry.publish",
+				model: "blog",
+				entry: null,
+			});
+
+			await POST(req);
+
+			expect(revalidateTag).not.toHaveBeenCalled();
+			expect(revalidatePath).toHaveBeenCalledWith(
+				"/articles/[current]",
+				"page",
+			);
+			expect(algoliasearch).not.toHaveBeenCalled();
+			expect(fetchMock).toHaveBeenCalledTimes(1);
+		});
+
+		it("ignores entry.update with entry null instead of crashing", async () => {
+			const req = makeReq("Bearer secret-token", {
+				event: "entry.update",
+				model: "blog",
+				entry: null,
+			});
+
+			const res = await POST(req);
+
+			expect(res.status).toBe(200);
+			expect(revalidatePath).not.toHaveBeenCalled();
+			expect(fetchMock).not.toHaveBeenCalled();
+		});
 	});
 });

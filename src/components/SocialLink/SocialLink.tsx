@@ -23,12 +23,12 @@ const SocialLink: React.FC<SocialLinkProps> = ({
 				className="group flex text-sm font-medium text-zinc-800 transition hover:text-amber-700 dark:text-zinc-200 dark:hover:text-amber-500"
 			>
 				<Image
-					src={icon.attributes.url}
-					alt={icon.attributes.caption}
+					src={icon.url}
+					alt={icon.caption}
 					className="h-6 w-6 flex-none fill-zinc-500 transition group-hover:fill-amber-500"
 					unoptimized
-					width={icon.attributes.width}
-					height={icon.attributes.height}
+					width={icon.width}
+					height={icon.height}
 				/>
 				<span className="ml-4">{children}</span>
 			</Link>

@@ -1,5 +1,6 @@
-import { expect, request, test } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 import type { Page } from "@/lib/pages";
+import { newStrapiContext } from "./strapi";
 
 const slugs = [
 	"credits",
@@ -12,9 +13,7 @@ const slugs = [
 slugs.forEach((slug) => {
 	test(`should open the ${slug} page`, async ({ page }) => {
 		// Fetch data from the API
-		const reqCtx = await request.newContext({
-			baseURL: process.env.NEXT_PUBLIC_STRAPI_API_URL,
-		});
+		const reqCtx = await newStrapiContext();
 		const apiResponse = await reqCtx.get(`/api/pages?filters[slug]=${slug}`);
 		const { data } = (await apiResponse.json()) as { data: Page[] };
 
@@ -22,6 +21,6 @@ slugs.forEach((slug) => {
 		await page.goto(`/${slug}`);
 
 		// Check that the subtitle is correct
-		await expect(page.locator("h1")).toContainText(data[0].attributes.subtitle);
+		await expect(page.locator("h1")).toContainText(data[0].subtitle);
 	});
 });

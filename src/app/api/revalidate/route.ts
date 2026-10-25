@@ -6,7 +6,11 @@ import type Webhook from "@/types/webhook";
 
 // tracking event/paths
 const track = {
-	events: ["entry.create", "entry.update"],
+	// these change the site only once published: Strapi 5 sends entry.update with
+	// publishedAt null for draft saves and just before every entry.publish
+	events: ["entry.create", "entry.update", "entry.publish"],
+	// these take content off the site
+	removalEvents: ["entry.unpublish", "entry.delete"],
 	models: {
 		blog: ["/articles/[current]", "/"],
 		project: ["/projects"],
@@ -69,6 +73,14 @@ const revalidate = (model: string, entry: RevalidateEntry) => {
 	}
 };
 
+const algoliaIndex = () => ({
+	client: algoliasearch(
+		process.env.NEXT_PUBLIC_ALGOLIA_APP_ID ?? "",
+		process.env.ALGOLIA_API_KEY ?? "",
+	),
+	indexName: process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME ?? "articles_index",
+});
+
 const algoliaPush = async (model: string, entry: RevalidateEntry) => {
 	// check strapi event & model
 	if (model !== "blog") {
@@ -83,10 +95,7 @@ const algoliaPush = async (model: string, entry: RevalidateEntry) => {
 
 	// push to algolia
 	console.info(`Pushing ${model} to Algolia`);
-	const client = algoliasearch(
-		process.env.NEXT_PUBLIC_ALGOLIA_APP_ID ?? "",
-		process.env.ALGOLIA_API_KEY ?? "",
-	);
+	const { client, indexName } = algoliaIndex();
 
 	// convert entry to algolia object
 	const article = {
@@ -103,12 +112,24 @@ const algoliaPush = async (model: string, entry: RevalidateEntry) => {
 		updatedAt: entry.updatedAt,
 	};
 
-	const idxName =
-		process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME ?? "articles_index";
 	return await client.saveObject({
-		indexName: idxName,
+		indexName,
 		body: article,
 	});
+};
+
+// records are keyed by slug, so an unpublished or deleted post can be dropped without a lookup
+const algoliaRemove = async (model: string, entry: RevalidateEntry) => {
+	if (model !== "blog") return;
+
+	if (!entry.slug) {
+		console.warn("Skipping Algolia removal due to missing blog slug");
+		return;
+	}
+
+	console.info(`Removing ${model} ${entry.slug} from Algolia`);
+	const { client, indexName } = algoliaIndex();
+	return await client.deleteObject({ indexName, objectID: entry.slug });
 };
 
 export async function POST(req: NextRequest) {
@@ -116,10 +137,24 @@ export async function POST(req: NextRequest) {
 	if (authResult) return authResult;
 
 	const { event, model, entry }: Webhook = await req.json();
+	// Strapi 5 re-reads the entry after commit; through a lagging Galera replica that read
+	// can miss a just-published row, so the event happened but entry is null
+	if (!entry && event === "entry.publish") {
+		console.warn(
+			`Webhook ${event} for ${model} has no entry; revalidating static paths only`,
+		);
+	}
+	const payload = entry ?? {};
+	const published =
+		event === "entry.publish" ||
+		(track.events.includes(event) && Boolean(payload.publishedAt));
 
-	if (track.events.includes(event)) {
-		revalidate(model, entry);
-		await algoliaPush(model, entry);
+	const removed = track.removalEvents.includes(event);
+
+	if (published || removed) {
+		revalidate(model, payload);
+		if (published) await algoliaPush(model, payload);
+		if (removed) await algoliaRemove(model, payload);
 		await purgeCFCache();
 	}
 

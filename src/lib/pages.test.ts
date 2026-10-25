@@ -16,7 +16,7 @@ describe("pages", () => {
 
 	it("getPage requests page by slug and returns first entry", async () => {
 		mockedFetchAPI.mockResolvedValue({
-			data: [{ id: 1, attributes: { slug: "about" } }],
+			data: [{ id: 1, slug: "about" }],
 			meta: { pagination: { start: 0, limit: 1, total: 1 } },
 		} as never);
 
@@ -27,7 +27,7 @@ describe("pages", () => {
 			expect.objectContaining({ filters: { slug: "about" } }),
 			{ next: { tags: ["page-about"] } },
 		);
-		expect(result).toEqual({ id: 1, attributes: { slug: "about" } });
+		expect(result).toEqual({ id: 1, slug: "about" });
 	});
 
 	it("getPageSlugs delegates to getAllEntitySlugs", async () => {

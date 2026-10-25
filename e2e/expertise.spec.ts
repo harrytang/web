@@ -1,11 +1,10 @@
-import { expect, request, test } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 import type { Page } from "@/lib/pages";
 import type { Skill } from "@/lib/skills";
+import { newStrapiContext } from "./strapi";
 
 test("should open the Expertise page", async ({ page }) => {
-	const reqCtx = await request.newContext({
-		baseURL: process.env.NEXT_PUBLIC_STRAPI_API_URL,
-	});
+	const reqCtx = await newStrapiContext();
 	// fetch page from the API
 	const pagesResponse = await reqCtx.get(`/api/pages?filters[slug]=expertise`);
 	const { data: pages } = (await pagesResponse.json()) as { data: Page[] };
@@ -18,12 +17,10 @@ test("should open the Expertise page", async ({ page }) => {
 	await page.goto("/expertise");
 
 	// Check that the subtitle is correct
-	await expect(page.locator("h1")).toContainText(pages[0].attributes.subtitle);
+	await expect(page.locator("h1")).toContainText(pages[0].subtitle);
 
 	// Check that the skills are displayed
 	for (const skill of skills) {
-		await expect(
-			page.locator(`h2:has-text("${skill.attributes.name}")`),
-		).toBeVisible();
+		await expect(page.locator(`h2:has-text("${skill.name}")`)).toBeVisible();
 	}
 });

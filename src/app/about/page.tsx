@@ -11,7 +11,7 @@ import { BLUR_IMAGE } from "../../../const";
 
 export async function generateMetadata(): Promise<Metadata> {
 	const profile = await getProfile();
-	return generateSeoMeta("about", profile.data.attributes.seo, "profile", "en");
+	return generateSeoMeta("about", profile.data.seo, "profile", "en");
 }
 
 const About: React.FC = async () => {
@@ -24,16 +24,10 @@ const About: React.FC = async () => {
 				<div className="lg:pl-20">
 					<div className="max-w-xs px-2.5 lg:max-w-none">
 						<Image
-							src={profile.data.attributes.portraitPhoto.data.attributes.url}
-							alt={
-								profile.data.attributes.portraitPhoto.data.attributes.caption
-							}
-							width={
-								profile.data.attributes.portraitPhoto.data.attributes.width
-							}
-							height={
-								profile.data.attributes.portraitPhoto.data.attributes.height
-							}
+							src={profile.data.portraitPhoto.url}
+							alt={profile.data.portraitPhoto.caption}
+							width={profile.data.portraitPhoto.width}
+							height={profile.data.portraitPhoto.height}
 							sizes="(min-width: 1024px) 32rem, 20rem"
 							className="aspect-square rotate-3 rounded-2xl bg-zinc-100 object-cover dark:bg-zinc-800"
 							priority={true}
@@ -44,19 +38,19 @@ const About: React.FC = async () => {
 				</div>
 				<div className="lg:order-first lg:row-span-2">
 					<h1 className="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
-						{profile.data.attributes.about}
+						{profile.data.about}
 					</h1>
 					<div className="mt-6 space-y-7 text-base text-zinc-600 dark:text-zinc-400">
-						<ReactMarkdown>{profile.data.attributes.biography}</ReactMarkdown>
+						<ReactMarkdown>{profile.data.biography}</ReactMarkdown>
 					</div>
 				</div>
 				<div className="lg:pl-20">
 					<ul>
-						{profile.data.attributes.socials.map((social) => (
+						{profile.data.socials.map((social) => (
 							<SocialLink
 								key={social.href}
 								href={social.href}
-								icon={social.icon.data}
+								icon={social.icon}
 								className="mt-4"
 							>
 								{social.title}

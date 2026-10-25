@@ -69,49 +69,45 @@ import BlogLayout from "./BlogLayout";
 
 const createBlog = (mediaUrl?: string): Blog => ({
 	id: 1,
-	attributes: {
-		title: "Test Blog",
-		slug: "test-blog",
-		content: "Test markdown content",
-		mediaUrl,
-		locale: "en",
-		createdAt: "2024-01-01T00:00:00.000Z",
-		updatedAt: "2024-01-01T00:00:00.000Z",
-		publishedAt: "2024-01-02T00:00:00.000Z",
-		seo: {
-			id: 1,
-			metaTitle: "Meta title",
-			metaDescription: "Meta description",
-			keywords: "meta,keywords",
-			metaRobots: null,
-			structuredData: null,
-			metaViewport: null,
-			canonicalURL: null,
-			metaImage: {
-				data: {
-					id: 10,
-					attributes: {
-						name: "cover",
-						alternativeText: "Cover",
-						caption: "Cover caption",
-						width: 1200,
-						height: 630,
-						formats: {},
-						hash: "hash",
-						ext: ".jpg",
-						mime: "image/jpeg",
-						size: 100,
-						url: "https://example.com/cover.jpg",
-						previewUrl: null,
-						provider: "local",
-						provider_metadata: null,
-						createdAt: "2024-01-01T00:00:00.000Z",
-						updatedAt: "2024-01-01T00:00:00.000Z",
-					},
-				},
-			},
-			metaSocial: [],
+	documentId: "blog-1",
+	title: "Test Blog",
+	slug: "test-blog",
+	content: "Test markdown content",
+	mediaUrl,
+	locale: "en",
+	createdAt: "2024-01-01T00:00:00.000Z",
+	updatedAt: "2024-01-01T00:00:00.000Z",
+	publishedAt: "2024-01-02T00:00:00.000Z",
+	seo: {
+		id: 1,
+		metaTitle: "Meta title",
+		metaDescription: "Meta description",
+		keywords: "meta,keywords",
+		metaRobots: null,
+		structuredData: null,
+		metaViewport: null,
+		canonicalURL: null,
+		metaImage: {
+			id: 10,
+			documentId: "media-10",
+			name: "cover",
+			alternativeText: "Cover",
+			caption: "Cover caption",
+			width: 1200,
+			height: 630,
+			formats: {},
+			hash: "hash",
+			ext: ".jpg",
+			mime: "image/jpeg",
+			size: 100,
+			url: "https://example.com/cover.jpg",
+			previewUrl: null,
+			provider: "local",
+			provider_metadata: null,
+			createdAt: "2024-01-01T00:00:00.000Z",
+			updatedAt: "2024-01-01T00:00:00.000Z",
 		},
+		metaSocial: [],
 	},
 });
 
@@ -158,7 +154,9 @@ describe("BlogLayout", () => {
 	it("renders social sharing links under the title", () => {
 		render(<BlogLayout blog={createBlog()} />);
 
-		const encodedUrl = encodeURIComponent("https://site.example/blog/test-blog");
+		const encodedUrl = encodeURIComponent(
+			"https://site.example/blog/test-blog",
+		);
 		const encodedTitle = encodeURIComponent("Test Blog");
 
 		expect(screen.getByLabelText("Share on X")).toHaveAttribute(

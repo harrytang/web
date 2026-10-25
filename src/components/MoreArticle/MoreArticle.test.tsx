@@ -4,33 +4,33 @@ import { type Blog, getBlogs } from "@/lib/blogs";
 // local imports
 import MoreArticle from "./MoreArticle";
 
-const listBlogs2: Partial<Blog>[] = [
+const listBlogs2: Pick<Blog, "id" | "slug">[] = [
 	{
 		id: 1,
-		attributes: { slug: "post-1" },
+		slug: "post-1",
 	},
 	{
 		id: 2,
-		attributes: { slug: "post-2" },
+		slug: "post-2",
 	},
 	{
 		id: 3,
-		attributes: { slug: "post-3" },
+		slug: "post-3",
 	},
 	{
 		id: 4,
-		attributes: { slug: "post-4" },
+		slug: "post-4",
 	},
 	{
 		id: 5,
-		attributes: { slug: "post-5" },
+		slug: "post-5",
 	},
 ];
 
-const listBlogs3: Partial<Blog>[] = [
+const listBlogs3: Pick<Blog, "id" | "slug">[] = [
 	{
 		id: 6,
-		attributes: { slug: "post-6" },
+		slug: "post-6",
 	},
 ];
 
@@ -41,7 +41,7 @@ jest.mock("@/lib/blogs", () => ({
 jest.mock(
 	"@/components/ArticleList/ArticleList",
 	() =>
-		({ article }: { article: Blog }) => <div>{article.attributes.slug}</div>,
+		({ article }: { article: Blog }) => <div>{article.slug}</div>,
 );
 
 describe("MoreArticle", () => {
@@ -57,7 +57,7 @@ describe("MoreArticle", () => {
 
 		// Initially, no articles should be displayed
 		listBlogs2.forEach((blog) => {
-			expect(screen.queryByText(blog.attributes.slug)).not.toBeInTheDocument();
+			expect(screen.queryByText(blog.slug)).not.toBeInTheDocument();
 		});
 
 		// Load more articles (#1)
@@ -69,7 +69,7 @@ describe("MoreArticle", () => {
 		await userEvent.click(button);
 
 		listBlogs2.forEach((blog) => {
-			expect(screen.getByText(blog.attributes.slug)).toBeInTheDocument();
+			expect(screen.getByText(blog.slug)).toBeInTheDocument();
 		});
 
 		// Button should be present as not all articles are loaded
@@ -83,7 +83,7 @@ describe("MoreArticle", () => {
 		await userEvent.click(button);
 
 		listBlogs3.forEach((blog) => {
-			expect(screen.getByText(blog.attributes.slug)).toBeInTheDocument();
+			expect(screen.getByText(blog.slug)).toBeInTheDocument();
 		});
 
 		// Button should not be present as all articles are loaded

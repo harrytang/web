@@ -63,33 +63,27 @@ describe("about page", () => {
 	beforeEach(() => {
 		(getProfile as jest.Mock).mockResolvedValue({
 			data: {
-				attributes: {
-					about: "About Harry",
-					biography: "Hello from biography",
-					seo: { metaDescription: "About page description" },
-					portraitPhoto: {
-						data: {
-							attributes: {
-								url: "https://cdn.example.com/photo.jpg",
-								caption: "Portrait",
-								width: 320,
-								height: 320,
-							},
-						},
-					},
-					socials: [
-						{
-							title: "GitHub",
-							href: "https://github.com/example",
-							icon: { data: { id: 1 } },
-						},
-						{
-							title: "LinkedIn",
-							href: "https://linkedin.com/in/example",
-							icon: { data: { id: 2 } },
-						},
-					],
+				about: "About Harry",
+				biography: "Hello from biography",
+				seo: { metaDescription: "About page description" },
+				portraitPhoto: {
+					url: "https://cdn.example.com/photo.jpg",
+					caption: "Portrait",
+					width: 320,
+					height: 320,
 				},
+				socials: [
+					{
+						title: "GitHub",
+						href: "https://github.com/example",
+						icon: { id: 1 },
+					},
+					{
+						title: "LinkedIn",
+						href: "https://linkedin.com/in/example",
+						icon: { id: 2 },
+					},
+				],
 			},
 		});
 

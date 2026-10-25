@@ -3,17 +3,16 @@ import { fetchAPI, getAllEntitySlugs } from "./strapi";
 
 export interface Page {
 	id: number;
-	attributes: {
-		slug: string;
-		title: string;
-		subtitle: string;
-		content: string;
-		seo: Seo;
-		locale: string;
-		createdAt: string;
-		updatedAt: string;
-		publishedAt: string;
-	};
+	documentId: string;
+	slug: string;
+	title: string;
+	subtitle: string;
+	content: string;
+	seo: Seo;
+	locale: string;
+	createdAt: string;
+	updatedAt: string;
+	publishedAt: string;
 }
 
 const getPage = async (slug: string): Promise<Page> => {

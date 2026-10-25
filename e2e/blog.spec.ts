@@ -1,23 +1,18 @@
-import { expect, request, test } from "@playwright/test";
-import type { Blog } from "@/lib/blogs";
+import { expect, test } from "@playwright/test";
+import { getLatestBlogs, newStrapiContext } from "./strapi";
 
 test.describe("Blog pages", () => {
 	test("should open a blog detail page from API slug", async ({ page }) => {
-		const reqCtx = await request.newContext({
-			baseURL: process.env.NEXT_PUBLIC_STRAPI_API_URL,
-		});
-		const blogsResponse = await reqCtx.get(
-			"/api/blogs?pagination[limit]=1&sort=publishedAt:desc&locale=all",
-		);
-		const { data: blogs } = (await blogsResponse.json()) as { data: Blog[] };
+		const reqCtx = await newStrapiContext();
+		const blogs = await getLatestBlogs(reqCtx, 1);
 		await reqCtx.dispose();
 
 		expect(blogs.length).toBeGreaterThan(0);
 		const blog = blogs[0];
 
-		await page.goto(`/blog/${blog.attributes.slug}`);
+		await page.goto(`/blog/${blog.slug}`);
 
-		await expect(page.locator("h1")).toContainText(blog.attributes.title);
+		await expect(page.locator("h1")).toContainText(blog.title);
 		await expect(page.locator("article[lang]")).toBeVisible();
 	});
 

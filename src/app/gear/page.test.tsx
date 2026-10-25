@@ -68,15 +68,13 @@ describe("gear page", () => {
 		jest.clearAllMocks();
 
 		(getPage as jest.Mock).mockResolvedValue({
-			attributes: {
-				title: "Gear",
-				subtitle: "Tools I use",
-				content: "A categorized list of hardware and software.",
-				locale: "en",
-				seo: {
-					metaTitle: "Gear SEO",
-					metaDescription: "Gear page description",
-				},
+			title: "Gear",
+			subtitle: "Tools I use",
+			content: "A categorized list of hardware and software.",
+			locale: "en",
+			seo: {
+				metaTitle: "Gear SEO",
+				metaDescription: "Gear page description",
 			},
 		});
 
@@ -84,17 +82,13 @@ describe("gear page", () => {
 			data: [
 				{
 					id: 1,
-					attributes: {
-						title: "MacBook Pro",
-						description: "Primary machine for daily development.",
-					},
+					title: "MacBook Pro",
+					description: "Primary machine for daily development.",
 				},
 				{
 					id: 2,
-					attributes: {
-						title: "VS Code",
-						description: "Main editor for writing and testing code.",
-					},
+					title: "VS Code",
+					description: "Main editor for writing and testing code.",
 				},
 			],
 		});
@@ -103,19 +97,15 @@ describe("gear page", () => {
 			Hardware: [
 				{
 					id: 1,
-					attributes: {
-						title: "MacBook Pro",
-						description: "Primary machine for daily development.",
-					},
+					title: "MacBook Pro",
+					description: "Primary machine for daily development.",
 				},
 			],
 			Software: [
 				{
 					id: 2,
-					attributes: {
-						title: "VS Code",
-						description: "Main editor for writing and testing code.",
-					},
+					title: "VS Code",
+					description: "Main editor for writing and testing code.",
 				},
 			],
 		});
@@ -157,17 +147,13 @@ describe("gear page", () => {
 		expect(categorizeItems).toHaveBeenCalledWith([
 			{
 				id: 1,
-				attributes: {
-					title: "MacBook Pro",
-					description: "Primary machine for daily development.",
-				},
+				title: "MacBook Pro",
+				description: "Primary machine for daily development.",
 			},
 			{
 				id: 2,
-				attributes: {
-					title: "VS Code",
-					description: "Main editor for writing and testing code.",
-				},
+				title: "VS Code",
+				description: "Main editor for writing and testing code.",
 			},
 		]);
 		expect(generateWebPageJsonLd).toHaveBeenCalledWith({
