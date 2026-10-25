@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.30.2](https://github.com/harrytang/web/compare/v1.30.1...v1.30.2) (2026-10-25)
+
+
+### Bug Fixes
+
+* **deps:** update algolia-instantsearch monorepo ([#553](https://github.com/harrytang/web/issues/553)) ([ea8062b](https://github.com/harrytang/web/commit/ea8062bdd6c774b1f674e7057777f02e8ced7e51))
+* **deps:** update dependency algoliasearch to v5.60.0 ([#543](https://github.com/harrytang/web/issues/543)) ([610655e](https://github.com/harrytang/web/commit/610655ef3de65e804907fa4151adaad2c2755b3b))
+* **deps:** update dependency next to v16.4.1 [security] ([#545](https://github.com/harrytang/web/issues/545)) ([1817ff3](https://github.com/harrytang/web/commit/1817ff3521f5ba374d697f322e4fa4fdcc35c339))
+* **deps:** update dependency typescript to v7 ([#511](https://github.com/harrytang/web/issues/511)) ([74ca2ad](https://github.com/harrytang/web/commit/74ca2adcb88667ef62753101c7d6dc141c7871d3)), closes [#545](https://github.com/harrytang/web/issues/545)
+* **deps:** update react monorepo ([#544](https://github.com/harrytang/web/issues/544)) ([51fc0e9](https://github.com/harrytang/web/commit/51fc0e983ad2e2a2d5b072ca3ec541eadb44fabb))
+
 ### [1.30.1](https://github.com/harrytang/web/compare/v1.30.0...v1.30.1) (2026-10-25)
 
 
