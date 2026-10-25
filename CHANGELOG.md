@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.30.1](https://github.com/harrytang/web/compare/v1.30.0...v1.30.1) (2026-10-25)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sharp to v0.35.5 [security] ([#555](https://github.com/harrytang/web/issues/555)) ([10e57ac](https://github.com/harrytang/web/commit/10e57ac9e67732d1721c2e54aecb904f23c27e72))
+* read every locale with locale=* and drop unpublished posts from Algolia ([3df567c](https://github.com/harrytang/web/commit/3df567cd3c2d3e10a6a44cfc7726e814603ba4ed))
+
 ## [1.30.0](https://github.com/harrytang/web/compare/v1.29.1...v1.30.0) (2026-10-24)
 
 
