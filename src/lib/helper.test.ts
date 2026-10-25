@@ -1,3 +1,4 @@
+import type { Blog } from "./blogs";
 import {
 	categorizeItems,
 	clamp,
@@ -17,6 +18,7 @@ import type { Use } from "./uses";
 
 const blogJson = {
 	id: 1,
+	documentId: "blog-1",
 	title: "First Post",
 	slug: "first-post",
 	content: "content",
@@ -27,7 +29,7 @@ const blogJson = {
 	seo: {
 		metaTitle: "First Post Meta",
 		metaDescription: "First post description",
-		keywords: ["nextjs", "testing"],
+		keywords: "nextjs, testing",
 		metaImage: {
 			url: "https://cdn.example.com/image-1.jpg",
 			width: 1200,
@@ -56,12 +58,13 @@ const blogJson = {
 			},
 		],
 	},
-};
+} as Blog;
 
 const blogsJson = [
 	blogJson,
 	{
 		id: 2,
+		documentId: "blog-2",
 		title: "Second Post",
 		slug: "second-post",
 		content: "content",
@@ -72,15 +75,15 @@ const blogsJson = [
 		seo: {
 			metaTitle: "Second Post Meta",
 			metaDescription: "Second post description",
-			keywords: ["react", "schema"],
+			keywords: "react, schema",
 			metaImage: {
 				url: "https://cdn.example.com/image-2.jpg",
 				width: 1200,
 				height: 630,
 			},
-			metaSocial: [],
+			metaSocial: [] as Blog["seo"]["metaSocial"],
 		},
-	},
+	} as Blog,
 ];
 
 const profileJson = {

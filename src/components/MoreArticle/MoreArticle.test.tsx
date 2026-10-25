@@ -4,7 +4,7 @@ import { type Blog, getBlogs } from "@/lib/blogs";
 // local imports
 import MoreArticle from "./MoreArticle";
 
-const listBlogs2: Partial<Blog>[] = [
+const listBlogs2: Pick<Blog, "id" | "slug">[] = [
 	{
 		id: 1,
 		slug: "post-1",
@@ -27,7 +27,7 @@ const listBlogs2: Partial<Blog>[] = [
 	},
 ];
 
-const listBlogs3: Partial<Blog>[] = [
+const listBlogs3: Pick<Blog, "id" | "slug">[] = [
 	{
 		id: 6,
 		slug: "post-6",

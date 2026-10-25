@@ -1,4 +1,4 @@
-import { getByRole, queryByRole } from "@testing-library/dom";
+import { getByRole, queryByRole } from "@testing-library/react";
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import type { Work } from "@/lib/works";
