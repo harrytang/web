@@ -1,22 +1,13 @@
 import { getBlog, getBlogSlugs, getBlogs } from "./blogs";
-import {
-	fetchAPI,
-	fetchEntries,
-	getAllEntitySlugs,
-	getLocales,
-} from "./strapi";
+import { fetchAPI, getAllEntitySlugs } from "./strapi";
 
 jest.mock("./strapi", () => ({
 	fetchAPI: jest.fn(),
-	fetchEntries: jest.fn(),
 	getAllEntitySlugs: jest.fn(),
-	getLocales: jest.fn(),
 }));
 
 const mockedFetchAPI = jest.mocked(fetchAPI);
-const mockedFetchEntries = jest.mocked(fetchEntries);
 const mockedGetAllEntitySlugs = jest.mocked(getAllEntitySlugs);
-const mockedGetLocales = jest.mocked(getLocales);
 
 const blog = (slug: string, publishedAt: string) => ({
 	id: 1,
@@ -34,8 +25,6 @@ const strapiPage = (
 describe("blogs", () => {
 	beforeEach(() => {
 		jest.clearAllMocks();
-		mockedGetLocales.mockResolvedValue(["en", "vi"]);
-		mockedFetchEntries.mockResolvedValue({ entries: [], total: 0 } as never);
 		mockedFetchAPI.mockResolvedValue(strapiPage([], 0, 25, 0) as never);
 	});
 

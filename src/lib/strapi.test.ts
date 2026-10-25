@@ -1,11 +1,6 @@
 import qs from "qs";
 import { getStrapiURL } from "./helper";
-import {
-	fetchAPI,
-	fetchEntries,
-	getAllEntitySlugs,
-	getLocales,
-} from "./strapi";
+import { fetchAPI, fetchEntries, getAllEntitySlugs } from "./strapi";
 
 jest.mock("qs", () => ({
 	stringify: jest.fn(),
@@ -25,13 +20,7 @@ type SlugRow = { slug: string };
 // and the api.rest.maxLimit cap
 const fakeStrapi = (rowsByLocale: Record<string, SlugRow[]>, maxLimit = 100) =>
 	jest.fn(async (url: string) => {
-		const { pathname, search } = new URL(url);
-		if (pathname === "/api/i18n/locales") {
-			return {
-				ok: true,
-				json: async () => Object.keys(rowsByLocale).map((code) => ({ code })),
-			};
-		}
+		const { search } = new URL(url);
 		const params = realQs.parse(search.slice(1)) as {
 			locale?: string;
 			pagination?: { start?: string; limit?: string };
@@ -159,27 +148,6 @@ describe("strapi", () => {
 			"https://cms.example/api/flat",
 			expect.any(Object),
 		);
-	});
-
-	it("getLocales returns the locale codes configured in Strapi", async () => {
-		useFakeStrapi({ en: [], vi: [] });
-
-		await expect(getLocales()).resolves.toEqual(["en", "vi"]);
-	});
-
-	it("getLocales throws when Strapi rejects the request", async () => {
-		const errorSpy = jest.spyOn(console, "error").mockImplementation(() => {});
-		mockedStringify.mockReturnValue("");
-		(global.fetch as jest.Mock).mockResolvedValue({
-			ok: false,
-			statusText: "Forbidden",
-		});
-
-		await expect(getLocales()).rejects.toThrow(
-			"An error occured please try again",
-		);
-
-		errorSpy.mockRestore();
 	});
 
 	it("fetchEntries keeps paging when Strapi caps the page size", async () => {

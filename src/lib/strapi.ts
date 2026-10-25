@@ -56,12 +56,6 @@ const fetchAPI = async <T>(
 	};
 };
 
-// Strapi 5 has no locale=all, so queries across locales run once per locale
-const getLocales = async () => {
-	const locales = await request<{ code: string }[]>("/i18n/locales");
-	return locales.map((locale) => locale.code);
-};
-
 // Fetch up to `count` entries in pages of `pageSize`. Strapi caps each page at
 // api.rest.maxLimit, so advance by the rows received, not the rows asked for.
 const fetchEntries = async <T>(
@@ -115,4 +109,4 @@ const getAllEntitySlugs = async (entity: string) => {
 	return entries.map((item) => item.slug);
 };
 
-export { fetchAPI, fetchEntries, getAllEntitySlugs, getLocales };
+export { fetchAPI, fetchEntries, getAllEntitySlugs };
