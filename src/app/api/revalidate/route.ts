@@ -73,6 +73,14 @@ const revalidate = (model: string, entry: RevalidateEntry) => {
 	}
 };
 
+const algoliaIndex = () => ({
+	client: algoliasearch(
+		process.env.NEXT_PUBLIC_ALGOLIA_APP_ID ?? "",
+		process.env.ALGOLIA_API_KEY ?? "",
+	),
+	indexName: process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME ?? "articles_index",
+});
+
 const algoliaPush = async (model: string, entry: RevalidateEntry) => {
 	// check strapi event & model
 	if (model !== "blog") {
@@ -87,10 +95,7 @@ const algoliaPush = async (model: string, entry: RevalidateEntry) => {
 
 	// push to algolia
 	console.info(`Pushing ${model} to Algolia`);
-	const client = algoliasearch(
-		process.env.NEXT_PUBLIC_ALGOLIA_APP_ID ?? "",
-		process.env.ALGOLIA_API_KEY ?? "",
-	);
+	const { client, indexName } = algoliaIndex();
 
 	// convert entry to algolia object
 	const article = {
@@ -107,12 +112,24 @@ const algoliaPush = async (model: string, entry: RevalidateEntry) => {
 		updatedAt: entry.updatedAt,
 	};
 
-	const idxName =
-		process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME ?? "articles_index";
 	return await client.saveObject({
-		indexName: idxName,
+		indexName,
 		body: article,
 	});
+};
+
+// records are keyed by slug, so an unpublished or deleted post can be dropped without a lookup
+const algoliaRemove = async (model: string, entry: RevalidateEntry) => {
+	if (model !== "blog") return;
+
+	if (!entry.slug) {
+		console.warn("Skipping Algolia removal due to missing blog slug");
+		return;
+	}
+
+	console.info(`Removing ${model} ${entry.slug} from Algolia`);
+	const { client, indexName } = algoliaIndex();
+	return await client.deleteObject({ indexName, objectID: entry.slug });
 };
 
 export async function POST(req: NextRequest) {
@@ -132,9 +149,12 @@ export async function POST(req: NextRequest) {
 		event === "entry.publish" ||
 		(track.events.includes(event) && Boolean(payload.publishedAt));
 
-	if (published || track.removalEvents.includes(event)) {
+	const removed = track.removalEvents.includes(event);
+
+	if (published || removed) {
 		revalidate(model, payload);
 		if (published) await algoliaPush(model, payload);
+		if (removed) await algoliaRemove(model, payload);
 		await purgeCFCache();
 	}
 

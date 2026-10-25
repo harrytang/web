@@ -105,14 +105,14 @@ const getAllEntitySlugs = async (entity: string) => {
 	const pageSize = process.env.SITEMAP_SIZE
 		? parseInt(process.env.SITEMAP_SIZE, 10)
 		: 1000;
-	const locales = await getLocales();
-	const results = await Promise.all(
-		locales.map((locale) =>
-			fetchEntries<SlugEntity>(`/${entity}`, { locale }, { pageSize }),
-		),
+	// locale=* reads every locale; Strapi 5 dropped v4's locale=all
+	const { entries } = await fetchEntries<SlugEntity>(
+		`/${entity}`,
+		{ locale: "*" },
+		{ pageSize },
 	);
 
-	return results.flatMap((res) => res.entries.map((item) => item.slug));
+	return entries.map((item) => item.slug);
 };
 
 export { fetchAPI, fetchEntries, getAllEntitySlugs, getLocales };

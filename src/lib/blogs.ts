@@ -1,10 +1,5 @@
 import type { Seo } from "@/types/seo";
-import {
-	fetchAPI,
-	fetchEntries,
-	getAllEntitySlugs,
-	getLocales,
-} from "./strapi";
+import { fetchAPI, getAllEntitySlugs } from "./strapi";
 
 export interface Blog {
 	id: number;
@@ -20,61 +15,39 @@ export interface Blog {
 	publishedAt: string;
 }
 
+// Posts exist in several locales; locale=* makes Strapi search, sort and paginate across all of them
 const getBlog = async (slug: string) => {
-	const locales = await getLocales();
-	const results = await Promise.all(
-		locales.map((locale) =>
-			fetchAPI<Blog[]>(
-				"/blogs",
-				{
-					populate: [
-						"seo",
-						"seo.metaImage",
-						"seo.metaSocial",
-						"seo.metaSocial.image",
-					],
-					filters: {
-						slug: slug,
-					},
-					locale,
-				},
-				{
-					next: { tags: [`blog-${slug}`] },
-				},
-			),
-		),
+	const res = await fetchAPI<Blog[]>(
+		"/blogs",
+		{
+			populate: [
+				"seo",
+				"seo.metaImage",
+				"seo.metaSocial",
+				"seo.metaSocial.image",
+			],
+			filters: {
+				slug: slug,
+			},
+			locale: "*",
+		},
+		{
+			next: { tags: [`blog-${slug}`] },
+		},
 	);
-	return results.flatMap((res) => res.data)[0];
+	return res.data[0];
 };
 
 const getBlogs = async (
 	start = 0,
 	limit = parseInt(process.env.NEXT_PUBLIC_PAGE_SIZE ?? "10", 10),
 ) => {
-	// the newest start + limit posts of each locale are enough to fill this page of the merged list
-	const count = start + limit;
-	const locales = await getLocales();
-	const results = await Promise.all(
-		locales.map((locale) =>
-			fetchEntries<Blog>(
-				"/blogs",
-				{
-					populate: ["seo", "seo.metaImage"],
-					sort: "publishedAt:desc",
-					locale,
-				},
-				{ pageSize: count, count },
-			),
-		),
-	);
-
-	const data = results
-		.flatMap((res) => res.entries)
-		.sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt))
-		.slice(start, count);
-	const total = results.reduce((sum, res) => sum + res.total, 0);
-
-	return { data, meta: { pagination: { start, limit, total } } };
+	return await fetchAPI<Blog[]>("/blogs", {
+		populate: ["seo", "seo.metaImage"],
+		sort: "publishedAt:desc",
+		locale: "*",
+		pagination: { start, limit },
+	});
 };
 
 const getBlogSlugs = async () => {

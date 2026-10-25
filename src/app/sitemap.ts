@@ -23,10 +23,11 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
 		},
 	];
 
-	// blogs
+	// blogs, in every locale (/blog/[slug] serves them all; pages below are default-locale only)
 	const blogRes = await fetchAPI<Blog[]>("/blogs", {
 		sort: "createdAt:DESC",
 		fields: ["slug", "updatedAt"],
+		locale: "*",
 		pagination: {
 			start: 0,
 			limit: sitemapSize,
