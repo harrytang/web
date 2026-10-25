@@ -22,6 +22,7 @@ jest.mock("algoliasearch", () => ({
 
 describe("api revalidate route", () => {
 	const saveObject = jest.fn();
+	const deleteObject = jest.fn();
 	const fetchMock = jest.fn();
 	const responseJson = jest.fn();
 
@@ -52,7 +53,8 @@ describe("api revalidate route", () => {
 		});
 
 		saveObject.mockResolvedValue({ taskID: 1 });
-		(algoliasearch as jest.Mock).mockReturnValue({ saveObject });
+		deleteObject.mockResolvedValue({ taskID: 2 });
+		(algoliasearch as jest.Mock).mockReturnValue({ saveObject, deleteObject });
 
 		jest.spyOn(console, "info").mockImplementation(() => {});
 		jest.spyOn(console, "warn").mockImplementation(() => {});
@@ -330,23 +332,59 @@ describe("api revalidate route", () => {
 			expect(fetchMock).toHaveBeenCalledTimes(1);
 		});
 
+		// the payload is the published row being removed, so publishedAt is still set
 		it.each(["entry.unpublish", "entry.delete"])(
-			"revalidates and purges cloudflare without pushing to algolia on %s",
+			"revalidates, purges cloudflare and removes the post from algolia on %s",
 			async (event) => {
 				const req = makeReq("Bearer secret-token", {
 					event,
 					model: "blog",
-					entry: blogEntry(null),
+					entry: blogEntry("2026-01-03T00:00:00.000Z"),
 				});
 
 				await POST(req);
 
 				expect(revalidateTag).toHaveBeenCalledWith("blog-my-post", "max");
 				expect(revalidatePath).toHaveBeenCalledWith("/", "page");
-				expect(algoliasearch).not.toHaveBeenCalled();
+				expect(deleteObject).toHaveBeenCalledWith({
+					indexName: "articles_index",
+					objectID: "my-post",
+				});
+				expect(saveObject).not.toHaveBeenCalled();
 				expect(fetchMock).toHaveBeenCalledTimes(1);
 			},
 		);
+
+		it("skips the algolia removal when the removal payload has no slug", async () => {
+			const req = makeReq("Bearer secret-token", {
+				event: "entry.delete",
+				model: "blog",
+				entry: null,
+			});
+
+			const res = await POST(req);
+
+			expect(res.status).toBe(200);
+			expect(deleteObject).not.toHaveBeenCalled();
+			expect(console.warn).toHaveBeenCalledWith(
+				"Skipping Algolia removal due to missing blog slug",
+			);
+			expect(fetchMock).toHaveBeenCalledTimes(1);
+		});
+
+		it("leaves algolia alone when a non-blog entry is unpublished", async () => {
+			const req = makeReq("Bearer secret-token", {
+				event: "entry.unpublish",
+				model: "project",
+				entry: { publishedAt: "2026-01-03T00:00:00.000Z" },
+			});
+
+			await POST(req);
+
+			expect(revalidatePath).toHaveBeenCalledWith("/projects", "page");
+			expect(algoliasearch).not.toHaveBeenCalled();
+			expect(fetchMock).toHaveBeenCalledTimes(1);
+		});
 
 		// Strapi 5 re-reads the entry after commit; through a lagging Galera replica the
 		// read can miss the new published row, so the payload carries entry: null

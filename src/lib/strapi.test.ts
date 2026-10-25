@@ -21,7 +21,8 @@ const realQs = jest.requireActual<typeof qs>("qs");
 
 type SlugRow = { slug: string };
 
-// Minimal Strapi REST API: rows per locale, honouring start/limit and the api.rest.maxLimit cap
+// Minimal Strapi REST API: rows per locale (locale=* reads them all), honouring start/limit
+// and the api.rest.maxLimit cap
 const fakeStrapi = (rowsByLocale: Record<string, SlugRow[]>, maxLimit = 100) =>
 	jest.fn(async (url: string) => {
 		const { pathname, search } = new URL(url);
@@ -35,7 +36,10 @@ const fakeStrapi = (rowsByLocale: Record<string, SlugRow[]>, maxLimit = 100) =>
 			locale?: string;
 			pagination?: { start?: string; limit?: string };
 		};
-		const rows = rowsByLocale[params.locale ?? "en"] ?? [];
+		const rows =
+			params.locale === "*"
+				? Object.values(rowsByLocale).flat()
+				: (rowsByLocale[params.locale ?? "en"] ?? []);
 		const start = Number(params.pagination?.start ?? 0);
 		const limit = Math.min(Number(params.pagination?.limit ?? 25), maxLimit);
 		return {
@@ -227,13 +231,25 @@ describe("strapi", () => {
 		expect(global.fetch).toHaveBeenCalledTimes(1);
 	});
 
-	it("getAllEntitySlugs collects slugs from every locale", async () => {
+	it("getAllEntitySlugs collects slugs from every locale in one paginated query", async () => {
 		process.env.SITEMAP_SIZE = "2";
-		useFakeStrapi({ en: slugRows("a", "b", "c"), vi: slugRows("d") }, 2);
+		const fake = useFakeStrapi(
+			{ en: slugRows("a", "b", "c"), vi: slugRows("d") },
+			2,
+		);
 
 		const result = await getAllEntitySlugs("blogs");
 
 		expect(result).toEqual(["a", "b", "c", "d"]);
+		const requested = fake.mock.calls.map(([url]) => new URL(url));
+		expect(requested.map((url) => url.pathname)).toEqual([
+			"/api/blogs",
+			"/api/blogs",
+		]);
+		expect(requested.map((url) => url.searchParams.get("locale"))).toEqual([
+			"*",
+			"*",
+		]);
 	});
 
 	it("getAllEntitySlugs pages past the API cap with the default sitemap size", async () => {

@@ -73,6 +73,16 @@ describe("sitemap route", () => {
 		expect(result).toHaveLength(2 + 1 + 1 + totalPages);
 	});
 
+	it("lists blog posts from every locale, since /blog/[slug] serves them all", async () => {
+		await sitemap();
+
+		expect(fetchAPI).toHaveBeenNthCalledWith(
+			1,
+			"/blogs",
+			expect.objectContaining({ locale: "*" }),
+		);
+	});
+
 	it("uses default sitemap size when SITEMAP_SIZE is not set", async () => {
 		delete process.env.SITEMAP_SIZE;
 		(fetchAPI as jest.Mock).mockReset();

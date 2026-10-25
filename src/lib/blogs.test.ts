@@ -24,103 +24,87 @@ const blog = (slug: string, publishedAt: string) => ({
 	publishedAt,
 });
 
-// newest first within each locale, as Strapi returns them for sort=publishedAt:desc
-const postsByLocale: Record<string, ReturnType<typeof blog>[]> = {
-	en: [
-		blog("e1", "2026-03-01T00:00:00.000Z"),
-		blog("e2", "2026-01-01T00:00:00.000Z"),
-	],
-	vi: [blog("v1", "2026-02-01T00:00:00.000Z")],
-};
+const strapiPage = (
+	data: ReturnType<typeof blog>[],
+	start: number,
+	limit: number,
+	total: number,
+) => ({ data, meta: { pagination: { start, limit, total } } });
 
 describe("blogs", () => {
 	beforeEach(() => {
 		jest.clearAllMocks();
 		mockedGetLocales.mockResolvedValue(["en", "vi"]);
-		mockedFetchAPI.mockResolvedValue({
-			data: [],
-			meta: { pagination: { start: 0, limit: 25, total: 0 } },
-		} as never);
-		mockedFetchEntries.mockImplementation((async (
-			_path: string,
-			params: { locale: string },
-			{ count }: { count: number },
-		) => {
-			const rows = postsByLocale[params.locale] ?? [];
-			return { entries: rows.slice(0, count), total: rows.length };
-		}) as never);
+		mockedFetchEntries.mockResolvedValue({ entries: [], total: 0 } as never);
+		mockedFetchAPI.mockResolvedValue(strapiPage([], 0, 25, 0) as never);
 	});
 
-	it("getBlog finds the post in whichever locale has the slug", async () => {
-		mockedFetchAPI.mockImplementation((async (
-			_path: string,
-			params: { locale: string },
-		) => ({
-			data:
-				params.locale === "vi"
-					? [blog("xin-chao", "2026-02-01T00:00:00.000Z")]
-					: [],
-			meta: { pagination: { start: 0, limit: 25, total: 0 } },
-		})) as never);
+	it("getBlog looks the slug up across every locale in one request", async () => {
+		const post = blog("xin-chao", "2026-02-01T00:00:00.000Z");
+		mockedFetchAPI.mockResolvedValue(strapiPage([post], 0, 25, 1) as never);
 
 		const result = await getBlog("xin-chao");
 
-		expect(mockedFetchAPI).toHaveBeenCalledTimes(2);
+		expect(mockedFetchAPI).toHaveBeenCalledTimes(1);
 		expect(mockedFetchAPI).toHaveBeenCalledWith(
 			"/blogs",
 			expect.objectContaining({
 				filters: { slug: "xin-chao" },
-				locale: "vi",
+				locale: "*",
 			}),
 			{ next: { tags: ["blog-xin-chao"] } },
 		);
-		expect(result).toEqual(blog("xin-chao", "2026-02-01T00:00:00.000Z"));
+		expect(result).toEqual(post);
 	});
 
 	it("getBlog returns undefined when no locale has the slug", async () => {
 		const result = await getBlog("missing");
 
-		expect(mockedFetchAPI).toHaveBeenCalledTimes(2);
+		expect(mockedFetchAPI).toHaveBeenCalledTimes(1);
 		expect(result).toBeUndefined();
 	});
 
-	it("getBlogs merges every locale, newest first", async () => {
+	it("getBlogs asks Strapi for one page of every locale, newest first", async () => {
+		const page = strapiPage(
+			[
+				blog("e1", "2026-03-01T00:00:00.000Z"),
+				blog("v1", "2026-02-01T00:00:00.000Z"),
+			],
+			0,
+			2,
+			3,
+		);
+		mockedFetchAPI.mockResolvedValue(page as never);
+
 		const result = await getBlogs(0, 2);
 
-		expect(result.data.map((post) => post.slug)).toEqual(["e1", "v1"]);
-		expect(result.meta.pagination).toEqual({ start: 0, limit: 2, total: 3 });
-		expect(mockedFetchEntries).toHaveBeenCalledWith(
-			"/blogs",
-			expect.objectContaining({
-				sort: "publishedAt:desc",
-				locale: "vi",
-			}),
-			{ pageSize: 2, count: 2 },
-		);
+		expect(mockedFetchAPI).toHaveBeenCalledTimes(1);
+		expect(mockedFetchAPI).toHaveBeenCalledWith("/blogs", {
+			populate: ["seo", "seo.metaImage"],
+			sort: "publishedAt:desc",
+			locale: "*",
+			pagination: { start: 0, limit: 2 },
+		});
+		expect(result).toEqual(page);
 	});
 
-	it("getBlogs paginates over the merged list", async () => {
-		const result = await getBlogs(2, 2);
+	it("getBlogs lets Strapi skip to a later page", async () => {
+		await getBlogs(20, 10);
 
-		expect(result.data.map((post) => post.slug)).toEqual(["e2"]);
-		expect(result.meta.pagination).toEqual({ start: 2, limit: 2, total: 3 });
-		expect(mockedFetchEntries).toHaveBeenCalledWith(
+		expect(mockedFetchAPI).toHaveBeenCalledWith(
 			"/blogs",
-			expect.objectContaining({ locale: "en" }),
-			{ pageSize: 4, count: 4 },
+			expect.objectContaining({ pagination: { start: 20, limit: 10 } }),
 		);
 	});
 
 	it("getBlogs defaults to the first NEXT_PUBLIC_PAGE_SIZE posts", async () => {
 		process.env.NEXT_PUBLIC_PAGE_SIZE = "12";
 
-		const result = await getBlogs();
+		await getBlogs();
 
-		expect(result.meta.pagination).toEqual({ start: 0, limit: 12, total: 3 });
-		expect(mockedFetchEntries).toHaveBeenCalledWith(
+		expect(mockedFetchAPI).toHaveBeenCalledWith(
 			"/blogs",
-			expect.any(Object),
-			{ pageSize: 12, count: 12 },
+			expect.objectContaining({ pagination: { start: 0, limit: 12 } }),
 		);
 	});
 
