@@ -5,7 +5,7 @@ on: workflow_call
 jobs:
   coverage:
     name: Coverage
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     environment:
       name: test
     steps:
@@ -54,7 +54,7 @@ jobs:
     timeout-minutes: 60
     environment:
       name: test
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-26.04-arm
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -119,15 +119,19 @@ jobs:
           if [ -d .next/static ]; then
             cp -r .next/static .next/standalone/.next/static
           fi
+      # Browser builds are per OS release, but Playwright names them alike (webkit-2370 for 24.04 and 26.04), so a
+      # cache shared across releases hands a 26.04 runner WebKit linked against 24.04's libicu 74 and install skips it.
       - name: Get Playwright Version
-        run: echo "PLAYWRIGHT_VERSION=$(pnpm show playwright version)" >> $GITHUB_ENV
+        run: |
+          echo "PLAYWRIGHT_VERSION=$(pnpm show playwright version)" >> $GITHUB_ENV
+          echo "OS_RELEASE=$(. /etc/os-release && echo "$ID$VERSION_ID")" >> $GITHUB_ENV
       - name: Cache playwright binaries
         uses: actions/cache@v6
         id: playwright-cache
         with:
           path: |
             ~/.cache/ms-playwright
-          key: ${{ runner.os }}-${{ runner.arch }}-playwright-only-shell-${{ env.PLAYWRIGHT_VERSION }}
+          key: ${{ runner.os }}-${{ env.OS_RELEASE }}-${{ runner.arch }}-playwright-only-shell-${{ env.PLAYWRIGHT_VERSION }}
       - name: Install Playwright Browsers
         run: pnpm exec playwright install --with-deps --only-shell
       - name: Run Playwright tests
