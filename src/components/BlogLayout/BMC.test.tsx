@@ -61,6 +61,14 @@ describe("BMC", () => {
 		expect(mainDiv).toHaveClass("bg-blue-50", "dark:bg-blue-500/10");
 	});
 
+	it("uses link colors that stay readable on the blue info box in both themes", () => {
+		render(<BMC />);
+
+		const link = screen.getByRole("link", { name: /buy me a coffee/ });
+		expect(link).toHaveClass("text-amber-800", "dark:text-amber-400");
+		expect(link).not.toHaveClass("text-amber-500");
+	});
+
 	it("falls back to default BMC URL when env is missing", () => {
 		delete process.env.NEXT_PUBLIC_BMC_URL;
 		render(<BMC />);

@@ -43,7 +43,7 @@ const Expertise = async () => {
 								</div>
 								<div className="mt-3 sm:ml-3 sm:mt-0">
 									<h2 className="text-sm font-medium">{skill.name}</h2>
-									<p className="mt-2 text-justify text-sm text-gray-500">
+									<p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
 										{skill.content}
 									</p>
 								</div>

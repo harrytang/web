@@ -39,7 +39,7 @@ export default function Pagination({
 					href={
 						currentPage === 2 ? "/articles" : `/articles/${currentPage - 1}`
 					}
-					className="inline-flex items-center border-t-2 border-transparent px-2 pt-4 text-sm font-medium text-zinc-600 hover:border-zinc-300 dark:text-zinc-500 dark:hover:border-zinc-700"
+					className="inline-flex items-center border-t-2 border-transparent px-2 pt-4 text-sm font-medium text-zinc-600 hover:border-zinc-300 dark:text-zinc-400 dark:hover:border-zinc-700"
 					aria-label="Previous"
 				>
 					<ArrowLongLeftIcon
@@ -57,12 +57,14 @@ export default function Pagination({
 					<>
 						<Link
 							href="/articles"
-							className="inline-flex items-center border-t-2 border-transparent px-2 pt-4 text-sm font-medium text-zinc-600 hover:border-zinc-300 dark:text-zinc-500 dark:hover:border-zinc-700"
+							className="inline-flex min-w-8 items-center justify-center border-t-2 border-transparent px-2 pt-4 text-sm font-medium text-zinc-600 hover:border-zinc-300 dark:text-zinc-400 dark:hover:border-zinc-700"
 						>
 							1
 						</Link>
 						{startPage > 2 && (
-							<span className="px-2 pt-4 text-gray-500">...</span>
+							<span className="px-2 pt-4 text-zinc-500 dark:text-zinc-400">
+								...
+							</span>
 						)}
 					</>
 				)}
@@ -73,10 +75,10 @@ export default function Pagination({
 						key={pageNumber}
 						href={pageNumber === 1 ? "/articles" : `/articles/${pageNumber}`}
 						className={clsx(
-							"inline-flex items-center border-t-2 px-2 pt-4 text-sm font-medium",
+							"inline-flex min-w-8 items-center justify-center border-t-2 px-2 pt-4 text-sm font-medium",
 							pageNumber === currentPage
 								? "border-amber-700 font-bold text-amber-700 dark:border-amber-500 dark:text-amber-500"
-								: "border-transparent text-zinc-600 hover:border-zinc-300 dark:text-zinc-500 dark:hover:border-zinc-700",
+								: "border-transparent text-zinc-600 hover:border-zinc-300 dark:text-zinc-400 dark:hover:border-zinc-700",
 						)}
 					>
 						{pageNumber}
@@ -87,11 +89,13 @@ export default function Pagination({
 				{endPage < totalPages && (
 					<>
 						{endPage < totalPages - 1 && (
-							<span className="px-2 pt-4 text-gray-500">...</span>
+							<span className="px-2 pt-4 text-zinc-500 dark:text-zinc-400">
+								...
+							</span>
 						)}
 						<Link
 							href={`/articles/${totalPages}`}
-							className="inline-flex items-center border-t-2 border-transparent px-2 pt-4 text-sm font-medium text-zinc-600 hover:border-zinc-300 dark:text-zinc-500 dark:hover:border-zinc-700"
+							className="inline-flex min-w-8 items-center justify-center border-t-2 border-transparent px-2 pt-4 text-sm font-medium text-zinc-600 hover:border-zinc-300 dark:text-zinc-400 dark:hover:border-zinc-700"
 						>
 							{totalPages}
 						</Link>
@@ -103,7 +107,7 @@ export default function Pagination({
 			{currentPage < totalPages && (
 				<Link
 					href={`/articles/${currentPage + 1}`}
-					className="inline-flex items-center border-t-2 border-transparent px-2 pt-4 text-sm font-medium text-zinc-600 hover:border-zinc-300 dark:text-zinc-500 dark:hover:border-zinc-700"
+					className="inline-flex items-center border-t-2 border-transparent px-2 pt-4 text-sm font-medium text-zinc-600 hover:border-zinc-300 dark:text-zinc-400 dark:hover:border-zinc-700"
 					aria-label="Next"
 				>
 					<span className="hidden sm:inline">Next</span>

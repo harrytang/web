@@ -149,7 +149,7 @@ const BlogLayout: React.FC<BlogLayoutProps> = ({ blog }) => {
 							</nav>
 							<time
 								dateTime={blog.publishedAt}
-								className="order-first flex items-center text-base text-zinc-500 dark:text-zinc-500"
+								className="order-first flex items-center text-base text-zinc-500 dark:text-zinc-400"
 							>
 								<span className="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500" />
 								<span className="ml-3">{formatDate(blog.publishedAt)}</span>
@@ -211,7 +211,7 @@ const BlogLayout: React.FC<BlogLayoutProps> = ({ blog }) => {
 										placeholder="blur"
 										blurDataURL={BLUR_IMAGE}
 									/>
-									<figcaption className="mt-4 flex justify-center gap-x-2 text-sm leading-6 text-gray-500">
+									<figcaption className="mt-4 flex justify-center gap-x-2 text-sm leading-6 text-zinc-500 dark:text-zinc-400">
 										<InformationCircleIcon
 											className="mt-0.5 h-5 w-5 flex-none text-gray-300"
 											aria-hidden="true"

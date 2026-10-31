@@ -20,7 +20,7 @@ export default function BMC() {
 							href={bmcUrl}
 							target="_blank"
 							rel="noopener noreferrer"
-							className="text-amber-500 hover:text-amber-600"
+							className="text-amber-800 hover:text-amber-900 dark:text-amber-400 dark:hover:text-amber-300"
 						>
 							buy me a coffee
 						</Link>

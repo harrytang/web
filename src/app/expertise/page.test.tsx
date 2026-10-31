@@ -116,6 +116,24 @@ describe("expertise page", () => {
 		});
 	});
 
+	it("renders skill descriptions in the shared muted zinc colors for both themes", async () => {
+		const ui = await Expertise();
+		render(ui);
+
+		expect(
+			screen.getByText("Building reliable frontends and APIs."),
+		).toHaveClass("text-zinc-500", "dark:text-zinc-400");
+	});
+
+	it("keeps skill descriptions left-aligned so narrow screens get no word gaps", async () => {
+		const ui = await Expertise();
+		render(ui);
+
+		expect(
+			screen.getByText("Building reliable frontends and APIs."),
+		).not.toHaveClass("text-justify");
+	});
+
 	it("renders skills and json-ld output", async () => {
 		const ui = await Expertise();
 		const { container } = render(ui);

@@ -126,4 +126,30 @@ describe("Pagination", () => {
 		);
 		expect(screen.getByRole("link", { name: "7" })).toHaveClass("font-bold");
 	});
+
+	it("keeps inactive links and ellipses at AA contrast in dark mode", () => {
+		const { container } = render(<Pagination totalPages={9} currentPage={5} />);
+
+		for (const name of ["Previous", "Next", "1", "4", "6", "9"]) {
+			expect(screen.getByRole("link", { name })).toHaveClass(
+				"dark:text-zinc-400",
+			);
+		}
+		for (const ellipsis of screen.getAllByText("...")) {
+			expect(ellipsis).toHaveClass("text-zinc-500", "dark:text-zinc-400");
+		}
+		expect(container.querySelector(".dark\\:text-zinc-500")).toBeNull();
+		expect(container.querySelector(".text-gray-500")).toBeNull();
+	});
+
+	it("keeps single-digit page links wide enough to tap", () => {
+		render(<Pagination totalPages={9} currentPage={5} />);
+
+		for (const name of ["1", "4", "5", "6", "9"]) {
+			expect(screen.getByRole("link", { name })).toHaveClass(
+				"min-w-8",
+				"justify-center",
+			);
+		}
+	});
 });

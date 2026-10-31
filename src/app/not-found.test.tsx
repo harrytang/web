@@ -46,4 +46,12 @@ describe("not-found page", () => {
 		expect(backLink).toHaveAttribute("href", "/");
 		expect(backLink).toHaveTextContent("Go back home");
 	});
+
+	it("keeps the 404 label readable in light and dark themes", () => {
+		render(<NotFound />);
+
+		const label = screen.getByText("404");
+		expect(label).toHaveClass("text-zinc-500", "dark:text-zinc-400");
+		expect(label).not.toHaveClass("text-zinc-400");
+	});
 });

@@ -21,7 +21,7 @@ const Button: React.FC<ButtonProps> = ({
 	...props
 }) => {
 	className = clsx(
-		"inline-flex items-center gap-2 justify-center rounded-md py-2 px-3 text-sm outline-offset-2 transition active:transition-none",
+		"inline-flex items-center gap-2 justify-center rounded-md py-2 px-3 text-sm outline-offset-2 transition focus-visible:outline-2 focus-visible:outline-amber-600 active:transition-none disabled:cursor-not-allowed disabled:opacity-50 dark:focus-visible:outline-amber-400",
 		variantStyles[variant],
 		className,
 	);

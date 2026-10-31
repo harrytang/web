@@ -54,4 +54,36 @@ describe("Layout", () => {
 		// Check if the main element is rendered correctly
 		expect(mainElement).toBeInTheDocument();
 	});
+
+	it("offers a skip link that targets the main landmark", () => {
+		render(
+			<Layout>
+				<div>Content</div>
+			</Layout>,
+		);
+
+		const skipLink = screen.getByRole("link", { name: "Skip to content" });
+		expect(skipLink).toHaveAttribute("href", "#main-content");
+		expect(skipLink).toHaveClass("sr-only", "focus:not-sr-only");
+
+		const main = screen.getByRole("main");
+		expect(main).toHaveAttribute("id", "main-content");
+		expect(main).toHaveAttribute("tabindex", "-1");
+	});
+
+	it("places the skip link before the header so it is the first tab stop", () => {
+		render(
+			<Layout>
+				<div>Content</div>
+			</Layout>,
+		);
+
+		const skipLink = screen.getByRole("link", { name: "Skip to content" });
+		const header = screen.getByTestId("header");
+
+		expect(
+			skipLink.compareDocumentPosition(header) &
+				Node.DOCUMENT_POSITION_FOLLOWING,
+		).toBeTruthy();
+	});
 });

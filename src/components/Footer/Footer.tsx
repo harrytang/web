@@ -56,8 +56,8 @@ const Footer: React.FC = () => {
 								href="https://maxspell.com/cloud-hosting"
 								target="_blank"
 								rel="noopener noreferrer"
-								aria-label="Maxspell cloud hosting"								
-								className="inline-flex h-5 items-end leading-none hover:opacity-80 cursor-pointer"
+								aria-label="Maxspell cloud hosting"
+								className="-my-2 inline-flex h-9 items-end pb-2 leading-none hover:opacity-80 cursor-pointer"
 							>
 								<img
 									src="https://maxspell.com/logo.svg"

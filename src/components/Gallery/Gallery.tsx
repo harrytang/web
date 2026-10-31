@@ -30,23 +30,28 @@ const Gallery: React.FC<GalleryProps> = ({ items }) => {
 
 	const [displayItems, setDisplayItems] = useState(items);
 	const [isAnimating, setIsAnimating] = useState(false);
+	const [canRotate, setCanRotate] = useState(false);
+	const [paused, setPaused] = useState(false);
 
 	// Sync local display order only when the incoming prop changes.
 	useEffect(() => {
 		setDisplayItems(items);
 	}, [items]);
 
-	// Auto-rotate gallery for small screens
+	// Auto-rotate gallery for small screens, unless the user prefers reduced
+	// motion. Rotation can be paused (WCAG 2.2.2).
 	useEffect(() => {
 		const { photoWidth, photoGap } = getPhotoDimensions();
 		const totalGalleryWidth = (photoWidth + photoGap) * items.length;
 		const isSmallScreen = window.matchMedia(
 			`(max-width: ${totalGalleryWidth}px)`,
 		).matches;
-		if (!isSmallScreen || items.length <= 1) {
-			console.log("Skipping auto-rotate on large screens");
-			return;
-		}
+		const prefersReducedMotion = window.matchMedia(
+			"(prefers-reduced-motion: reduce)",
+		).matches;
+		const rotates = isSmallScreen && items.length > 1 && !prefersReducedMotion;
+		setCanRotate(rotates);
+		if (!rotates || paused) return;
 
 		let slideTimeout: ReturnType<typeof setTimeout> | undefined;
 		const interval = setInterval(() => {
@@ -59,8 +64,9 @@ const Gallery: React.FC<GalleryProps> = ({ items }) => {
 		return () => {
 			clearInterval(interval);
 			if (slideTimeout) clearTimeout(slideTimeout);
+			setIsAnimating(false);
 		};
-	}, [items]);
+	}, [items, paused]);
 
 	// Helper to get slide style
 	const getSlideStyle = (isAnimating: boolean, slideDistance: number) => {
@@ -113,6 +119,17 @@ const Gallery: React.FC<GalleryProps> = ({ items }) => {
 					);
 				})}
 			</div>
+			{canRotate && (
+				<div className="mt-6 flex justify-center">
+					<button
+						type="button"
+						onClick={() => setPaused((prev) => !prev)}
+						className="rounded-md px-3 py-1.5 text-sm font-medium text-zinc-600 transition hover:text-zinc-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600 dark:text-zinc-400 dark:hover:text-zinc-100 dark:focus-visible:outline-amber-400"
+					>
+						{paused ? "Play slideshow" : "Pause slideshow"}
+					</button>
+				</div>
+			)}
 		</div>
 	);
 };

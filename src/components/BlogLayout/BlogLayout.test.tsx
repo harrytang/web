@@ -151,6 +151,19 @@ describe("BlogLayout", () => {
 		expect(screen.getByText("Cover caption")).toBeInTheDocument();
 	});
 
+	it("keeps the date and cover caption at AA contrast in dark mode", () => {
+		const { container } = render(<BlogLayout blog={createBlog()} />);
+
+		expect(container.querySelector("time")).toHaveClass(
+			"text-zinc-500",
+			"dark:text-zinc-400",
+		);
+		expect(screen.getByText("Cover caption").closest("figcaption")).toHaveClass(
+			"text-zinc-500",
+			"dark:text-zinc-400",
+		);
+	});
+
 	it("renders social sharing links under the title", () => {
 		render(<BlogLayout blog={createBlog()} />);
 

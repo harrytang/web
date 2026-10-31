@@ -45,10 +45,18 @@ describe("Footer", () => {
 			container.querySelector('img[src="https://maxspell.com/logo.svg"]'),
 		).toBeInTheDocument();
 		expect(
-			container.querySelector(
-				'img[src="https://maxspell.com/logo-dark.svg"]',
-			),
+			container.querySelector('img[src="https://maxspell.com/logo-dark.svg"]'),
 		).toBeInTheDocument();
+	});
+
+	it("gives the Maxspell logo link a tap target of at least 24px without moving the layout", () => {
+		render(<Footer />);
+
+		const link = screen.getByRole("link", { name: "Maxspell cloud hosting" });
+		// h-9 (36px) padded back with a matching negative margin keeps the
+		// 20px logo exactly where it was while enlarging the clickable box.
+		expect(link).toHaveClass("h-9", "-my-2", "pb-2");
+		expect(link).not.toHaveClass("h-5");
 	});
 
 	it("falls back to hash links for optional external links", () => {

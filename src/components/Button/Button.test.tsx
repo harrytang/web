@@ -66,4 +66,25 @@ describe("Button", () => {
 		expect(linkElement).toHaveAttribute("aria-label", "Custom Link");
 		expect(linkElement).toHaveAttribute("href", "/test-link");
 	});
+
+	it("has an explicit, visible keyboard focus style in both themes", () => {
+		render(<Button>Focusable</Button>);
+
+		expect(screen.getByRole("button", { name: "Focusable" })).toHaveClass(
+			"focus-visible:outline-2",
+			"focus-visible:outline-amber-600",
+			"dark:focus-visible:outline-amber-400",
+		);
+	});
+
+	it("dims and signals the not-allowed state when disabled", () => {
+		render(<Button disabled>Unavailable</Button>);
+
+		const button = screen.getByRole("button", { name: "Unavailable" });
+		expect(button).toBeDisabled();
+		expect(button).toHaveClass(
+			"disabled:opacity-50",
+			"disabled:cursor-not-allowed",
+		);
+	});
 });

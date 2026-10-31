@@ -58,47 +58,64 @@
 	margin: 0;
 }
 
-.mdx-code-scroll .hljs-comment,
-.mdx-code-scroll .hljs-quote {
+:root:not(.dark) .mdx-code-scroll .hljs-comment,
+:root:not(.dark) .mdx-code-scroll .hljs-quote {
 	color: #6e7781;
 }
 
-.mdx-code-scroll .hljs-keyword,
-.mdx-code-scroll .hljs-selector-tag,
-.mdx-code-scroll .hljs-literal,
-.mdx-code-scroll .hljs-section,
-.mdx-code-scroll .hljs-link {
+:root:not(.dark) .mdx-code-scroll .hljs-keyword,
+:root:not(.dark) .mdx-code-scroll .hljs-selector-tag,
+:root:not(.dark) .mdx-code-scroll .hljs-literal,
+:root:not(.dark) .mdx-code-scroll .hljs-section,
+:root:not(.dark) .mdx-code-scroll .hljs-link {
 	color: #cf222e;
 }
 
-.mdx-code-scroll .hljs-string,
-.mdx-code-scroll .hljs-title,
-.mdx-code-scroll .hljs-name,
-.mdx-code-scroll .hljs-attribute,
-.mdx-code-scroll .hljs-symbol,
-.mdx-code-scroll .hljs-bullet,
-.mdx-code-scroll .hljs-addition {
+:root:not(.dark) .mdx-code-scroll .hljs-string,
+:root:not(.dark) .mdx-code-scroll .hljs-title,
+:root:not(.dark) .mdx-code-scroll .hljs-name,
+:root:not(.dark) .mdx-code-scroll .hljs-attribute,
+:root:not(.dark) .mdx-code-scroll .hljs-symbol,
+:root:not(.dark) .mdx-code-scroll .hljs-bullet,
+:root:not(.dark) .mdx-code-scroll .hljs-addition {
 	color: #116329;
 }
 
-.mdx-code-scroll .hljs-number,
-.mdx-code-scroll .hljs-meta,
-.mdx-code-scroll .hljs-built_in,
-.mdx-code-scroll .hljs-type,
-.mdx-code-scroll .hljs-params,
-.mdx-code-scroll .hljs-template-variable {
+:root:not(.dark) .mdx-code-scroll .hljs-attr,
+:root:not(.dark) .mdx-code-scroll .hljs-number,
+:root:not(.dark) .mdx-code-scroll .hljs-meta,
+:root:not(.dark) .mdx-code-scroll .hljs-built_in,
+:root:not(.dark) .mdx-code-scroll .hljs-type,
+:root:not(.dark) .mdx-code-scroll .hljs-params,
+:root:not(.dark) .mdx-code-scroll .hljs-template-variable {
 	color: #0550ae;
 }
 
-.mdx-code-scroll .hljs-variable,
-.mdx-code-scroll .hljs-selector-class,
-.mdx-code-scroll .hljs-selector-id,
-.mdx-code-scroll .hljs-selector-attr,
-.mdx-code-scroll .hljs-selector-pseudo {
+:root:not(.dark) .mdx-code-scroll .hljs-variable,
+:root:not(.dark) .mdx-code-scroll .hljs-selector-class,
+:root:not(.dark) .mdx-code-scroll .hljs-selector-id,
+:root:not(.dark) .mdx-code-scroll .hljs-selector-attr,
+:root:not(.dark) .mdx-code-scroll .hljs-selector-pseudo {
 	color: #953800;
 }
 
 /* Keep highlight.js github-dark look in dark mode */
 .dark .mdx-code-scroll .hljs {
 	color: inherit;
+}
+
+/* Honour the OS "reduce motion" setting for every transition and animation.
+   The tiny duration (not 0) still fires transitionend/animationend; the single
+   iteration stops a shortened infinite animation from strobing. */
+@media (prefers-reduced-motion: reduce) {
+	*,
+	::before,
+	::after {
+		/* biome-ignore-start lint/complexity/noImportantStyles: must beat inline styles and utility classes */
+		transition-duration: 0.01ms !important;
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		scroll-behavior: auto !important;
+		/* biome-ignore-end lint/complexity/noImportantStyles: must beat inline styles and utility classes */
+	}
 }

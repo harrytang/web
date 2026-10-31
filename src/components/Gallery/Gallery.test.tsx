@@ -1,4 +1,4 @@
-import { act, render, screen } from "@testing-library/react";
+import { act, fireEvent, render, screen } from "@testing-library/react";
 import type { Media } from "@/types/media";
 import Gallery from "./Gallery";
 
@@ -42,6 +42,20 @@ const createMedia = (id: number, caption: string): Media => ({
 	createdAt: "2024-01-01",
 	updatedAt: "2024-01-01",
 });
+
+// The gallery asks two media questions: is the screen narrower than the strip,
+// and does the user prefer reduced motion. Answer them independently.
+const mockMedia = ({
+	small,
+	reduced = false,
+}: {
+	small: boolean;
+	reduced?: boolean;
+}) => {
+	(window.matchMedia as jest.Mock).mockImplementation((query: string) => ({
+		matches: query.includes("prefers-reduced-motion") ? reduced : small,
+	}));
+};
 
 describe("Gallery", () => {
 	const originalMatchMedia = window.matchMedia;
@@ -97,30 +111,105 @@ describe("Gallery", () => {
 		expect(images[2]).toHaveAttribute("data-priority", "false");
 	});
 
-	it("skips auto-rotate on large screens", () => {
-		(window.matchMedia as jest.Mock).mockReturnValue({ matches: false });
+	it("skips auto-rotate on large screens without logging", () => {
+		mockMedia({ small: false });
+		const items = [createMedia(1, "First"), createMedia(2, "Second")];
+
+		render(<Gallery items={items} />);
+		act(() => {
+			jest.advanceTimersByTime(5000);
+		});
+
+		expect(
+			screen.getAllByTestId("gallery-image")[0].closest(".flex-none"),
+		).toHaveStyle({ transform: "translateX(0)" });
+		expect(console.log).not.toHaveBeenCalled();
+	});
+
+	it("skips auto-rotate when only one item exists", () => {
+		mockMedia({ small: true });
+		const items = [createMedia(1, "Only")];
+
+		render(<Gallery items={items} />);
+		act(() => {
+			jest.advanceTimersByTime(5000);
+		});
+
+		expect(
+			screen.getByTestId("gallery-image").closest(".flex-none"),
+		).toHaveStyle({ transform: "translateX(0)" });
+		expect(screen.queryByRole("button")).not.toBeInTheDocument();
+	});
+
+	it("does not auto-rotate or offer a control when the user prefers reduced motion", () => {
+		mockMedia({ small: true, reduced: true });
+		Object.defineProperty(window, "innerWidth", {
+			writable: true,
+			value: 375,
+		});
+		const items = [createMedia(1, "First"), createMedia(2, "Second")];
+
+		render(<Gallery items={items} />);
+		act(() => {
+			jest.advanceTimersByTime(10000);
+		});
+
+		const images = screen.getAllByTestId("gallery-image");
+		expect(images[0]).toHaveAttribute("data-alt", "First");
+		expect(images[0].closest(".flex-none")).toHaveStyle({
+			transform: "translateX(0)",
+		});
+		expect(screen.queryByRole("button")).not.toBeInTheDocument();
+	});
+
+	it("lets the user pause and resume auto-rotation", () => {
+		mockMedia({ small: true });
+		Object.defineProperty(window, "innerWidth", {
+			writable: true,
+			value: 375,
+		});
 		const items = [createMedia(1, "First"), createMedia(2, "Second")];
 
 		render(<Gallery items={items} />);
 
-		expect(console.log).toHaveBeenCalledWith(
-			"Skipping auto-rotate on large screens",
-		);
+		fireEvent.click(screen.getByRole("button", { name: "Pause slideshow" }));
+		act(() => {
+			jest.advanceTimersByTime(10000);
+		});
+		expect(
+			screen.getAllByTestId("gallery-image")[0].closest(".flex-none"),
+		).toHaveStyle({ transform: "translateX(0)" });
+
+		fireEvent.click(screen.getByRole("button", { name: "Play slideshow" }));
+		act(() => {
+			jest.advanceTimersByTime(5000);
+		});
+		expect(
+			screen.getAllByTestId("gallery-image")[0].closest(".flex-none"),
+		).toHaveStyle({ transform: "translateX(-196px)" });
 	});
 
-	it("skips auto-rotate when only one item exists", () => {
-		(window.matchMedia as jest.Mock).mockReturnValue({ matches: true });
-		const items = [createMedia(1, "Only")];
+	it("settles the slide instead of freezing mid-animation when paused", () => {
+		mockMedia({ small: true });
+		Object.defineProperty(window, "innerWidth", {
+			writable: true,
+			value: 375,
+		});
+		const items = [createMedia(1, "First"), createMedia(2, "Second")];
 
 		render(<Gallery items={items} />);
+		act(() => {
+			jest.advanceTimersByTime(5000);
+		});
+		fireEvent.click(screen.getByRole("button", { name: "Pause slideshow" }));
 
-		expect(console.log).toHaveBeenCalledWith(
-			"Skipping auto-rotate on large screens",
-		);
+		expect(
+			screen.getAllByTestId("gallery-image")[0].closest(".flex-none"),
+		).toHaveStyle({ transform: "translateX(0)" });
 	});
 
 	it("starts slide animation on small screens after interval tick", () => {
-		(window.matchMedia as jest.Mock).mockReturnValue({ matches: true });
+		mockMedia({ small: true });
 		Object.defineProperty(window, "innerWidth", {
 			writable: true,
 			value: 375,
@@ -165,7 +254,7 @@ describe("Gallery", () => {
 	});
 
 	it("applies animating then default styles during rotation lifecycle", () => {
-		(window.matchMedia as jest.Mock).mockReturnValue({ matches: true });
+		mockMedia({ small: true });
 		Object.defineProperty(window, "innerWidth", {
 			writable: true,
 			value: 375,
@@ -203,7 +292,7 @@ describe("Gallery", () => {
 	});
 
 	it("handles rotation setter shortcut when items reduce to one during animation", () => {
-		(window.matchMedia as jest.Mock).mockReturnValue({ matches: true });
+		mockMedia({ small: true });
 		Object.defineProperty(window, "innerWidth", {
 			writable: true,
 			value: 375,
