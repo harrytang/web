@@ -33,11 +33,13 @@ jest.mock("@/components/ArticleList", () => ({
 	ArticleList: ({
 		article,
 		type,
+		heading,
 	}: {
 		article: { id: number; title: string };
 		type: string;
+		heading?: string;
 	}) => (
-		<article data-testid="article-item" data-type={type}>
+		<article data-testid="article-item" data-type={type} data-heading={heading}>
 			{article.title}
 		</article>
 	),
@@ -200,6 +202,11 @@ describe("articles paginated page", () => {
 		expect(screen.getByText("Latest writing")).toBeInTheDocument();
 		expect(screen.getByText("Browse all posts")).toBeInTheDocument();
 		expect(screen.getAllByTestId("article-item")).toHaveLength(2);
+		// Later pages are a plain index: no lead, every post is a row under an h2.
+		for (const item of screen.getAllByTestId("article-item")) {
+			expect(item).toHaveAttribute("data-type", "row");
+			expect(item).toHaveAttribute("data-heading", "h2");
+		}
 		expect(screen.getByTestId("pagination")).toHaveTextContent(
 			`Page 2 of ${Math.ceil(25 / pageSize)}`,
 		);
@@ -210,6 +217,56 @@ describe("articles paginated page", () => {
 		expect(scripts).toHaveLength(2);
 		expect(scripts[0]?.innerHTML).toContain("WebPage");
 		expect(scripts[1]?.innerHTML).toContain("ItemList");
+	});
+
+	it("leads the first page with the latest post and lists the rest as rows", async () => {
+		const ui = await ArticlesIndex({
+			params: Promise.resolve({ current: "1" }),
+		});
+		render(ui);
+
+		const items = screen.getAllByTestId("article-item");
+		expect(items.map((item) => item.getAttribute("data-type"))).toEqual([
+			"lead",
+			"row",
+		]);
+		expect(items[0]).toHaveTextContent("Post 101");
+	});
+
+	it("shows a single post as the lead with no rows", async () => {
+		(getBlogs as jest.Mock).mockResolvedValue({
+			data: [{ id: 1, title: "Only post" }],
+			meta: { pagination: { total: 1 } },
+		});
+		const ui = await ArticlesIndex({
+			params: Promise.resolve({ current: "1" }),
+		});
+		render(ui);
+
+		expect(
+			screen
+				.getAllByTestId("article-item")
+				.map((item) => item.getAttribute("data-type")),
+		).toEqual(["lead"]);
+	});
+
+	it("explains an empty page and links back to the latest articles", async () => {
+		(getBlogs as jest.Mock).mockResolvedValue({
+			data: [],
+			meta: { pagination: { total: 25 } },
+		});
+		const ui = await ArticlesIndex({
+			params: Promise.resolve({ current: "99" }),
+		});
+		render(ui);
+
+		expect(screen.queryAllByTestId("article-item")).toHaveLength(0);
+		// The link back is the only way on; pagination for a missing page is noise.
+		expect(screen.queryByTestId("pagination")).toBeNull();
+		expect(screen.getByText("No articles on this page.")).toBeInTheDocument();
+		expect(
+			screen.getByRole("link", { name: /latest articles/i }),
+		).toHaveAttribute("href", "/articles");
 	});
 
 	it("falls back to the first page when current is empty", async () => {

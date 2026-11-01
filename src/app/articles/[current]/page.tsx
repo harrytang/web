@@ -1,3 +1,5 @@
+import { ChevronRightIcon } from "@heroicons/react/20/solid";
+import Link from "next/link";
 import { ArticleList } from "@/components/ArticleList";
 import { Pagination } from "@/components/Pagination";
 import { SimpleLayout } from "@/components/SimpleLayout";
@@ -54,6 +56,10 @@ const ArticlesIndex = async ({ params }: ArticlesIndexProps) => {
 	const blogs = await getBlogs(start, pageSize);
 	const articlesJsonld = generateListArticleJsonLd(blogs.data);
 	const totalPages = Math.ceil(blogs.meta.pagination.total / pageSize);
+	// The first page opens with the latest post; later pages are plain rows.
+	const isFirstPage = pageIdx === 0;
+	const lead = isFirstPage ? blogs.data[0] : undefined;
+	const rows = isFirstPage ? blogs.data.slice(1) : blogs.data;
 
 	return (
 		<div id="blogs">
@@ -62,19 +68,35 @@ const ArticlesIndex = async ({ params }: ArticlesIndexProps) => {
 				content={articlePage.content}
 				seachBox={true}
 			>
-				<div className="grid gap-6 md:grid-cols-2">
-					{blogs.data.map((blog) => (
-						<ArticleList
-							key={blog.id}
-							article={blog}
-							type="card"
-							heading="h2"
-						/>
-					))}
-				</div>
-				<div className="mt-10">
-					<Pagination totalPages={totalPages} currentPage={pageIdx + 1} />
-				</div>
+				{blogs.data.length === 0 ? (
+					<div className="rounded-3xl bg-raised px-6 py-14 text-center ring-1 ring-line">
+						<p className="text-lg text-muted">No articles on this page.</p>
+						<Link
+							href="/articles"
+							className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-accent hover:underline"
+						>
+							Back to the latest articles
+							<ChevronRightIcon aria-hidden="true" className="size-4" />
+						</Link>
+					</div>
+				) : (
+					<div className="divide-y divide-line">
+						{lead && <ArticleList article={lead} type="lead" heading="h2" />}
+						{rows.map((blog) => (
+							<ArticleList
+								key={blog.id}
+								article={blog}
+								type="row"
+								heading="h2"
+							/>
+						))}
+					</div>
+				)}
+				{blogs.data.length > 0 && (
+					<div className="mt-14">
+						<Pagination totalPages={totalPages} currentPage={pageIdx + 1} />
+					</div>
+				)}
 				<script type="application/ld+json">{JSON.stringify(pageJsonld)}</script>
 				<script type="application/ld+json">
 					{JSON.stringify(articlesJsonld)}
