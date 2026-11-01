@@ -46,23 +46,28 @@ describe("CommentBox", () => {
 			})),
 		});
 
-		window.REMARK42 = {
-			destroy: jest.fn(),
-			createInstance: jest.fn(),
-		};
-		window.remark_config = {
-			host: "https://comments.example",
-			site_id: "site-123",
-			url: "https://site.example/blog/test",
-			theme: "light",
-			no_footer: true,
-		};
+		// A fresh page: the embed has not been loaded yet.
+		window.REMARK42 = undefined;
+		window.remark_config = undefined;
 	});
 
 	afterEach(() => {
 		document.getElementById("comments-script")?.remove();
+		window.REMARK42 = undefined;
+		window.remark_config = undefined;
 		jest.clearAllMocks();
 	});
+
+	/** What the embed puts on the page once its script has run. */
+	const loadEmbed = () => {
+		const api = {
+			changeTheme: jest.fn(),
+			destroy: jest.fn(),
+			createInstance: jest.fn(),
+		};
+		window.REMARK42 = api;
+		return api;
+	};
 
 	it("renders comments heading and container", () => {
 		render(<CommentBox location="https://site.example/blog/test" />);
@@ -102,22 +107,142 @@ describe("CommentBox", () => {
 		});
 	});
 
-	it("updates script theme on system theme change event", async () => {
-		setMockTheme("system");
-		render(<CommentBox location="https://site.example/blog/test" />);
-
+	it("switches a loaded embed to the new theme when the site theme changes", async () => {
+		const { rerender } = render(
+			<CommentBox location="https://site.example/blog/test" />,
+		);
 		await waitFor(() => {
 			expect(document.getElementById("comments-script")).toBeInTheDocument();
 		});
+		const embed = loadEmbed();
+		const script = document.getElementById("comments-script");
+
+		setMockTheme("dark");
+		rerender(<CommentBox location="https://site.example/blog/test" />);
+
+		await waitFor(() => {
+			expect(embed.changeTheme).toHaveBeenCalledWith("dark");
+		});
+		// The embed is a one-shot module, so re-inserting its script would do
+		// nothing: the same script stays and no new instance is created.
+		expect(document.getElementById("comments-script")).toBe(script);
+		expect(embed.createInstance).not.toHaveBeenCalled();
+		expect(embed.destroy).not.toHaveBeenCalled();
+	});
+
+	it("switches a loaded embed back to light", async () => {
+		setMockTheme("dark");
+		const { rerender } = render(
+			<CommentBox location="https://site.example/blog/test" />,
+		);
+		await waitFor(() => {
+			expect(document.getElementById("comments-script")).toBeInTheDocument();
+		});
+		const embed = loadEmbed();
+
+		setMockTheme("light");
+		rerender(<CommentBox location="https://site.example/blog/test" />);
+
+		await waitFor(() => {
+			expect(embed.changeTheme).toHaveBeenCalledWith("light");
+		});
+	});
+
+	it("follows the system theme live through the embed", async () => {
+		setMockTheme("system");
+		render(<CommentBox location="https://site.example/blog/test" />);
+		await waitFor(() => {
+			expect(document.getElementById("comments-script")).toBeInTheDocument();
+		});
+		const embed = loadEmbed();
 
 		act(() => {
 			mediaChangeHandler?.({ matches: true } as MediaQueryListEvent);
 		});
+		await waitFor(() => {
+			expect(embed.changeTheme).toHaveBeenLastCalledWith("dark");
+		});
+
+		act(() => {
+			mediaChangeHandler?.({ matches: false } as MediaQueryListEvent);
+		});
+		await waitFor(() => {
+			expect(embed.changeTheme).toHaveBeenLastCalledWith("light");
+		});
+	});
+
+	it("keeps the config current so an embed that loads late starts in the right theme", async () => {
+		const { rerender } = render(
+			<CommentBox location="https://site.example/blog/test" />,
+		);
+		await waitFor(() => {
+			expect(document.getElementById("comments-script")).toBeInTheDocument();
+		});
+		// The inline script defines remark_config; jsdom does not run it.
+		window.remark_config = {
+			host: "https://comments.example",
+			site_id: "site-123",
+			url: "https://site.example/blog/test",
+			theme: "light",
+			no_footer: true,
+		};
+
+		setMockTheme("dark");
+		rerender(<CommentBox location="https://site.example/blog/test" />);
 
 		await waitFor(() => {
-			const script = document.getElementById("comments-script");
-			expect(script?.innerHTML).toContain('theme: "dark"');
+			expect(window.remark_config?.theme).toBe("dark");
 		});
+	});
+
+	it("creates a fresh instance, not a second script, when the embed is already loaded", async () => {
+		// Client-side navigation to another post: the module has already run.
+		const embed = loadEmbed();
+
+		render(<CommentBox location="https://site.example/blog/two" />);
+
+		await waitFor(() => {
+			expect(embed.createInstance).toHaveBeenCalledTimes(1);
+		});
+		expect(embed.createInstance).toHaveBeenCalledWith(
+			expect.objectContaining({
+				url: "https://site.example/blog/two",
+				theme: "light",
+				no_footer: true,
+				site_id: expect.any(String),
+				host: expect.any(String),
+			}),
+		);
+		expect(window.remark_config?.url).toBe("https://site.example/blog/two");
+		expect(document.getElementById("comments-script")).not.toBeInTheDocument();
+	});
+
+	it("tears down the previous instance before creating one for a new post", async () => {
+		const embed = loadEmbed();
+		const order: string[] = [];
+		embed.destroy.mockImplementation(() => order.push("destroy"));
+		embed.createInstance.mockImplementation(() => order.push("create"));
+
+		render(<CommentBox location="https://site.example/blog/two" />);
+
+		await waitFor(() => {
+			expect(order).toEqual(["destroy", "create"]);
+		});
+	});
+
+	it("destroys the embed instance when the comments unmount", async () => {
+		const embed = loadEmbed();
+		const { unmount } = render(
+			<CommentBox location="https://site.example/blog/two" />,
+		);
+		await waitFor(() => {
+			expect(embed.createInstance).toHaveBeenCalled();
+		});
+		embed.destroy.mockClear();
+
+		unmount();
+
+		expect(embed.destroy).toHaveBeenCalledTimes(1);
 	});
 
 	it("keeps script on rerender and cleans script/listeners on unmount", async () => {
@@ -170,35 +295,28 @@ describe("CommentBox", () => {
 		});
 	});
 
-	it("defaults to system theme when theme hook returns undefined", async () => {
+	it("resolves to the OS theme, never the literal 'system', when the theme hook has no value yet", async () => {
 		setMockTheme(undefined);
-		render(<CommentBox location="https://site.example/blog/test" />);
-
-		await waitFor(() => {
-			const script = document.getElementById("comments-script");
-			expect(script?.innerHTML).toContain('theme: "system"');
+		(window.matchMedia as jest.Mock).mockReturnValue({
+			matches: true,
+			addEventListener: addEventListenerMock,
+			removeEventListener: removeEventListenerMock,
 		});
+		const { rerender } = render(
+			<CommentBox location="https://site.example/blog/test" />,
+		);
+		await waitFor(() => {
+			expect(window.remark_config?.theme).toBe("dark");
+		});
+		const embed = loadEmbed();
+
+		rerender(<CommentBox location="https://site.example/blog/test" />);
+
+		expect(embed.changeTheme).not.toHaveBeenCalledWith("system");
+		expect(window.remark_config?.theme).toBe("dark");
 	});
 
-	it("updates script theme to light when system theme change reports non-dark", async () => {
-		setMockTheme("system");
-		render(<CommentBox location="https://site.example/blog/test" />);
-
-		await waitFor(() => {
-			expect(document.getElementById("comments-script")).toBeInTheDocument();
-		});
-
-		act(() => {
-			mediaChangeHandler?.({ matches: false } as MediaQueryListEvent);
-		});
-
-		await waitFor(() => {
-			const script = document.getElementById("comments-script");
-			expect(script?.innerHTML).toContain('theme: "light"');
-		});
-	});
-
-	it("handles missing matchMedia API when theme resolves away from system", async () => {
+	it("falls back to light when matchMedia is missing and the theme hook has no value", async () => {
 		setMockTheme(undefined);
 		Object.defineProperty(window, "matchMedia", {
 			writable: true,
@@ -208,8 +326,10 @@ describe("CommentBox", () => {
 		render(<CommentBox location="https://site.example/blog/test" />);
 
 		await waitFor(() => {
-			const script = document.getElementById("comments-script");
-			expect(script?.innerHTML).toContain('theme: "system"');
+			expect(document.getElementById("comments-script")).toBeInTheDocument();
+		});
+		await waitFor(() => {
+			expect(window.remark_config?.theme).toBe("light");
 		});
 	});
 });
