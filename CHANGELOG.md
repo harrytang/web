@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.30.3](https://github.com/harrytang/web/compare/v1.31.0...v1.30.3) (2026-11-01)
+
+
+### Bug Fixes
+
+* **comments:** make Remark42 follow the theme toggle and rebuild on navigation ([ab939f2](https://github.com/harrytang/web/commit/ab939f291116a5fda853f4ad1b9200eedcd981a2))
+
 ### [1.30.2](https://github.com/harrytang/web/compare/v1.30.1...v1.30.2) (2026-10-25)
 
 
