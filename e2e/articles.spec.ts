@@ -41,6 +41,8 @@ test.describe("Articles index layout", () => {
 		expect(count).toBeGreaterThan(1);
 		for (let i = 0; i < count; i++) {
 			const item = items.nth(i);
+			// Covers load lazily, and WebKit waits until they scroll into view.
+			await item.scrollIntoViewIfNeeded();
 			await expect(item.getByRole("heading", { level: 2 })).toHaveCount(1);
 			const cover = item.locator("img");
 			await expect(cover).toHaveCount(1);

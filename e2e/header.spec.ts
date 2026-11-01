@@ -11,9 +11,13 @@ for (const path of ["/", "/articles"]) {
 		const header = page.getByRole("banner");
 		await expect(header).toBeVisible();
 
-		await page.mouse.wheel(0, 900);
-		await page.waitForTimeout(300);
-		expect(await page.evaluate(() => window.scrollY)).toBeGreaterThan(300);
+		// Scroll from script, not with the mouse wheel: WebKit drops wheel events
+		// when it runs as the only worker, and the point here is the header, not
+		// input delivery.
+		await page.evaluate(() => window.scrollTo(0, 900));
+		await expect
+			.poll(() => page.evaluate(() => window.scrollY))
+			.toBeGreaterThan(300);
 
 		const box = await header.boundingBox();
 		expect(box).not.toBeNull();
