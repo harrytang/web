@@ -1,9 +1,17 @@
+import clsx from "clsx";
 import type { Metadata } from "next";
+import { Geist } from "next/font/google";
 import { Providers } from "@/app/providers";
 import { Layout } from "@/components/Layout";
 
 import "@/styles/tailwind.css";
 import "@/styles/custom.css";
+
+const geist = Geist({
+	subsets: ["latin"],
+	variable: "--font-geist",
+	display: "swap",
+});
 
 type RootLayoutProps = {
 	children: React.ReactNode;
@@ -20,11 +28,11 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
 	return (
 		<html
 			lang="en"
-			className="dark h-full antialiased"
+			className={clsx(geist.variable, "dark h-full antialiased")}
 			suppressHydrationWarning
 		>
 			<head />
-			<body className="flex h-full bg-zinc-50 dark:bg-black">
+			<body className="flex min-h-full bg-canvas font-sans text-ink">
 				<Providers>
 					<div className="flex w-full">
 						<Layout>{children}</Layout>

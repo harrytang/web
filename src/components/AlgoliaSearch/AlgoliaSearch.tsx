@@ -110,8 +110,8 @@ const AlgoliaSearch = () => {
 	return (
 		<>
 			{!modalOpen && (
-				<div className="flex items-center justify-center">
-					<div className="relative w-full max-w-xs">
+				<div className="mt-8 flex items-center">
+					<div className="relative w-full max-w-sm">
 						<MagnifyingGlassIcon
 							aria-hidden="true"
 							className="pointer-events-none absolute top-1/2 left-3 size-5 -translate-y-1/2 text-gray-400"
@@ -161,7 +161,7 @@ const AlgoliaSearch = () => {
 									)}
 									classNames={{
 										input:
-											"w-full rounded-md border border-zinc-300 bg-white py-2 pl-10 pr-3 text-sm text-zinc-900 placeholder:text-zinc-400 shadow-sm focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 dark:border-zinc-700 dark:bg-zinc-700/[0.15] dark:text-zinc-100 dark:placeholder:text-zinc-500 dark:focus:border-amber-400 dark:focus:ring-amber-400/20",
+											"w-full rounded-md border border-zinc-500 bg-raised py-2 pl-10 pr-3 text-sm text-ink placeholder:text-muted shadow-sm focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/40",
 									}}
 								/>
 							</div>

@@ -24,25 +24,29 @@ const Projects = async () => {
 
 	return (
 		<SimpleLayout subtitle={page.subtitle} content={page.content}>
-			<ul className="grid grid-cols-1 gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
+			<ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
 				{projects.data.map((project) => (
-					<Card as="li" key={project.name}>
-						<div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md ring-1 shadow-zinc-800/5 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
+					<Card
+						as="li"
+						key={project.name}
+						className="rounded-3xl bg-raised p-7 ring-1 ring-line transition duration-300 hover:-translate-y-0.5 hover:ring-accent/40"
+					>
+						<div className="relative z-10 grid size-12 place-items-center rounded-xl bg-white ring-1 ring-ink/10">
 							<Image
 								src={project.icon.url}
 								alt={project.name}
-								className="h-8 w-8"
+								className="size-8 object-contain"
 								width={project.icon.width}
 								height={project.icon.height}
 								unoptimized
 							/>
 						</div>
-						<h2 className="mt-6 text-base font-semibold text-zinc-800 dark:text-zinc-100">
+						<h2 className="mt-6 text-lg font-semibold tracking-tight text-ink">
 							<CardLink href={project.link.href}>{project.name}</CardLink>
 						</h2>
 						<CardDescription>{project.description}</CardDescription>
-						<p className="dark: relative z-10 mt-6 flex text-sm font-medium text-amber-700 transition dark:text-amber-500">
-							<LinkIcon className="h-6 w-6 flex-none" />
+						<p className="relative z-10 mt-6 flex items-center text-sm font-medium text-accent transition">
+							<LinkIcon className="size-5 flex-none" />
 							<span className="ml-2">{project.link.label}</span>
 						</p>
 					</Card>

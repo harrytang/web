@@ -57,11 +57,12 @@ describe("BMC", () => {
 	it("contains appropriate styling classes", () => {
 		const { container } = render(<BMC />);
 
-		const mainDiv = container.querySelector(".rounded-md");
-		expect(mainDiv).toHaveClass("bg-blue-50", "dark:bg-blue-500/10");
+		const mainDiv = container.querySelector(".rounded-3xl");
+		expect(mainDiv).toHaveClass("bg-raised", "ring-line");
+		expect(mainDiv).not.toHaveClass("bg-blue-50");
 	});
 
-	it("uses link colors that stay readable on the blue info box in both themes", () => {
+	it("uses link colors that stay readable on the raised info box in both themes", () => {
 		render(<BMC />);
 
 		const link = screen.getByRole("link", { name: /buy me a coffee/ });

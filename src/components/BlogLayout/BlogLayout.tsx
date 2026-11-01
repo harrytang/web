@@ -5,17 +5,20 @@ import {
 	InformationCircleIcon,
 	PlayCircleIcon,
 } from "@heroicons/react/20/solid";
+import clsx from "clsx";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { BLUR_IMAGE } from "@/../const";
 // local imports
 import { AppContext } from "@/app/providers";
 import { Container } from "@/components/Container";
 import { Prose } from "@/components/Prose";
+import { MIN_TOC_ITEMS, TableOfContents } from "@/components/TableOfContents";
 import type { Blog } from "@/lib/blogs";
 import { formatDate } from "@/lib/helper";
+import { extractHeadings } from "@/lib/toc";
 import { MarkdownRenderer } from "../mdx";
 import BMC from "./BMC";
 
@@ -24,6 +27,9 @@ const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 const CommentBox = dynamic(() => import("@/components/CommentBox/CommentBox"), {
 	ssr: false,
 });
+
+// The article column is capped at max-w-2xl (42rem), so images never need more.
+const ARTICLE_IMAGE_SIZES = "(min-width: 768px) 42rem, 100vw";
 
 type BlogLayoutProps = {
 	blog: Blog;
@@ -36,6 +42,8 @@ const BlogLayout: React.FC<BlogLayoutProps> = ({ blog }) => {
 	const [isPlaying, setIsPlaying] = useState(false);
 	const commentTriggerRef = useRef<HTMLDivElement | null>(null);
 	const hasVideo = blog.mediaUrl;
+	const headings = useMemo(() => extractHeadings(blog.content), [blog.content]);
+	const hasToc = headings.length >= MIN_TOC_ITEMS;
 	const postUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/blog/${blog.slug}`;
 	const encodedPostUrl = encodeURIComponent(postUrl);
 	const encodedTitle = encodeURIComponent(blog.title);
@@ -113,23 +121,39 @@ const BlogLayout: React.FC<BlogLayoutProps> = ({ blog }) => {
 		};
 	}, []);
 
+	const backButton = previousPathname ? (
+		<button
+			type="button"
+			onClick={() => router.back()}
+			aria-label="Go back to articles"
+			className="group mb-8 flex size-10 cursor-pointer items-center justify-center rounded-full bg-raised ring-1 ring-line transition hover:ring-accent/40 lg:mb-6"
+		>
+			<ArrowLeftIcon className="h-4 w-4 text-muted transition group-hover:text-accent" />
+		</button>
+	) : null;
+
 	return (
-		<Container className="mt-16 lg:mt-32">
-			<div className="xl:relative">
-				<div className="mx-auto max-w-2xl">
-					{previousPathname && (
-						<button
-							type="button"
-							onClick={() => router.back()}
-							aria-label="Go back to articles"
-							className="group mb-8 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md ring-1 shadow-zinc-800/5 ring-zinc-900/5 transition lg:absolute lg:-left-5 lg:-mt-2 lg:mb-0 xl:-top-1.5 xl:left-0 xl:mt-0 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0 dark:ring-white/10 dark:hover:border-zinc-700 dark:hover:ring-white/20"
-						>
-							<ArrowLeftIcon className="h-4 w-4 stroke-zinc-500 transition group-hover:stroke-zinc-700 dark:stroke-zinc-500 dark:group-hover:stroke-zinc-400" />
-						</button>
-					)}
+		<Container className="mt-12 lg:mt-20">
+			<div
+				className={clsx(
+					hasToc &&
+						"lg:grid lg:grid-cols-[15rem_minmax(0,1fr)] lg:items-start lg:gap-x-12 xl:grid-cols-[16rem_minmax(0,1fr)] xl:gap-x-16",
+				)}
+			>
+				{hasToc && (
+					<aside
+						aria-label="Article sidebar"
+						className="mb-10 lg:sticky lg:top-24 lg:-mx-2 lg:mb-0 lg:max-h-[calc(100dvh-7rem)] lg:overflow-y-auto lg:px-2"
+					>
+						{backButton}
+						<TableOfContents items={headings} />
+					</aside>
+				)}
+				<div className={clsx("mx-auto w-full max-w-2xl", hasToc && "lg:mx-0")}>
+					{!hasToc && backButton}
 					<article lang={blog.locale}>
 						<header className="flex flex-col">
-							<h1 className="mt-6 text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
+							<h1 className="mt-6 text-4xl font-semibold tracking-[-0.04em] text-balance text-ink sm:text-5xl">
 								{blog.title}
 							</h1>
 							<nav aria-label="Share this post" className="mt-6 flex gap-3">
@@ -165,6 +189,7 @@ const BlogLayout: React.FC<BlogLayoutProps> = ({ blog }) => {
 										alt={blog.seo.metaImage.caption}
 										width={blog.seo.metaImage.width}
 										height={blog.seo.metaImage.height}
+										sizes={ARTICLE_IMAGE_SIZES}
 										priority={true}
 										loading="eager"
 										placeholder="blur"
@@ -206,6 +231,7 @@ const BlogLayout: React.FC<BlogLayoutProps> = ({ blog }) => {
 										alt={blog.seo.metaImage.caption}
 										width={blog.seo.metaImage.width}
 										height={blog.seo.metaImage.height}
+										sizes={ARTICLE_IMAGE_SIZES}
 										priority={true}
 										loading="eager"
 										placeholder="blur"

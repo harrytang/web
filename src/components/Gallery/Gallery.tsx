@@ -1,8 +1,4 @@
-"use client";
-import clsx from "clsx";
 import Image from "next/image";
-import type React from "react";
-import { useEffect, useState } from "react";
 import { BLUR_IMAGE } from "@/../const";
 import type { Media } from "@/types/media";
 
@@ -10,126 +6,65 @@ type GalleryProps = {
 	items: Media[];
 };
 
-// Helper to get photo width and gap based on screen size
-const getPhotoDimensions = () => {
-	if (typeof window !== "undefined" && window.innerWidth >= 640) {
-		return { photoWidth: 288, photoGap: 32 };
+// Each column keeps its own vertical offset so the tiles stagger. On small
+// screens the columns share the width; from `sm` up they take a fixed width.
+const COLUMN_CLASSES = [
+	"ml-auto min-w-0 flex-1 space-y-3 pt-10 sm:ml-0 sm:w-44 sm:flex-none sm:space-y-8 sm:pt-24 lg:order-last lg:w-32 lg:pt-36 xl:order-0 xl:w-40 xl:pt-80",
+	"mr-auto min-w-0 flex-1 space-y-3 sm:mr-0 sm:w-44 sm:flex-none sm:space-y-8 lg:w-32 lg:pt-36 xl:w-40",
+	"min-w-0 flex-1 space-y-3 pt-16 sm:w-44 sm:flex-none sm:space-y-8 sm:pt-12 lg:w-32 lg:pt-0 xl:w-40",
+];
+
+// Split the photos across three columns, giving the remainder to the later
+// columns (5 photos become 1 / 2 / 2). Empty columns are dropped.
+const splitColumns = (items: Media[]): Media[][] => {
+	const base = Math.floor(items.length / 3);
+	const remainder = items.length % 3;
+	const sizes = [
+		base,
+		base + (remainder > 0 ? 1 : 0),
+		base + (remainder > 1 ? 1 : 0),
+	];
+
+	const columns: Media[][] = [];
+	let index = 0;
+	for (const size of sizes) {
+		columns.push(items.slice(index, index + size));
+		index += size;
 	}
-	return { photoWidth: 176, photoGap: 20 };
+	return columns.filter((column) => column.length > 0);
 };
 
 const Gallery: React.FC<GalleryProps> = ({ items }) => {
-	const rotations = [
-		"rotate-2",
-		"-rotate-2",
-		"rotate-2",
-		"rotate-2",
-		"-rotate-2",
-	];
+	if (items.length === 0) {
+		return null;
+	}
+
 	const middleIdx = Math.floor(items.length / 2);
 
-	const [displayItems, setDisplayItems] = useState(items);
-	const [isAnimating, setIsAnimating] = useState(false);
-	const [canRotate, setCanRotate] = useState(false);
-	const [paused, setPaused] = useState(false);
-
-	// Sync local display order only when the incoming prop changes.
-	useEffect(() => {
-		setDisplayItems(items);
-	}, [items]);
-
-	// Auto-rotate gallery for small screens, unless the user prefers reduced
-	// motion. Rotation can be paused (WCAG 2.2.2).
-	useEffect(() => {
-		const { photoWidth, photoGap } = getPhotoDimensions();
-		const totalGalleryWidth = (photoWidth + photoGap) * items.length;
-		const isSmallScreen = window.matchMedia(
-			`(max-width: ${totalGalleryWidth}px)`,
-		).matches;
-		const prefersReducedMotion = window.matchMedia(
-			"(prefers-reduced-motion: reduce)",
-		).matches;
-		const rotates = isSmallScreen && items.length > 1 && !prefersReducedMotion;
-		setCanRotate(rotates);
-		if (!rotates || paused) return;
-
-		let slideTimeout: ReturnType<typeof setTimeout> | undefined;
-		const interval = setInterval(() => {
-			setIsAnimating(true);
-			slideTimeout = setTimeout(() => {
-				setDisplayItems((prev) => [...prev.slice(1), prev[0]]);
-				setIsAnimating(false);
-			}, 700); // slide duration
-		}, 5000);
-		return () => {
-			clearInterval(interval);
-			if (slideTimeout) clearTimeout(slideTimeout);
-			setIsAnimating(false);
-		};
-	}, [items, paused]);
-
-	// Helper to get slide style
-	const getSlideStyle = (isAnimating: boolean, slideDistance: number) => {
-		if (isAnimating) {
-			return {
-				transform: `translateX(-${slideDistance}px)`,
-				opacity: 1,
-				transition: "transform 0.7s cubic-bezier(0.4,0,0.2,1)",
-			};
-		}
-		// Default: visible and no transform
-		return {
-			transform: "translateX(0)",
-			opacity: 1,
-			transition: "none",
-		};
-	};
-
 	return (
-		<div className="mt-16 sm:mt-20">
-			<div className="-my-4 flex justify-center gap-5 overflow-hidden py-4 sm:gap-8">
-				{displayItems.map((image) => {
-					const originalIdx = items.findIndex((item) => item.id === image.id);
-					const { photoWidth, photoGap } = getPhotoDimensions();
-					const slideDistance = photoWidth + photoGap;
-					const slideStyle = getSlideStyle(isAnimating, slideDistance);
-					return (
-						<div key={image.id} style={slideStyle} className="flex-none">
-							<div
-								className={clsx(
-									"relative aspect-9/10 w-44 overflow-hidden rounded-xl bg-zinc-100 sm:w-72 sm:rounded-2xl dark:bg-zinc-800",
-									rotations[originalIdx % rotations.length],
-								)}
-							>
-								<Image
-									src={image.url}
-									alt={image.caption}
-									sizes="(min-width: 640px) 18rem, 11rem"
-									className={clsx(
-										"absolute inset-0 h-full w-full object-cover",
-									)}
-									width={image.width}
-									height={image.height}
-									priority={middleIdx === originalIdx}
-									placeholder="blur"
-									blurDataURL={BLUR_IMAGE}
-								/>
-							</div>
+		<div className="mt-14 flex gap-3 sm:justify-center sm:gap-8 lg:mt-0 lg:justify-start">
+			{splitColumns(items).map((column, columnIndex) => (
+				<div key={column[0].id} className={COLUMN_CLASSES[columnIndex]}>
+					{column.map((image) => (
+						<div key={image.id} className="relative">
+							<Image
+								src={image.url}
+								alt={image.caption}
+								sizes="(min-width: 1280px) 10rem, (min-width: 1024px) 8rem, (min-width: 640px) 11rem, 30vw"
+								className="aspect-9/10 w-full rounded-2xl bg-surface object-cover shadow-xl shadow-ink/10"
+								width={image.width}
+								height={image.height}
+								priority={
+									items.findIndex((item) => item.id === image.id) === middleIdx
+								}
+								placeholder="blur"
+								blurDataURL={BLUR_IMAGE}
+							/>
+							<div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-ink/10 ring-inset" />
 						</div>
-					);
-				})}
-			</div>
-			{canRotate && (
-				<div className="mt-6 flex justify-center">
-					<button
-						type="button"
-						onClick={() => setPaused((prev) => !prev)}
-						className="rounded-md px-3 py-1.5 text-sm font-medium text-zinc-600 transition hover:text-zinc-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600 dark:text-zinc-400 dark:hover:text-zinc-100 dark:focus-visible:outline-amber-400"
-					>
-						{paused ? "Play slideshow" : "Pause slideshow"}
-					</button>
+					))}
 				</div>
-			)}
+			))}
 		</div>
 	);
 };

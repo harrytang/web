@@ -62,12 +62,15 @@ const ArticlesIndex = async ({ params }: ArticlesIndexProps) => {
 				content={articlePage.content}
 				seachBox={true}
 			>
-				<div className="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40">
-					<div className="flex max-w-3xl flex-col space-y-16">
-						{blogs.data.map((blog) => (
-							<ArticleList key={blog.id} article={blog} type="full" />
-						))}
-					</div>
+				<div className="grid gap-6 md:grid-cols-2">
+					{blogs.data.map((blog) => (
+						<ArticleList
+							key={blog.id}
+							article={blog}
+							type="card"
+							heading="h2"
+						/>
+					))}
 				</div>
 				<div className="mt-10">
 					<Pagination totalPages={totalPages} currentPage={pageIdx + 1} />

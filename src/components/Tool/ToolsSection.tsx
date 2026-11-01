@@ -6,7 +6,7 @@ const ToolsSection = ({
 }: React.ComponentPropsWithoutRef<typeof Section>) => {
 	return (
 		<Section {...props}>
-			<ul className="space-y-16">{children}</ul>
+			<ul className="grid gap-x-12 gap-y-12 lg:grid-cols-2">{children}</ul>
 		</Section>
 	);
 };

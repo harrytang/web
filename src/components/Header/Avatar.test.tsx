@@ -16,15 +16,15 @@ describe("Avatar", () => {
 		const imageElement = getByAltText(siteName);
 		expect(imageElement).toHaveAttribute("width", "512");
 		expect(imageElement).toHaveAttribute("height", "512");
-		expect(imageElement).toHaveClass("h-9 w-9");
+		expect(imageElement).toHaveClass("size-10", "rounded-full");
 	});
 
-	it("renders correctly with large prop", () => {
-		const siteName = process.env.NEXT_PUBLIC_SITE_NAME ?? "Site";
-		const { getByAltText } = render(<Avatar large />);
+	it("links home with an accessible label", () => {
+		const { container } = render(<Avatar />);
 
-		const imageElement = getByAltText(siteName);
-		expect(imageElement).toHaveClass("h-16 w-16");
+		const linkElement = container.querySelector("a");
+		expect(linkElement).toHaveAttribute("href", "/");
+		expect(linkElement).toHaveAttribute("aria-label", "Home");
 	});
 
 	it("renders with additional className", () => {
@@ -39,13 +39,6 @@ describe("Avatar", () => {
 
 		const linkElement = container.querySelector("a");
 		expect(linkElement).toHaveAttribute("data-testid", "avatar-link");
-	});
-
-	it("has pointer-events-auto class", () => {
-		const { container } = render(<Avatar />);
-
-		const linkElement = container.querySelector("a");
-		expect(linkElement).toHaveClass("pointer-events-auto");
 	});
 
 	it("falls back to default site name and empty avatar url when env vars are missing", () => {

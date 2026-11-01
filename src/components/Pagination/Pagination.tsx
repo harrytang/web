@@ -32,7 +32,10 @@ export default function Pagination({
 	);
 
 	return (
-		<nav className="flex items-center justify-center space-x-2 px-4 sm:px-0">
+		<nav
+			aria-label="Pagination"
+			className="flex items-center justify-center space-x-2 px-4 sm:px-0"
+		>
 			{/* Previous Button */}
 			{currentPage > 1 && (
 				<Link

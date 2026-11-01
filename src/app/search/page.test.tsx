@@ -32,21 +32,17 @@ describe("search page", () => {
 		expect(screen.getByTestId("cse")).toHaveTextContent("CSE searchresults");
 	});
 
-	it("gives the results panel a dark variant instead of a bare light gray", async () => {
+	it("puts the results on a themed surface that follows the light and dark tokens", async () => {
 		const ui = await Page();
 		render(ui);
 
 		const panel = screen.getByTestId("cse").parentElement;
-		expect(panel).toHaveClass("bg-zinc-100", "dark:bg-zinc-800/50");
-		expect(panel).not.toHaveClass("bg-gray-100");
+		expect(panel).toHaveClass("bg-raised", "ring-line");
+		expect(panel).not.toHaveClass("bg-zinc-100");
 	});
 
-	it("exposes a page heading for assistive tech", async () => {
+	it("passes the visible 'Search articles' subtitle to the layout, which owns the single h1", async () => {
 		const ui = await Page();
-		render(ui);
-
-		expect(
-			screen.getByRole("heading", { level: 1, name: "Search articles" }),
-		).toHaveClass("sr-only");
+		expect(ui.props.subtitle).toBe("Search articles");
 	});
 });

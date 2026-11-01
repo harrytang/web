@@ -12,7 +12,7 @@ describe("NavItem", () => {
 		jest.clearAllMocks();
 	});
 
-	it("renders correctly with the active class when the path matches", () => {
+	it("marks the current page as active when the path matches", () => {
 		(usePathname as jest.Mock).mockReturnValue("/active-path");
 
 		const { getByText } = render(
@@ -20,14 +20,12 @@ describe("NavItem", () => {
 		);
 
 		const linkElement = getByText("Active Link");
-		expect(linkElement).toHaveClass("text-amber-700 dark:text-amber-500");
-		expect(linkElement).not.toHaveClass(
-			"hover:text-amber-700 dark:hover:text-amber-500",
-		);
-		expect(linkElement.querySelector("span")).toBeInTheDocument();
+		expect(linkElement).toHaveAttribute("aria-current", "page");
+		expect(linkElement).toHaveClass("bg-accent-soft", "text-accent");
+		expect(linkElement).not.toHaveClass("text-muted");
 	});
 
-	it("renders correctly with the hover class when the path does not match", () => {
+	it("renders the muted hover style when the path does not match", () => {
 		(usePathname as jest.Mock).mockReturnValue("/different-path");
 
 		const { getByText } = render(
@@ -35,11 +33,9 @@ describe("NavItem", () => {
 		);
 
 		const linkElement = getByText("Inactive Link");
-		expect(linkElement).toHaveClass(
-			"hover:text-amber-600 dark:hover:text-amber-600",
-		);
-		expect(linkElement).not.toHaveClass("text-amber-600 dark:text-amber-600");
-		expect(linkElement.querySelector("span")).not.toBeInTheDocument();
+		expect(linkElement).not.toHaveAttribute("aria-current");
+		expect(linkElement).toHaveClass("text-muted", "hover:text-ink");
+		expect(linkElement).not.toHaveClass("bg-accent-soft");
 	});
 
 	it("renders children correctly", () => {
@@ -63,8 +59,16 @@ describe("NavItem", () => {
 		);
 
 		const linkElement = getByText("Active Nested Link");
-		expect(linkElement).toHaveClass("text-amber-700 dark:text-amber-500");
-		expect(linkElement.querySelector("span")).toBeInTheDocument();
+		expect(linkElement).toHaveAttribute("aria-current", "page");
+		expect(linkElement).toHaveClass("text-accent");
+	});
+
+	it("only marks Home active on the root path", () => {
+		(usePathname as jest.Mock).mockReturnValue("/about");
+
+		const { getByText } = render(<NavItem href="/">Home</NavItem>);
+
+		expect(getByText("Home")).not.toHaveAttribute("aria-current");
 	});
 
 	it("falls back to empty pathname when router pathname is unavailable", () => {
@@ -75,9 +79,7 @@ describe("NavItem", () => {
 		);
 
 		const linkElement = getByText("Fallback Path Link");
-		expect(linkElement).toHaveClass(
-			"hover:text-amber-600 dark:hover:text-amber-600",
-		);
-		expect(linkElement.querySelector("span")).not.toBeInTheDocument();
+		expect(linkElement).not.toHaveAttribute("aria-current");
+		expect(linkElement).toHaveClass("text-muted", "hover:text-ink");
 	});
 });

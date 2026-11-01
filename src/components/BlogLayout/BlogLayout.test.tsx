@@ -50,6 +50,15 @@ jest.mock("@/components/Prose", () => ({
 	),
 }));
 
+jest.mock("@/components/TableOfContents", () => ({
+	MIN_TOC_ITEMS: jest.requireActual(
+		"@/components/TableOfContents/TableOfContents",
+	).MIN_TOC_ITEMS,
+	TableOfContents: ({ items }: { items: { id: string; text: string }[] }) => (
+		<nav data-testid="toc">{items.map((item) => item.text).join(",")}</nav>
+	),
+}));
+
 jest.mock("../mdx", () => ({
 	MarkdownRenderer: ({ content }: { content: string }) => (
 		<div data-testid="markdown">{content}</div>
@@ -67,12 +76,15 @@ jest.mock("@/app/providers", () => ({
 
 import BlogLayout from "./BlogLayout";
 
-const createBlog = (mediaUrl?: string): Blog => ({
+const createBlog = (
+	mediaUrl?: string,
+	content = "Test markdown content",
+): Blog => ({
 	id: 1,
 	documentId: "blog-1",
 	title: "Test Blog",
 	slug: "test-blog",
-	content: "Test markdown content",
+	content,
 	mediaUrl,
 	locale: "en",
 	createdAt: "2024-01-01T00:00:00.000Z",
@@ -200,6 +212,103 @@ describe("BlogLayout", () => {
 
 		await userEvent.click(backButton);
 		expect(mockBack).toHaveBeenCalledTimes(1);
+	});
+
+	describe("table of contents", () => {
+		const withHeadings = createBlog(
+			undefined,
+			["Intro", "", "## One", "text", "### Two", "text", "## Three"].join("\n"),
+		);
+
+		it("lists the article's headings in a left column", () => {
+			render(<BlogLayout blog={withHeadings} />);
+
+			const toc = screen.getByTestId("toc");
+			expect(toc).toHaveTextContent("One,Two,Three");
+			expect(screen.getByTestId("markdown")).toBeInTheDocument();
+		});
+
+		it("puts the table of contents before the article and keeps it in view while reading", () => {
+			const { container } = render(<BlogLayout blog={withHeadings} />);
+
+			const aside = container.querySelector("aside") as HTMLElement;
+			const article = container.querySelector("article") as HTMLElement;
+			expect(aside).toContainElement(screen.getByTestId("toc"));
+			expect(aside).toHaveClass("lg:sticky", "lg:top-24");
+			expect(aside).toHaveAttribute("aria-label", "Article sidebar");
+			// Room for focus rings inside the scroll container.
+			expect(aside).toHaveClass("lg:-mx-2", "lg:px-2");
+			expect(
+				aside.compareDocumentPosition(article) &
+					Node.DOCUMENT_POSITION_FOLLOWING,
+			).toBeTruthy();
+		});
+
+		it("uses a two-column layout only when there is something to list", () => {
+			const { container, rerender } = render(
+				<BlogLayout blog={withHeadings} />,
+			);
+			expect(container.querySelector(".lg\\:grid")).toBeInTheDocument();
+
+			rerender(<BlogLayout blog={createBlog()} />);
+			expect(container.querySelector(".lg\\:grid")).not.toBeInTheDocument();
+		});
+
+		it("omits it for an article with fewer than two headings", () => {
+			const { container } = render(
+				<BlogLayout blog={createBlog(undefined, "## Only one\ntext")} />,
+			);
+
+			expect(screen.queryByTestId("toc")).not.toBeInTheDocument();
+			expect(container.querySelector("aside")).not.toBeInTheDocument();
+		});
+
+		it("does not list headings that are only inside code blocks", () => {
+			render(
+				<BlogLayout
+					blog={createBlog(
+						undefined,
+						["## Real", "```", "## fake", "```", "## Also real"].join("\n"),
+					)}
+				/>,
+			);
+
+			expect(screen.getByTestId("toc")).toHaveTextContent("Real,Also real");
+		});
+
+		it("moves the back button into the left column", async () => {
+			const { container } = render(
+				<AppContext.Provider value={{ previousPathname: "/articles" }}>
+					<BlogLayout blog={withHeadings} />
+				</AppContext.Provider>,
+			);
+
+			const backButton = screen.getByRole("button", {
+				name: "Go back to articles",
+			});
+			expect(container.querySelector("aside")).toContainElement(backButton);
+
+			await userEvent.click(backButton);
+			expect(mockBack).toHaveBeenCalledTimes(1);
+		});
+
+		it("keeps the back button above the article when there is no table of contents", () => {
+			const { container } = render(
+				<AppContext.Provider value={{ previousPathname: "/articles" }}>
+					<BlogLayout blog={createBlog()} />
+				</AppContext.Provider>,
+			);
+
+			const backButton = screen.getByRole("button", {
+				name: "Go back to articles",
+			});
+			expect(container.querySelector("aside")).not.toBeInTheDocument();
+			expect(
+				backButton.compareDocumentPosition(
+					container.querySelector("article") as Node,
+				) & Node.DOCUMENT_POSITION_FOLLOWING,
+			).toBeTruthy();
+		});
 	});
 
 	it("renders video placeholder then player after clicking play", async () => {

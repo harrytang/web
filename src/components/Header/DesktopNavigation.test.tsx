@@ -10,7 +10,7 @@ const menuItems: Menu[] = [
 ];
 
 describe("DesktopNavigation", () => {
-	it("renders correctly with default props", () => {
+	it("renders the navigation as a rounded pill", () => {
 		const { container } = render(<DesktopNavigation items={menuItems} />);
 
 		const navElement = container.querySelector("nav");
@@ -19,7 +19,11 @@ describe("DesktopNavigation", () => {
 		expect(navElement).toBeInTheDocument();
 		expect(ulElement).toBeInTheDocument();
 		expect(ulElement).toHaveClass(
-			"flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur-sm dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10",
+			"flex",
+			"rounded-full",
+			"bg-raised/70",
+			"ring-1",
+			"ring-line",
 		);
 	});
 
@@ -31,6 +35,14 @@ describe("DesktopNavigation", () => {
 			expect(navItemElement).toBeInTheDocument();
 			expect(navItemElement).toHaveAttribute("href", item.path);
 		});
+	});
+
+	it("names the nav landmark and does not leak items onto the DOM node", () => {
+		const { container } = render(<DesktopNavigation items={menuItems} />);
+
+		const navElement = container.querySelector("nav");
+		expect(navElement).toHaveAttribute("aria-label", "Main");
+		expect(navElement).not.toHaveAttribute("items");
 	});
 
 	it("passes additional props to the nav element", () => {

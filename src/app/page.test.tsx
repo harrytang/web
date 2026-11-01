@@ -31,23 +31,17 @@ jest.mock("next/link", () => ({
 	),
 }));
 
-jest.mock("@/components/Container", () => ({
-	Container: ({
-		children,
-		className,
-	}: {
-		children: React.ReactNode;
-		className?: string;
-	}) => (
-		<section data-testid="container" className={className}>
-			{children}
-		</section>
-	),
-}));
-
 jest.mock("@/components/ArticleList", () => ({
-	ArticleList: ({ article }: { article: { id: number } }) => (
-		<article data-testid="article-item">Article {article.id}</article>
+	ArticleList: ({
+		article,
+		type,
+	}: {
+		article: { id: number };
+		type: string;
+	}) => (
+		<article data-testid="article-item" data-type={type}>
+			Article {article.id}
+		</article>
 	),
 }));
 
@@ -150,6 +144,83 @@ describe("home page", () => {
 		expect(jsonLdScript?.innerHTML).toContain(
 			process.env.NEXT_PUBLIC_SITE_NAME,
 		);
+	});
+
+	it("emphasises the part of the headline after the ampersand", async () => {
+		(getProfile as jest.Mock).mockResolvedValue({
+			data: {
+				title: "Solutions Architect & DevOps Specialist",
+				welcome: "Welcome to my website",
+				seo: { metaDescription: "Profile SEO description" },
+				socials: [],
+				photos: [],
+			},
+		});
+
+		const ui = await Home();
+		render(ui);
+
+		const heading = screen.getByRole("heading", { level: 1 });
+		// The full title stays intact for readers and assistive technology...
+		expect(heading).toHaveTextContent(
+			"Solutions Architect & DevOps Specialist",
+		);
+		// ...and only the role after the ampersand is highlighted.
+		expect(heading.querySelector("span")).toHaveTextContent(
+			"DevOps Specialist",
+		);
+	});
+
+	it("renders a headline without an ampersand as plain text", async () => {
+		const ui = await Home();
+		render(ui);
+
+		const heading = screen.getByRole("heading", { level: 1 });
+		expect(heading).toHaveTextContent("Software Builder");
+		expect(heading.querySelector("span")).not.toBeInTheDocument();
+	});
+
+	it("links every social profile with its icon", async () => {
+		const ui = await Home();
+		render(ui);
+
+		const icon = screen.getByRole("img", { name: "GitHub" });
+		expect(icon.closest("a")).toHaveAttribute(
+			"href",
+			"https://github.com/example",
+		);
+	});
+
+	it("features the newest article and shows the rest as cards", async () => {
+		(getBlogs as jest.Mock).mockResolvedValue({
+			data: [{ id: 101 }, { id: 102 }, { id: 103 }],
+			meta: { pagination: { total: 3 } },
+		});
+
+		const ui = await Home();
+		render(ui);
+
+		const types = screen
+			.getAllByTestId("article-item")
+			.map((item) => item.getAttribute("data-type"));
+		expect(types).toEqual(["featured", "card", "card"]);
+		expect(
+			screen.getByRole("region", { name: "Articles" }),
+		).toBeInTheDocument();
+	});
+
+	it("still renders the page when there are no articles", async () => {
+		(getBlogs as jest.Mock).mockResolvedValue({
+			data: [],
+			meta: { pagination: { total: 0 } },
+		});
+
+		const ui = await Home();
+		render(ui);
+
+		expect(screen.queryByTestId("article-item")).not.toBeInTheDocument();
+		expect(screen.getByTestId("work")).toBeInTheDocument();
+		expect(screen.getByText("Software Builder")).toBeInTheDocument();
 	});
 
 	it("uses default home page size when env is missing", async () => {

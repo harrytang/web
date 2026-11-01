@@ -5,6 +5,10 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
+	--font-sans:
+		var(--font-geist), ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+		Roboto, "Helvetica Neue", Arial, sans-serif;
+
 	--text-xs: 0.8125rem;
 	--text-xs--line-height: 1.5rem;
 	--text-sm: 0.875rem;
@@ -31,4 +35,84 @@
 	--text-8xl--line-height: 1;
 	--text-9xl: 8rem;
 	--text-9xl--line-height: 1;
+
+	/* "Amber Noir" neutrals. Replaces the default zinc ramp so every existing
+	   zinc-* utility (and the typography plugin) lands on the new palette. */
+	--color-zinc-50: #f8f7f3;
+	--color-zinc-100: #efede7;
+	--color-zinc-200: #e3e0d6;
+	--color-zinc-300: #cfccc0;
+	--color-zinc-400: #a09f98;
+	--color-zinc-500: #6b6a62;
+	--color-zinc-600: #5b5a52;
+	--color-zinc-700: #34373a;
+	--color-zinc-800: #1c1f21;
+	--color-zinc-900: #121516;
+	--color-zinc-950: #08090a;
+
+	/* Amber accent ramp: 700 on light, 500 on dark. */
+	--color-amber-50: #fdf6e3;
+	--color-amber-100: #f6e9cf;
+	--color-amber-200: #f3d9a0;
+	--color-amber-300: #ffd88a;
+	--color-amber-400: #f7c566;
+	--color-amber-500: #f0b345;
+	--color-amber-600: #c98a1a;
+	--color-amber-700: #9a5b00;
+	--color-amber-800: #7a4800;
+	--color-amber-900: #4a2c00;
+	--color-amber-950: #2a1a00;
+}
+
+/* Semantic roles. Components use these (bg-canvas, text-ink, ring-line, ...)
+   instead of pairing a light and a dark utility. */
+@theme inline {
+	--color-canvas: var(--canvas);
+	--color-surface: var(--surface);
+	--color-raised: var(--raised);
+	--color-ink: var(--ink);
+	--color-muted: var(--muted);
+	--color-accent: var(--accent);
+	--color-accent-2: var(--accent-2);
+	--color-accent-soft: var(--accent-soft);
+	--color-line: var(--line);
+}
+
+:root {
+	--canvas: #f8f7f3;
+	--surface: #efede7;
+	--raised: #ffffff;
+	--ink: #14130f;
+	--muted: #5b5a52;
+	--accent: #9a5b00;
+	--accent-2: #b06c00;
+	--accent-soft: #f6e9cf;
+	--line: #e3e0d6;
+	color-scheme: light;
+}
+
+.dark {
+	--canvas: #08090a;
+	--surface: #0f1112;
+	--raised: #121516;
+	--ink: #f4f2ee;
+	--muted: #a09f98;
+	--accent: #f0b345;
+	--accent-2: #ffd88a;
+	--accent-soft: #2a2111;
+	--line: #24282c;
+	color-scheme: dark;
+}
+
+@layer base {
+	html {
+		scroll-padding-top: 5rem;
+	}
+	::selection {
+		background: color-mix(in srgb, var(--accent) 35%, transparent);
+	}
+	:where(a, button, summary, input, select, textarea):focus-visible {
+		outline: 2px solid var(--accent);
+		outline-offset: 3px;
+	}
 }

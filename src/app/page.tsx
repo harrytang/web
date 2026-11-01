@@ -5,10 +5,11 @@ import Link from "next/link";
 // local imports
 
 import { ArticleList } from "@/components/ArticleList";
-import { Container } from "@/components/Container";
 import { Gallery } from "@/components/Gallery";
+import { HeroBackdrop } from "@/components/HeroBackdrop";
 import Work from "@/components/Work/Work";
 import { getBlogs } from "@/lib/blogs";
+import { splitHeadline } from "@/lib/headline";
 import { generateProfilePageJsonLd, generateSeoMeta } from "@/lib/helper";
 import { getProfile } from "@/lib/profile";
 
@@ -31,49 +32,83 @@ const Home = async () => {
 	// jsonlds
 	const person = generateProfilePageJsonLd(profile.data, blogs.data);
 
+	const [titleLead, titleAccent] = splitHeadline(profile.data.title);
+	const [featured, ...others] = blogs.data;
+
 	return (
 		<>
-			<Container className="mt-9">
-				<div className="max-w-2xl">
-					<h1 className="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
-						{profile.data.title}
-					</h1>
-					<p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
-						{profile.data.welcome}
-					</p>
-					<div className="mt-6 flex gap-6">
-						{profile.data.socials.map((social) => (
-							<Link
-								key={social.href}
-								className="group -m-1 p-1"
-								href={social.href}
+			<div className="relative isolate overflow-hidden">
+				<HeroBackdrop />
+				<div className="mx-auto max-w-7xl px-6 pt-16 pb-24 sm:pt-24 lg:px-8 lg:pt-24 lg:pb-32">
+					<div className="mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center">
+						<div className="relative w-full lg:max-w-md lg:shrink-0 xl:max-w-xl">
+							<h1 className="text-5xl font-semibold tracking-[-0.045em] text-balance text-ink sm:text-6xl lg:text-5xl xl:text-[3.5rem]/[1.04]">
+								{titleLead}
+								{titleAccent && (
+									<span className="bg-linear-to-r from-accent to-accent-2 bg-clip-text text-transparent">
+										{titleAccent}
+									</span>
+								)}
+							</h1>
+							<p className="mt-8 max-w-prose text-lg/8 font-light text-pretty text-muted sm:text-xl/8">
+								{profile.data.welcome}
+							</p>
+							<ul className="mt-10 flex items-center gap-3">
+								{profile.data.socials.map((social) => (
+									<li key={social.href}>
+										<Link
+											href={social.href}
+											className="grid size-11 place-items-center rounded-xl bg-raised ring-1 ring-line transition hover:-translate-y-0.5 hover:ring-accent/40"
+										>
+											<Image
+												src={social.icon.url}
+												alt={social.icon.caption}
+												className="size-5 object-contain"
+												unoptimized
+												width={social.icon.width}
+												height={social.icon.height}
+											/>
+										</Link>
+									</li>
+								))}
+							</ul>
+						</div>
+						<Gallery items={profile.data.photos} />
+					</div>
+				</div>
+			</div>
+
+			<div className="mx-auto max-w-7xl px-6 lg:px-8">
+				<div className="grid grid-cols-1 items-start gap-14 xl:grid-cols-12">
+					<section
+						aria-labelledby="articles-title"
+						className="min-w-0 xl:col-span-7"
+					>
+						<div className="flex items-center gap-4">
+							<h2
+								id="articles-title"
+								className="text-sm font-semibold tracking-[0.2em] text-accent uppercase"
 							>
-								<Image
-									src={social.icon.url}
-									alt={social.icon.caption}
-									className="h-6 w-6 fill-zinc-500 transition group-hover:fill-zinc-600 hover:brightness-75 dark:fill-zinc-400 dark:group-hover:fill-zinc-300 dark:hover:brightness-125"
-									unoptimized
-									width={social.icon.width}
-									height={social.icon.height}
-								/>
-							</Link>
-						))}
-					</div>
+								Articles
+							</h2>
+							<div className="h-px flex-1 bg-line" />
+						</div>
+						{featured && (
+							<div className="mt-10">
+								<ArticleList article={featured} type="featured" />
+							</div>
+						)}
+						{others.length > 0 && (
+							<div className="mt-6 grid gap-6 sm:grid-cols-2">
+								{others.map((blog) => (
+									<ArticleList key={blog.id} article={blog} type="card" />
+								))}
+							</div>
+						)}
+					</section>
+					<Work className="xl:col-span-5" />
 				</div>
-			</Container>
-			<Gallery items={profile.data.photos} />
-			<Container className="mt-24 md:mt-28">
-				<div className="mx-auto grid max-w-xl grid-cols-1 gap-y-20 lg:max-w-none lg:grid-cols-2">
-					<div className="flex flex-col gap-16">
-						{blogs.data.map((blog) => (
-							<ArticleList key={blog.id} article={blog} type="compact" />
-						))}
-					</div>
-					<div className="space-y-10 lg:pl-16 xl:pl-24">
-						<Work />
-					</div>
-				</div>
-			</Container>
+			</div>
 			<script type="application/ld+json">{JSON.stringify(person)}</script>
 		</>
 	);

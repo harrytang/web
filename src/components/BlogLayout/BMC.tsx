@@ -5,16 +5,16 @@ export default function BMC() {
 	const bmcUrl = process.env.NEXT_PUBLIC_BMC_URL ?? "https://buymeacoffee.com";
 
 	return (
-		<div className="rounded-md bg-blue-50 pl-4 pr-4 dark:bg-blue-500/10 dark:outline dark:outline-blue-500/20">
+		<div className="rounded-3xl bg-raised px-5 ring-1 ring-line">
 			<div className="flex items-center">
 				<div className="shrink-0">
 					<InformationCircleIcon
 						aria-hidden="true"
-						className="h-5 w-5 text-blue-400"
+						className="h-5 w-5 text-accent"
 					/>
 				</div>
 				<div className="ml-3 flex-1 md:flex md:justify-between">
-					<p className="text-sm text-blue-700 dark:text-blue-300">
+					<p className="text-sm text-muted">
 						If you found this useful, you can{" "}
 						<Link
 							href={bmcUrl}

@@ -11,6 +11,7 @@ import {
 	type ReactNode,
 	useCallback,
 	useEffect,
+	useMemo,
 	useRef,
 	useState,
 } from "react";
@@ -18,6 +19,7 @@ import remarkGfm from "remark-gfm";
 /* local imports */
 import { BLUR_IMAGE } from "@/../const";
 import { isInternalLink } from "@/lib/helper";
+import { extractHeadings } from "@/lib/toc";
 
 // Custom Image component for Markdown
 const MarkdownImage = ({ src, alt }: { src?: string; alt?: string }) => {
@@ -28,7 +30,7 @@ const MarkdownImage = ({ src, alt }: { src?: string; alt?: string }) => {
 			alt={alt || "Markdown Image"}
 			width={0}
 			height={0}
-			sizes="100vw"
+			sizes="(min-width: 768px) 42rem, 100vw"
 			className="h-auto w-full rounded-md"
 			priority={true}
 			loading="eager"
@@ -83,11 +85,29 @@ const MarkdownRenderer = ({ content }: { content: string }) => {
 		};
 	}, []);
 
+	// Anchor ids come from the same list the table of contents is built from,
+	// matched by source line. Looking them up is pure, so React Strict Mode's
+	// double render cannot shift an id.
+	const headingIds = useMemo(
+		() => new Map(extractHeadings(content).map((h) => [h.line, h.id])),
+		[content],
+	);
+
 	return (
 		<ReactMarkdown
 			remarkPlugins={[remarkGfm]}
 			rehypePlugins={[rehypeHighlight]}
 			components={{
+				h2: ({ node, children, ...props }) => (
+					<h2 id={headingIds.get(node?.position?.start.line ?? -1)} {...props}>
+						{children}
+					</h2>
+				),
+				h3: ({ node, children, ...props }) => (
+					<h3 id={headingIds.get(node?.position?.start.line ?? -1)} {...props}>
+						{children}
+					</h3>
+				),
 				pre: ({ children }) => <>{children}</>,
 				code: ({ className, children, ...props }) => {
 					const languageMatch = /language-(\w+)/.exec(className ?? "");

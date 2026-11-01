@@ -1,4 +1,4 @@
-import { act, fireEvent, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import type { Media } from "@/types/media";
 import Gallery from "./Gallery";
 
@@ -43,275 +43,79 @@ const createMedia = (id: number, caption: string): Media => ({
 	updatedAt: "2024-01-01",
 });
 
-// The gallery asks two media questions: is the screen narrower than the strip,
-// and does the user prefer reduced motion. Answer them independently.
-const mockMedia = ({
-	small,
-	reduced = false,
-}: {
-	small: boolean;
-	reduced?: boolean;
-}) => {
-	(window.matchMedia as jest.Mock).mockImplementation((query: string) => ({
-		matches: query.includes("prefers-reduced-motion") ? reduced : small,
-	}));
-};
+const photos = (count: number): Media[] =>
+	Array.from({ length: count }, (_, i) => createMedia(i + 1, `Photo ${i + 1}`));
+
+// The gallery root holds one child per column; count the images in each.
+const columnSizes = (container: HTMLElement): number[] =>
+	Array.from(container.firstElementChild?.children ?? []).map(
+		(column) => column.querySelectorAll('[data-testid="gallery-image"]').length,
+	);
 
 describe("Gallery", () => {
-	const originalMatchMedia = window.matchMedia;
-	const originalInnerWidth = window.innerWidth;
+	it("renders nothing when there are no photos", () => {
+		const { container } = render(<Gallery items={[]} />);
 
-	beforeEach(() => {
-		jest.useFakeTimers();
-		Object.defineProperty(window, "matchMedia", {
-			writable: true,
-			value: jest.fn().mockReturnValue({ matches: false }),
-		});
-		Object.defineProperty(window, "innerWidth", {
-			writable: true,
-			value: 1280,
-		});
-		jest.spyOn(console, "log").mockImplementation(() => {});
+		expect(container).toBeEmptyDOMElement();
 	});
 
-	afterEach(() => {
-		jest.clearAllTimers();
-		jest.useRealTimers();
-		(window.matchMedia as unknown) = originalMatchMedia;
-		Object.defineProperty(window, "innerWidth", {
-			writable: true,
-			value: originalInnerWidth,
-		});
-		jest.restoreAllMocks();
-	});
-
-	it("renders all provided gallery items", () => {
-		const items = [createMedia(1, "First"), createMedia(2, "Second")];
-
-		render(<Gallery items={items} />);
+	it("renders every photo with its caption, source and size", () => {
+		render(<Gallery items={photos(5)} />);
 
 		const images = screen.getAllByTestId("gallery-image");
-		expect(images).toHaveLength(2);
-		expect(images[0]).toHaveAttribute("data-alt", "First");
-		expect(images[1]).toHaveAttribute("data-alt", "Second");
-	});
-
-	it("marks middle image as priority", () => {
-		const items = [
-			createMedia(1, "One"),
-			createMedia(2, "Two"),
-			createMedia(3, "Three"),
-		];
-
-		render(<Gallery items={items} />);
-
-		const images = screen.getAllByTestId("gallery-image");
-		expect(images[0]).toHaveAttribute("data-priority", "false");
-		expect(images[1]).toHaveAttribute("data-priority", "true");
-		expect(images[2]).toHaveAttribute("data-priority", "false");
-	});
-
-	it("skips auto-rotate on large screens without logging", () => {
-		mockMedia({ small: false });
-		const items = [createMedia(1, "First"), createMedia(2, "Second")];
-
-		render(<Gallery items={items} />);
-		act(() => {
-			jest.advanceTimersByTime(5000);
+		expect(images).toHaveLength(5);
+		images.forEach((image, i) => {
+			expect(image).toHaveAttribute("data-alt", `Photo ${i + 1}`);
+			expect(image).toHaveAttribute(
+				"data-src",
+				`https://example.com/${i + 1}.jpg`,
+			);
+			expect(image).toHaveAttribute("data-width", "1200");
+			expect(image).toHaveAttribute("data-height", "800");
 		});
-
-		expect(
-			screen.getAllByTestId("gallery-image")[0].closest(".flex-none"),
-		).toHaveStyle({ transform: "translateX(0)" });
-		expect(console.log).not.toHaveBeenCalled();
 	});
 
-	it("skips auto-rotate when only one item exists", () => {
-		mockMedia({ small: true });
-		const items = [createMedia(1, "Only")];
+	it("keeps the photos in their original order across the columns", () => {
+		render(<Gallery items={photos(5)} />);
 
-		render(<Gallery items={items} />);
-		act(() => {
-			jest.advanceTimersByTime(5000);
-		});
+		const alts = screen
+			.getAllByTestId("gallery-image")
+			.map((image) => image.getAttribute("data-alt"));
+		expect(alts).toEqual([
+			"Photo 1",
+			"Photo 2",
+			"Photo 3",
+			"Photo 4",
+			"Photo 5",
+		]);
+	});
 
-		expect(
-			screen.getByTestId("gallery-image").closest(".flex-none"),
-		).toHaveStyle({ transform: "translateX(0)" });
+	it.each([
+		[5, [1, 2, 2]],
+		[3, [1, 1, 1]],
+		[4, [1, 2, 1]],
+		[6, [2, 2, 2]],
+		[2, [1, 1]],
+		[1, [1]],
+	])("splits %i photos across the columns as %j", (count, expected) => {
+		const { container } = render(<Gallery items={photos(count)} />);
+
+		expect(columnSizes(container)).toEqual(expected);
+	});
+
+	it("marks only the middle photo as high priority", () => {
+		render(<Gallery items={photos(5)} />);
+
+		const priorities = screen
+			.getAllByTestId("gallery-image")
+			.map((image) => image.getAttribute("data-priority"));
+		expect(priorities).toEqual(["false", "false", "true", "false", "false"]);
+	});
+
+	it("is static: no slideshow control and nothing is hidden", () => {
+		render(<Gallery items={photos(5)} />);
+
 		expect(screen.queryByRole("button")).not.toBeInTheDocument();
-	});
-
-	it("does not auto-rotate or offer a control when the user prefers reduced motion", () => {
-		mockMedia({ small: true, reduced: true });
-		Object.defineProperty(window, "innerWidth", {
-			writable: true,
-			value: 375,
-		});
-		const items = [createMedia(1, "First"), createMedia(2, "Second")];
-
-		render(<Gallery items={items} />);
-		act(() => {
-			jest.advanceTimersByTime(10000);
-		});
-
-		const images = screen.getAllByTestId("gallery-image");
-		expect(images[0]).toHaveAttribute("data-alt", "First");
-		expect(images[0].closest(".flex-none")).toHaveStyle({
-			transform: "translateX(0)",
-		});
-		expect(screen.queryByRole("button")).not.toBeInTheDocument();
-	});
-
-	it("lets the user pause and resume auto-rotation", () => {
-		mockMedia({ small: true });
-		Object.defineProperty(window, "innerWidth", {
-			writable: true,
-			value: 375,
-		});
-		const items = [createMedia(1, "First"), createMedia(2, "Second")];
-
-		render(<Gallery items={items} />);
-
-		fireEvent.click(screen.getByRole("button", { name: "Pause slideshow" }));
-		act(() => {
-			jest.advanceTimersByTime(10000);
-		});
-		expect(
-			screen.getAllByTestId("gallery-image")[0].closest(".flex-none"),
-		).toHaveStyle({ transform: "translateX(0)" });
-
-		fireEvent.click(screen.getByRole("button", { name: "Play slideshow" }));
-		act(() => {
-			jest.advanceTimersByTime(5000);
-		});
-		expect(
-			screen.getAllByTestId("gallery-image")[0].closest(".flex-none"),
-		).toHaveStyle({ transform: "translateX(-196px)" });
-	});
-
-	it("settles the slide instead of freezing mid-animation when paused", () => {
-		mockMedia({ small: true });
-		Object.defineProperty(window, "innerWidth", {
-			writable: true,
-			value: 375,
-		});
-		const items = [createMedia(1, "First"), createMedia(2, "Second")];
-
-		render(<Gallery items={items} />);
-		act(() => {
-			jest.advanceTimersByTime(5000);
-		});
-		fireEvent.click(screen.getByRole("button", { name: "Pause slideshow" }));
-
-		expect(
-			screen.getAllByTestId("gallery-image")[0].closest(".flex-none"),
-		).toHaveStyle({ transform: "translateX(0)" });
-	});
-
-	it("starts slide animation on small screens after interval tick", () => {
-		mockMedia({ small: true });
-		Object.defineProperty(window, "innerWidth", {
-			writable: true,
-			value: 375,
-		});
-		const items = [
-			createMedia(1, "First"),
-			createMedia(2, "Second"),
-			createMedia(3, "Third"),
-		];
-
-		render(<Gallery items={items} />);
-
-		const images = screen.getAllByTestId("gallery-image");
-		expect(images[0]).toHaveAttribute("data-alt", "First");
-		expect(images[1]).toHaveAttribute("data-alt", "Second");
-		expect(images[2]).toHaveAttribute("data-alt", "Third");
-
-		act(() => {
-			jest.advanceTimersByTime(5000);
-		});
-
-		const animatedWrapper = images[0].closest(".flex-none");
-		expect(animatedWrapper).toHaveStyle({ transform: "translateX(-196px)" });
-	});
-
-	it("syncs display items when props change", () => {
-		const first = [createMedia(1, "First"), createMedia(2, "Second")];
-		const second = [createMedia(3, "Third"), createMedia(4, "Fourth")];
-		const { rerender } = render(<Gallery items={first} />);
-
-		expect(screen.getAllByTestId("gallery-image")[0]).toHaveAttribute(
-			"data-alt",
-			"First",
-		);
-
-		rerender(<Gallery items={second} />);
-
-		expect(screen.getAllByTestId("gallery-image")[0]).toHaveAttribute(
-			"data-alt",
-			"Third",
-		);
-	});
-
-	it("applies animating then default styles during rotation lifecycle", () => {
-		mockMedia({ small: true });
-		Object.defineProperty(window, "innerWidth", {
-			writable: true,
-			value: 375,
-		});
-		render(<Gallery items={[createMedia(1, "A"), createMedia(2, "B")]} />);
-
-		act(() => {
-			jest.advanceTimersByTime(5000);
-		});
-
-		let wrapper = screen
-			.getAllByTestId("gallery-image")[0]
-			.closest(".flex-none");
-		expect(wrapper).toHaveStyle({
-			opacity: "1",
-			transform: "translateX(-196px)",
-		});
-
-		act(() => {
-			jest.advanceTimersByTime(600);
-		});
-
-		wrapper = screen.getAllByTestId("gallery-image")[0].closest(".flex-none");
-		expect(wrapper).toHaveStyle({
-			opacity: "1",
-			transform: "translateX(-196px)",
-		});
-
-		act(() => {
-			jest.advanceTimersByTime(100);
-		});
-
-		wrapper = screen.getAllByTestId("gallery-image")[0].closest(".flex-none");
-		expect(wrapper).toHaveStyle({ opacity: "1", transform: "translateX(0)" });
-	});
-
-	it("handles rotation setter shortcut when items reduce to one during animation", () => {
-		mockMedia({ small: true });
-		Object.defineProperty(window, "innerWidth", {
-			writable: true,
-			value: 375,
-		});
-		const { rerender } = render(
-			<Gallery items={[createMedia(1, "A"), createMedia(2, "B")]} />,
-		);
-
-		act(() => {
-			jest.advanceTimersByTime(5000);
-		});
-
-		rerender(<Gallery items={[createMedia(1, "A")]} />);
-
-		act(() => {
-			jest.advanceTimersByTime(700);
-		});
-
-		const wrapper = screen.getByTestId("gallery-image").closest(".flex-none");
-		expect(wrapper).toBeDefined();
+		expect(screen.queryByText(/slideshow/i)).not.toBeInTheDocument();
 	});
 });

@@ -38,7 +38,7 @@ describe("ToolsSection", () => {
 		);
 
 		const list = container.querySelector("ul");
-		expect(list).toHaveClass("space-y-16");
+		expect(list).toHaveClass("grid", "lg:grid-cols-2");
 	});
 
 	it("renders children as list items", () => {

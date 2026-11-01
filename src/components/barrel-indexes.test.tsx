@@ -14,7 +14,6 @@ import { CommentBox } from "@/components/CommentBox";
 import { CSE } from "@/components/CSE";
 import { Gallery } from "@/components/Gallery";
 import { Layout } from "@/components/Layout";
-import { MoreArticle } from "@/components/MoreArticle";
 import { Pagination } from "@/components/Pagination";
 import { SearchBox } from "@/components/SearchBox";
 import { Section } from "@/components/Section";
@@ -32,7 +31,6 @@ describe("barrel exports", () => {
 		expect(CSE).toBeDefined();
 		expect(Gallery).toBeDefined();
 		expect(Layout).toBeDefined();
-		expect(MoreArticle).toBeDefined();
 		expect(Pagination).toBeDefined();
 		expect(SearchBox).toBeDefined();
 		expect(Section).toBeDefined();

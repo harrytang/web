@@ -1,4 +1,3 @@
-import { ContainerInner, ContainerOuter } from "../Container";
 import NavLink from "./NavLink";
 
 const Footer: React.FC = () => {
@@ -33,49 +32,34 @@ const Footer: React.FC = () => {
 		},
 	];
 	return (
-		<footer className="mt-32 flex-none">
-			<ContainerOuter>
-				<div className="border-t border-zinc-100 pb-16 pt-10 dark:border-zinc-700/40">
-					<ContainerInner>
-						<div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
-							<div className="flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm font-medium text-zinc-800 dark:text-zinc-200">
-								{menus.map((menu) => (
-									<NavLink key={menu.path} href={menu.path}>
-										{menu.name}
-									</NavLink>
-								))}
-							</div>
-							<p className="text-sm text-zinc-500 dark:text-zinc-400">
-								&copy; {new Date().getFullYear()}{" "}
-								{process.env.NEXT_PUBLIC_SITE_NAME}. All rights reserved.
-							</p>
-						</div>
-						<p className="mt-6 flex items-end justify-center gap-2 text-center text-sm leading-none text-zinc-500 dark:text-zinc-400">
-							<span className="relative top-px leading-none">Hosted by</span>
-							<a
-								href="https://maxspell.com/cloud-hosting"
-								target="_blank"
-								rel="noopener noreferrer"
-								aria-label="Maxspell cloud hosting"
-								className="-my-2 inline-flex h-9 items-end pb-2 leading-none hover:opacity-80 cursor-pointer"
-							>
-								<img
-									src="https://maxspell.com/logo.svg"
-									alt=""
-									aria-hidden="true"
-									className="block h-5 w-auto dark:hidden"
-								/>
-								<img
-									src="https://maxspell.com/logo-dark.svg"
-									alt=""
-									aria-hidden="true"
-									className="hidden h-5 w-auto dark:block"
-								/>
-							</a>
-						</p>
-					</ContainerInner>
-				</div>
-			</ContainerOuter>
+		<footer className="mt-24 flex-none border-t border-line">
+			<div className="mx-auto flex max-w-7xl flex-col gap-6 px-6 py-12 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+				<nav
+					aria-label="Footer"
+					className="flex flex-wrap gap-x-8 gap-y-3 text-sm/6"
+				>
+					{menus.map((menu) => (
+						<NavLink key={menu.path} href={menu.path}>
+							{menu.name}
+						</NavLink>
+					))}
+				</nav>
+				<p className="text-sm/6 text-muted">
+					&copy; {new Date().getFullYear()} {process.env.NEXT_PUBLIC_SITE_NAME}.
+					All rights reserved.{" "}
+					<span className="whitespace-nowrap">
+						Hosted by{" "}
+						<a
+							href="https://maxspell.com/cloud-hosting"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="font-medium text-ink underline decoration-line underline-offset-4 transition hover:text-accent hover:decoration-accent"
+						>
+							Maxspell
+						</a>
+					</span>
+				</p>
+			</div>
 		</footer>
 	);
 };

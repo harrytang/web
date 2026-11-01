@@ -1,353 +1,116 @@
 import { expect, test } from "@playwright/test";
+import type { Profile } from "@/lib/profile";
+import { newStrapiContext } from "./strapi";
 
-test.describe("Gallery Component", () => {
-	test("should display gallery with all photos on home page", async ({
-		page,
-	}) => {
+// The home page shows the profile photos as staggered tiles beside the headline.
+const photoCaptions = async (): Promise<string[]> => {
+	const reqCtx = await newStrapiContext();
+	const apiResponse = await reqCtx.get("/api/profile?populate[0]=photos");
+	const { data } = (await apiResponse.json()) as { data: Profile };
+	return data.photos.map((photo) => photo.caption);
+};
+
+test.describe("Home photo tiles", () => {
+	test("shows every profile photo", async ({ page }) => {
+		const captions = await photoCaptions();
+		expect(captions.length).toBeGreaterThan(0);
+
 		await page.goto("/");
 
-		// Find gallery container with more specific selector
-		const galleryContainer = page.locator(
-			"div.-my-4.flex.justify-center.overflow-hidden",
-		);
-		await expect(galleryContainer).toBeVisible();
-
-		// Check that gallery images exist
-		const images = galleryContainer.locator("img");
-		const count = await images.count();
-		expect(count).toBeGreaterThan(0);
-
-		// Verify gallery images have alt text
-		for (let i = 0; i < count; i++) {
-			const img = images.nth(i);
-			const alt = await img.getAttribute("alt");
-			expect(alt).toBeTruthy();
+		for (const caption of captions) {
+			await expect(page.locator(`img[alt="${caption}"]`)).toBeVisible();
 		}
 	});
 
-	test("should render gallery images with correct attributes", async ({
-		page,
-	}) => {
+	test("renders each photo with a source and dimensions", async ({ page }) => {
+		const captions = await photoCaptions();
 		await page.goto("/");
 
-		// Get gallery container
-		const galleryContainer = page.locator(
-			"div.-my-4.flex.justify-center.overflow-hidden",
-		);
-		await expect(galleryContainer).toBeVisible();
-
-		// Get all gallery images
-		const images = galleryContainer.locator("img");
-		const count = await images.count();
-
-		// Verify images have proper attributes
-		for (let i = 0; i < count; i++) {
-			const img = images.nth(i);
-			const alt = await img.getAttribute("alt");
-			const src = await img.getAttribute("src");
-			expect(alt).toBeTruthy();
-			expect(src).toBeTruthy();
+		for (const caption of captions) {
+			const image = page.locator(`img[alt="${caption}"]`);
+			expect(await image.getAttribute("src")).toBeTruthy();
+			expect(
+				parseInt((await image.getAttribute("width")) ?? "0", 10),
+			).toBeGreaterThan(0);
+			expect(
+				parseInt((await image.getAttribute("height")) ?? "0", 10),
+			).toBeGreaterThan(0);
 		}
 	});
 
-	test("should maintain gallery overflow-hidden behavior", async ({ page }) => {
-		// Set mobile viewport to trigger overflow
+	test("staggers the photos across three columns on desktop", async ({
+		page,
+	}) => {
+		const captions = await photoCaptions();
+		await page.setViewportSize({ width: 1440, height: 900 });
+		await page.goto("/");
+
+		const lefts = new Set<number>();
+		for (const caption of captions) {
+			const box = await page
+				.getByRole("img", { name: caption, exact: true })
+				.first()
+				.boundingBox();
+			expect(box).not.toBeNull();
+			lefts.add(Math.round(box?.x ?? 0));
+		}
+		expect(lefts.size).toBe(Math.min(3, captions.length));
+	});
+
+	test("keeps every photo fully on screen on a phone", async ({ page }) => {
+		const captions = await photoCaptions();
 		await page.setViewportSize({ width: 375, height: 812 });
 		await page.goto("/");
 
-		// Find the gallery wrapper with overflow-hidden
-		const galleryWrapper = page
-			.locator("div.-my-4.flex.justify-center.overflow-hidden")
-			.first();
-		await expect(galleryWrapper).toBeVisible();
-		await expect(galleryWrapper).toHaveClass(/overflow-hidden/);
-
-		// Browser engines can report shorthand overflow differently.
-		const overflow = await galleryWrapper.evaluate((el) => {
-			const style = window.getComputedStyle(el);
-			return {
-				overflowX: style.overflowX,
-				overflowY: style.overflowY,
-			};
-		});
-		expect(["hidden", "clip"]).toContain(overflow.overflowX);
-		expect(["hidden", "clip"]).toContain(overflow.overflowY);
+		for (const caption of captions) {
+			const box = await page
+				.getByRole("img", { name: caption, exact: true })
+				.first()
+				.boundingBox();
+			expect(box).not.toBeNull();
+			expect(box?.x ?? -1).toBeGreaterThanOrEqual(0);
+			expect((box?.x ?? 0) + (box?.width ?? 0)).toBeLessThanOrEqual(375);
+		}
 	});
 
-	test("should show gallery images with correct dimensions on desktop", async ({
-		page,
-	}) => {
-		// Desktop viewport
-		await page.setViewportSize({ width: 1920, height: 1080 });
-		await page.goto("/");
+	for (const width of [640, 768, 900, 1020]) {
+		test(`never covers the intro text at ${width}px wide`, async ({ page }) => {
+			const captions = await photoCaptions();
+			await page.setViewportSize({ width, height: 900 });
+			await page.goto("/");
 
-		// Find gallery images
-		const galleryContainer = page.locator(
-			"div.-my-4.flex.justify-center.overflow-hidden",
-		);
-
-		const images = galleryContainer.locator("img");
-		const imageCount = await images.count();
-
-		if (imageCount > 0) {
-			for (let i = 0; i < Math.min(imageCount, 3); i++) {
-				const image = images.nth(i);
-				const alt = await image.getAttribute("alt");
-				expect(alt).toBeTruthy();
-
-				// Verify image has dimensions
-				const width = await image.getAttribute("width");
-				const height = await image.getAttribute("height");
-				expect(parseInt(width || "0")).toBeGreaterThan(0);
-				expect(parseInt(height || "0")).toBeGreaterThan(0);
+			const lead = await page.locator("main h1 + p").boundingBox();
+			expect(lead).not.toBeNull();
+			for (const caption of captions) {
+				const tile = await page
+					.getByRole("img", { name: caption, exact: true })
+					.first()
+					.boundingBox();
+				expect(tile).not.toBeNull();
+				const overlaps =
+					(tile?.x ?? 0) < (lead?.x ?? 0) + (lead?.width ?? 0) &&
+					(tile?.x ?? 0) + (tile?.width ?? 0) > (lead?.x ?? 0) &&
+					(tile?.y ?? 0) < (lead?.y ?? 0) + (lead?.height ?? 0) &&
+					(tile?.y ?? 0) + (tile?.height ?? 0) > (lead?.y ?? 0);
+				expect(overlaps, `"${caption}" overlaps the intro paragraph`).toBe(
+					false,
+				);
 			}
-		}
-	});
-
-	test("should rotate gallery images on small screens with animation", async ({
-		page,
-	}) => {
-		// Set mobile viewport
-		await page.setViewportSize({ width: 375, height: 812 });
-		await page.goto("/");
-
-		// Find gallery items
-		const galleryContainer = page.locator(
-			"div.-my-4.flex.justify-center.overflow-hidden",
-		);
-
-		// Check if there are images to rotate
-		const images = galleryContainer.locator("img");
-		const imageCount = await images.count();
-		if (imageCount < 2) {
-			test.skip();
-		}
-
-		// Get initial first item alt
-		const firstItemBefore = await images.first().getAttribute("alt");
-
-		// Wait for animation to trigger (5 seconds for slide + buffer)
-		await page.waitForTimeout(6000);
-
-		// Gallery should still be visible and intact
-		await expect(galleryContainer).toBeVisible();
-	});
-
-	test("should apply slide animation transform on mobile", async ({ page }) => {
-		// Mobile viewport
-		await page.setViewportSize({ width: 375, height: 812 });
-		await page.goto("/");
-
-		// Find gallery wrapper
-		const galleryContainer = page.locator(
-			"div.-my-4.flex.justify-center.overflow-hidden",
-		);
-
-		// Check if there are multiple images
-		const images = galleryContainer.locator("img");
-		const imageCount = await images.count();
-		if (imageCount < 2) {
-			test.skip();
-		}
-
-		// Get the first item wrapper that will animate
-		const firstItemWrapper = galleryContainer.locator("> div").first();
-
-		// Wait a bit less than animation trigger to monitor for changes
-		await page.waitForTimeout(5500);
-
-		// Check if transform is applied
-		const transform = await firstItemWrapper.evaluate((el) => {
-			return window.getComputedStyle(el).transform;
 		});
+	}
 
-		// Transform may be "translateX(-196px)" or similar during animation
-		// Just verify the element maintains its structure
-		await expect(firstItemWrapper).toBeVisible();
-	});
-
-	test("should not auto-rotate gallery on large screens", async ({ page }) => {
-		// Desktop viewport - gallery should fit without overflow
-		await page.setViewportSize({ width: 1920, height: 1080 });
-		await page.goto("/");
-
-		// Get initial first image
-		const galleryContainer = page.locator(
-			"div.-my-4.flex.justify-center.overflow-hidden",
-		);
-		const firstImageBefore = await galleryContainer
-			.locator("img")
-			.first()
-			.getAttribute("alt")
-			.catch(() => null);
-
-		// Wait for what would be animation time on mobile
-		await page.waitForTimeout(6000);
-
-		// Get first image after wait
-		const firstImageAfter = await galleryContainer
-			.locator("img")
-			.first()
-			.getAttribute("alt")
-			.catch(() => null);
-
-		// On large screens, order should not change
-		expect(firstImageBefore).toBe(firstImageAfter);
-	});
-
-	test("should display gallery images with correct rotation classes", async ({
+	test("is static: no slideshow control and no horizontal scrolling", async ({
 		page,
 	}) => {
-		await page.setViewportSize({ width: 1920, height: 1080 });
-		await page.goto("/");
-
-		// Find gallery container
-		const galleryContainer = page.locator(
-			"div.-my-4.flex.justify-center.overflow-hidden",
-		);
-
-		// Each image wrapper should have styling
-		const imageWrappers = galleryContainer.locator("> div");
-		const count = await imageWrappers.count();
-
-		// Check that images are rendered with structure
-		for (let i = 0; i < Math.min(count, 5); i++) {
-			const wrapper = imageWrappers.nth(i);
-			await expect(wrapper).toBeVisible();
-		}
-	});
-
-	test("should keep gallery images stable on mobile", async ({ page }) => {
 		await page.setViewportSize({ width: 375, height: 812 });
 		await page.goto("/");
 
-		const galleryContainer = page.locator(
-			"div.-my-4.flex.justify-center.overflow-hidden",
+		await expect(page.getByText(/slideshow/i)).toHaveCount(0);
+		const overflow = await page.evaluate(
+			() =>
+				document.documentElement.scrollWidth -
+				document.documentElement.clientWidth,
 		);
-
-		// Should still render gallery even with one photo
-		await expect(galleryContainer).toBeVisible();
-
-		// Capture image alt values before auto-rotation
-		const images = galleryContainer.locator("img");
-		const countBefore = await images.count();
-		expect(countBefore).toBeGreaterThan(0);
-		const altsBefore = await images.evaluateAll((els) =>
-			els.map((el) => el.getAttribute("alt") ?? ""),
-		);
-
-		// Wait to ensure no auto-rotation happens
-		await page.waitForTimeout(6000);
-
-		// Rotation can change order, but image set should remain stable.
-		const countAfter = await images.count();
-		expect(countAfter).toBe(countBefore);
-		const altsAfter = await images.evaluateAll((els) =>
-			els.map((el) => el.getAttribute("alt") ?? ""),
-		);
-		expect([...altsAfter].sort()).toEqual([...altsBefore].sort());
-	});
-
-	test("should render gallery with proper gap spacing", async ({ page }) => {
-		await page.setViewportSize({ width: 1920, height: 1080 });
-		await page.goto("/");
-
-		const galleryContainer = page.locator(
-			"div.-my-4.flex.justify-center.overflow-hidden",
-		);
-
-		// Verify container exists and has gap
-		await expect(galleryContainer).toBeVisible();
-		const classes = await galleryContainer.getAttribute("class");
-		expect(classes).toContain("gap");
-	});
-
-	test("gallery should have proper image aspect ratio", async ({ page }) => {
-		await page.setViewportSize({ width: 1920, height: 1080 });
-		await page.goto("/");
-
-		const galleryContainer = page.locator(
-			"div.-my-4.flex.justify-center.overflow-hidden",
-		);
-
-		// Find image containers with aspect ratio class
-		const imageContainers = galleryContainer.locator(
-			'div[class*="aspect"][class*="overflow-hidden"]',
-		);
-		const count = await imageContainers.count();
-
-		if (count > 0) {
-			// Check aspect ratio is applied
-			const container = imageContainers.first();
-			await expect(container).toBeVisible();
-		}
-	});
-
-	test("should handle rapid viewport changes without breaking gallery", async ({
-		page,
-	}) => {
-		await page.goto("/");
-
-		// Start mobile
-		await page.setViewportSize({ width: 375, height: 812 });
-		await page.waitForTimeout(1000);
-
-		// Switch to desktop
-		await page.setViewportSize({ width: 1920, height: 1080 });
-		await page.waitForTimeout(1000);
-
-		// Back to mobile
-		await page.setViewportSize({ width: 375, height: 812 });
-
-		// Gallery should still be visible
-		const galleryContainer = page.locator(
-			"div.-my-4.flex.justify-center.overflow-hidden",
-		);
-		await expect(galleryContainer).toBeVisible();
-
-		// Images should still exist
-		const images = galleryContainer.locator("img");
-		const count = await images.count();
-		expect(count).toBeGreaterThan(0);
-	});
-
-	test("should render gallery images with blur placeholder", async ({
-		page,
-	}) => {
-		await page.goto("/");
-
-		// Find gallery images
-		const galleryContainer = page.locator(
-			"div.-my-4.flex.justify-center.overflow-hidden",
-		);
-		const images = galleryContainer.locator("img");
-
-		const imageCount = await images.count();
-		if (imageCount > 0) {
-			// Images should have either loaded or be loading
-			const firstImage = images.first();
-			const src = await firstImage.getAttribute("src");
-			expect(src).toBeTruthy();
-		}
-	});
-
-	test("should maintain gallery layout after navigation", async ({ page }) => {
-		// Go to home
-		await page.goto("/");
-
-		// Check gallery exists
-		const galleryContainer = page.locator(
-			"div.-my-4.flex.justify-center.overflow-hidden",
-		);
-		await expect(galleryContainer).toBeVisible();
-
-		// Navigate away
-		await page.goto("/about");
-
-		// Navigate back
-		await page.goto("/");
-
-		// Gallery should still be visible
-		await expect(galleryContainer).toBeVisible();
+		expect(overflow).toBeLessThanOrEqual(0);
 	});
 });

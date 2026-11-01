@@ -3,6 +3,7 @@ import ReactMarkdown from "react-markdown";
 import { AlgoliaSearch } from "@/components/AlgoliaSearch";
 // local imports
 import { Container } from "@/components/Container";
+import { HeroBackdrop } from "@/components/HeroBackdrop";
 import { Prose } from "@/components/Prose";
 
 type SimpleLayoutProps = {
@@ -19,26 +20,29 @@ const SimpleLayout: React.FC<SimpleLayoutProps> = ({
 	children,
 }) => {
 	return (
-		<Container className="mt-16 sm:mt-32">
-			{subtitle && (
-				<h1 className="max-w-3xl text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
-					{subtitle}
-				</h1>
-			)}
-			{content && (
-				<Prose className="mt-8" data-mdx-content>
-					<div className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
-						<ReactMarkdown>{content}</ReactMarkdown>
-					</div>
-				</Prose>
-			)}
-			{seachBox && (
-				<Suspense>
-					<AlgoliaSearch />
-				</Suspense>
-			)}
-			{children && <div className="mt-16 sm:mt-20">{children}</div>}
-		</Container>
+		<div className="relative isolate overflow-hidden">
+			<HeroBackdrop />
+			<Container className="pt-16 pb-8 sm:pt-24">
+				{subtitle && (
+					<h1 className="max-w-3xl text-4xl font-semibold tracking-[-0.04em] text-balance text-ink sm:text-5xl">
+						{subtitle}
+					</h1>
+				)}
+				{content && (
+					<Prose className="mt-8 max-w-3xl" data-mdx-content>
+						<div className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
+							<ReactMarkdown>{content}</ReactMarkdown>
+						</div>
+					</Prose>
+				)}
+				{seachBox && (
+					<Suspense>
+						<AlgoliaSearch />
+					</Suspense>
+				)}
+				{children && <div className="mt-16 sm:mt-20">{children}</div>}
+			</Container>
+		</div>
 	);
 };
 

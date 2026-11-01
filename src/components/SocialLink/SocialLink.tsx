@@ -1,3 +1,4 @@
+import { ArrowUpRightIcon } from "@heroicons/react/20/solid";
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
@@ -20,17 +21,23 @@ const SocialLink: React.FC<SocialLinkProps> = ({
 		<li className={clsx(className, "flex")}>
 			<Link
 				href={href}
-				className="group flex text-sm font-medium text-zinc-800 transition hover:text-amber-700 dark:text-zinc-200 dark:hover:text-amber-500"
+				className="group flex w-full items-center gap-4 rounded-2xl bg-raised p-4 ring-1 ring-line transition hover:-translate-y-0.5 hover:ring-accent/40"
 			>
-				<Image
-					src={icon.url}
-					alt={icon.caption}
-					className="h-6 w-6 flex-none fill-zinc-500 transition group-hover:fill-amber-500"
-					unoptimized
-					width={icon.width}
-					height={icon.height}
+				<span className="grid size-10 flex-none place-items-center rounded-xl bg-surface ring-1 ring-line">
+					<Image
+						src={icon.url}
+						alt={icon.caption}
+						className="size-5 object-contain"
+						unoptimized
+						width={icon.width}
+						height={icon.height}
+					/>
+				</span>
+				<span className="text-sm font-medium text-ink">{children}</span>
+				<ArrowUpRightIcon
+					aria-hidden="true"
+					className="ml-auto size-4 flex-none text-muted transition group-hover:text-accent"
 				/>
-				<span className="ml-4">{children}</span>
 			</Link>
 		</li>
 	);

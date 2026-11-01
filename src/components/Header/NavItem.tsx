@@ -16,17 +16,13 @@ const NavItem: React.FC<NavItemProps> = ({ href, children }) => {
 		<li>
 			<Link
 				href={href}
+				aria-current={isActive ? "page" : undefined}
 				className={clsx(
-					"relative block px-3 py-2 transition",
-					isActive
-						? "text-amber-700 dark:text-amber-500"
-						: "hover:text-amber-600 dark:hover:text-amber-600",
+					"block rounded-full px-4 py-2 transition",
+					isActive ? "bg-accent-soft text-accent" : "text-muted hover:text-ink",
 				)}
 			>
 				{children}
-				{isActive && (
-					<span className="absolute inset-x-1 -bottom-px h-px bg-linear-to-r from-amber-500/0 via-amber-500/40 to-amber-500/0 dark:from-amber-400/0 dark:via-amber-400/40 dark:to-amber-400/0" />
-				)}
 			</Link>
 		</li>
 	);

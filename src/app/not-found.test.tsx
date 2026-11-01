@@ -47,11 +47,18 @@ describe("not-found page", () => {
 		expect(backLink).toHaveTextContent("Go back home");
 	});
 
-	it("keeps the 404 label readable in light and dark themes", () => {
+	it("styles the 404 label with the accent token so it follows both themes", () => {
 		render(<NotFound />);
 
 		const label = screen.getByText("404");
-		expect(label).toHaveClass("text-zinc-500", "dark:text-zinc-400");
+		expect(label).toHaveClass("text-accent");
 		expect(label).not.toHaveClass("text-zinc-400");
+	});
+
+	it("leads with a primary call to action and the shared hero backdrop", () => {
+		const { container } = render(<NotFound />);
+
+		expect(screen.getByTestId("button").className).toContain("mt-6");
+		expect(container.querySelector("svg[aria-hidden='true']")).toBeTruthy();
 	});
 });

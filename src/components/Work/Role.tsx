@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Work } from "@/lib/works";
 
-const Role = async ({ role }: { role: Work }) => {
+const Role = ({ role }: { role: Work }) => {
 	const endLabel = role.end ?? "Present";
 	const endDate = role.end ?? new Date().getFullYear().toString();
 	const roleUrl = role.url?.href;
@@ -10,13 +10,13 @@ const Role = async ({ role }: { role: Work }) => {
 	const isInternalUrl = roleUrl?.startsWith("/");
 
 	return (
-		<li className="group relative flex gap-4">
+		<li className="group relative grid grid-cols-[2.75rem_1fr] items-start gap-x-4 py-5 first:pt-0 last:pb-0">
 			{roleUrl ? (
 				<>
-					<div className="absolute -inset-x-4 -inset-y-3 z-0 scale-95 bg-zinc-50 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 sm:rounded-2xl dark:bg-zinc-800/50" />
+					<div className="absolute -inset-x-3 inset-y-1 z-0 rounded-2xl bg-surface opacity-0 transition group-hover:opacity-100" />
 					{isInternalUrl ? (
 						<Link
-							className="absolute -inset-x-4 -inset-y-3 z-20 sm:rounded-2xl"
+							className="absolute -inset-x-3 inset-y-1 z-20 rounded-2xl"
 							href={roleUrl}
 							aria-label={`Visit ${roleLinkLabel}`}
 						>
@@ -24,7 +24,7 @@ const Role = async ({ role }: { role: Work }) => {
 						</Link>
 					) : (
 						<a
-							className="absolute -inset-x-4 -inset-y-3 z-20 sm:rounded-2xl"
+							className="absolute -inset-x-3 inset-y-1 z-20 rounded-2xl"
 							href={roleUrl}
 							target="_blank"
 							rel="noreferrer"
@@ -35,26 +35,26 @@ const Role = async ({ role }: { role: Work }) => {
 					)}
 				</>
 			) : null}
-			<div className="relative z-10 mt-1 flex h-10 w-10 flex-none items-center justify-center rounded-full shadow-md ring-1 shadow-zinc-800/5 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
+			<div className="relative z-10 grid size-11 place-items-center rounded-xl bg-white ring-1 ring-ink/10">
 				<Image
 					src={role.logo.url}
 					alt={role.logo.caption}
-					className="h-7 w-7"
+					className="size-7 object-contain"
 					width={role.logo.width}
 					height={role.logo.height}
 				/>
 			</div>
-			<dl className="relative z-10 flex flex-auto flex-wrap gap-x-2">
+			<dl className="relative z-10 grid min-w-0 gap-y-0.5 sm:grid-cols-[1fr_auto] sm:gap-x-4">
 				<dt className="sr-only">Role</dt>
-				<dd className="w-full flex-none text-sm font-medium text-zinc-900 dark:text-zinc-100">
+				<dd className="text-base/6 font-medium break-words text-ink">
 					{role.title}
 				</dd>
 				<dt className="sr-only">Company</dt>
-				<dd className="text-xs text-zinc-500 dark:text-zinc-400">
+				<dd className="text-sm text-muted">
 					{role.company} | {role.place}
 				</dd>
 				<dt className="sr-only">Date</dt>
-				<dd className="ml-auto text-xs text-zinc-500 dark:text-zinc-400">
+				<dd className="text-sm whitespace-nowrap tabular-nums text-muted sm:col-start-2 sm:row-start-1">
 					<time dateTime={role.start}>{role.start}</time>{" "}
 					<span aria-hidden="true">—</span>{" "}
 					<time dateTime={endDate}>{endLabel}</time>

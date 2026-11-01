@@ -87,19 +87,31 @@ describe("Work", () => {
 		expect(screen.getByTestId("role-2")).toBeInTheDocument();
 	});
 
-	it("applies spacing style to list", async () => {
+	it("separates the roles with dividers", async () => {
 		const component = await Work();
 		const { container } = render(component);
 
 		const ol = container.querySelector("ol");
-		expect(ol).toHaveClass("space-y-4");
+		expect(ol).toHaveClass("divide-y", "divide-line");
 	});
 
-	it("renders within a card container", async () => {
+	it("renders as a labelled card landmark", async () => {
 		const component = await Work();
 		const { container } = render(component);
 
-		const cardDiv = container.querySelector(".rounded-2xl");
-		expect(cardDiv).toBeInTheDocument();
+		const aside = container.querySelector("aside");
+		expect(aside).toHaveClass("rounded-3xl", "ring-1", "ring-line");
+		expect(aside).toHaveAttribute("aria-labelledby", "work-title");
+		expect(screen.getByRole("heading", { name: "Work" })).toHaveAttribute(
+			"id",
+			"work-title",
+		);
+	});
+
+	it("accepts a className for layout placement", async () => {
+		const component = await Work({ className: "lg:col-span-5" });
+		const { container } = render(component);
+
+		expect(container.querySelector("aside")).toHaveClass("lg:col-span-5");
 	});
 });

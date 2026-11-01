@@ -27,9 +27,17 @@ describe("ThemeToggle", () => {
 
 		const buttonElement = getByRole("button");
 		expect(buttonElement).toHaveAttribute("aria-label", "Switch to dark theme");
+	});
 
-		const sunIcon = buttonElement.querySelector("svg");
-		expect(sunIcon).toHaveClass("h-6 w-6 fill-zinc-100 stroke-zinc-500");
+	it("renders a sun for light mode and a moon for dark mode", () => {
+		const { getByRole } = render(<ThemeToggle />);
+
+		const [sunIcon, moonIcon] = Array.from(
+			getByRole("button").querySelectorAll("svg"),
+		);
+		// The sun is hidden once the dark class is on <html>; the moon is the reverse.
+		expect(sunIcon).toHaveClass("size-5", "dark:hidden");
+		expect(moonIcon).toHaveClass("hidden", "size-5", "dark:block");
 	});
 
 	it("renders correctly with dark theme", () => {
@@ -46,9 +54,6 @@ describe("ThemeToggle", () => {
 			"aria-label",
 			"Switch to light theme",
 		);
-
-		const moonIcon = buttonElement.querySelector("svg");
-		expect(moonIcon).not.toHaveClass("hidden");
 	});
 
 	it("calls setTheme with the correct argument when clicked", () => {

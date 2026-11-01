@@ -11,16 +11,16 @@ const Section: React.FC<SectionProps> = ({ title, children }) => {
 	return (
 		<section
 			aria-labelledby={id}
-			className="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40"
+			className="rounded-3xl bg-raised p-6 ring-1 ring-line sm:p-8"
 		>
-			<div className="grid max-w-3xl grid-cols-1 items-baseline gap-y-8 md:grid-cols-4">
+			<div className="grid grid-cols-1 items-baseline gap-y-8 md:grid-cols-[10rem_minmax(0,1fr)] md:gap-x-8">
 				<h2
 					id={id}
-					className="text-sm font-semibold text-zinc-800 dark:text-zinc-100"
+					className="text-sm font-semibold tracking-[0.2em] text-accent uppercase"
 				>
 					{title}
 				</h2>
-				<div className="md:col-span-3">{children}</div>
+				<div>{children}</div>
 			</div>
 		</section>
 	);

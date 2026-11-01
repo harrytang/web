@@ -37,16 +37,13 @@ describe("Layout", () => {
 			</Layout>,
 		);
 
-		const fixedDiv = document.querySelector(
-			".fixed.inset-0.flex.justify-center.sm\\:px-8",
-		);
 		const relativeDiv = document.querySelector(
 			".relative.flex.w-full.flex-col",
 		);
 		const mainElement = document.querySelector("main.flex-auto");
 
-		// Check if the fixed div is rendered correctly
-		expect(fixedDiv).toBeInTheDocument();
+		// The page is full-bleed: no fixed backdrop column behind the content
+		expect(document.querySelector(".fixed.inset-0")).not.toBeInTheDocument();
 
 		// Check if the relative div is rendered correctly
 		expect(relativeDiv).toBeInTheDocument();

@@ -87,8 +87,8 @@ export default {
 						fontWeight: theme("fontWeight.semibold"),
 					},
 					h2: {
-						fontSize: theme("fontSize.xl")[0],
-						lineHeight: theme("lineHeight.7"),
+						fontSize: theme("fontSize.2xl")[0],
+						lineHeight: theme("lineHeight.8"),
 						marginTop: theme("spacing.20"),
 						marginBottom: theme("spacing.4"),
 					},

@@ -32,8 +32,11 @@ test("should open the Home page", async ({ page }) => {
 		expect(page.locator(`img[alt="${photo.caption}"]`)).toBeDefined();
 	}
 
-	// Check that the blogs are displayed
+	// Check that the blogs are displayed. Titles are h3, under the "Articles" h2.
+	await expect(
+		page.getByRole("heading", { level: 2, name: "Articles" }),
+	).toBeVisible();
 	for (const blog of blogs) {
-		await expect(page.locator(`h2:has-text("${blog.title}")`)).toBeVisible();
+		await expect(page.locator(`h3:has-text("${blog.title}")`)).toBeVisible();
 	}
 });

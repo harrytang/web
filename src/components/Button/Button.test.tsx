@@ -9,7 +9,7 @@ describe("Button", () => {
 		});
 
 		expect(buttonElement).toBeInTheDocument();
-		expect(buttonElement).toHaveClass("bg-zinc-800");
+		expect(buttonElement).toHaveClass("bg-accent", "text-canvas");
 	});
 
 	it("renders a secondary button when variant is secondary", () => {
@@ -19,7 +19,7 @@ describe("Button", () => {
 		});
 
 		expect(buttonElement).toBeInTheDocument();
-		expect(buttonElement).toHaveClass("bg-zinc-50");
+		expect(buttonElement).toHaveClass("bg-raised", "ring-1", "ring-line");
 	});
 
 	it("renders a link when href is provided", () => {

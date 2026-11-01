@@ -26,23 +26,28 @@ const Expertise = async () => {
 		<SimpleLayout subtitle={page.subtitle} content={page.content}>
 			<div className="">
 				<div className="mx-auto max-w-7xl">
-					<div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-12 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
+					<div className="mx-auto grid max-w-2xl grid-cols-1 gap-6 lg:max-w-none lg:grid-cols-2">
 						{skills.map((skill) => (
-							<div key={skill.name} className="sm:flex">
+							<div
+								key={skill.name}
+								className="rounded-3xl bg-raised p-6 ring-1 ring-line sm:flex sm:p-7"
+							>
 								<div className="flex items-center sm:shrink-0">
 									<div className="flow-root">
 										<Image
 											src={skill.image.url}
 											alt={skill.name}
-											className="w-28"
+											className="size-24 object-contain"
 											width={skill.image.width}
 											height={skill.image.height}
 											unoptimized
 										/>
 									</div>
 								</div>
-								<div className="mt-3 sm:ml-3 sm:mt-0">
-									<h2 className="text-sm font-medium">{skill.name}</h2>
+								<div className="mt-3 sm:ml-5 sm:mt-0">
+									<h2 className="text-lg font-semibold text-ink">
+										{skill.name}
+									</h2>
 									<p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
 										{skill.content}
 									</p>
